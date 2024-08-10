@@ -1,0 +1,40 @@
+image: alpine:latest
+# When using dind, it's wise to use the overlayfs driver for  
+# improved performance. 
+# variables: 
+#   DOCKER_TLS_CERTDIR: "/certs"
+#   DOCKER_DRIVER: overlay2
+  
+# services:
+#     - docker:20.10.16-dind
+
+pages:
+  stage: deploy
+  before_script:
+  #  - apk add systemd 
+  #  - systemctl stop systemd-resolved 
+  #  - systemctl mask systemd-resolved
+  #  - rm /etc/resolv.conf
+  #  - apk add --no-cache tzdata
+  #  - echo 
+#    - echo 'nameserver 178.22.122.100 nameserver 185.51.200.2' > /etc/resolv.conf
+#    - cat /etc/resolv.conf 
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $REPO_IPADDRESS >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - docker info
+    - docker login -u amin_mohammadi05@yahoo.com -p Am1nm0h@mm@d1
+  script:
+    - docker --version
+    - docker-compose -f docker-compose.prod.yaml down
+    - docker-compose -f docker-compose.prod.yaml up -d
+  # artifacts:
+  #   paths:
+  #     - public
+  only:
+    - main
+

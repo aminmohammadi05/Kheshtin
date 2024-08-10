@@ -1,0 +1,40 @@
+<div fxLayout="row wrap" class="properties-wrapper mt-0" *ngIf="brand">            
+                 
+  <!-- <div fxFlex="100" class="px-2 pb-2 pt-0">                
+      <app-properties-toolbar (ChangeCount)="changeCount($event)"
+                              (ChangeSorting)="changeSorting($event)"
+                              (ChangeViewType)="changeViewType($event)">
+      </app-properties-toolbar>
+  </div> -->
+ 
+  <div fxFlex="100" fxLayoutAlign="start start" class="p-2"> 
+      <mat-chip-listbox [ngClass]="(settings.rtl) ? 'ml-2' : 'mr-2'">
+          <mat-chip selected disableRipple="true" color="warn" class="uppercase ws-nowrap">
+              {{ searchFields.pageQuery.totalItems}} عدد
+          </mat-chip> 
+      </mat-chip-listbox>          
+  </div>
+
+  <div *ngFor="let coll of (brandVideos)" [fxFlex]="(viewType=='grid') ? viewCol : 100"  class="item">                         
+      <app-brand-video-item [brand]="brand" [brandVideo]="coll" [viewType]="viewType" [viewColChanged]="viewCol" [fullWidthPage]="false"></app-brand-video-item>
+  </div>
+
+  <div  fxFlex="100" fxLayoutAlign="center center" [style.min-height.px]="200">                
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <mat-chip-listbox *ngIf="searchFields.pageQuery.totalItems === 0">
+          <mat-chip selected disableRipple="true" color="warn" class="uppercase ws-nowrap">
+              {{message}}
+          </mat-chip> 
+      </mat-chip-listbox> 
+  </div>            
+
+  <div  fxFlex="100" fxLayoutAlign="center center" class="p-2">
+      <mat-paginator [length]=" searchFields.pageQuery.totalItems"
+                    [pageSize]=" 12"
+                    [hidePageSize]="true"
+                    (page)="onPageChange($event)"
+                    class="w-100 mat-elevation-z1">
+      </mat-paginator>
+  </div>          
+
+</div>

@@ -1,0 +1,30 @@
+<form #insertProjectForm="ngForm">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper >
+        <mat-step [stepControl]="firstFormGroup" >
+          <div class="step-content">
+            <ng-template matStepLabel>مشخصات پروژه</ng-template>
+            <app-step-one name="stepOne" [(ngModel)]="project"></app-step-one>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">    
+          <div class="step-content">
+            <ng-template matStepLabel>مشخصات تکمیلی</ng-template>
+          <app-step-two name="stepTwo" [(ngModel)]="project"></app-step-two>
+          </div>
+        
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
+          <div class="step-content">
+            <ng-template matStepLabel>محصولات به کار رفته</ng-template>
+          <app-step-three name="stepThree" [(ngModel)]="project"></app-step-three>
+          </div>
+          
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>پیش نمایش</ng-template>
+            <app-preview name="stepPreview" [(ngModel)]="project"></app-preview>
+            
+        </mat-step>
+      </mat-horizontal-stepper>
+</form>
+

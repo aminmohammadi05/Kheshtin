@@ -1,0 +1,164 @@
+<div class="px-3">     
+  <div class="theme-container"> 
+  
+      <mat-sidenav-container class="single-property mt-3">
+          <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" position="end" autoFocus="false" (openedChange)="onOpenedChange()">
+              <button fxHide="false" fxHide.gt-sm="true" mat-mini-fab color="warn" class="close" (click)="sidenav.close()">
+                  <mat-icon>close</mat-icon>
+              </button>
+              <mat-card [perfectScrollbar]="psConfig"> 
+
+                  <div class="widget"> 
+                      <mat-card >
+                          <img mat-card-image src="../assets/users/big/{{(designer | async)?.id}}.jpg" [alt]="(designer | async)?.name + ' ' + (designer | async)?.lastName"> 
+                          <mat-card-content>
+                              <h2 class="fw-600">{{(designer | async)?.name + ' ' + (designer | async)?.lastName}}</h2>                             
+                              <p class="mt-3">{{(designer | async)?.address}}</p>                                    
+                              <p fxLayoutAlign="start center"><mat-icon color="primary" matTooltip="Organization" matTooltipPosition="above">business</mat-icon><span class="mx-2">{{(designer | async)?.businessName}}</span></p>
+                              <p fxLayoutAlign="start center"><mat-icon color="primary">email</mat-icon><span class="mx-2">{{(designer | async)?.email}}</span></p>
+                              <p fxLayoutAlign="start center"><mat-icon color="primary">call</mat-icon><span class="mx-2">{{(designer | async)?.phoneNumber}}</span></p>
+                          </mat-card-content>
+                          <mat-divider></mat-divider>
+                          <mat-card-actions fxLayoutAlign="space-between center">
+                              <div fxLayout="row" fxLayoutAlign="start center" class="text-muted">
+                                  <a [href]="'https://www.facebook.com/'+ (designer | async)?.facebookProfileUrl" target="blank" class="social-icon">
+                                      <svg class="mat-icon" viewBox="0 0 24 24">
+                                      <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M18,5H15.5A3.5,3.5 0 0,0 12,8.5V11H10V14H12V21H15V14H18V11H15V9A1,1 0 0,1 16,8H18V5Z" />
+                                      </svg>
+                                  </a>
+                                  <a [href]="'https://twitter.com/'+ (designer | async)?.twitterProfileUrl" target="blank" class="social-icon">
+                                      <svg class="mat-icon" viewBox="0 0 24 24">
+                                          <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M17.71,9.33C18.19,8.93 18.75,8.45 19,7.92C18.59,8.13 18.1,8.26 17.56,8.33C18.06,7.97 18.47,7.5 18.68,6.86C18.16,7.14 17.63,7.38 16.97,7.5C15.42,5.63 11.71,7.15 12.37,9.95C9.76,9.79 8.17,8.61 6.85,7.16C6.1,8.38 6.75,10.23 7.64,10.74C7.18,10.71 6.83,10.57 6.5,10.41C6.54,11.95 7.39,12.69 8.58,13.09C8.22,13.16 7.82,13.18 7.44,13.12C7.81,14.19 8.58,14.86 9.9,15C9,15.76 7.34,16.29 6,16.08C7.15,16.81 8.46,17.39 10.28,17.31C14.69,17.11 17.64,13.95 17.71,9.33Z" />
+                                      </svg> 
+                                  </a>
+                                  <a [href]="'https://www.linkedin.com/'+ (designer | async)?.linkedInProfileUrl" target="blank" class="social-icon"> 
+                                      <svg class="mat-icon" viewBox="0 0 24 24">
+                                      <path d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M18.5,18.5V13.2A3.26,3.26 0 0,0 15.24,9.94C14.39,9.94 13.4,10.46 12.92,11.24V10.13H10.13V18.5H12.92V13.57C12.92,12.8 13.54,12.17 14.31,12.17A1.4,1.4 0 0,1 15.71,13.57V18.5H18.5M6.88,8.56A1.68,1.68 0 0,0 8.56,6.88C8.56,5.95 7.81,5.19 6.88,5.19A1.69,1.69 0 0,0 5.19,6.88C5.19,7.81 5.95,8.56 6.88,8.56M8.27,18.5V10.13H5.5V18.5H8.27Z" />
+                                      </svg>
+                                  </a>
+                                  
+                                  <a [href]="(designer | async)?.webSiteUrl" target="blank" class="social-icon"> 
+                                      <svg class="mat-icon" viewBox="0 0 24 24">
+                                          <path d="M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z" />
+                                      </svg>
+                                  </a>  
+                              </div>
+                              <div>
+                                  <a [routerLink]="['/projects']" [queryParams]="{designers: (designer | async)?.id}" mat-button color="primary" class="uppercase">View Profile</a>
+                              </div> 
+                          </mat-card-actions>                              
+                      </mat-card>
+                  </div>
+              </mat-card>
+          </mat-sidenav>
+          <mat-sidenav-content ngClass.gt-sm="distance">
+              <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">             
+                  <div>
+                      <h2 class="uppercase" ngClass.xs="text-center">{{project?.name}}</h2>
+                      <p fxLayout="row" fxLayoutAlign.xs="center" class="address mb-0">
+                          <mat-icon class="text-muted">location_on</mat-icon>
+                          <span>{{project?.city.cityName}}</span>
+                      </p>
+                  </div>
+                  
+                  <button *ngIf="!sidenavOpen" mat-icon-button (click)="sidenav.toggle()">
+                      <mat-icon>more_vert</mat-icon>
+                  </button>                                  
+              </mat-card>
+
+              <mat-card class="mt-3">
+                  <div class="main-carousel mb-3"> 
+                      <div id="main-carousel" class="swiper-container" [swiper]="config" (indexChange)="onIndexChange($event)"> 
+                          <div class="swiper-wrapper">      
+                              <div *ngFor="let image of project?.projectImageList" class="swiper-slide">
+                                  <img src="../../assets/projects/big/{{image.projectId + '_' + image.imageId + '.'+ image.fileExtension}}" style="width: 890px" class="swiper-lazy">
+                                  <div class="swiper-lazy-preloader"></div>          
+                              </div>
+                          </div>                      
+                          <button mat-mini-fab color="primary" class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+                          <button mat-mini-fab color="primary" class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button> 
+                      </div>
+                  </div>
+                  <div class="small-carousel">   
+                      <div id="small-carousel" class="swiper-container" [swiper]="config2"> 
+                          <div class="swiper-wrapper">      
+                              <div *ngFor="let image of project?.projectImageList; let i=index;" class="swiper-slide" [ngClass]="'thumb-'+i" [class.active-thumb]="i == 0">
+                                  <img src="../../assets/projects/small/{{image.projectId + '_' + image.imageId + '.'+ image.fileExtension}}" class="swiper-lazy mw-100" (click)="selectImage(i)">
+                                  <div class="swiper-lazy-preloader"></div>          
+                              </div>
+                          </div>  
+                      </div>
+                  </div>
+              </mat-card> 
+              
+              
+              <mat-card *ngIf="project" class="mt-3">
+                  <mat-card-header fxLayoutAlign="center center"> 
+                      <mat-card-title class="uppercase">جزئیات</mat-card-title> 
+                  </mat-card-header>
+                  <div fxLayout="row wrap" class="details">
+                      <div fxFlex="100" fxFlex.gt-xs="50" fxLayout="row" class="item">
+                          <span>وضعیت پروژه:</span>
+                          <span>{{project?.projectDevelopmentStatus}}</span>
+                      </div> 
+                      <div fxFlex="100" fxFlex.gt-xs="50" fxLayout="row" class="item">
+                          <span>شاخه های پروژه:</span>
+                          <div fxLayout="row wrap" class="list">
+                              <span *ngFor="let category of project?.projectCategorySetList; let last=last" [class.list-item]="project.projectCategorySetList.length > 1" [class.last]="last">{{category.projectCategory.categoryName}}</span>
+                          </div>
+                      </div> 
+                      <div fxFlex="100" fxFlex.gt-xs="50" fxLayout="row" class="item">
+                          <span>شهر:</span>
+                          <span>{{project.city.cityName}}</span>
+                      </div>
+                     
+                  </div>   
+              </mat-card>
+
+              <mat-card class="mt-3"> 
+                  <mat-card-header fxLayoutAlign="center center"> 
+                      <mat-card-title class="uppercase">محصولات به کار رفته</mat-card-title> 
+                  </mat-card-header>
+                  <mat-card-content>
+                      <div fxLayout="row wrap">
+                        <app-products-carousel [products]="project?.projectProductList"></app-products-carousel>
+                          
+                      </div>
+                  </mat-card-content>
+              </mat-card>
+
+              <mat-card class="mt-3 blog-text"> 
+                  <mat-card-header fxLayoutAlign="center center"> 
+                      <mat-card-title class="uppercase">توضیحات</mat-card-title> 
+                  </mat-card-header>
+                  <mat-card-content>
+                      <p>{{project?.description}}</p>
+                  </mat-card-content>
+              </mat-card>
+                          
+
+              <mat-card class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center"> 
+                  <span>شناسه:<span class="fw-500 mx-2">{{project?.projectId}}</span></span>
+                  <span>تاریخ ایجاد:<span class="fw-500 mx-2">{{project?.createDate | date:"dd MMMM, yyyy"}}</span></span>
+                 
+                 
+              </mat-card>
+
+              <!-- <app-comments *ngIf="project" [projectId]="project.projectId"></app-comments>   -->
+
+          </mat-sidenav-content>
+      </mat-sidenav-container>
+
+  </div>
+</div>
+
+<div class="section mt-3">
+  <div class="px-3">
+      <div class="theme-container"> 
+          <h1 class="section-title">پروژه های مشابه</h1>            
+          <app-projects-carousel [projects]="relatedProjects"></app-projects-carousel>                        
+      </div>
+  </div>   
+</div> 
+
+<app-get-in-touch></app-get-in-touch>

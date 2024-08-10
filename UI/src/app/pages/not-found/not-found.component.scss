@@ -1,0 +1,87 @@
+.box{
+
+    border-radius: 0;
+
+    .box-header{
+
+        height: 11.25rem;
+
+        .error{
+
+            font-size: 3.0rem;
+
+            margin-bottom: 0.75rem;
+
+        }
+
+    }
+
+    .box-content{
+
+        position: relative;
+
+        height: 11.25rem;     
+
+        .box-content-inner{
+
+            position: absolute;
+
+            top: -2.125rem;
+
+            left: 2.125rem;
+
+            right: 2.125rem;
+
+            height: 11.25rem;
+
+        }
+
+        .box-content-header{
+
+            font-size: 1.0rem; 
+
+            text-transform: uppercase;
+
+            font-weight:500;
+
+            &.server-error{
+
+                margin-bottom: 2.25rem;
+
+            }
+
+        }
+
+        .box-text{
+
+            margin-bottom: 0.625rem;
+
+            text-align: center;
+
+            &::last-child{
+
+                margin-bottom: 0.938rem;
+
+            }
+
+        }
+
+        .box-footer{
+
+            position: relative;
+
+            bottom: 1.0rem;
+
+            button{
+
+                min-width: 4.375rem;
+
+                margin: 0 0.125rem;
+
+            }
+
+        }
+
+    }
+
+}

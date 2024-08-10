@@ -1,0 +1,161 @@
+<div class="" style="direction: rtl;">
+    <!-- <app-mood-board-categories-quick-access (CategoryChange)="categoryChange($event)"> -->
+    <!-- </app-mood-board-categories-quick-access> -->
+
+    <!-- [ngStyle]="selectedColor" -->
+    <div>
+        <div fxLayout="row wrap">
+            <div fxFlex="20" fxFlex.gt-xs="20" fxLayout="column" class="">
+                <div id="controls">
+                    <div class="sidebar-section">
+                        <app-product-mood-board-search [selectedCategories]="selectedCategories"
+                            [variant]="settings.searchPanelVariant" [vertical]="true"
+                            [searchOnBtnClick]="settings.searchOnBtnClick" (SearchChange)="searchChanged($event)"
+                            (SearchClick)="searchClicked()"></app-product-mood-board-search>
+                        <div id="control-actions" class="sidebar-section">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="45" class="menu-toggle control-btn">
+                                    <a id="">
+                                        <button (click)="newMoodBoard()" class="button2">جدید</button>
+                                    </a>
+                                </div>
+                                <div fxFlex="45" class="menu-toggle control-btn">
+                                    <a id="">
+                                        <button (click)="saveImage()" class="button2">ذخیره</button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="copyright2">
+                                <span>©</span> 1400 خشتین |
+                                تمامی حقوق محفوظ است
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Board -->
+            <div fxFlex="80" fxLayout="column" fxLayoutAlign="space-between center" class="my-3">
+
+
+                <!-- Candidate Products List -->
+                <div id="candidateProductsSection" fxLayout="row nowrap" fxLayoutAlign="center center">
+
+                    <div fxFlex class="candidate-products-title">محصولات کاندید</div>
+
+                    <mat-tab-group header-less-tabs fxFlex="90">
+                        <mat-tab>
+                            <div fxLayout="row nowrap" class="properties-wrapper mt-0" style="width: 100%;"
+                                fxLayoutAlign="center center">
+                                <div class="p-2">
+                                    <mat-paginator [length]="(dataSource.pagination$ | async)?.totalItems"
+                                        [pageSize]="(dataSource.pagination$ | async)?.itemsPerPage"
+                                        [hidePageSize]="true" (page)="onPageChange($event)">
+                                    </mat-paginator>
+                                </div>
+
+                                <div *ngFor="let product of (dataSource.products$ | async); let ind = index"
+                                    [fxFlex]="(viewType=='grid') ? viewCol : 100" class="item"
+                                    (click)="openPopUpDialog(ind)">
+                                    <app-mood-board-product-item [product]="product" [viewType]="viewType"
+                                        [viewColChanged]="viewCol" [fullWidthPage]="false">
+                                    </app-mood-board-product-item>
+                                </div>
+                                <div *ngIf="(dataSource.products$ | async)?.length == 0" fxFlex="100"
+                                    fxLayoutAlign="center center" [style.min-height.px]="200">
+                                    <mat-spinner></mat-spinner>
+                                    <!-- <mat-chip-listbox*ngIf="message">
+                              <mat-chip selected disableRipple="true"  class="uppercase ws-nowrap">
+                                  {{message}}
+                              </mat-chip> 
+                            </mat-chip-listbox>  -->
+                                </div>
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab>
+                            <div fxLayout="row nowrap" class="properties-wrapper mt-0" style="width: 100%;"
+                                fxLayoutAlign="center center">
+                                <div class="p-2">
+                                    <mat-paginator [length]="(candidateDataSource.pagination$ | async)?.totalItems"
+                                        [pageSize]="(candidateDataSource.pagination$ | async)?.itemsPerPage"
+                                        [hidePageSize]="true" (page)="onCandidatePageChange($event)"
+                                        class="mat-elevation-z1">
+                                    </mat-paginator>
+                                </div>
+
+                                <div *ngFor="let product of (candidateDataSource.products$ | async); let ind = index"
+                                    [fxFlex]="(viewType=='grid') ? viewCol : 100" class="item"
+                                    (click)="openPopUpDialog(ind)">
+                                    <app-mood-board-product-item [product]="product.product" [viewType]="viewType"
+                                        [viewColChanged]="viewCol" [fullWidthPage]="false">
+                                    </app-mood-board-product-item>
+                                </div>
+                                <div *ngIf="(candidateDataSource.products$ | async)?.length == 0" fxFlex="100"
+                                    fxLayoutAlign="center center" [style.min-height.px]="200">
+                                    <mat-spinner></mat-spinner>
+                                    <!-- <mat-chip-listbox*ngIf="message">
+                              <mat-chip selected disableRipple="true"  class="uppercase ws-nowrap">
+                                  {{message}}
+                              </mat-chip> 
+                            </mat-chip-listbox>  -->
+                                </div>
+
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+
+                </div>
+
+                <!-- Moodboard -->
+                <div #screen fxFlex="100" fxLayoutAlign="space-around" fxLayout="row wrap" class="main-image-container">
+
+                    <!-- The board -->
+                    <gridster fxFlex="89" #gridster [options]="options" [ngStyle]="selectedColor">
+                        <gridster-item [item]="item" *ngFor="let item of selectedProducts" style="background-repeat: no-repeat;
+                    background-size: contain;
+                    background-color: transparent;" [ngStyle]="getFileIdByColor(item)">
+                            <button mat-icon-button class="remove-button" (mousedown)="removeItem($event, item)"
+                                [hidden]="isCapturing" (touchstart)="removeItem($event, item)" matTooltip="حذف">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </gridster-item>
+                    </gridster>
+
+                    <!-- Layers and Options -->
+                    <div fxFlex="9" fxLayout="column" dir="rtl">
+                        <!-- <div fxLayout="column" fxLayoutAlign="space-between center">
+
+                    <div fxLayout="row">
+                        <button mat-button (click)="saveImage()" [disabled]="!moodBoard">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                        <button mat-button (click)="newMoodBoard()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-label style="width: 50%; text-align: center;">رنگ </mat-label>
+                        <input matInput style="width: 50%;" [style.background]="color1" [(colorPicker)]="color1"
+                            (colorPickerOpen)="onEventLog('colorPickerOpen', $event)"
+                            (colorPickerClose)="onEventLog('colorPickerClose', $event)"
+                            (cpInputChange)="onEventLog('cpInputChange', $event)"
+                            (cpSliderDragStart)="onEventLog('cpSliderDragStart', $event)"
+                            (cpSliderDragEnd)="onEventLog('cpSliderDragEnd', $event)" />
+                    </div>
+                </div> -->
+                        <div class='layers-title'>لایه ها</div>
+                        <app-tile-layers fxFlex class="layers-box box-shadow-c1" [products]="selectedProducts"
+                            [searchFields]="searchFields" [currentProducts]="currentProducts"
+                            (LayerChange)="layerChange($event)">
+                        </app-tile-layers>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

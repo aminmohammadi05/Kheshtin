@@ -1,0 +1,30 @@
+<mat-chip-listbox *ngIf="searchFields?.fileTypes && searchFields?.fileTypes[0] != '-1'">
+    <mat-chip *ngFor="let type of searchFields?.fileTypes; let last = last;">
+        {{getFileTypeName(type).label }}        
+        <mat-icon color="warn" matChipRemove (click)="remove('fileType')">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox>
+<mat-chip-listbox *ngIf="searchFields?.categoriesBoxNested ">    
+    <mat-chip *ngFor="let type of searchFields?.categoriesBoxNested; let last = last;">
+        {{type.name}}
+        <mat-icon color="warn" matChipRemove (click)="remove('categoriesBoxNested,' +type.categoryId)">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox> 
+<mat-chip-listbox *ngIf="searchFields?.searchBox && searchFields?.searchBox != 'filter='">      
+    <mat-chip >
+        {{trimSearchTerm(searchFields?.searchBox)}}
+        <mat-icon color="warn" matChipRemove (click)="remove('searchBox')">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox>
+<mat-chip-listbox *ngIf="searchFields?.brandsBox ">
+    <mat-chip *ngFor="let type of searchFields?.brandsBox; let last = last;">
+        {{type.name}}
+        <mat-icon color="warn" matChipRemove (click)="remove('brandsBox,' +type.brandId)">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox>
+<mat-chip-listbox *ngIf="searchFields?.brandsBox && searchFields?.brandCollectionBox">
+    <mat-chip *ngFor="let type of searchFields?.brandCollectionBox; let last = last;">
+        {{type.title}}
+        <mat-icon color="warn" matChipRemove (click)="remove('brandCollectionBox,' + type.brandCollectionId)">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox>  

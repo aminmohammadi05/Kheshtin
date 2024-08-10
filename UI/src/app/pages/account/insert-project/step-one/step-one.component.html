@@ -1,0 +1,74 @@
+
+<form [formGroup]="firstFormGroup" fxLayout="row wrap">
+  <div fxFlex="100" class="p-3">
+    <h1 class="fw-500 text-center">ثبت نام</h1>
+  </div>
+  <div fxFlex="100" class="px-2">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-icon matPrefix class="mr-1 text-muted">all_inbox</mat-icon>
+      <mat-label>نام پروژه</mat-label>
+      <input matInput placeholder="نام پروژه" formControlName="projectName" required>
+      <mat-error *ngIf="firstFormGroup.controls.projectName.errors?.required">نام پروژه الزامی است</mat-error>
+    </mat-form-field>
+  </div>
+  
+  <div fxFlex="100" class="px-2">
+    <mat-form-field appearance="outline" class="w-100 mt-1">
+      <mat-label>استان</mat-label>
+      <mat-select placeholder="انتخاب استان ..." formControlName="province" (selectionChange)="provinceSelected()" required> 
+        <mat-option *ngFor="let province of (provinceList | async)" [value]="province">
+          {{province.provinceName}}
+        </mat-option>
+      </mat-select> 
+      <mat-error *ngIf="firstFormGroup.get('province').errors?.required">انتخاب شهر الزامی است</mat-error>                    
+  </mat-form-field>
+  </div>
+    
+    <div fxFlex="100" class="px-2">
+      <mat-form-field appearance="outline" class="w-100 mt-1">
+        <mat-label>شهر</mat-label>
+        <mat-select placeholder="انتخاب شهر ..." formControlName="cities" >
+          <mat-option *ngFor="let city of (cityList | async)" [value]="city">
+            {{city.cityName}}
+          </mat-option>
+        </mat-select>   
+      </mat-form-field>
+    </div>
+    
+    <div fxFlex="100" class="px-2">
+      <div class="mb-3">
+        <input-file placeholder="تصویر" formControlName="projectMainPicture" fileLimit="5" fileAccept="image/*" fileSize="300"  ></input-file>  
+    </div>
+    </div>
+    
+    <div fxFlex="100" class="px-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>شاخه ها</mat-label>
+        <mat-select placeholder="لطفا شاخه های مورد نظر خود را انتخاب کنید" formControlName="projectCategory" multiple>
+            <mat-option *ngFor="let category of (projectCategories | async)" [value]="category">
+                {{category.categoryName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    </div>
+    
+  <div fxFlex="100" class="px-2">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>وضعیت پروژه</mat-label>
+      <mat-select placeholder="لطفا وضعیت پروژه را انتخاب کنید" formControlName="projectDevStatus">
+          <mat-option *ngFor="let status of statusList" [value]="status.value" >
+              {{status.label}}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+  </div>
+    
+    <div class="divider mt-4"></div> 
+    <div fxFlex="100" class="mt-3 p-2" fxLayoutAlign="center">
+      <button mat-raised-button color="primary" matStepperNext fxLayout="row" fxLayoutAlign="center center" type="button" (click)="addDataToProject()">
+        <span class="mx-1 uppercase">مرحله بعد</span>                    
+        <mat-icon>navigate_before</mat-icon>
+      </button> 
+    </div>
+   
+</form>

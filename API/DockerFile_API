@@ -1,0 +1,29 @@
+# This is the Dockerfile we use during the main stack build.
+# NOT used for F5 in Visual Studio, that's in ./DockerTest
+
+# This is essentially what I got from doing Right Click --> Add --> Docker support on the project
+# I've just fixed the paths and exposed port 5555
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+EXPOSE 442
+EXPOSE 5555
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ WORKDIR /src
+ COPY ["./DockerTest/DockerTest.csproj", "/src"]
+ RUN dotnet restore "/src/DockerTest.csproj"
+ COPY ./DockerTest .
+
+ RUN dotnet build "/src/DockerTest.csproj" -c Release -o /app/build
+
+ FROM build AS publish
+ RUN dotnet publish "/src/DockerTest.csproj" -c Release -o /app/publish
+
+ FROM base AS final
+ WORKDIR /app
+ COPY --from=publish /app/publish .
+#COPY ["./DockerTest/publish/.", "."]
+
+ENTRYPOINT ["dotnet", "DockerTest.dll"]

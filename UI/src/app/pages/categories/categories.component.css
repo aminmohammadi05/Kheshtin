@@ -1,0 +1,15 @@
+mat-tree-node button.mat-icon-button {
+    min-width: 2.5rem;
+}
+.checklist-leaf-node {
+   
+    font-family: 'Vazir FD';
+}
+/* 
+.app.orange-white .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .app.orange-white .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #fdf6f0 !important;
+}
+
+.app.orange-white .mat-checkbox-checkmark-path {
+    stroke: #d7792a !important;
+} */

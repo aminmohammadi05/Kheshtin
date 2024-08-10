@@ -1,0 +1,193 @@
+#infoPack.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: white;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 80px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+
+  /* Position the tooltip */
+  top: 100%;
+  left: 50%;
+  margin-left: -50px;
+  position: absolute;
+  z-index: 9999;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.swiper-slide {
+  text-align: center;
+}
+
+.main-carousel-container .swiper-slide img {
+  max-width: 100%;
+  max-height: 60vh;
+  // max-height: 100%;
+}
+
+.p-ellipsis {
+  display: inline-block;
+  height: 8.75rem;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  background: linear-gradient(to bottom,
+      black 80%,
+      white);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sticky-mat-sidenav {
+  position: fixed;
+  transition: top .27s ease-out;
+  height: 30.0rem !important;
+  width: 21rem;
+}
+
+.small-carousel-image {
+  width: 6.25rem;
+  height: 4.688rem;
+  object-fit: cover;
+  border: 1px solid #c7c7c7;
+  border-radius: 4px;
+}
+
+.medium-carousel-image {
+  width: 12.5rem;
+  height: 9.336rem;
+  object-fit: cover;
+}
+
+.brand-image-size {
+  width: 14rem;
+  margin-right: 2.5625rem;
+}
+
+::ng-deep .mat-accordion .mat-expansion-panel:last-of-type {
+  border-bottom-right-radius: 0rem;
+  border-bottom-left-radius: 0rem;
+}
+
+::ng-deep .mat-drawer-content {
+  overflow: hidden;
+}
+
+.side-nav-padding {
+  padding-top: 0rem;
+}
+
+.devider-margin {
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+.favbtn-top-margin {
+  margin-top: 1rem;
+}
+
+.header-margin {
+  margin-bottom: 1rem;
+}
+
+.chip-margin {
+  margin-top: 1rem;
+}
+
+.bottom-of-sidenav {
+  position: absolute;
+  height: 30rem !important;
+  width: 21rem;
+  bottom: 0;
+}
+
+.brand-background {
+  background: #fafafa !important;
+  padding: 1.5rem;
+}
+
+.open-button {
+  // background-color: #ff6363;
+  // color: white !important;
+  background-color: #ffffff;
+  color: #58585a !important;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  border-radius: 2px;
+  width: 8.5rem;
+  height: 3rem;
+  font-family: 'Vazir FD', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1200;
+  bottom: 4rem;
+  left: 2rem;
+  padding: 10px;
+
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+  mat-icon {
+    float: right;
+  }
+}
+
+.button-image {
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.download-button {
+  width: 8rem;
+  height: 2.25rem;
+}
+
+.glb-container {
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+}
+
+#container canvas {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+mat-sidenav-content {
+  background-color: white;
+  padding: 0.2rem 1rem 2rem 1rem !important;
+  border-radius: 2px;
+}
+
+.brand-interaction-button {
+  background-color: #fafafa !important;
+  border: 1px solid #e2e2e2;
+  color: #58585a !important;
+  border-radius: 2px !important;
+  box-shadow: none!important;
+  // box-shadow: 0px 1px 1px -3px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
+}
+
+.mat-divider {
+  margin: 0 1rem;
+}
+
+.mat-card-actions {
+  padding: 1rem;
+}

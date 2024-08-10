@@ -1,0 +1,5 @@
+<form [formGroup]="eventCategoriesForm" *ngIf="eventCategoriesList.length > 0">
+    <div  *ngFor="let coll of eventCategoriesList; index as i" class="p-2">
+        <mat-checkbox [formControlName]="coll.categoryId" (change)="selectNodes($event, coll)">{{coll.name}}</mat-checkbox>                         
+    </div>
+</form> 

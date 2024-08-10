@@ -1,0 +1,101 @@
+ <app-header-image *ngIf="settings.header == 'image'" [backgroundImage]="'assets/images/carousel/slide-3.jpg'"
+   [bgImageAnimate]="false" [contentOffsetToTop]="false" [desc]="'“Home is where one starts from...” –T.S. Eliot'"
+   [contentMinHeight]="200">
+ </app-header-image>
+ <app-header-carousel *ngIf="settings.header == 'carousel'" [slides]="slides" [pageNumber]="3"
+   [contentOffsetToTop]="true">
+ </app-header-carousel>
+ <div class="px-3">
+
+   <div class="theme-container">
+
+     <mat-sidenav-container class="all-properties mt-3">
+       <mat-sidenav #sidenav [autoFocus]="false" [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'"
+         class="search-sidenav">
+         <mat-card [perfectScrollbar]="psConfig" style="height: 100%; padding: 1rem"> <!-- class="search-background" -->
+           <button fxHide="false" fxHide.gt-xs mat-icon-button (click)="sidenav.toggle()">
+             <mat-icon color="accent">close</mat-icon>
+           </button>
+
+           <app-design-offices-search [variant]="settings.searchPanelVariant" [vertical]="true"
+             [searchOnBtnClick]="settings.searchOnBtnClick" [removedSearchField]="removedSearchField"
+             (SearchChange)="searchChanged($event)" (SearchClick)="searchClicked()">
+           </app-design-offices-search>
+         </mat-card>
+       </mat-sidenav>
+
+       <mat-sidenav-content ngClass.gt-sm="distance">
+
+         <div fxLayout="row wrap" class="properties-wrapper mt-0">
+
+           <!-- <div fxFlex="100" class="px-2 pb-2 pt-0">                
+<app-properties-toolbar [showSidenavToggle]="!sidenavOpen"
+                      (SidenavToggle)="sidenav.toggle()"
+                      (ChangeCount)="changeCount($event)"
+                      (ChangeSorting)="changeSorting($event)"
+                      (ChangeViewType)="changeViewType($event)">
+</app-properties-toolbar>
+</div> -->
+
+           <div fxFlex="100" fxLayoutAlign="start start" class="p-2">
+             <mat-chip-listbox [ngClass]="(settings.rtl) ? 'ml-2' : 'mr-2'">
+              <div fxFlex="row" fxLayoutAlign="center center">
+                دفاتر طراحی
+                <mat-chip selected disableRipple="true"  >
+                   {{ searchFields.pageQuery.totalItems }} عدد
+                </mat-chip> 
+              </div>
+             </mat-chip-listbox>
+             <app-design-offices-search-results-filters [searchFields]="searchFields"
+               (RemoveSearchField)="removeSearchField($event)">
+             </app-design-offices-search-results-filters>
+           </div>
+
+           <div *ngFor="let designOffice of designOffices"
+             [fxFlex]="(viewType=='grid') ? viewCol : 100" class="item">
+             <app-design-office-item [designOffice]="designOffice" [viewType]="viewType" [viewColChanged]="viewCol"
+               [fullWidthPage]="false"></app-design-office-item>
+           </div>
+
+           <div  fxFlex="100" fxLayoutAlign="center center"
+             [style.min-height.px]="200">
+             <mat-spinner *ngIf="isLoading"></mat-spinner>
+             <mat-chip-listbox *ngIf="searchFields.pageQuery.totalItems === 0">
+              <mat-chip selected disableRipple="true"  class="uppercase ws-nowrap">
+                {{message}}
+              </mat-chip> 
+              </mat-chip-listbox> 
+           </div>
+
+           <div  fxFlex="100" fxLayoutAlign="center center"
+             class="p-2">
+             <!-- <mat-paginator [length]="searchFields.pageQuery.totalItems"
+               [pageSize]="12" [hidePageSize]="true"
+               (page)="onPageChange($event)" class="w-100 mat-elevation-z1">
+             </mat-paginator> -->
+             <mat-card style="width: 100%">
+              <app-pagination
+              #pagination
+              [collectionSize]="searchFields.pageQuery.totalItems"
+              [pageSize]="12"
+              [firstLastButtons]="true"
+              [maxSize]="2"
+              (PageChange)="onPageChange($event)"
+            ></app-pagination>
+             </mat-card>
+           </div>
+
+         </div>
+
+
+
+       </mat-sidenav-content>
+     </mat-sidenav-container>
+
+   </div>
+
+ </div>
+
+
+
+ <!-- <app-design-offices-carousel></app-design-offices-carousel> -->

@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$orange-primary: mat.define-palette(mat.$deep-orange-palette, 600, 50, 900);
+
+$orange-accent: mat.define-palette(mat.$green-palette, 600, 100, 900);
+
+$orange-warn: mat.define-palette(mat.$red-palette, A200);
+
+
+
+$orange-typography: mat.define-typography-config();
+
+$orange-theme: mat.define-light-theme((
+ color: (
+   primary: $orange-primary,
+   accent: $orange-accent,
+   warn: $orange-warn
+ ),
+  typography: $orange-typography,
+));

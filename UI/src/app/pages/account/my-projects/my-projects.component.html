@@ -1,0 +1,51 @@
+<mat-form-field appearance="outline" class="w-100">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="جستجوی پروژه ها" autocomplete="off">
+</mat-form-field>
+<div class="table-wrapper"> 
+    <table mat-table [dataSource]="dataSource" matSort class="w-100">
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> شناسه </th>
+        <td mat-cell *matCellDef="let project"> {{project?.projectId}} </td>
+      </ng-container>  
+
+      <!-- Image Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> تصویر </th>
+        <td mat-cell *matCellDef="let project"><img src="../../assets/projects/small/{{project?.projectId}}_1.jpg" [style.width.px]="100" class="d-block"></td>
+      </ng-container> 
+  
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> عنوان </th>
+        <td mat-cell *matCellDef="let project"><a *ngIf="project !== null" [routerLink]="['/projects', project?.displayId, project?.urlTitle]" class="property-name">{{project.name}}</a></td>
+      </ng-container> 
+
+      <!-- Published Column -->
+      <ng-container matColumnDef="published">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> زمان انتشار </th>
+        <td mat-cell *matCellDef="let project"> {{project?.published | date:"dd MMMM, yyyy"}} </td>
+      </ng-container> 
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> عملیات </th>
+        <td mat-cell *matCellDef="let project">  
+            <a *ngIf="project !== null" [routerLink]="['/account/my-projects', project?.displayId, project?.urlTitle]"mat-icon-button color="primary" class="tooltip">
+              <span class="tooltiptext">ویرایش پروژه</span>
+                <mat-icon>edit</mat-icon>
+            </a>
+            <button *ngIf="project !== null" mat-icon-button color="warn" (click)="remove(project)"  class="remove tooltip">
+              <span class="tooltiptext">حذف</span>
+                <mat-icon>delete</mat-icon>
+            </button> 
+        </td>
+      </ng-container> 
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let project; columns: displayedColumns;">
+      </tr>
+    </table> 
+    <p *ngIf="dataSource?.data.length === 0" class="py-5 mb-0 text-center">هیچ موردی پیدا نشد</p> 
+</div>
+<mat-paginator  [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>

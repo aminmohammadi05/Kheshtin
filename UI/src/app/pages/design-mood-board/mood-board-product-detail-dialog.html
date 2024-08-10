@@ -1,0 +1,12 @@
+<div *ngIf="moodBoard">
+    <div>
+        <app-mood-board-products-carousel [slides]="products" [isCandidateProducts]="isCandidateProducts"
+            [candidateSlides]="candidateProducts" [moodBoardId]="moodBoard.moodBoardId" [pageNumber]="selectedIndex"
+            [currentProducts]="currentProducts" [selectedProducts]="selectedProducts">
+        </app-mood-board-products-carousel>
+    </div>
+
+</div>
+<div *ngIf="!moodBoard">
+    لطفا ابتدا یک مودبرد جدید بسازید
+</div>

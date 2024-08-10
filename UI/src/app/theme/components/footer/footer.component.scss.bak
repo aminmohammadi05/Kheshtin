@@ -1,0 +1,8 @@
+.centered-text p{
+text-align: center;
+font-size: 10px;
+}
+
+.left-aligned p{
+    text-align: center;
+}

@@ -1,0 +1,129 @@
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="50" class="p-3">
+        <h2 class="text-muted text-center fw-600 mb-3">جزئیات حساب کاربری</h2>
+        <form [formGroup]="infoForm" (ngSubmit)="onInfoFormSubmit(infoForm.value)">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">person</mat-icon>
+                <mat-label>نام </mat-label>
+                <input  matInput  placeholder="نام"  formControlName="name"  required autocomplete="off">
+                <mat-error *ngIf="infoForm.controls.name.errors?.required">نام الزامی است</mat-error>
+             </mat-form-field>
+             <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">person</mat-icon>
+                <mat-label>نام خانوادگی </mat-label>
+                <input  matInput  placeholder="نام خانوادگی"  formControlName="lastName"   required autocomplete="off">
+                <mat-error *ngIf="infoForm.controls.lastName.errors?.required">نام خانوادگی الزامی است</mat-error>
+             </mat-form-field>
+             <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">stay_primary_portrait</mat-icon>
+                <mat-label>شماره موبایل</mat-label>
+                <input  matInput  placeholder="مثال: 09999999999" formControlName="mobilePhone"   required onlyNumber autocomplete="off">
+                <mat-error *ngIf="infoForm.controls.mobilePhone.errors?.required">شماره موبایل الزامی است</mat-error>
+             </mat-form-field>
+             <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">phone</mat-icon>
+                <mat-label>شماره تلفن</mat-label>
+                <input  matInput  placeholder="مثال: 021999999999" formControlName="phoneNumber"   required onlyNumber autocomplete="off">
+                <mat-error *ngIf="infoForm.controls.phoneNumber.errors?.required">شماره تلفن الزامی است</mat-error>
+             </mat-form-field>
+             <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">email</mat-icon>
+                <mat-label>ایمیل</mat-label>
+                <input  matInput  placeholder="ایمیل" formControlName="email"  type="email"  required autocomplete="off">
+                <mat-error *ngIf="infoForm.controls.email.errors?.required">ایمیل الزامی است</mat-error>
+                <mat-error *ngIf="infoForm.controls.email.hasError('invalidEmail')">لطفا در وارد کردن ایمیل دقت فرمایید</mat-error>
+             </mat-form-field>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">location_city</mat-icon>
+                <mat-label>آدرس</mat-label>
+                <input  matInput  placeholder="مثال: تهران خیابان ولیعصر - پلاک 1" formControlName="address"  required autocomplete="off">
+                <mat-error *ngIf="infoForm.controls.address.errors?.required">آدرس الزامی است</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="w-100">
+                  <mat-icon matPrefix class="mr-1 text-muted">all_inbox</mat-icon>
+                  <mat-label>کد پستی</mat-label>
+                  <input  matInput  placeholder="کد پستی" formControlName="postalCode"  required onlyNumber autocomplete="off">
+                  <mat-error *ngIf="infoForm.controls.postalCode.errors?.required">کد پستی الزامی است</mat-error>
+              </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">build</mat-icon>
+                <mat-label>حرفه</mat-label>
+                <mat-select placeholder="لطفا حرفه خود را انتخاب کنید" formControlName="professionAreaBox" multiple>
+                    <mat-option *ngFor="let area of (professionalAreaList | async)" [value]="area">
+                        {{area.professionalAreaName}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="infoForm.controls.professionAreaBox.errors?.required">انتخاب حداقل یک تخصص الزامی است</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">playlist_add</mat-icon>
+                <mat-label>تخصص های دیگر</mat-label>
+                <input  matInput  placeholder="تخصص های دیگر" formControlName="otherProfessions" >
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">business</mat-icon>
+                <mat-label>شرکت</mat-label>
+                <input  matInput  placeholder="شرکت" formControlName="business"  required autocomplete="off">
+                <mat-error *ngIf="infoForm.controls.business.errors?.required">نام شرکت الزامی است</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted">web</mat-icon>
+                <mat-label>آدرس وب سایت</mat-label>
+                <input  matInput  placeholder="آدرس وب سایت" formControlName="webSiteUrl"  required autocomplete="off">
+                <mat-error *ngIf="infoForm.controls.webSiteUrl.errors?.required">آدرس وب سایت الزامی است</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted"></mat-icon>
+                <mat-label>آدرس فیسبوک</mat-label>
+                <input  matInput  placeholder="آدرس فیسبوک" formControlName="facebookProfileUrl" autocomplete="off" >
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted"></mat-icon>
+                <mat-label>آدرس توئیتر</mat-label>
+                <input  matInput  placeholder="آدرس توئیتر" formControlName="twitterProfileUrl"  autocomplete="off" >
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-icon matPrefix class="mr-1 text-muted"></mat-icon>
+                
+                <mat-label>آدرس لینکداین</mat-label>
+                <input  matInput  placeholder="آدرس لینکداین" formControlName="linkedInProfileUrl"  autocomplete="off" >
+            </mat-form-field> 
+            
+            <div class="mb-3">
+                <input-file placeholder="تصویر" formControlName="image" fileLimit="1" fileAccept="image/*" [linkEnabled]="false"></input-file>  
+            </div>
+    
+            
+            <div class="text-center mt-2">
+                <button mat-raised-button color="primary" type="submit" class="uppercase">ذخیره پروفایل</button>
+            </div> 
+        </form>
+    </div>
+    
+    <div fxFlex="100" fxFlex.gt-sm="50" class="p-3" ngClass.sm="mt-2" ngClass.xs="mt-2">
+        <h2 class="text-muted text-center fw-600 mb-3">تغییر رمز عبور</h2>
+        <form [formGroup]="passwordForm" (ngSubmit)="onPasswordFormSubmit(passwordForm.value)">            
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>رمز عبور فعلی</mat-label>
+                <input matInput placeholder="Current Password" formControlName="currentPassword" type="password" minlength="6" required autocomplete="off">
+                <mat-error *ngIf="passwordForm.controls.currentPassword.errors?.required">رمز عبور فعلی الزامی است</mat-error>
+                <mat-error *ngIf="passwordForm.controls.currentPassword.hasError('minlength')">رمز عبور فعلی حداقل باید 6 کاراکتر باشد</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>رمز عبور جدید</mat-label>
+                <input matInput placeholder="New Password" formControlName="newPassword" type="password" minlength="6" required autocomplete="off">
+                <mat-error *ngIf="passwordForm.controls.newPassword.errors?.required">رمز عبور جدید الزامی است</mat-error>
+                <mat-error *ngIf="passwordForm.controls.newPassword.hasError('minlength')">رمز عبور جدید حداقل باید 6 کاراکتر باشد</mat-error>
+            </mat-form-field> 
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>تایید رمز عبور جدید</mat-label>
+              <input matInput placeholder="Confirm New Password" formControlName="confirmNewPassword" type="password" required autocomplete="off">
+              <mat-error *ngIf="passwordForm.controls.confirmNewPassword.errors?.required">تایید رمز عبور جدید الزامی است</mat-error>
+              <mat-error *ngIf="passwordForm.controls.confirmNewPassword.hasError('mismatchedPasswords')">تایید رمز و رمز عبور جدید مطابق نیستند</mat-error>
+            </mat-form-field>
+            <div class="text-center mt-2">
+                <button mat-raised-button color="primary" type="submit" class="uppercase">تغییر رمز عبور</button>
+            </div>
+        </form>
+    </div>
+</div> 

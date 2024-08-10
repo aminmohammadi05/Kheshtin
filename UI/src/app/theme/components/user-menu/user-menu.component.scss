@@ -1,0 +1,47 @@
+// ::ng-deep .cdk-overlay-pane.panestyle{
+
+//     margin-top:0.0rem !important;
+
+//     left: -2.188rem !important;
+
+//   }
+
+
+
+//   ::ng-deep .mat-menu-content{
+
+//     padding-top: 0.0rem !important;
+
+//     padding-bottom: 0.0rem !important;
+
+//   }
+
+  
+
+  // ::ng-deep .mat-menu-panel {
+
+  //     min-width: 6.25rem !important;
+
+  //       margin: 0 auto;
+
+  //       justify-content: space-between;
+
+  //       background: none;
+
+  //   }
+
+
+
+  ::ng-deep .mat-menu-panel.styled 
+
+  {
+
+      min-width: 6.25rem !important;
+
+      margin-top: -1.25rem !important;
+
+      justify-content: space-between;
+
+      background: none;
+
+  }

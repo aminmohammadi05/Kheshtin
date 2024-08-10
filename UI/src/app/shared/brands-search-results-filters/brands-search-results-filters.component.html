@@ -1,0 +1,14 @@
+
+<mat-chip-listbox *ngIf="searchFields?.categoriesBoxNested ">    
+    <mat-chip *ngFor="let type of searchFields?.categoriesBoxNested; let last = last;">
+        {{type.name}}
+        <mat-icon color="warn" matChipRemove (click)="remove('categoriesBoxNested,' +type.categoryId)">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox> 
+<mat-chip-listbox *ngIf="searchFields?.searchBox && searchFields?.searchBox != 'filter='">      
+    <mat-chip >
+        {{trimSearchTerm(searchFields?.searchBox)}}
+        <mat-icon color="warn" matChipRemove (click)="remove('searchBox')">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox>
+

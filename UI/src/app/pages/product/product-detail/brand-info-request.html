@@ -1,0 +1,61 @@
+<div style="direction: rtl;">
+<h1 mat-dialog-title>فرم درخواست اطلاعات</h1>
+<div mat-dialog-content >
+
+
+
+  <form [formGroup]="reqform"  >
+    <div fxLayout="row wrap" >
+        <div fxFlex="40" fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="space-between center" class="my-3">
+          <div  fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" class="p-2">
+        <img mat-card-image class="brand-image-info"  src="../../assets/brands/big/{{(data.brand | async)?.brandId }}.png" [alt]="(data.brand | async)?.name">
+      </div>
+        <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" class="p-2">
+          <mat-selection-list class="no-border-selection"  formControlName="categories" required>
+            <mat-list-option  value="price">
+                لیست قیمت
+            </mat-list-option>
+            <mat-list-option  value="catalog">
+              کاتالوگ ها
+          </mat-list-option>
+          <mat-list-option  value="reseller">
+            نمایندگی ها
+        </mat-list-option>
+        <mat-list-option  value="files">
+          فایلها
+      </mat-list-option>
+        </mat-selection-list>
+          
+      </div> 
+        </div>
+        <div fxFlex="60" fxFlex.gt-xs="60" fxLayout="column" fxLayoutAlign="space-between center" class="my-3">
+          <mat-form-field appearance="outline" class="w-100 mt-1">
+            <mat-icon matPrefix class="mr-1 text-muted">person</mat-icon>
+            <mat-label>نام و نام خانوادگی </mat-label>
+            <input  matInput  placeholder="نام و نام خانوادگی"  formControlName="name"  required>
+            <mat-error *ngIf="reqform.controls.name.errors?.required">نام و نام خانوادگی الزامی است</mat-error>
+         </mat-form-field>
+         <mat-form-field appearance="outline" class="w-100 mt-1">
+          <mat-icon matPrefix class="mr-1 text-muted">email</mat-icon>
+          <mat-label>ایمیل</mat-label>
+          <input  matInput  placeholder="ایمیل" formControlName="email"  type="email"  required>
+          <mat-error *ngIf="reqform.controls.email.errors?.required">ایمیل الزامی است</mat-error>
+          <mat-error *ngIf="reqform.controls.email.hasError('invalidEmail')">لطفا در وارد کردن ایمیل دقت فرمایید</mat-error>
+       </mat-form-field>
+       <mat-form-field appearance="outline" class="w-100 mt-1">
+          <mat-icon matPrefix class="mr-1 text-muted">text</mat-icon>
+          <mat-label>متن درخواست</mat-label>
+          <textarea matInput placeholder="متن درخواست" autocomplete="off" formControlName="request" required> </textarea>
+          <mat-error *ngIf="reqform.controls.request.errors?.required">متن درخواست الزامی است</mat-error>
+      </mat-form-field>
+  
+        </div>
+    </div>
+</form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>انصراف</button>
+  <button mat-raised-button
+  [disabled]="reqform.invalid"  class="uppercase mx-1" (click)="sendRequest()">ارسال</button>
+</div>
+</div>

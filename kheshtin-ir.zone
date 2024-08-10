@@ -1,0 +1,25 @@
+$TTL 2d
+
+$ORIGIN kheshtin.ir.
+
+@               IN      SOA     ns1.kheshtin.ir. ns2.kheshtin.ir.  kheshtin.ir. gitlab.kheshtin.ir. orchard.kheshtin.ir. www.kheshtin.ir. (
+                                2023102300  ; serial
+                                1h         ; refresh
+                                15m         ; retry
+                                3w          ; expire
+                                2h          ; minimum ttl
+                                )
+
+                IN      NS      ns1.kheshtin.ir.
+                IN      NS      ns2.kheshtin.ir.
+ns1             IN      A       185.83.112.197
+ns2             IN      A       185.83.112.197
+
+
+
+gitlab          IN      A       185.173.107.252
+kheshtin.ir     IN      A       185.83.112.197
+orchard         IN      A       185.83.112.197
+test            IN      A       185.83.112.197
+
+www             IN      CNAME   185.83.112.197

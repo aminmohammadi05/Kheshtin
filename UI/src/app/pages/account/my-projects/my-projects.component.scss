@@ -1,0 +1,55 @@
+.tooltip {
+
+    position: relative;
+
+    display: inline-block;
+
+  }
+
+  
+
+  .tooltip .tooltiptext {
+
+    visibility: hidden;
+
+    width: 7.5rem;
+
+    background-color: black;
+
+    color: #fff;
+
+    text-align: center;
+
+    border-radius: 0.375rem;
+
+  
+
+    /* Position the tooltip */
+
+    top: 100%;
+
+    left: 50%;
+
+    margin-left: -3.75rem;
+
+    position: absolute;
+
+    z-index: 15;
+
+  }
+
+  
+
+  .tooltip:hover .tooltiptext {
+
+    visibility: visible;
+
+  }
+
+
+
+  :host ::ng-deep.mat-paginator .mat-paginator-container{
+
+    justify-content: flex-start;
+
+  }

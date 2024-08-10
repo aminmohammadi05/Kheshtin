@@ -1,0 +1,87 @@
+<div class="px-3">     
+  <div class="theme-container"> 
+  
+      <mat-sidenav-container >
+          <!-- <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" position="end" autoFocus="false" (openedChange)="onOpenedChange()">
+              <button fxHide="false" fxHide.gt-sm="true" mat-mini-fab color="warn" class="close" (click)="sidenav.close()">
+                  <mat-icon>close</mat-icon>
+              </button>
+              <mat-card [perfectScrollbar]="psConfig"> 
+                  <div fxLayout="column" class="widget">
+                      <h3 class="widget-title bg-primary">بلاگ های ویژه</h3>
+                      <div *ngFor="let blog of featuredBlogs" class="mb-3">
+                          <app-blog-item [blog]="blog" [viewType]="'grid'"></app-blog-item> 
+                      </div> 
+                  </div>
+                 
+              </mat-card>
+          </mat-sidenav> -->
+          <mat-sidenav-content ngClass.gt-sm="distance">
+              <mat-card class="mt-3 mat-elevation-z0"> 
+                  <mat-card-header fxLayoutAlign="center center" style="width: 100%"> 
+                      <mat-card-title class="blog-text"  >{{(blog)?.displayText }}</mat-card-title> 
+                  </mat-card-header>
+                  <mat-card-content>
+                      <div class="blog-text" [innerHTML]="getHtml((blog)?.blogText.html)"></div>
+                  </mat-card-content>
+              </mat-card> 
+
+              
+              <div style="direction: ltr; padding: 20px">
+                <ngx-masonry [options]="myOptions">
+                    <div ngxMasonryItem  class="masonry-item" *ngFor="let image of (blog)?.bag.contentItems | blogBagType: 'BlogImage' | orderBy: 'priority' : 'asc'; let i=index">
+                        <img  src="https://orchard.kheshtin.ir{{image.image.urls[0] }}" (click)="open(i)" width="100%">
+                   </div>
+                  </ngx-masonry>
+             
+                      
+                   
+                </div>
+               
+              
+
+              <mat-card *ngIf="(blog) && ((blog)?.bag.contentItems | blogBagType: 'BlogVideo').length > 0" class="mt-3"> 
+                  <mat-card-header fxLayoutAlign="center center"> 
+                      <mat-card-title class="uppercase">ویدئو </mat-card-title> 
+                  </mat-card-header>
+                  <mat-card-content>
+                      <div *ngFor="let video of (blog)?.bag.contentItems | blogBagType: 'BlogVideo'; let i=index;">
+                        <iframe  [src]="video.videoLink.url | safeHtml" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        
+                      </div>                            
+                  </mat-card-content>
+              </mat-card>  
+              <mat-card *ngIf="blog" class="mt-3"> 
+                <mat-card-header fxLayoutAlign="center center"> 
+                    <mat-card-title class="uppercase">تگ </mat-card-title> 
+                </mat-card-header>
+                <mat-divider   class="devider-margin"></mat-divider>
+                      <br/>
+                      <mat-chip-listbox aria-label="Hashtag list" style="padding: 10px">
+                        <mat-chip *ngFor="let tag of (blog)?.hashtagList.contentItems"  (click)="tagClick(tag)" [selectable]="true"
+                                 >
+                          {{tag.displayText}}
+                          
+                        </mat-chip>
+                        
+                      </mat-chip-listbox>
+                
+            </mat-card>              
+
+
+              
+
+          </mat-sidenav-content>
+      </mat-sidenav-container>
+
+  </div>
+</div>
+
+<div class="section mt-3" *ngIf="relatedBlogs && relatedBlogs.length > 0">
+  <div class="px-3">
+      <div class="theme-container"> 
+          <h1 class="section-title">وبلاگ های مشابه</h1>            
+          <app-similar-blogs-carousel [blogs]="relatedBlogs"></app-similar-blogs-carousel>                        
+      </div>
+  </div>   
+</div> 

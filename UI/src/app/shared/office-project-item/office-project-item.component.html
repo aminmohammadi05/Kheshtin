@@ -1,0 +1,61 @@
+<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" fxLayout="row wrap">  
+    <div fxLayout="row" fxLayoutAlign="center center" class="address m-0" style="padding-top: 1.31rem;
+    padding-bottom: 1.31rem;">
+        
+        <div >
+            <!-- <div class="brand-img-container"> -->
+                
+            <!-- </div> -->
+            <img *ngIf="project.designOffice && project.designOffice.contentItems[0].logo.urls[0] " src="https://orchard.kheshtin.ir{{project.designOffice.contentItems[0].logo.urls[0]}}"
+                    class="swiper-lazy brand-logo">
+        </div>
+      </div>
+  <div fxFlex="100" fxShrink="3" [fxFlex.gt-sm]="(viewType=='list') ? 40 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section">
+
+      
+     
+      <div *ngIf="getOfficeProjectImages(project).length == 1" class="mat-card-image w-100 m-0">
+          <img [src]="getOfficeProjectImages(project)[0].image.urls[0]">
+      </div>
+      <div *ngIf="getOfficeProjectImages(project).length > 1" class="mat-card-image w-100 m-0">
+          <div class="swiper-container" [swiper]="config">
+              <div class="swiper-wrapper"> 
+                  <div *ngFor="let image of getOfficeProjectImages(project)" class="swiper-slide">
+                      <img src="https://orchard.kheshtin.ir{{image.image.urls[0]}}" class="swiper-lazy">
+                      <div class="swiper-lazy-preloader"></div>
+                  </div> 
+              </div>  
+              <div class="swiper-pagination white"></div>  
+              <button mat-icon-button class="swiper-button-prev swipe-arrow"><mat-icon class="mat-icon-lg">keyboard_arrow_left</mat-icon></button>
+              <button mat-icon-button class="swiper-button-next swipe-arrow"><mat-icon class="mat-icon-lg">keyboard_arrow_right</mat-icon></button>
+          </div>
+      </div>
+
+      
+
+  </div>
+  <div fxFlex="100" [fxFlex.gt-sm]="(viewType=='list') ? 60 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
+
+      <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
+          <mat-card-content class="mb-0">
+              
+              <!-- TODO: Check if this works fine -->
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <h1 class="title"><a [routerLink]="['/officeprojects', project.contentItemId, project.userTitle]" style="color: #5C5B5B; font-size: 1.25rem">{{project.userTitle}}</a></h1>
+                    <span>{{getCategoriesNames() }}</span>
+                </div>
+                <span>{{getDesignOfficeName() }}</span>
+              </div>
+
+              
+
+              
+              
+          </mat-card-content>
+         
+      </div>        
+      
+  </div> 
+
+</mat-card>

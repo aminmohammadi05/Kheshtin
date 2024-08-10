@@ -1,0 +1,20 @@
+<div class="header-carousel" [class.offset-bottom]="contentOffsetToTop" >
+    <div *ngIf="slides?.length > 1"  class="swiper-container h-100" [index]="pageNumber" [swiper]="config" (indexChange)="onIndexChange($event)">
+        <div class="swiper-wrapper h-100">      
+            <div *ngFor="let slide of slides; let ind = index" class="swiper-slide">               
+                <div  [attr.data-background]="'../../assets/events/big/' + slide.eventId + '_' + slide.imageId + '.jpg'" class="slide-item swiper-lazy">
+                    
+                </div>
+            </div>
+        </div>     
+        <button mat-mini-fab color="primary" class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+        <button mat-mini-fab color="primary" class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
+      
+        <div fxLayout="column" fxLayoutAlign="center center" class="slide-info" [dir]="(settings.rtl) ? 'rtl' : 'ltr'">
+            <!-- The box inside slider -->
+            <!-- <mat-card class="p-4">
+                <h1 class="slide-title">{{currentSlide?.imageTitle}}</h1>
+            </mat-card>   -->
+        </div> 
+    </div>
+</div>

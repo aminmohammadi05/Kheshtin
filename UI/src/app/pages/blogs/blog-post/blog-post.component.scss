@@ -1,0 +1,191 @@
+::ng-deep .mat-drawer-content {
+    overflow: unset;
+}
+.main-carousel{ 
+
+    .swiper-slide{              
+
+        text-align: center;
+
+        padding-bottom: 66.25%;
+
+        position: relative;
+
+        overflow: hidden;  
+
+        background: rgba(0, 0, 0, 0.04);         
+
+    }
+
+    img{
+
+        position: absolute;
+
+        top: 0;
+
+        left: 0;
+
+        width: 100%;
+
+        height: auto;
+
+        max-width: 100%;
+
+    } 
+
+    .control-icons{ 
+
+        position: absolute;
+
+        z-index: 2; 
+
+        top: 1.5rem;
+
+        right: 1.25rem;
+
+        button.mat-button{
+
+            min-width: 2.25rem;
+
+            width: 2.25rem;
+
+            padding: 0;
+
+            margin: 0 0.25rem;
+
+            background: rgba(255, 252, 252, 0.6);
+
+            transition: 0.2s; 
+
+            color:rgba(0, 0, 0, 0.87);
+
+            &:disabled{
+
+                color: rgba(0, 0, 0, 0.26); 
+
+            }
+
+            &:hover:enabled{
+
+                background: rgba(255, 252, 252, 1);
+
+            }             
+
+        }
+
+    }
+
+}
+
+::ng-deep .mat-mdc-card-header-text {
+    width: 100%;
+}
+.small-carousel{ 
+
+    .swiper-slide{  
+
+        img{
+
+            display: block;
+
+            opacity: 0.3;
+
+        }
+
+        &.active-thumb{
+
+            img{ 
+
+                border-width: 0.188rem;
+
+                border-style: solid;
+
+                box-sizing: border-box;
+
+                opacity: 1;
+
+            }           
+
+        } 
+
+        .swiper-lazy-preloader{
+
+            margin-top: 0.625rem;
+
+        }        
+
+    } 
+
+}
+
+
+
+.widget{ 
+
+    margin-bottom: 2.5rem;
+
+    .widget-title{
+
+        margin: 0 -1.0rem 1.0rem;
+
+        padding: 0.5rem 1.0rem;
+
+        text-transform: uppercase;
+
+        font-weight: 500;
+
+    }
+
+    &:first-child{  
+
+        .widget-title{
+
+            margin: -1.0rem -1.0rem 1.0rem;
+
+            padding: 0.5rem 1.0rem;
+
+            text-transform: uppercase;
+
+            font-weight: 500;
+
+        }
+
+    } 
+
+} 
+.devider-margin {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+  }
+
+  
+  
+  @media screen and (max-width: 750px)  {
+    .masonry-item { width: 130px; }
+    ::ng-deep .blog-text {
+        padding: 0;
+        text-align: justify;
+        text-justify: inter-word;
+        div img {
+            width: 100% !important;
+        }
+      }
+    
+  }
+  
+  @media screen and (min-width: 751px)  {
+    .masonry-item { width: 150px; }
+    ::ng-deep .blog-text {
+        padding: 0 20% 0 20%;
+        text-align: justify;
+        text-justify: inter-word;
+        div img {
+            width: 37.5rem !important;
+        }
+      }
+    
+  }
+
+  
+  /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+  

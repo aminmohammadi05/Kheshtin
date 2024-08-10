@@ -1,0 +1,67 @@
+<div class="px-3">     
+  <div class="theme-container"> 
+  
+      <mat-sidenav-container >
+
+          <mat-sidenav-content ngClass.gt-sm="distance">
+            <mat-card class="mt-3 mat-elevation-z0"> 
+              <mat-card-header fxLayoutAlign="center center" > 
+                <mat-card-title style="display: flex; padding: 0 20% 0 20%;
+                justify-content: space-between;" class="card-container-right">{{(event)?.displayText }}</mat-card-title> 
+            </mat-card-header>
+              
+              <mat-card-content>
+                  <div class="blog-text" [innerHTML]="getHtml((event)?.description.html)"></div>
+              </mat-card-content>
+          </mat-card> 
+
+          
+          <div style="direction: ltr; padding: 20px">
+            <ngx-masonry [options]="myOptions">
+                <div ngxMasonryItem  class="masonry-item" *ngFor="let image of getEventImages(event) ; let i=index">
+                    <img  src="https://orchard.kheshtin.ir{{image.image.urls[0] }}" (click)="open(i)" width="100%">
+               </div>
+              </ngx-masonry>
+         
+                  
+               
+            </div>
+             
+            
+              <div class="mt-3" *ngIf="events.length > 0 " > 
+                <app-event-detail-timeline-box  [recentEvents]="events"></app-event-detail-timeline-box>
+                <!-- <app-event-timeline-advanced [events]="events" [days]="days" [options]="options"></app-event-timeline-advanced> -->
+                <!-- <app-event-timeline [recentEvents]="events" [days]="days"></app-event-timeline> -->
+            </div> 
+            <mat-card *ngIf="event" class="mt-3" style=" margin-bottom: 3rem"> 
+              <mat-card-header fxLayoutAlign="center center"> 
+                  <mat-card-title class="uppercase">تگ </mat-card-title> 
+              </mat-card-header>
+              <mat-divider   class="devider-margin"></mat-divider>
+                    <br/>
+                    <mat-chip-listbox aria-label="Hashtag list" style="padding: 10px">
+                      <mat-chip *ngFor="let tag of (event)?.hashtagList.contentItems"  (click)="tagClick(tag)" [selectable]="true"
+                               >
+                        {{tag.displayText}}
+                        
+                      </mat-chip>
+                      
+                    </mat-chip-listbox>
+              
+          </mat-card>  
+            <!-- <div class="mt-3" >
+                         
+                <ul class="gallery-thumbs" id="gallery-thumbs">
+                    <li *ngFor="let image of (event | async)?.eventImageList; let i = index;" class="gallery-thumbs-item">
+                        <a class="gallery-thumbs-link"><img src="../../assets/events/small/{{image.eventId + '_' + image.imageId}}.jpg" class="swiper-lazy mw-100 small-carousel-image" (click)="openProjectImageDialog(i)">
+                        </a>
+                               
+                    </li>
+                </ul>
+            </div>  -->
+
+          </mat-sidenav-content>
+      </mat-sidenav-container>
+
+  </div>
+</div>

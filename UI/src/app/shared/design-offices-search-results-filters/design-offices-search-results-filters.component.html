@@ -1,0 +1,20 @@
+
+<mat-chip-listbox *ngIf="searchFields?.categories ">    
+    <mat-chip *ngFor="let type of searchFields?.categories; let last = last;">
+        {{type.categoryName}}
+        <mat-icon color="warn" matChipRemove (click)="remove('categories,' +type.id)">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox> 
+<mat-chip-listbox *ngIf="searchFields?.searchBox && searchFields?.searchBox != 'filter='">      
+    <mat-chip >
+        {{trimSearchTerm(searchFields?.searchBox)}}
+        <mat-icon color="warn" matChipRemove (click)="remove('searchBox')">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox>
+<mat-chip-listbox *ngIf="searchFields?.hashtagObject ">      
+    <mat-chip >
+        {{searchFields?.hashtagObject.displayText}}
+        <mat-icon color="warn" matChipRemove (click)="remove('hashtagObject')">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox>
+

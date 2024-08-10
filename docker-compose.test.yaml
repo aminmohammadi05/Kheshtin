@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  
+  # API container spec.
+  api:
+    container_name: kheshtin-api-test
+    image: kheshtin-api-test:v1.0.11
+    build:
+      context: ./API
+      dockerfile: DockerFile_API
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:5555
+    ports:
+        - "5555:5555"
+   
+    # volumes:
+    #  - /root/orchard/App_Data:/app/App_Data
+    #  - /root/orchard/wwwroot:/app/wwwroot

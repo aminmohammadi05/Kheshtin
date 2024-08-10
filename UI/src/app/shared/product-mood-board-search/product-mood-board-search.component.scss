@@ -1,0 +1,676 @@
+.search-padding {
+    padding-top: 0.625rem;
+}
+
+.drop {
+    margin-left: 2.0rem;
+    width: 80%;
+    height: 8.188rem;
+    border-radius: 0.938rem;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 0.125rem dashed;
+    margin-top: 1.25rem;
+}
+
+.drop .cont {
+    height: 6.25rem;
+    color: #8E99A5;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.drop .cont i {
+    font-size: 400%;
+    color: #8E99A5;
+    position: relative;
+}
+
+.drop .cont .desc {
+    text-align: center;
+    letter-spacing: 0;
+    color: #4981C2;
+}
+
+.drop .cont .browse {
+    margin: 0.625rem 25%;
+    padding: 0.5rem 1.0rem;
+    border-radius: 1.0rem;
+    background: #ECF2F9;
+    text-align: center;
+
+    letter-spacing: 0;
+    color: #4D4F5C;
+}
+
+.drop input {
+    height: 6.25rem;
+    cursor: pointer;
+    background: red;
+    opacity: 0;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#list {
+    width: 100%;
+    text-align: left;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+//   #list .thumb {
+//       height: 100%;
+//       margin: 0.625rem 0.312rem 0 0;
+//   }
+
+img {
+    // width: 100% !important;
+    // height: 100% !important;
+}
+
+
+.Upcard {
+    margin-top: 1.5rem;
+    margin-left: 1.375rem;
+    margin-right: 1.375rem;
+    width: 5.875rem;
+    height: 5.875rem;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 0.5rem;
+    opacity: 1;
+}
+
+
+::ng-deep .cdk-overlay-pane {
+
+    margin-top: 1.188rem !important;
+}
+::ng-deep .mat-select-panel-wrap {
+    min-width: 12rem;
+    pointer-events: auto;
+    font-size: 0.9rem;
+    bottom: 2.43rem;
+    transform: translateX(0.5rem);
+}
+.color-span {
+    width: 100%;
+    height: 16px;
+    float: left;
+    margin-top: 12px;
+}
+
+// Moodboard Toolbox
+$font-family: 'Vazir FD', 'sans-serif';
+$app-panel-bg: #ffffff;
+$main-accent-color: #d7792a; //#4c72ff;
+$main-accent-color-darken: #5973d0;
+$app-panel-border: 1px solid red;
+$app-panel-radius: 2px; //12px;
+$app-accent-color: #d7792a; //#4c72ff;
+$app-font-color: #464646;
+$app-icon-color: black;
+$app-input-bg: #eee;
+$app-input-bg-hover: #e1e1e1;
+$app-input-color: #464646;
+$app-input-radius: 7px;
+$app-input-border: none;
+$app-input-font-size: 1rem; //18px;
+$app-input-height: 45px;
+$app-label-color: #555;
+$app-label-font-size: 11px;
+$app-title-color: #464646;
+$app-title-font-size: 15px;
+$app-title-weight: 500;
+$app-section-title-color: #464646;
+$app-section-title-font-size: 15px;
+$app-section-title-weight: 500;
+$app-section-margin: 15px;
+$app-section-border: 1px solid #eee;
+$app-slider-color: #777;
+$app-copyright-color: #666;
+$app-tab-border: 1px solid #999;
+$app-tab-color: #777;
+$app-tab-active-bg: #999;
+$app-tab-active-color: #FFF;
+$app-scrollbar-color: #ddd;
+$app-button-height: 46px;
+$app-button-radius: 5px;
+$app-button-color: $app-accent-color;
+$app-button-color-active: white;
+$app-button-font-size: 18px;
+$app-button-bg: rgba(0, 0, 0, 0);
+$app-button-border: 2px solid $app-accent-color;
+$app-button-box-shadow: none;
+$soft-border-radius: 2px;
+#controls {
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    // left: 8%;
+    right: 0;
+    // top: 8%;
+    // bottom: 8%;
+    // width: 302px;
+    width: 100%;
+    background-color: $app-panel-bg;
+    border-radius: $app-panel-radius;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .25);
+    user-select: none;
+}
+.header {
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    user-select: none;
+    border-bottom: $app-section-border;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 $app-section-margin;
+}
+.header>a {
+    text-decoration: none;
+    color: $main-accent-color;
+}
+#logo {
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    color: $main-accent-color;
+    width: 20px;
+    height: 20px;
+    display: block;
+    float: left;
+}
+#_45px {
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    color: $main-accent-color;
+    width: 100%;
+    height: auto;
+}
+div#kebab {
+
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    user-select: none;
+    height: 20px;
+    width: 20px;
+    float: right;
+    opacity: .2;
+}
+svg#kebab {
+
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    user-select: none;
+    width: 100%;
+    height: auto;
+}
+#control-actions {
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    user-select: none;
+    padding: $app-section-margin;
+    border-top: $app-section-border;
+    padding-bottom: 20px;
+    font-size: 11px;
+}
+.control-btn {
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    user-select: none;
+    font-size: 11px;
+}
+.button2 {
+    font-family: $font-family;
+    background-color: $app-button-bg;
+    border: $app-button-border;
+    color: $app-accent-color;
+    border-radius: $app-button-radius;
+    // color: $app-button-color-active;
+    // background-color: $app-accent-color;
+    // border: none;
+    border-radius: $app-button-radius;
+    font-size: $app-button-font-size;
+    width: 100%;
+    max-width: 400px;
+    height: $app-button-height;
+}
+.button2:hover,
+.button-link:hover {
+    cursor: pointer;
+    background-color: $app-accent-color;
+    color: $app-button-color-active;
+    text-decoration: none;
+    box-shadow: none;
+}
+.button2:hover {
+    cursor: pointer;
+    text-decoration: none;
+    // box-shadow: inset 0 0 100px 5px rgb(0 0 0 / 20%);
+}
+.button2:hover,
+.button-link:hover {
+    cursor: pointer;
+    background-color: $app-accent-color;
+    color: $app-button-color-active;
+    text-decoration: none;
+    box-shadow: none;
+}
+.button2:active,
+.button-link:active {
+    color: $app-button-color-active;
+    background-color: $app-accent-color;
+    outline: none;
+    // box-shadow: inset 0 0 15px 5px rgb(0 0 0 / 30%);
+}
+.scrollable-area {
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    user-select: none;
+    overflow-y: scroll;
+    height: calc(100% - 100px); //calc(100% - 140px);
+}
+#texture-controls {
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    user-select: none;
+}
+#category-section {
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    user-select: none;
+    padding: $app-section-margin;
+    padding-bottom: 20px;
+    border-top: none;
+}
+.section-header {
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    font-weight: $app-section-title-weight;
+    font-size: $app-section-title-font-size;
+    color: $app-section-title-color;
+    margin-bottom: 10px;
+}
+.input-row {
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    color: $app-font-color;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+}
+.input-block {
+    width: 100%;
+    margin-top: 10px;
+}
+.pseudo-select {
+    font-size: $app-input-font-size;
+    border-radius: $app-input-radius;
+    background-color: $app-input-bg;
+    width: 100%;
+    height: $app-input-height;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    &:hover {
+        background-color: $app-input-bg-hover;
+        cursor: pointer;
+    }
+    .pseudo-select-text {
+        margin-right: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: calc(100% - 60px);
+    }
+    &.psuedo-with-reset {
+        // width: calc(100% - $app-input-height - 10px);
+        width: calc(100% - 55px);
+    }
+}
+
+.menu-toggle:hover {
+    cursor: pointer;
+}
+
+.circle-icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}
+.circle-thumb {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    float: right;
+    top: 0;
+    right: 0;
+    margin-left: 7px;
+    background-size: 60%;
+    background-color: #eee;
+
+}
+.selected-circle-thumb{
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+input[type=number],
+input[type=text],
+input[type=email],
+input[type=password],
+textarea {
+    background-color: $app-input-bg;
+    border: $app-input-border;
+    border-radius: $app-input-radius;
+    width: calc(100% - 20px);
+    max-width: 380px;
+    font-size: $app-input-font-size;
+    height: $app-input-height;
+    padding: 0 10px;
+    color: $app-input-color;
+}
+.hidden-input {
+    display: none;
+}
+.app-icon-button {
+    // font-size: $app-input-size;
+    border: $app-input-border;
+    background-color: $app-input-bg;
+    border-radius: $app-input-radius;
+    width: $app-input-height;
+    height: $app-input-height;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.app-icon-button:hover {
+    cursor: pointer;
+    background-color: $app-input-bg-hover;
+}
+.app-icon {
+    height: 20px;
+    width: 20px;
+}
+.svg-icon svg {
+    width: 100%;
+    height: auto;
+}
+.input-row {
+    display: flex;
+    justify-content: space-between;
+}
+.input-group {
+    display: inline-block;
+    margin-top: 10px;
+    width: calc(50% - 5px);
+}
+.input-label {
+    font-size: $app-label-font-size;
+    padding-bottom: 4px;
+    color: $app-label-color;
+}
+input:focus,
+input:hover,
+select:focus,
+select:hover,
+textarea:focus {
+    background-color: $app-input-bg-hover;
+    outline: none;
+}
+.input-line {
+    margin: 15px 0;
+}
+input[type=checkbox] {
+    margin-left: 10px;
+}
+label {
+    margin-right: 5px;
+    margin-top: 2px;
+}
+//////////////////////////////////////////////////////
+// Select Category
+.menu-dialog {
+    position: fixed;
+    // top: 8%;
+    top: 6.625rem;
+    right: 8%;
+    // bottom: 8%;
+    left: calc(0% + 350px);
+    max-width: 45vw;
+    background-color: $app-panel-bg;
+    border-radius: $app-panel-radius;
+    box-shadow: 0 0 20px rgb(0 0 0 / 25%);
+    // display: none;
+    z-index: 900;
+}
+// .color-picker {
+//     position: relative;
+//     top: 8%;
+//     right: 8%;
+//     bottom: 8%;
+//     left: calc(8% + 350px);
+//     max-width: 45vw;
+//     background-color: var(--app-panel-bg);
+//     border-radius: var(--app-panel-radius);
+//     box-shadow: 0px 0px 20px rgb(0 0 0 / 25%);
+//     display: none;
+//     z-index: 900;
+// }
+// .color-picker {
+//     right: 22%!important;
+// }
+
+.diamond {
+    position: fixed;
+    // left: calc(8% + 330px);
+    right: calc(27%);
+    top: 214px;
+    z-index: -25;
+    height: 46px;
+    -webkit-filter: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.25));
+}
+.diamond polygon {
+    fill: $app-panel-bg;
+}
+.header {
+    border-bottom: $app-section-border;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 $app-section-margin;
+}
+.menu-title {
+    display: inline-block;
+    color: $app-section-title-color;
+    font-weight: $app-section-title-weight;
+    // font-size: $app-section-title-color-size;
+}
+.icon {
+    width: 20px;
+    float: right;
+    opacity: .2;
+}
+.menu-content {
+    overflow-y: scroll;
+    // max-height: calc(84vh - 51px);
+    max-height: calc(74vh - 50px);
+    text-align: left;
+    box-sizing: border-box;
+    background-color: $app-panel-bg;
+    border-radius: 0 0 $app-panel-radius $app-panel-radius;
+    text-align: right;
+}
+
+.sidebar-section {
+    // padding: $app-section-margin;
+    padding: 15px 5px;
+    border-top: $app-section-border;
+    padding-bottom: 20px;
+}
+.sidebar-section:first-child {
+    border-top: none;
+}
+@media only screen and (min-width: 1281px) {
+    .menu-option {
+        width: 14%;
+        margin: 3%;
+        margin-bottom: 35px;
+    }
+}
+.menu-option {
+    position: relative;
+    display: inline-block;
+    // float: left;
+    text-align: right;
+    width: 14%;
+    margin: 3%;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    font-size: 12px;
+}
+.option-img-container.dialog-img {
+    background-size: 40%;
+}
+.option-img-container {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: #eee;
+    background-size: cover;
+}
+.option-img-container-selected {
+    box-shadow: 0 0 0 5px $main-accent-color;
+    cursor: pointer;
+}
+.option-img-container:hover,
+.active>.option-img-container {
+    box-shadow: 0 0 0 5px $main-accent-color;
+    cursor: pointer;
+}
+.menu-option-title {
+    margin-top: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 300;
+    text-align: center;
+}
+
+path {
+    &.cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 8.889px;
+        fill-rule: evenodd;
+    }
+    &.cls-a,
+    &.cls-b,
+    &.cls-c {
+        fill: none;
+        stroke: #000;
+        stroke-width: 10.227px;
+        fill-rule: evenodd;
+    }
+    &.cls-b {
+        stroke-linecap: round;
+    }
+    &.cls-c {
+        stroke-linejoin: bevel;
+    }
+    &.asudbeu {
+        fill-rule: evenodd;
+    }
+}
+
+// Moodboard
+gridster {
+    .remove-button {
+        border: none;
+        background: none;
+        box-shadow: none;
+        border-radius: $soft-border-radius;
+        mat-icon {
+            background: #eeeeee40;
+            color: #7c7c7c;
+        }
+    }
+}
+
+::ng-deep #candidateProductsSection {
+    width: 95%;
+    .mat-tab-body-content {
+        overflow: hidden !important;
+    }
+    .candidate-products-title {
+        font-weight: bold;
+    }
+    // Paginator
+    mat-paginator {
+        background: none;
+        // box-shadow: none;
+        .mat-paginator-range-label {
+            display: none !important;
+            min-width: 3.5rem;
+            text-align: center;
+        }
+    }
+}
+// Scrollbar
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: transparent
+}
+::-webkit-scrollbar {
+    width: 7px
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    border: 2px solid white;
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, .3);
+    background-color: #ddd;
+}
+#scrollbar-blaster {
+    position: absolute;
+    width: 100%;
+    height: calc(100% + 1px);
+    user-select: none;
+    pointer-events: none
+}
+#copyright2 {
+    font-size: 10px;
+    color: $app-copyright-color;
+    margin-top: 9px;
+    text-align: center;
+}

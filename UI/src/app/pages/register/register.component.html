@@ -1,0 +1,132 @@
+<div class="p-3">
+    <div class="theme-container">
+  
+      <div fxLayout="row" fxLayoutAlign="center center" class="my-3">
+          <mat-card [style.max-width.px]="500">
+            <div fxLayout="column" fxLayoutAlign="center center" class="text-center">  
+              <h1 class="uppercase">ثبت نام</h1>  
+              <a mat-button routerLink="/login" color="accent" class="w-100">قبلا ثبت نام کرده اید؟ پس وارد شوید!</a>  
+            </div>
+            <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit(registerForm.value)"> 
+                <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">person</mat-icon>
+                    <mat-label>نام </mat-label>
+                    <input  matInput  placeholder="نام"  formControlName="name"  required>
+                    <mat-error *ngIf="registerForm.controls.name.errors?.required">نام الزامی است</mat-error>
+                 </mat-form-field>
+                 <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">person</mat-icon>
+                    <mat-label>نام خانوادگی </mat-label>
+                    <input  matInput  placeholder="نام خانوادگی"  formControlName="lastName"   required>
+                    <mat-error *ngIf="registerForm.controls.lastName.errors?.required">نام خانوادگی الزامی است</mat-error>
+                 </mat-form-field>
+                 <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">stay_primary_portrait</mat-icon>
+                    <mat-label>شماره موبایل</mat-label>
+                    <input  matInput  placeholder="مثال: 09999999999" formControlName="mobilePhone"   required>
+                    <mat-error *ngIf="registerForm.controls.mobilePhone.errors?.required">شماره موبایل الزامی است</mat-error>
+                 </mat-form-field>
+                 <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">phone</mat-icon>
+                    <mat-label>شماره تلفن</mat-label>
+                    <input  matInput  placeholder="مثال: 021999999999" formControlName="phoneNumber"   required>
+                    <mat-error *ngIf="registerForm.controls.phoneNumber.errors?.required">شماره تلفن الزامی است</mat-error>
+                 </mat-form-field>
+                 <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">email</mat-icon>
+                    <mat-label>ایمیل</mat-label>
+                    <input  matInput  placeholder="ایمیل" formControlName="email"  type="email"  required>
+                    <mat-error *ngIf="registerForm.controls.email.errors?.required">ایمیل الزامی است</mat-error>
+                    <mat-error *ngIf="registerForm.controls.email.hasError('invalidEmail')">لطفا در وارد کردن ایمیل دقت فرمایید</mat-error>
+                 </mat-form-field>
+                 <mat-form-field  appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">lock</mat-icon>
+                    <mat-label>کلمه عبور</mat-label>
+                    <input matInput placeholder="کلمه عبور" formControlName="password" type="password" minlength="6" required [type]="hide ? 'password' : 'text'">
+                    <mat-error *ngIf="registerForm.controls.password.errors?.required">کلمه عبور الزامی است</mat-error>
+                    <mat-error *ngIf="registerForm.controls.password.hasError('minlength')">حداقل طول مورد نیاز برای کلمه عبور 6 کاراکتر است</mat-error>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" type="button" class="text-muted">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field> 
+                  <mat-form-field  appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">lock</mat-icon>
+                    <mat-label> تکرار کلمه عبور</mat-label>
+                    <input matInput placeholder="تکرار کلمه عبور" formControlName="confirmPassword" type="password" required [type]="hide ? 'password' : 'text'">
+                    <mat-error *ngIf="registerForm.controls.confirmPassword.errors?.required">تکرار کلمه عبور الزامی است</mat-error>
+                    <mat-error *ngIf="registerForm.controls.confirmPassword.hasError('mismatchedPasswords')">تکرار کلمه عبور با کلمه عبور انطباق ندارد</mat-error>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" type="button" class="text-muted">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field> 
+                  <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">location_city</mat-icon>
+                    <mat-label>آدرس</mat-label>
+                    <input  matInput  placeholder="مثال: تهران خیابان ولیعصر - پلاک 1" formControlName="address"  required>
+                    <mat-error *ngIf="registerForm.controls.address.errors?.required">آدرس الزامی است</mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="w-100 mt-1">
+                      <mat-icon matPrefix class="mr-1 text-muted">all_inbox</mat-icon>
+                      <mat-label>کد پستی</mat-label>
+                      <input  matInput  placeholder="کد پستی" formControlName="postalCode"  required>
+                      <mat-error *ngIf="registerForm.controls.postalCode.errors?.required">کد پستی الزامی است</mat-error>
+                  </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100 mt-2">
+                    <mat-icon matPrefix class="mr-1 text-muted">build</mat-icon>
+                    <mat-label>حرفه</mat-label>
+                    <mat-select placeholder="لطفا حرفه خود را انتخاب کنید" formControlName="professionAreaBox" multiple>
+                        <mat-option *ngFor="let area of (professionalAreaList | async)" [value]="area">
+                            {{area.professionalAreaName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="registerForm.controls.professionAreaBox.errors?.required">انتخاب حداقل یک تخصص الزامی است</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">playlist_add</mat-icon>
+                    <mat-label>تخصص های دیگر</mat-label>
+                    <input  matInput  placeholder="تخصص های دیگر" formControlName="otherProfessions" >
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">business</mat-icon>
+                    <mat-label>شرکت</mat-label>
+                    <input  matInput  placeholder="شرکت" formControlName="business"  required>
+                    <mat-error *ngIf="registerForm.controls.business.errors?.required">نام شرکت الزامی است</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted">web</mat-icon>
+                    <mat-label>آدرس وب سایت</mat-label>
+                    <input  matInput  placeholder="آدرس وب سایت" formControlName="webSiteUrl"  required>
+                    <mat-error *ngIf="registerForm.controls.webSiteUrl.errors?.required">آدرس وب سایت الزامی است</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted"><fa-icon class="mr-1 text-muted" name="facebook"></fa-icon></mat-icon>
+                    <mat-label>آدرس فیسبوک</mat-label>
+                    <input  matInput  placeholder="آدرس فیسبوک" formControlName="facebookProfileUrl"  >
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted"><fa-icon class="mr-1 text-muted" name="twitter"></fa-icon></mat-icon>
+                    <mat-label>آدرس توئیتر</mat-label>
+                    <input  matInput  placeholder="آدرس توئیتر" formControlName="twitterProfileUrl"   >
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100 mt-1">
+                    <mat-icon matPrefix class="mr-1 text-muted"><fa-icon class="mr-1 text-muted" name="linkedin"></fa-icon></mat-icon>
+                    
+                    <mat-label>آدرس لینکداین</mat-label>
+                    <input  matInput  placeholder="آدرس لینکداین" formControlName="linkedInProfileUrl"   >
+                </mat-form-field>
+                <!-- <mat-slide-toggle formControlName="receiveNewsletter" class="my-2">Receive Newsletter</mat-slide-toggle> -->
+                <div class="text-center mt-2"> 
+                    <button mat-raised-button color="accent" class="uppercase" type="submit">
+                        ثبت نام
+                    </button>
+                </div> 
+            </form>
+            <div class="divider mt-4"></div> 
+            <!-- <mat-card-actions fxLayoutAlign="center center" class="text-center">
+               <small class="my-3">با کلیک بر روی دکمه ثبت نام شما با <a mat-button routerLink="/terms-conditions" color="primary" class="mx-2">قوانین</a> ما موافق هستید</small>
+            </mat-card-actions> -->
+          </mat-card>
+      </div> 
+  
+    </div>
+  </div>

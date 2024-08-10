@@ -1,0 +1,38 @@
+<div class="timeline-vertical" >
+    <div class="container-timeline-vertical" *ngFor="let item of tempEvents" [ngClass]="item.side === 'left' ? 'left' : 'right'">
+      <div class="content-timeline-vertical">
+        <div style="width: 100%; text-align: center;">
+          <a [routerLink]="['/events', item.contentItemId, item.label]" style=" text-decoration:none; color: #D7792A; font-size: 0.9375rem; font-weight: 700;">{{item.title}}</a>
+        </div>
+         
+        <table style = "width: 100%">            
+            <!-- <tr>
+              <td style="padding-left: 0; padding-right: 1rem; font-size: 0.875rem;">تاریخ شروع</td>
+              <td style="font-size: 0.875rem;">{{convertToJalali(item.start)}}</td>
+            </tr>
+            <tr>
+              <td style="font-size: 0.875rem; padding-left: 0; padding-right: 1rem;">تاریخ پایان</td>
+              <td style="font-size: 0.875rem;">{{convertToJalali(item.end)}}</td>
+            </tr> -->
+            <tr>
+                
+                <td colspan="4" *ngIf="item.steps.length > 0" style="text-align: center;">
+                    <table style = "width: 100%">            
+                        <tr *ngFor="let innerItem of item.steps" style="text-align: center; ">
+                          
+                         
+                          <td style="padding-left: 0; padding-right: 1rem; font-size: 0.875rem; width: 50%; text-align: right;">{{convertToJalali(innerItem.start)}}</td>
+                          <td style="padding-left: 0; padding-right: 1rem; font-size: 0.875rem; width: 50%; text-align: left;"><mat-icon style="padding-top: 3px; color: #D7792A" *ngIf=" innerItem.icon" >{{innerItem.icon}}</mat-icon></td>
+                          <!-- <td style="padding-left: 0; padding-right: 1rem; font-size: 0.875rem;">تا</td>
+                          <td style="padding-left: 0; padding-right: 1rem; font-size: 0.875rem;">{{convertToJalali(innerItem.end)}}</td> -->
+                        </tr>
+                        
+                      </table>
+                </td>
+            </tr>
+          </table> 
+      </div>
+    </div>
+   
+  </div>
+  

@@ -1,0 +1,38 @@
+<div class="px-3">
+  <div class="theme-container">
+
+    <div *ngIf="productService.Data.compareList.length == 0" class="py-5">  
+      <mat-chip-listbox>
+          <mat-chip color="warn" selected="true" class="uppercase">محصولی برای مقایسه وجود ندارد</mat-chip>
+      </mat-chip-listbox>
+    </div>
+  
+    <div *ngIf="productService.Data.compareList.length > 0" class="compare-carousel py-3"> 
+      
+      <mat-card fxLayout="row" fxLayoutAlign="space-between center" class="compare-toolbar">      
+        <h3 class="uppercase">مقایسه: {{productService.Data.compareList.length}}</h3>      
+        <div fxLayout="row" fxLayoutAlign="center center" *ngIf="config.simulateTouch">
+            <button mat-mini-fab color="primary" class="carousel-prev swiper-button-prev swipe-arrow mx-2"><mat-icon>keyboard_arrow_left</mat-icon></button>
+            <button mat-mini-fab color="primary" class="carousel-next swiper-button-next swipe-arrow mx-2"><mat-icon>keyboard_arrow_right</mat-icon></button> 
+        </div> 
+        <button mat-mini-fab color="warn" fxHide="false" fxHide.gt-xs (click)="clear()"><mat-icon>cancel</mat-icon></button>
+        <button mat-raised-button color="warn" class="uppercase" fxShow="false" fxShow.gt-xs (click)="clear()">حذف همه</button>
+      </mat-card>
+      
+      <div class="swiper-container h-100 carousel-outer mt-3" [swiper]="config"> 
+        <div class="swiper-wrapper h-100">      
+          <div *ngFor="let product of productService.Data.compareList" class="swiper-slide">
+
+            <button mat-icon-button class="remove" (click)="remove(product)">
+              <mat-icon color="warn" class="mat-icon-lg">highlight_off</mat-icon>
+            </button>              
+            <app-product-item [product]="product"></app-product-item>
+
+          </div>
+        </div>   
+      </div>
+
+    </div>
+
+  </div>
+</div>

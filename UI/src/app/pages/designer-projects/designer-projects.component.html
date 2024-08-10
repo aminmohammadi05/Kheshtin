@@ -1,0 +1,15 @@
+
+<button *ngIf="authService.loggedIn()" (click)="openNewProject()" mat-fab>پروژه جدید</button>
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="جستجو ..." #input>
+  </mat-form-field>
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let project of dataSource.projectList$ | async">
+      {{project.name}}
+      <app-project-item 
+      [project]="project">
+    </app-project-item>
+  </mat-grid-tile>
+  </mat-grid-list>
+  <mat-paginator [length]="dataSource.pagination$ | async" [pageSize]="3"
+                     [pageSizeOptions]="[3, 5, 10]"></mat-paginator>

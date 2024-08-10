@@ -1,0 +1,14 @@
+<div  class="properties-carousel" fxLayout="row" fxLayoutAlign="space-between center">   
+    <button mat-mini-fab color="primary" class="prop-next swiper-button-next swipe-arrow" style="position:relative;margin-left: 1rem;"><mat-icon>keyboard_arrow_right</mat-icon></button> 
+    <div class="swiper-container h-100 carousel-outer" [swiper]="config"  > 
+        <div class="swiper-wrapper h-100" >
+            <div *ngFor="let product of products" class="swiper-slide">
+                <app-small-product-item [product]="product" [viewType]="viewType" [viewColChanged]="viewCol"></app-small-product-item>                 
+            </div>  
+            
+        </div>                      
+        
+    </div>
+    <button mat-mini-fab color="primary" class="prop-prev swiper-button-prev swipe-arrow" style="position:relative;margin-right: 1rem;"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    
+  </div>

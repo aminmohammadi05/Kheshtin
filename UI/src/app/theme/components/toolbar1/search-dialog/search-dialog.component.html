@@ -1,0 +1,8 @@
+<mat-form-field  appearance="fill" class="search " style="width: 100%"  [floatLabel]="'always'">
+        
+      
+    <input #searchField matInput type="text" style="font-size: 12px; font-weight: 400; line-height: 1.125; font-family: 'Vazir FD';" placeholder="جستجو در خشتین ..." autocomplete="off">
+    <button mat-icon-button matSuffix (click)="search()" [disabled]="!searchField.value">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>

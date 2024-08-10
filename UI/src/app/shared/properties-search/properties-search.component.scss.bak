@@ -1,0 +1,99 @@
+
+
+
+.drop {
+  margin-left: 32px;
+  width: 80%;
+  height: 131px;
+  border-radius: 15px;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px dashed;
+  margin-top: 20px;
+  }
+  
+  .drop .cont {
+      height:100px;
+      color: #8E99A5;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+  }
+  
+  .drop .cont i {
+      font-size: 400%;
+      color: #8E99A5;
+      position: relative;
+  }
+  
+  .drop .cont .desc {
+      text-align: center;
+     letter-spacing: 0;
+     color: #4981C2;
+  }
+  
+  .drop .cont .browse {
+      margin: 10px 25%;
+      padding: 8px 16px;
+      border-radius: 16px;
+      background: #ECF2F9;
+      text-align: center;
+  
+  letter-spacing: 0;
+  color: #4D4F5C;
+  }
+  
+  .drop input {
+    height: 100px;
+      cursor: pointer;
+      background: red;
+      opacity: 0;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+  }
+  
+  #list {
+      width: 100%;
+      text-align: left;
+      position: absolute;
+      left: 0;
+      top: 0;
+  }
+  
+  
+//   #list .thumb {
+//       height: 100%;
+//       margin: 10px 5px 0 0;
+//   }
+  
+  img {
+      // width: 100% !important;
+      // height: 100% !important;
+  }
+  
+  
+  .Upcard{
+    margin-top: 24px;
+    margin-left: 22px;
+    margin-right: 22px;
+    width: 94px;
+  height: 94px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+  opacity: 1;
+  }
+
+
+  
+  

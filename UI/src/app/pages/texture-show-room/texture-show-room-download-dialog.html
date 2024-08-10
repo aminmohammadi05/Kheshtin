@@ -1,0 +1,44 @@
+
+<div style="direction: rtl;">
+
+    <div mat-dialog-content >
+    
+    
+    
+      
+      <div class="px-3">     
+        <div class="theme-container">
+          <div class="widget "> 
+            <mat-card class="mat-elevation-z0 brand-background" >                
+                <mat-card-content>
+                    <img class="image-responsive"  src="../../assets/showRoom/{{showRoom.productId}}_11_-1_1_{{showRoom.orientation}}_{{authService.getDecodedToken().nameid}}.png">
+                </mat-card-content>
+                <mat-divider></mat-divider>
+                <mat-card-actions fxLayoutAlign="space-between center">
+                  <a mat-button   href="../../assets/products/big/{{showRoom.productId + '_11_-1_1_' + showRoom.orientation + '.rar' }}">
+                    دانلود <mat-icon class="mat-icon-sm">get_app</mat-icon>
+                </a>
+                  
+                  <!-- <button 
+                  *ngIf="action ==='edit'" 
+                  mat-icon-button color="warn" 
+                  (click)="close()" 
+                  aria-label="Delete"
+                  matTooltip="Delete">
+                    <mat-icon>delete</mat-icon>
+                  </button> -->
+                    
+                </mat-card-actions> 
+            </mat-card>
+        </div>
+         
+        </div>
+      </div>
+    
+    </div>
+    <div mat-dialog-actions>
+      <!-- <button mat-button mat-dialog-close>انصراف</button>
+      <button mat-raised-button
+      [disabled]="reqform.invalid"  class="uppercase mx-1" (click)="sendRequest()">ارسال</button> -->
+    </div>
+    </div>

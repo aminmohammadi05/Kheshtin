@@ -1,0 +1,5 @@
+<form [formGroup]="brandCollectionsForm" *ngIf="brandCollectionList.length > 0">
+    <div  *ngFor="let coll of brandCollectionList; index as i" class="p-2">
+        <mat-checkbox [formControlName]="coll.brandCollectionId" (change)="selectNodes($event, coll)">{{coll.title}}</mat-checkbox>                         
+    </div>
+</form> 

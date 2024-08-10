@@ -1,0 +1,34 @@
+<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" fxLayout="row wrap">  
+ 
+  <div fxFlex="100" [fxFlex.gt-sm]="(viewType=='list') ? 60 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
+
+      <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
+          <mat-card-content class="mb-0">
+            
+              <h1 class="title">{{brandReseller.displayText}}</h1>
+              <div class="features mt-3">                    
+                <p><span>آدرس</span><span>{{brandReseller.address}}</span></p>
+                <p><span>شهر</span><span>{{brandReseller.city}}</span></p>
+                <p><span>تلفن</span><span>{{brandReseller.phone}}</span></p>
+             </div> 
+
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <div>
+                      {{brand.displayText}}
+                  </div>
+                  <img style="float: none;
+                  width: 145px;
+                  height: 40px;
+                  border-radius: 20px;"
+                  src="https://orchard.kheshtin.ir{{brand.ovalImage.urls[0]}}" class="swiper-lazy">
+              </div>
+
+             
+
+          </mat-card-content>
+          
+      </div>        
+      
+  </div> 
+
+</mat-card>

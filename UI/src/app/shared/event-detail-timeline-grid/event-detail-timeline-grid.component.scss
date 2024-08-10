@@ -1,0 +1,120 @@
+
+.chart-wrapper {
+    direction: rtl;
+ 
+   
+    margin: 0 auto;
+    overflow-x: auto;
+        overflow-y: hidden;
+  }
+  
+  
+  /* CHART-VALUES
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  .chart-wrapper .chart-values {
+    position: relative;
+    display: flex;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    
+  }
+  
+  .chart-wrapper .chart-values li {
+    flex: 1;
+    // min-width: 30px;
+    text-align: center;
+    padding:  5px 0 5px 0;
+  }
+  
+  .chart-wrapper .chart-values li:not(:last-child) {
+    position: relative;
+  }
+  
+  .chart-wrapper .chart-values li:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    height: 510px;
+  //  border-right: 1px solid lightgray;
+  }
+  
+  
+  /* CHART-BARS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  .chart-wrapper .chart-bars li {
+    text-align: center;
+    position: relative;
+    color: var(--white);
+    margin-bottom: 15px;
+    font-size: 16px;
+    //border-radius: 20px;
+    padding: 6px 0px;
+    width: 0;
+    opacity: 0;
+    transition: all 0.65s linear 0.2s;
+  }
+  
+  @media screen and (max-width: 600px) {
+    
+  }
+
+
+ gridster {
+    background: transparent !important;
+  }
+
+  .info-widget {
+    width: 31.75%;
+    border: 1px solid black;
+    display: inline-block;
+  }
+
+  .middle {
+    float: left;
+    width: 90%;
+    overflow: auto;
+    /*will change this to hidden later to deny scolling to user*/
+    white-space: nowrap;
+  }
+
+  .timeline-nav-button{
+    // position: absolute;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+  
+    opacity: .75;
+    box-shadow: 0 8px 20px 0 rgba(0,0,0,0.1);
+    border-radius: 100%;
+    background: #fff;
+    
+    // transform: translate(-50%, -50%);
+    // transform-origin: center;
+    // transition: 0.3s ease;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .questionNumbers {
+    display: flex;
+    align-items: center;
+  }
+  .questionNumberIcon {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+  }
+  .questionNumberLine {
+    flex: 1 0 auto;
+    height: 0;
+    // border-top: 1px solid black;
+  }
+ 

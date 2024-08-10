@@ -1,0 +1,82 @@
+<div class="px-3">     
+    <div class="theme-container"> 
+    
+        <mat-sidenav-container class="single-property mt-3">
+            
+            <mat-sidenav-content ngClass.gt-sm="distance">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">             
+                    <div>
+                        <h2 class="uppercase" ngClass.xs="text-center">{{(moodBoard | async)?.moodBoardName}}</h2>
+                        
+                    </div>                                
+                  </div>
+                <div class="mt-3">
+                  <img src="../../assets/moodBoards/big/{{(moodBoard | async)?.moodBoardId }}.png" class="swiper-lazy mw-100" >
+                </div>
+               
+                
+                
+                
+                <div class="mt-3"> 
+                  
+                  <div>
+                      <p>{{(moodBoard | async)?.moodBoardDescription}}</p>
+                                          
+                  </div>
+              </div> 
+              <div class="mt-3" *ngIf="(productList | async) && (productList | async)?.length > 0">
+                  <!-- <img  src="../../assets/officeProjects/big/{{(project | async)?.projectId + '_' + (selectedImageId | async) }}.jpg" style="width: 890px" class="swiper-lazy"> -->
+                  <div fxLayout="row wrap" class="properties-wrapper mt-0">
+                    <div *ngFor="let product of (productList | async)" [fxFlex]="(viewType=='grid') ? viewCol : 100"  class="item">                         
+                        <app-small-product-item [product]="product"
+                                          [viewType]="viewType"
+                                          [viewColChanged]="viewCol"
+                                          [fullWidthPage]="false">
+                        </app-small-product-item>
+                    </div>
+                  </div>               
+                  
+                  <!-- <div class="main-carousel mb-3"> 
+                      <div id="main-carousel" class="swiper-container" [swiper]="config" (indexChange)="onIndexChange($event)"> 
+                          <div class="swiper-wrapper">      
+                              <div *ngFor="let image of project?.officeProjectImageList" class="swiper-slide">
+                                  <img src="../../assets/officeprojects/big/{{image.officeProjectId + '_' + image.imageId + '.'+ image.fileExtension}}" style="width: 890px" class="swiper-lazy">
+                                  <div class="swiper-lazy-preloader"></div>          
+                              </div>
+                          </div>                      
+                          <button mat-mini-fab color="primary" class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+                          <button mat-mini-fab color="primary" class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button> 
+                      </div>
+                  </div>
+                  <div class="small-carousel">   
+                      <div id="small-carousel" class="swiper-container" [swiper]="config2"> 
+                          <div class="swiper-wrapper">      
+                              <div *ngFor="let image of project?.officeProjectImageList; let i=index;" class="swiper-slide" [ngClass]="'thumb-'+i" [class.active-thumb]="i == 0">
+                                  <img src="../../assets/officeprojects/small/{{image.officeProjectId + '_' + image.imageId + '.'+ image.fileExtension}}" class="swiper-lazy mw-100" (click)="selectImage(i)">
+                                  <div class="swiper-lazy-preloader"></div>          
+                              </div>
+                          </div>  
+                      </div>
+                  </div> -->
+              </div> 
+                
+                
+                            
+  
+                <!-- <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center"> 
+                    <span>شناسه:<span class="fw-500 mx-2">{{project?.projectId}}</span></span>
+                    <span>تاریخ ایجاد:<span class="fw-500 mx-2">{{  (changeDateToFa(project?.createDate) | async)}}</span></span>
+                   
+                   
+                </div> -->
+  
+                <!-- <app-comments *ngIf="project" [projectId]="project.projectId"></app-comments>   -->
+  
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+  
+    </div>
+  </div>
+
+  
+  

@@ -1,0 +1,12 @@
+$font-family: 'Vazir FD';
+$theme-max-width: 90.5rem;
+$top-toolbar-height: 2.25rem;
+$main-toolbar-height: 4.5rem;
+$user-menu-width: 13.75rem;
+$header-image-min-height: 20rem; //320px;
+$header-carousel-height: 37rem; // 600px;
+$header-carousel-width: 87.5rem;
+$main-content-header-offset-to-top: .3rem;// 5px;
+
+$main-sidenav-width: 15.6rem;
+$search-sidenav-width: 18rem;

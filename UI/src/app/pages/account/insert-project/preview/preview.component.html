@@ -1,0 +1,59 @@
+<mat-card-content>
+  <mat-grid-list  cols="4" rowHeight="100px">
+  <mat-grid-tile  colspan="1" >
+       نام پروژه
+  </mat-grid-tile>
+  <mat-grid-tile colspan="3">
+    {{project?.name}}
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1">
+    وضعیت پروژه
+</mat-grid-tile>
+<mat-grid-tile colspan="3">
+ {{project?.projectDevelopmentStatus === 1? 'در حال ارائه' : project?.projectDevelopmentStatus === 2 ? 'در حال ساخت' : project?.projectDevelopmentStatus === 3 ? 'تکمیل شده' : '' }}
+</mat-grid-tile>
+  <mat-grid-tile colspan="1">
+    محل پروژه
+</mat-grid-tile>
+<mat-grid-tile colspan="3">
+ {{project?.city?.cityName}}
+</mat-grid-tile>
+<mat-grid-tile colspan="1">
+  تصاویر پروژه
+</mat-grid-tile>
+<mat-grid-tile colspan="3">
+  <ul class="mdc-image-list my-image-list">
+    <li class="mdc-image-list__item" *ngFor="let image of project?.projectImageList; let in = index">
+          <div class="mdc-image-list__image-aspect-container" *ngIf="image?.thumbnail">
+            <img class="mdc-image-list__image" [src]="image?.thumbnail | safeHtml ">                                                
+          </div>
+    </li>
+</ul>
+</mat-grid-tile>
+<mat-grid-tile colspan="1">
+  زمینه پروژه
+</mat-grid-tile>
+<mat-grid-tile colspan="3">
+  <mat-chip-listbox aria-label="Product selection">
+    <mat-chip *ngFor="let category of project?.projectCategorySetList"
+    >{{category.projectCategory?.categoryName}}</mat-chip>
+  </mat-chip-listbox>
+</mat-grid-tile>
+<mat-grid-tile colspan="1">
+  توضیحات پروژه
+</mat-grid-tile>
+<mat-grid-tile colspan="3">
+  {{project?.description}}
+</mat-grid-tile>
+<mat-grid-tile colspan="1">
+  محصولات به کار رفته در پروژه
+</mat-grid-tile>
+<mat-grid-tile colspan="3">
+  <mat-chip-listbox aria-label="Product selection">
+    <mat-chip *ngFor="let product of project?.projectProductList"
+    >{{product?.product?.name}} </mat-chip>
+  </mat-chip-listbox>
+</mat-grid-tile>
+  </mat-grid-list>
+  <button mat-raised-button color="primary" mat-button (click)="saveProject()">ذخیره</button>
+</mat-card-content>

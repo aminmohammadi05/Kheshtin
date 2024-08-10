@@ -1,0 +1,41 @@
+<mat-form-field appearance="outline" class="w-100">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="جستجوی محصولات" autocomplete="off">
+</mat-form-field> 
+<div class="table-wrapper"> 
+    <table mat-table [dataSource]="dataSource" matSort class="w-100">
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> شناسه </th>
+        <td mat-cell *matCellDef="let product"> {{product?.productId}} </td>
+      </ng-container>  
+
+      <!-- Image Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <td mat-cell *matCellDef="let product"><img [src]="product?.productFiles[0].thumbnail " [style.width.px]="100" class="d-block"></td>
+      </ng-container> 
+  
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> عنوان </th>
+        <td mat-cell  *matCellDef="let product"><a *ngIf="product != null" [routerLink]="['/products', product?.displayId, product?.urlTitle ]" class="property-name">{{product?.name}}</a></td>
+      </ng-container>  
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> حذف </th>
+        <td mat-cell *matCellDef="let product"> 
+            <button *ngIf="product != null" mat-icon-button color="warn" (click)="remove(product)" matTooltip="Remove" class="remove">
+                <mat-icon>delete</mat-icon>
+            </button> 
+        </td>
+      </ng-container> 
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let product; columns: displayedColumns;">
+      </tr>
+    </table> 
+    <p *ngIf="dataSource?.data.length === 0" class="py-5 mb-0 text-center">هیچ موردی پیدا نشد</p> 
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

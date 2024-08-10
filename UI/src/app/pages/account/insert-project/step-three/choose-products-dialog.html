@@ -1,0 +1,53 @@
+<h1 mat-dialog-title></h1>
+<div mat-dialog-content style="direction: rtl;">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <!-- <p>محصولات به کار رفته در پروژه خود را انتخاب کنید</p>
+  <p-listbox [options]="data.brandList"
+   [(ngModel)]="selectedBrand"
+   optionLabel="name"
+   filter="filter"
+   (onChange)="getBrandProducts()"></p-listbox> -->
+   <form name="product" [formGroup]="productForm" class="event-form" fxFlex>
+       <div>
+        <mat-form-field appearance="outline" class="w-50 mt-1">
+            <mat-label>لیست برندها</mat-label>
+            <mat-select formControlName="brandList" placeholder="سازنده مورد نظر خود را انتخاب کنید"  (selectionChange)="selectBrand($event)">
+                <mat-option *ngFor="let brand of (data.brandList | async)" [value]="brand">
+                    {{brand.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-50 mt-1">
+            <mat-label>لیست شاخه ها</mat-label>
+            <mat-select formControlName="categoryList" placeholder="شاخه مورد نظر خود را انتخاب کنید"  (selectionChange)="selectCategory($event)">
+                <mat-option *ngFor="let category of (selectedCategoryList | async)" [value]="category">
+                    {{category.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+       </div>
+      <div class="px-3">
+        <div class="theme-container">
+          <div fxLayout="row wrap" class="agents-wrapper" formArrayName="productItems">
+            <div *ngFor="let product of brandProducts; let i = index;" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="33.3" fxFlex.sm="50" class="p-3">
+                <mat-card [formGroupName]="i">
+                    <mat-checkbox formControlName="productItem" ></mat-checkbox>
+                    <img matListAvatar src="../../assets/products/small/{{product.productId}}_1_-1_1_0.jpg" >
+                    <!-- <img mat-card-image [src]="agent.image" [alt]="agent.fullName">  -->
+                    <mat-card-content>
+                        <h2 class="fw-600">{{product.name}}</h2>
+                        
+                    </mat-card-content>                          
+                </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+</form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-button (click)="onNoClick()">انصراف</button>
+  <button mat-raised-button color="primary" mat-button (click)="save()" cdkFocusInitial>تایید</button>
+</div>

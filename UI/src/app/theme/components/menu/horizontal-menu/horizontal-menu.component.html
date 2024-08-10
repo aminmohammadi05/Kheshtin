@@ -1,0 +1,75 @@
+<ng-container class="col-lg-7 d-none d-lg-block">
+  <div class="navigation-area mt-lg-3">
+    <div class="ruby-menu-demo-header">
+      <div class="ruby-wrapper" style="background-color:#fff">
+         <ul class="ruby-menu" style="margin-left: auto;
+             padding-right: 2.8rem;
+         margin-right: auto;
+         float: none;">
+              <li  class="ruby-menu-mega" style="float:'right'" *ngFor="let item of menuItemList">
+              <button mat-button (click)="navigateToPage(item.linkMenuItem.url, item.urlParameterList)" *ngIf="item.megaMenu || item.subMenu" style="color:#5C5B5B; direction:'ltr'; cursor:'pointer'; letter-spacing: normal !important; font-family: 'Vazir FD'; font-size: 0.875rem;" [hidden]="item.isDisabled" [matTooltip]="item.toolTipText" (mouseenter)="buttonEnter(item.id)" >{{item.displayText}}</button> 
+              <button mat-button (click)="navigateToPage(item.linkMenuItem.url, item.urlParameterList)" style="color:#5C5B5B; direction:'ltr'; cursor:'pointer'; letter-spacing: normal !important; font-family: 'Vazir FD'; font-size: 0.875rem;" [hidden]="item.isDisabled" [matTooltip]="item.toolTipText" *ngIf="!item.megaMenu">{{item.displayText}}</button>
+             
+             <div class="ruby-grid ruby-grid-lined" *ngIf="item.megaMenu && !item.isDisabled" style="border-radius: 0 0 1.25rem 1.25rem !important; font-family: 'Vazir FD'; font-size: 0.875rem;">
+              <div style="width: 100%; text-align: center; font-weight: 700;" [ngStyle]="{'background-color':  colorMap.get(selectedId)[1] }">
+                <h2 style="font-family: 'Vazir FD'; font-weight: bold;color: #5C5B5B;">{{selectedMenuItem}}</h2>
+              </div>              
+                 <div class="ruby-row">                  
+                  <div class="season_tabs" [ngStyle]="{'background-color': colorMap.get(selectedId)[1]}" >
+                    
+                    <div *ngFor="let subItem of item.bag.contentItems" class="season_tab">
+                        <input type="radio" id="{{subItem.id}}" name="tab-group-{{subItem.id}}" (click)="gotChecked($event,subItem.id, subItem.displayText)" [checked]="selectedId === subItem.id">
+                        <label for="{{subItem.id}}" [ngStyle]="{'background-color': selectedId === subItem.id ? colorMap.get(selectedId)[0] : colorMap.get(selectedId)[1] }" style="color: #5C5B5B;">{{subItem.displayText}}</label>
+                        
+                        <div class="season_content" [ngStyle]="{'background-color': colorMap.get(selectedId)[0] }" *ngIf="selectedId === subItem.id">
+                          <div fxLayout="row wrap">
+                            <div fxflex="100" fxFlex.gt-sm="70">
+                              <ul >                                
+                                <li *ngFor="let innerItem of subItem.bag.contentItems">
+                                    <button mat-button (click)="navigateToPage(innerItem.linkMenuItem.url, innerItem.urlParameterList)" [ngStyle]="{'background-color': colorMap.get(selectedId)[0]}" style="color: #5C5B5B;letter-spacing: normal !important; font-family: 'Vazir FD'; font-size: 0.875rem;">{{innerItem.displayText}}</button>
+                                 
+                                </li>
+                           
+                              </ul>
+                            </div>
+                            <div  fxflex="100" fxFlex.gt-sm="30" [ngStyle]="{'flex': '1 1 30%', 'box-sizing': 'border-box', 'max-width': '30%', 'background': selectedId === subItem.id ?  'url(https://orchard.kheshtin.ir' + subItem.ovalImage.urls[0]+') center center / 6.875rem 6.875rem no-repeat' : '' , 'height': '12.5rem'}">
+
+                            </div>
+                          </div>
+                          <div class="menu-logos-container" fxLayout="row wrap">
+                            <div *ngFor="let brand of subItem.brandList.contentItems" class="menu-logo-wrapper" >
+                              <img style="height: 2.5rem " [src]="'https://orchard.kheshtin.ir' + brand.ovalImage.urls[0]">
+                            </div>
+                          </div>
+                        </div> 
+                    </div>
+                     
+                   
+                     
+                 </div>
+                             
+                             <!-- <div *ngFor="let subItem of item.bag.contentItems" class="ruby-col-2" >
+                                 <h3 class="ruby-list-heading">{{subItem.displayText}}</h3>
+                                 <ul >                                
+                                         <li *ngFor="let innerItem of subItem.bag.contentItems" ><a mat-flat-button>{{innerItem.displayText}}</a></li>
+                                    
+                                 </ul>
+                             </div> -->
+             </div>
+             </div>
+         
+    
+     <ul  *ngIf="!item.megaMenu && item.subMenu">
+             <li *ngFor="let megaItem of item.bag.contentItems" ><a mat-flat-button>{{megaItem.displayText}}</a>
+                                 <ul *ngFor="let subItem of megaItem.bag.contentItems">
+                                    <li *ngFor="let listItem of subItem.bag.contentItems" ><button mat-button>{{listItem.displayText}}</button></li>
+                                 </ul>
+             </li>
+ </ul>
+     </li>
+         </ul>
+     </div>
+     </div>
+  </div>
+</ng-container>
+        

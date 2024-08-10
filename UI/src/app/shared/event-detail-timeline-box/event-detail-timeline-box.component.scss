@@ -1,0 +1,82 @@
+$color-red:         #d81e05;
+$color-dark:        rgb(52, 52, 52);
+$color-grey:        #dedede;
+
+
+
+*, *:before, *:after{
+  box-sizing: border-box; 
+ 
+  padding: 0;
+  margin: 0;
+}
+
+.timeline{
+  display: flex;
+  overflow-x: hidden;
+  padding: 2rem;
+  max-width: 42.6rem;
+  margin-right: auto; margin-left:auto; float:none;
+}
+
+.timeline:after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 123px;
+  height: 2px;
+  border: 2px solid #D7792A;
+  max-width: 42.6rem;
+  margin-right: auto; margin-left:auto; float:none;
+}
+
+.timeline-container{
+  display: flex;
+
+}
+
+.timeline-card{
+  flex: 0 0 auto;
+
+  position: relative;
+  padding: 1.5rem;
+    
+  width: 11.3125rem;
+  height: 6.4375rem;
+  
+  background: #F5F5F5;
+
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.timeline-card:not(:first-child) {
+    margin-right: 20px;
+}
+
+.timeline-card:nth-of-type(even) {
+    margin-top: 145px;
+}
+
+.timeline-card-svg path{
+  fill: #D7792A;
+}
+
+.timeline-card-svg:nth-of-type(odd),
+.timeline-card-svg:nth-of-type(even) {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  left: 50%;
+  bottom: -28px;
+  
+  transform: translate(-50%);
+}
+
+.timeline-card:nth-of-type(even) .timeline-card-svg {
+  top: -12px;
+  margin-top: -14px;
+  transform: scaleY(-1) translate(-50%);
+}
+
+

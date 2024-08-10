@@ -1,0 +1,15 @@
+.example-container {
+    width: 100%;
+    height: 400px;
+    margin: 10px;
+    
+  }
+
+   .no-border-selection:focus {
+      outline: -webkit-focus-ring-color auto 0px !important;
+  }
+
+  .brand-image-info {
+    width: 6rem;
+  }
+  

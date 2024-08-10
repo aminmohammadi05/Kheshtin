@@ -1,0 +1,45 @@
+<div class="px-3">
+  <div class="theme-container">
+
+      
+    <div class="compare-carousel py-3"> 
+      
+      <mat-card fxLayout="row" fxLayoutAlign="space-between center" class="compare-toolbar">      
+        <h3 class="uppercase">تعداد: {{pagination.totalItems}}</h3>      
+        <div fxLayout="row" fxLayoutAlign="center center" *ngIf="config.simulateTouch">
+            <button mat-mini-fab color="primary" class="carousel-prev swiper-button-prev swipe-arrow mx-2"><mat-icon>keyboard_arrow_left</mat-icon></button>
+            <button mat-mini-fab color="primary" class="carousel-next swiper-button-next swipe-arrow mx-2"><mat-icon>keyboard_arrow_right</mat-icon></button> 
+        </div> 
+        <button mat-mini-fab color="warn" fxHide="false" fxHide.gt-xs (click)="clear()"><mat-icon>cancel</mat-icon></button>
+        <button mat-raised-button color="warn" class="uppercase" fxShow="false" fxShow.gt-xs (click)="clear()">حذف همه</button>
+      </mat-card>
+      
+      <div fxLayout="row wrap" class="properties-wrapper mt-0"> 
+                    <div *ngFor="let product of (dataSource.products$ | async)" [fxFlex]="(viewType=='grid') ? viewCol : 100"  class="item">                         
+                        <app-product-item [product]="product" [viewType]="viewType" [viewColChanged]="viewCol" [fullWidthPage]="false"></app-product-item>
+                    </div>
+        
+                    <div *ngIf="(dataSource.products$ | async)?.length == 0" fxFlex="100" fxLayoutAlign="center center" [style.min-height.px]="200">                
+                        <mat-spinner ></mat-spinner>
+                        <!-- <mat-chip-listbox*ngIf="message">
+                            <mat-chip selected disableRipple="true" color="warn" class="uppercase ws-nowrap">
+                                {{message}}
+                            </mat-chip> 
+                        </mat-chip-listbox>  -->
+                    </div>            
+        
+                    <div  fxFlex="100" fxLayoutAlign="center center" class="p-2">
+                        <mat-paginator [length]="(dataSource.pagination$ | async)?.totalItems"
+                                      [pageSize]="(dataSource.pagination$ | async)?.itemsPerPage"
+                                      [hidePageSize]="true"
+                                      (page)="onPageChange($event)"
+                                      class="w-100 mat-elevation-z1">
+                        </mat-paginator>
+                    </div>          
+                 
+                </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div style="direction: rtl;">
+
+  <div mat-dialog-content>
+    <div class="px-3">
+      <div class="theme-container">
+        <div class="widget ">
+          <mat-card class="mat-elevation-z0 brand-background">
+            <mat-card-content>
+              <div class="main-carousel mb-3">
+                <div id="main-carousel" class="swiper-container image-dialog-carousel" [swiper]="config"
+                  (indexChange)="onIndexChange($event)">
+                  <div class="swiper-wrapper">
+                    <div *ngFor="let image of carouselProductFiles" class="swiper-slide" style="text-align: center;">
+                      <img
+                        src="https://orchard.kheshtin.ir{{image.productFileImage.urls[0] }} "
+                        class="swiper-lazy"  style="max-width: 80%;max-height: 80%;">
+                      <div class="swiper-lazy-preloader"></div>
+                      <!-- <div *ngIf="authService.loggedIn()"> -->
+                      <div > 
+                        <button mat-raised-button *ngIf="productFileExists(image?.contentItemId, 5)"
+                          (click)="productService.productFileRarDownload(image, 5)"
+                          [style.backgroundImage]="'url(../../assets/buttonBackground/threedobject.jpg)'"
+                          class="uppercase mx-1 button-image download-button"></button>
+                        <button mat-raised-button *ngIf="productFileExists(image?.contentItemId, 6)"
+                          (click)="productService.productFileRarDownload(image, 6)"
+                          [style.backgroundImage]="'url(../../assets/buttonBackground/revit.jpg)'"
+                          class="uppercase mx-1 button-image download-button"></button>
+                        <button mat-raised-button *ngIf="productFileExists(image?.contentItemId, 4)"
+                          (click)="productService.productFileRarDownload(image, 4)"
+                          [style.backgroundImage]="'url(../../assets/buttonBackground/threedmax.jpg)'"
+                          class="uppercase mx-1 button-image download-button"></button>
+                        <button mat-raised-button *ngIf="productFileExists(image?.contentItemId, 13)"
+                          (click)="productService.productFileRarDownload(image, 13)"
+                          [style.backgroundImage]="'url(../../assets/buttonBackground/autocad.jpg)'"
+                          class="uppercase mx-1 button-image download-button"></button>
+
+                      </div>
+                    </div>
+                  </div>
+                  <button mat-mini-fab color="primary" class="swiper-button-prev swipe-arrow">
+                    <mat-icon>keyboard_arrow_left</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="primary" class="swiper-button-next swipe-arrow">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,16 @@
+.recent-products {
+    background-color: #ece6df;
+    
+}
+
+.product-search-box {
+    margin-left: 25px;
+    margin-right: 25px;
+}
+.carousel-padding {
+    padding-top:30px;
+}
+.product-wrapper-padding {
+    padding-left: 15px;
+    padding-right: 15px;
+}

@@ -1,0 +1,120 @@
+<div   class="properties-carousel" *ngIf="!isCandidateProducts">
+    <div *ngIf="(slides | async)?.length >= 1"  class="swiper-container h-100 carousel-outer" [index]="pageNumber" [swiper]="config" (indexChange)="onIndexChange($event)">
+        <div class="swiper-wrapper h-100">      
+            <div *ngFor="let slide of (slides | async); let ind = index" class="swiper-slide">               
+                
+                
+                <div fxLayout="row wrap" fxLayoutAlign="center" style="padding-left:4rem;padding-right:2rem;" class="slide-info" [dir]="(settings.rtl) ? 'rtl' : 'ltr'">
+                    <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.gt-xs="25">
+                        <div fxLayout="column" fxLayoutAlign="center center" style="padding-bottom: 12rem;">
+                            <div style="place-content: center;
+                            align-items: center;
+                            flex-direction: row;
+                            box-sizing: border-box;
+                            display: flex;
+                            height:8rem;
+                            width: 6rem;">
+                                <img src="../../assets/brands/small/{{currentSlide?.brandProductCollectionList[0].brandCollection.brandId}}.png"
+                                class="swiper-lazy brand-logo" style="width:100%;">
+                                
+                            </div>
+                            <span>{{(getBrandName() | async)}}</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <h1 class="slide-title">{{currentSlide?.name}}</h1>
+                            <p fxLayout="row" class="address mt-0 mb-2" style="display: flex;
+                            align-items: center;
+                            justify-content: center;">
+                                <span>{{(getCategoriesNames() | async)}}</span>
+                            </p>
+                        </div>
+                        
+                    </div>
+                     <mat-card  fxFlex="100" fxFlex.gt-sm="75" fxFlex.gt-xs="75" class="p-4" style="text-align: center; height:25rem;display: flex;
+                     align-items: center;
+                     justify-content: center;">
+                        <!-- <img style="width:20rem;"  [src]="slide.productFiles[0].reservedField2" /> -->
+                        <img style="max-width: 100%;
+                        max-height: 100%;"  [src]="'../../assets/products/medium/' + slide.productId + '_12_-1_' + slide.productFiles[0].productFileId + '_0.png'" />
+                        
+                    </mat-card>
+                    
+                      
+                </div>
+                <div fxLayout="row" >
+                    <div *ngFor="let col of getProductFilesColors(slide); let indInner = index" class="color-span"  [ngStyle]="{ 'background-color': col}"></div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    
+                    
+                    <button style="background-color: #ff6363; color: white !important; border-radius: 20px;" mat-button (click)="addToMoodBoard(slide)" >افزودن به مودبرد</button>
+    
+                </div>
+                                
+                
+            </div>
+        </div>     
+        <button mat-mini-fab color="primary" class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+        <button mat-mini-fab color="primary" class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
+      
+         
+    </div>
+</div>
+<div   class="properties-carousel" *ngIf="isCandidateProducts">
+    <div *ngIf="(slides | async)?.length >= 1"  class="swiper-container h-100 carousel-outer" [index]="pageNumber" [swiper]="config" (indexChange)="onIndexChange($event)">
+        <div class="swiper-wrapper h-100">      
+            <div *ngFor="let slide of (candidateSlides | async); let ind = index" class="swiper-slide">               
+                
+                
+                <div fxLayout="column" fxLayoutAlign="center center" style="padding-left:4rem; padding-right:2rem;" class="slide-info" [dir]="(settings.rtl) ? 'rtl' : 'ltr'">
+                    <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.gt-xs="25">
+                        <div fxLayout="column" fxLayoutAlign="center" style="padding-bottom: 12rem;">
+                            <div style="place-content: center;
+                            align-items: center;
+                            flex-direction: row;
+                            box-sizing: border-box;
+                            display: flex;
+                            height:8rem;
+                            width: 6rem;">
+                                <img src="../../assets/brands/small/{{currentSlide?.brandProductCollectionList[0].brandCollection.brandId}}.png"
+                                class="swiper-lazy brand-logo" style="width:100%;">
+                                
+                            </div>
+                            <span>{{(getBrandName() | async)}}</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <h1 class="slide-title">{{currentSlide?.name}}</h1>
+                            <p fxLayout="row" class="address mt-0 mb-2" style="display: flex;
+                            align-items: center;
+                            justify-content: center;">
+                                <span>{{(getCategoriesNames() | async)}}</span>
+                            </p>
+                        </div>
+                        
+                    </div>
+                     <mat-card fxFlex="100" fxFlex.gt-sm="75" fxFlex.gt-xs="75" class="p-4" style="text-align: center; height:25rem;display: flex;
+                     align-items: center;
+                     justify-content: center;">
+                        <!-- <img style="width:20rem;"  [src]="slide.productFiles[0].reservedField2" /> -->
+                        <img style="max-width: 100%;
+                        max-height: 100%;"  [src]="'../../assets/products/medium/' + slide.productId + '_12_-1_' + slide.product.productFiles[0].productFileId + '_0.png'" />
+                        
+                    </mat-card> 
+                    
+                </div>
+                <div fxLayout="row">
+                    <div *ngFor="let col of getProductFilesColors(slide.product); let indInner = index" class="color-span"  [ngStyle]="{ 'background-color': col}"></div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center">
+                    
+                    <button style="background-color: #ff6363; color: white !important; border-radius: 20px;" mat-button (click)="addToMoodBoard(slide)" >افزودن به مودبرد</button>
+                </div>
+                
+            </div>
+        </div>     
+        <button mat-mini-fab color="primary" class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+        <button mat-mini-fab color="primary" class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
+      
+         
+    </div>
+</div>

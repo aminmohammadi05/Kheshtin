@@ -1,0 +1,6 @@
+
+<app-office-project-header-carousel *ngIf="settings.header == 'carousel'" 
+                    [slides]="(officeProject | async)?.officeProjectImageList"
+                    [pageNumber]="selectedIndex"
+                    [contentOffsetToTop]="true">
+</app-office-project-header-carousel>

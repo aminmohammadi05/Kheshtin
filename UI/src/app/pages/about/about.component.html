@@ -1,0 +1,59 @@
+<app-header-image *ngIf="settings.header == 'image'" 
+                [backgroundImage]="'assets/images/others/homepage.jpg'"
+                [bgImageAnimate]="true"
+                [contentOffsetToTop]="true"
+                [title]="'Find your house key'"
+                [desc]="'Leading Real Estate Company'"
+                [isHomePage]="true">
+</app-header-image> 
+
+<app-header-carousel *ngIf="settings.header == 'carousel'" 
+                    [slides]="slides"
+                    [pageNumber]="1"
+                    [contentOffsetToTop]="true">
+</app-header-carousel>
+
+
+<div class="theme-container">
+    <mat-card class="main-content-header">
+        
+        <div class="section pt-2">
+            <div class="px-3">
+                <div class="theme-container">
+                    <h1 class="section-title">درباره ما</h1>
+
+                    <p class="px-3"></p>
+
+                    <div fxLayout="row wrap">
+
+                        <div fxFlex="100" fxFlex.gt-sm="50" class="p-3"> 
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <mat-icon class="mat-icon-xlg" color="primary">business</mat-icon>
+                                <h2 class="capitalize fw-600 mx-2">درباره خشتین</h2>
+                            </div>                            
+                            <p class="mt-2">گروه خشتین در سال 1399 با همکاری فارغ التحصیلان رشته های معماری و شهرسازی و کامپیوتر تاسیس شد. این گروه با رویکرد بهبود فرآیند طراحی و اجرای پروژه های معماری دست به ایجاد اولین پروژه خود، خشتین، زد.</p>
+                        </div>
+
+                        <div fxFlex="100" fxFlex.gt-sm="50" class="p-3"> 
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <mat-icon class="mat-icon-xlg" color="primary">list_alt</mat-icon>
+                                <h2 class="capitalize fw-600 mx-2">اهداف</h2>
+                            </div> 
+                            <p class="mt-2">با پر رنگ شدن نقش رایانه در فرآیند طراحی معماری، شبیه سازی رایانه ای به عنوان یکی از رایج ترین روش های ارائه، در دفاتر معماری شناخته میشود.
+                                ما در وبسایت خشتین، علاوه بر اطلاعات فنی، داده های نرم افزاری( تکسچر، متریال، آبجکت، Bim, دیتیل فنی) کالا و مصالح ساختمانی بازار ایران را در اختیار مخاطب قرار می دهیم.</p>
+                        </div>
+
+                    </div>
+            
+                    
+                </div>
+            </div>   
+        </div> 
+
+    </mat-card> 
+ 
+</div>
+
+<app-our-services></app-our-services>
+      
+<app-brands-carousel></app-brands-carousel>

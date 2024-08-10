@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+
+  # UI Container spec. note that 'ui' is the name of the container internally (also 'container_name')
+  ui:
+    container_name: kheshtin-ui
+    image: kheshtin-ui
+    build:
+      context: ./UI
+      dockerfile: DockerFile_UI
+    volumes: 
+      - ./UI:/app  # Mount these as volumes so we can watch them. 
+      - /app/node_modules  # I think this was so it didn't overwrite or copy or something...
+    ports:
+      - 3001:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  # Database Container spec.
+  sql:
+    container_name: kheshtin-sql
+    image: kheshtin-sql
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'Pa55w0rd'
+    build:
+      context: ./DB
+      dockerfile: DockerFile_SQL
+    ports:
+      - 1633:1433 # Map 1433 from inside the container to 1633 host to avoid port conflict with local install
+
+  # API container spec.
+  api:
+    container_name: kheshtin-api
+    image: kheshtin-api
+    build:
+      context: ./API
+      dockerfile: DockerFile_API
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5555
+    ports:
+        - "5555:5555"
+
+  # Allow us to execute node/npm commands without having node installed
+  # This is where you change npm packages (e.g.) with "docker compose run --rm nodeexec npm install cordova"
+  # nodeexec: 
+  #   container_name: kheshtin-nodeexec
+  #   image: kheshtin-nodeexec
+  #   build:
+  #     context: ./UI
+  #     dockerfile: DockerFile_UI
+  #     target: nodeexec
+  #   volumes: 
+  #     - ./UI:/app

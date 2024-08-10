@@ -1,0 +1,19 @@
+<mat-chip-listbox *ngIf="searchFields?.designersBox && searchFields?.designersBox[0]">
+    <mat-chip *ngFor="let type of searchFields?.designersBox; let last = last;">
+        {{type.name + ' ' + type.lastName }}        
+        <mat-icon color="warn" matChipRemove (click)="remove('designer,'+type.id)">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox> 
+<mat-chip-listbox *ngIf="searchFields?.categoriesBox &&  searchFields?.categoriesBox[0]">
+    <mat-chip *ngFor="let type of searchFields?.categoriesBox; let last = last;">
+       {{type.categoryName}}
+        <mat-icon color="warn" matChipRemove (click)="remove('categoriesBox,'+type.id)">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox>
+
+<mat-chip-listbox *ngIf="searchFields?.searchBox && searchFields?.searchBox != 'filter='">      
+    <mat-chip *ngFor="let type of searchFields?.searchBox; let last = last;">
+        {{searchFields?.searchBox}}
+        <mat-icon color="warn" matChipRemove (click)="remove('searchBox')">cancel</mat-icon>
+    </mat-chip>
+</mat-chip-listbox>

@@ -1,0 +1,42 @@
+
+<app-header-carousel
+                    [contentOffsetToTop]="true">
+</app-header-carousel>
+<div class="px-3 carousel-padding">
+    <div class="theme-container">
+        <!-- <mat-card class="main-content-header search-background product-search-box" >
+
+            <app-horizontal-properties-search
+                [variant]="settings.searchPanelVariant"
+                [searchOnBtnClick]="settings.searchOnBtnClick"
+                [removedSearchField]="removedSearchField" 
+                (SearchClick)="searchClicked($event)">
+            </app-horizontal-properties-search>            
+        </mat-card> -->
+        
+        <!-- <app-categories-quick-access #quickCategory [selectedCategoryForMenu]="selectedCategoryForMenu" [isLoadingDone]="!isLoading" (openProductsPart)="openProductsPart($event)" (selectedCategory)="quickCategorySubject.next($event)"></app-categories-quick-access> -->
+    </div>
+    
+    <div class="theme-container" *ngIf="showProductsSection">
+        <mat-spinner *ngIf="isLoading"></mat-spinner> 
+        <div fxLayout="row wrap" class="properties-wrapper" >
+            <div *ngFor="let product of products" [fxFlex]="(viewType=='grid') ? viewCol : 100" class="item">
+                <app-product-item [product]="product" [viewType]="viewType" [viewColChanged]="viewCol"></app-product-item>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div  [ngClass]="(appSettings.isMobile | async) ? '' : 'recent-products'">
+    <!-- <app-recent-products [recentProductsObjects]="latestProducts"></app-recent-products> -->
+    <!-- <app-recent-office-projects [recentOfficeProjects]="latestOfficeProjects"></app-recent-office-projects> -->
+    <app-recent-blogs [recentBlogs]="latestBlogs"></app-recent-blogs>
+    <div class="theme-container" >
+        
+        <app-home-event-timeline  [recentEvents]="latestEvents"></app-home-event-timeline>
+    </div>
+    
+    <!-- <app-brands-carousel [brands]="brands"></app-brands-carousel> -->
+</div>
+
+<!-- <app-our-services [services]="homeServices"></app-our-services> -->

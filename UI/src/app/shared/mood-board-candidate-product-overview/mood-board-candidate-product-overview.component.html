@@ -1,0 +1,19 @@
+<mat-toolbar fxLayoutAlign="space-between center">      
+  <a routerLink="/mood-board-candidate-products" (click)="hideSheet(true)" mat-raised-button color="primary">تعداد - {{ (products | async)?.length }}</a>        
+  <div fxLayout="row" fxLayoutAlign="end center">
+      <button mat-icon-button (click)="hideSheet(false)" matTooltip="حذف لیست مقایسه">
+        <mat-icon color="warn" class="mat-icon-lg">cancel</mat-icon> 
+      </button>
+      <button mat-icon-button (click)="hideSheet(false)" matTooltip="پنهان کن">
+        <mat-icon color="primary" class="mat-icon-lg">arrow_drop_down_circle</mat-icon> 
+      </button>
+  </div>
+</mat-toolbar>
+<mat-nav-list>
+  <a mat-list-item *ngFor="let product of products" (click)="hideSheet(true)">
+    <h3 mat-line class="fw-500">{{product.name}}</h3>
+    <button mat-icon-button color="warn" class="remove" (click)="remove(product, $event)" matTooltip="حذف" matTooltipPosition="after">
+        <mat-icon class="mat-icon-sm">close</mat-icon>
+    </button>
+  </a>
+</mat-nav-list>

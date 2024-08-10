@@ -1,0 +1,132 @@
+/* The actual timeline (the vertical ruler) */
+.timeline-vertical {
+  direction: ltr;
+    position: relative;
+    max-width: 43.75rem;
+    margin: 0 auto;
+  }
+  
+  /* The actual timeline (the vertical ruler) */
+  @media screen and (max-width: 56.25rem) {
+    /* Place the timelime to the left */
+    // .timeline-vertical::after {
+    //   content: '';
+    //   position: absolute;
+    //   width: 6px;
+    //   background-color: white;
+    //   top: 0;
+    //   bottom: 0;
+    //   left: 50%;
+    //   margin-left: -3px;
+    // }
+    
+    /* Container around content */
+    .container-timeline-vertical {
+      padding: 10px 40px;
+      position: relative;
+      background-color: inherit;
+      width: 90%;
+    }
+    
+    /* The circles on the timeline */
+    // .container-timeline-vertical::after {
+    //   content: '';
+    //   position: absolute;
+    //   width: 1.563rem;
+    //   height: 1.563rem;
+    //   right: -1.063rem;
+    //   background-color: white;
+    //   border: 4px solid #D7792A;
+    //   top: 0.938rem;
+    //   border-radius: 50%;
+    //   z-index: 1;
+    // }
+    
+    /* Place the container to the left */
+    // .left {
+    //   left: -5rem;
+    // }
+    
+    /* Place the container to the right */
+    // .right {
+    //   left: 50%;
+    // }
+    
+    // /* Add arrows to the left container (pointing right) */
+    // .left::before {
+    //   content: " ";
+    //   height: 0;
+    //   position: absolute;
+    //   top: 1.375rem;
+    //   width: 0;
+    //   z-index: 1;
+    //   right: 1.875rem;
+    //   border: medium solid white;
+    //   border-width: 0.625rem 0 0.625rem 0.625rem;
+    //   border-color: transparent transparent transparent white;
+    // }
+    
+    /* Add arrows to the right container (pointing left) */
+    // .right::before {
+    //   content: " ";
+    //   height: 0;
+    //   position: absolute;
+    //   top: 1.375rem;
+    //   width: 0;
+    //   z-index: 1;
+    //   left: 1.875rem;
+    //   border: medium solid white;
+    //   border-width: 0.625rem 0.625rem 0.625rem 0;
+    //   border-color: transparent white transparent transparent;
+    // }
+    
+    // /* Fix the circle for containers on the right side */
+    // .right::after {
+    //   left: -1rem;
+    // }
+    
+    /* The actual content */
+    .content-timeline-vertical {
+      padding: 1.25rem 1.25rem;
+      background-color: white;
+      position: relative;
+      border-radius: 6px;
+    }
+  }
+  
+  
+  /* Media queries - Responsive timeline on screens less than 600px wide */
+  @media screen and (max-width: 43.75rem) {
+    /* Place the timelime to the left */
+    // .timeline-vertical::after {
+    // left: 1.938rem;
+    // }
+    
+    /* Full-width containers */
+    .container-timeline-vertical {
+    width: 90%;
+    padding-left: 1.563rem;
+    padding-right: 1.563rem;
+    }
+    
+    /* Make sure that all arrows are pointing leftwards */
+    // .container-timeline-vertical::before {
+    // left: 3.75rem;
+    // border: medium solid white;
+    // border-width: 0.625rem 0.625rem 0.625rem 0;
+    // border-color: transparent white transparent transparent;
+    // }
+  
+    // /* Make sure all circles are at the same spot */
+    // .left::after, .right::after {
+    // left: 15px;
+    // }
+    
+    // /* Make all right containers behave like the left ones */
+    // .right {
+    // left: 0%;
+    // }
+    // .left {
+    //   left: 0%;
+    //   }
+  }

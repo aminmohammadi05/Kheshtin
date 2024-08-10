@@ -1,0 +1,153 @@
+.landing-page{ 
+
+    .header-section{ 
+
+        position: relative;
+
+        overflow: hidden;
+
+        background-repeat: no-repeat;
+
+        background-size: cover;
+
+        background-position: center; 
+
+        background-image: url('../../../assets/images/props/office-2/1-big.jpg');       
+
+        &:before{        
+
+            content: '';        
+
+            position:absolute;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            z-index: 1;
+
+            width: 100%;
+
+            height: 100%; 
+
+            background: rgba(0,0,0, 0.81);  
+
+        }
+
+        .content{
+
+            position: relative;
+
+            z-index: 9;
+
+            color: #fff;            
+
+            text-align: center;
+
+            h1{
+
+                font-size: 2.25rem;
+
+                font-weight: 400;
+
+            }
+
+            h4{
+
+                font-size: 1.0rem;
+
+                font-weight: 300;
+
+                max-width: 43.75rem;
+
+                margin: 0 auto;
+
+            }
+
+        }  
+
+    }
+
+    .main-wrapper{
+
+        margin: -1.0rem;
+
+        .box{
+
+            text-align: center;
+
+            padding: 1.0rem;  
+
+            margin-bottom: 1.5rem;         
+
+            h2{
+
+                padding: 1.0rem 0;
+
+                font-weight: 500;
+
+            }
+
+            .mat-card{ 
+
+                background-size: cover;
+
+                height: 18.75rem;
+
+                background-position: top;
+
+                transition: 5s; 
+
+                box-shadow: 0.0rem 0.188rem 0.188rem -0.125rem rgba(0, 0, 0, 0.2), 
+
+                            0.0rem 0.188rem 0.25rem 0.0rem rgba(0, 0, 0, 0.14), 
+
+                            0.0rem 0.062rem 0.5rem 0.0rem rgba(0, 0, 0, 0.12);
+
+            }
+
+            &:hover{
+
+                .mat-card{
+
+                    background-position: bottom;
+
+                }
+
+
+
+            }
+
+        }
+
+    }
+
+    p{
+
+        font-size: 1.0rem;
+
+    }
+
+    .copyright{
+
+        margin-top: 2.25rem;
+
+        height: 4.0rem;
+
+        p{
+
+            font-size: 0.812rem;
+
+            font-weight: 400;
+
+            margin-bottom: 0;
+
+            line-height: 1.2;
+
+        }
+
+    }
+
+}

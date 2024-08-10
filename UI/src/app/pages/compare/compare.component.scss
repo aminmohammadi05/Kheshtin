@@ -1,0 +1,101 @@
+.compare-carousel{    
+
+    .compare-toolbar{
+
+        min-height: 4.5rem;
+
+        button.swipe-arrow{
+
+            position: relative;
+
+            margin-top: 0;
+
+            right: 0;
+
+            left: 0;
+
+            z-index: 2; 
+
+        }
+
+    }
+
+}
+
+.compare-item{
+
+    .remove{
+
+        position: absolute;
+
+        right: 0;
+
+        top: 0;
+
+    }
+
+    .title{
+
+        text-align: center;
+
+        a{
+
+            transition: 0.2s;
+
+            text-decoration: none;
+
+        }
+
+    }
+
+    .address{
+
+        font-size: 0.75rem;
+
+    }
+
+    .details{
+
+        .item{
+
+            padding: 0.5rem 0; 
+
+            span:first-child{
+
+                margin-right: 0.5rem;
+
+                font-weight: 500;
+
+                min-width: 7.125rem;
+
+            }
+
+            .list{
+
+                span{
+
+                    font-weight: normal;
+
+                    min-width: auto;
+
+                    &:not(.last):after{
+
+                        content: ","; 
+
+                    } 
+
+                    &.last:after{
+
+                        content: none; 
+
+                    }    
+
+                }                          
+
+            } 
+
+        }        
+
+    }
+
+}

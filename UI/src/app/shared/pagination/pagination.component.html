@@ -1,0 +1,39 @@
+<nav>
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+
+        <!-- <button mat-icon-button (click)="selectPageNumber(1)">
+            <mat-icon color="primary">keyboard_double_arrow_right</mat-icon>
+            
+        </button> -->
+      
+      
+      <button mat-icon-button (click)="previous()">
+        <mat-icon color="primary">keyboard_arrow_right</mat-icon>
+        
+    </button>
+     
+      <!-- page numbers -->
+      <div >
+        <span>
+            {{currentPage}}
+        </span>
+        <span>
+            از
+        </span>
+        <span>
+            {{totalPages.length }}
+        </span>
+    </div>
+      <!-- next button -->
+      
+      <button mat-icon-button (click)="next()">
+        <mat-icon color="primary">keyboard_arrow_left</mat-icon>
+        
+    </button>
+      
+        <!-- <button mat-icon-button (click)="selectPageNumber(totalPages.length)">
+            <mat-icon color="primary">keyboard_double_arrow_left</mat-icon>
+        </button> -->
+    </div>
+      
+  </nav>

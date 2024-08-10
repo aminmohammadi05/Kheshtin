@@ -1,0 +1,40 @@
+<form [formGroup]="form" class="search-wrapper" [ngClass]="'variant-'+variant" >
+
+  <div [fxLayout]="(vertical) ? 'column' : 'row wrap'"> 
+      <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+          <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
+              <mat-label>جستجو</mat-label>
+              <input matInput placeholder="متن جستجو" autocomplete="off" formControlName="searchBox">                  
+          </mat-form-field>
+      </div>
+      <mat-accordion>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              مجموعه ها
+            </mat-panel-title>            
+          </mat-expansion-panel-header>
+          <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-2"> 
+            <app-brand-collections (BrandCollectionChange)="brandCollectionsChanged($event)" [brandId]="brandId" [selectedIdList]="" name="brandCollectionBox" formControlName="brandCollectionBox"></app-brand-collections>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                شاخه ها
+              </mat-panel-title>              
+            </mat-expansion-panel-header>
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-2 search-box">
+                <app-categories *ngIf="vertical" (CategoryChange)="categoryChanged($event)" [selectedIdList]="" name="categoriesBoxNested" formControlName="categoriesBoxNested"></app-categories>
+            </div>
+          </mat-expansion-panel>
+    </mat-accordion>
+      
+      
+      
+      <!-- <div fxFlex="100" fxFlex.gt-sm="12" fxFlex.sm="50" class="p-2">
+          <button mat-raised-button  class="uppercase mx-1" (click)="reset()">پاک کردن</button>
+      </div> -->
+  </div>
+  
+</form>

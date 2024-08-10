@@ -1,0 +1,35 @@
+.clients-carousel {
+    position: relative;
+
+    .swiper-container {
+        padding: 0.5rem 0.125rem;
+        margin: 0 0.875rem;
+
+        .client-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            opacity: .75;
+            
+            &:hover {
+                opacity: 1;
+            }
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                margin: 0 auto;
+            }
+
+            p span.show-title {
+                // visibility: hidden;
+                text-align: center;
+            }
+
+            :hover span.show-title {
+                visibility: visible;
+            }
+        }
+    }
+}
+

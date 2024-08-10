@@ -1,0 +1,137 @@
+<!-- First toolbar (row 1) -->
+<div id="top-toolbar" class="top-toolbar"  >
+  
+  <div class="theme-container" fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- Social Icons -->
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <span fxHide="false" fxHide.gt-sm>
+        <button mat-button (click)="sidenavToggle()" >
+          <mat-icon>menu</mat-icon>
+        </button>
+      </span>
+      <app-social-icons fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-md  ></app-social-icons>
+      <app-user-menu *ngIf="(appSettings.isMobile | async)" ></app-user-menu>
+      
+      <div style="padding-top: 1rem;">
+        <a *ngIf="(appSettings.isMobile | async)"   style="color: black;" [ngStyle]="{'background-color':  + searchClicked ? '#F5F5F5' : 'white' }"   fxShow.gt-md (click)="openSearchField()"   >
+      
+          <mat-icon  style="font-size: 1.125rem; padding-top: 3px; padding-left: 3px; background-color: rgb(245, 245, 245);" [ngStyle]="searchClicked ? {'background-color': 'rgb(245, 245, 245)'} : {'background-color': '#ffffff'}">
+            search</mat-icon>
+        
+          
+        </a>
+      </div>
+      
+    </div>
+    <!-- <app-social-icons fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-md></app-social-icons> -->
+
+    <!-- Search Box -->
+    
+      
+    
+   
+
+    <!-- User Actions -->
+    <div *ngIf="!(appSettings.isMobile | async)" fxLayout="row" fxLayoutAlign="center"  style="width: 100%">
+      <mat-form-field *ngIf="!(appSettings.isMobile | async)" matRipple matRippleColor="#CFD8DC" appearance="fill" class="search "   [floatLabel]="'always'">
+        
+        <!-- <input #searchField matInput type="text" style="font-size: 12px; font-weight: 400; line-height: 1.125; font-family: 'Vazir FD';" placeholder="جستجو در محصولات، برندها، پروژه‌ها و ..." autocomplete="off"> -->
+        <input #searchField matInput type="text" style="font-size: 12px; font-weight: 400; line-height: 1.125; font-family: 'Vazir FD';" placeholder="جستجو در خشتین ..." autocomplete="off">
+        <button mat-icon-button matSuffix (click)="search()" [disabled]="!searchField.value">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+      
+      
+    </div>
+    <div *ngIf="!(appSettings.isMobile | async)" fxLayout="row" fxLayoutAlign="center" style="min-width: 16.3rem;">
+      <a *ngIf="!(appSettings.isMobile | async)" routerLink="/account/favorites"  style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B; "  fxShow.gt-md class="tooltip">
+        <span class="tooltiptext">علاقه مندی ها</span>
+        <mat-icon style="font-size: 1.125rem; color: #5C5B5B;"
+          matBadgeSize="small" matBadgeColor="warn">favorite_border</mat-icon>
+      </a>
+      
+      <a *ngIf="!(appSettings.isMobile | async)" routerLink="/compare"  style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B;"  fxShow.gt-md class="tooltip">
+        <span class="tooltiptext">لیست مقایسه ها</span>
+        <mat-icon  matBadgeSize="small" matBadgeColor="warn" style="font-size: 1.125rem; color: #5C5B5B;">
+          compare_arrows</mat-icon>
+      </a>
+      <a *ngIf="!(appSettings.isMobile | async)" routerLink="/mood-board-candidate-products" style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B;"   fxShow.gt-md class="tooltip">
+        <span class="tooltiptext"> محصولات مودبرد </span>
+        <mat-icon style="font-size: 1.125rem; color: #5C5B5B;">
+          dashboard</mat-icon>
+      </a>
+      <app-user-menu *ngIf="!(appSettings.isMobile | async)" ></app-user-menu>
+    </div>
+    
+    
+   <div *ngIf="(appSettings.isMobile | async)">
+     <a   class="logo " routerLink="/">
+       <app-logo ></app-logo>
+     </a>
+   </div>
+  </div>
+</div>
+
+<!-- Second toolbar (row 2) -->
+<mat-toolbar id="main-toolbar" *ngIf="!(appSettings.isMobile | async)" class="mat-elevation-z1"  style="background: #fff;">
+  <div class="theme-container" fxLayout="row" fxLayoutAlign="space-between center">
+    <a  [ngClass]="!(appSettings.isMobile | async) ? 'logo' : ''"  routerLink="/">
+      <app-logo ></app-logo>
+    </a>
+
+    <div fxShow="false" fxShow.gt-sm class="horizontal-menu" style="width: 100%">
+      <app-horizontal-menu></app-horizontal-menu>
+    </div>
+    
+    
+    <div  >
+      <a (click)="openShowRoom()" class="mat-button mat-button-base btn-flip " style="font-family: Vazir FD; font-size: 0.875rem;" data-back="تکسچرساز" data-front="تکسچرساز"></a>
+      <a (click)="openMoodBoardMaker()" class="mat-button mat-button-base btn-flip " style="font-family: Vazir FD; font-size: 0.875rem;" data-back="مودبردساز" data-front="مودبردساز"></a>
+
+      <!-- <a routerLink="/account/favorites" mat-icon-button fxShow="false" fxShow.gt-md class="mr-3 ml-2 tooltip">
+        <span class="tooltiptext">علاقه مندی ها</span>
+        <mat-icon [matBadge]="(userFavorites | async).length" [matBadgeHidden]="(userFavorites | async).length == 0"
+          matBadgeSize="small" matBadgeColor="warn">favorite_border</mat-icon>
+      </a>
+      <a routerLink="/compare" mat-icon-button fxShow="false" fxShow.gt-md class="mr-3 ml-2 tooltip">
+        <span class="tooltiptext">لیست مقایسه ها</span>
+        <mat-icon [matBadge]="productService.Data.compareList.length"
+          [matBadgeHidden]="productService.Data.compareList.length == 0" matBadgeSize="small" matBadgeColor="warn">
+          compare_arrows</mat-icon>
+      </a>
+      <a routerLink="/mood-board-candidate-products" mat-icon-button fxShow="false" fxShow.gt-md class="mr-3 ml-2 tooltip">
+        <span class="tooltiptext"> محصولات مودبرد </span>
+        <mat-icon >
+          dashboard</mat-icon>
+      </a> -->
+      
+<!-- 
+      <a routerLink="/submit-property" mat-mini-fab color="primary" fxHide="false" fxHide.gt-xs><mat-icon>add</mat-icon></a>
+      <a routerLink="/submit-property" mat-raised-button color="primary" fxShow="false" fxShow.gt-xs class="uppercase">submit property</a> -->
+
+      <!-- <a mat-icon-button fxShow="false" fxShow.gt-md class="mr-3 ml-2 tooltip">
+        <span class="tooltiptext">جستجو</span>
+        <mat-icon >search</mat-icon>
+      </a> -->
+      
+    </div>
+    
+  </div>
+</mat-toolbar>
+
+<mat-toolbar *ngIf="(appSettings.isMobile | async) && searchClicked"   class="mat-elevation-z1 "  style="background: #F5F5F5;">
+  <div class="theme-container" fxLayout="row" fxLayoutAlign="space-between center">
+   
+   
+   
+
+    <div class="search-mobile-wrapper cf" fxLayout="row" fxLayoutAlign="space-between center">
+      
+      <input type="text" placeholder="جستجو در خشتین ..." autocomplete="off" required style="box-shadow: none">
+      <button  (click)="search()" >
+        <mat-icon style="padding: 9px;">search</mat-icon>
+      </button>
+  </div>
+  </div>
+</mat-toolbar>

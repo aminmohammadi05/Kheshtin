@@ -1,0 +1,8 @@
+<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="example-box box-shadow-c1"
+    *ngFor="let product of products;index as i" cdkDrag>
+    <img style="width:2rem;" [src]="getFileIdByColor(product)">
+    <div>
+      لایه {{i + 1}}</div>
+  </div>
+</div>

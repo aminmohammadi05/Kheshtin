@@ -1,0 +1,23 @@
+<div class="section mt-3">
+  <div class="px-3">
+      <div class="theme-container">
+           <div class="clients-carousel"> 
+              <div class="swiper-container h-100" [swiper]="config"> 
+                  <div class="swiper-wrapper h-100">      
+                      <div *ngFor="let productFile of productFiles; let i=index;" class="swiper-slide" [ngClass]="'thumb-'+i" [class.active-thumb]="i == 0">
+                        <img src="../../assets/products/small/{{ productFile.productId + '_' + productFile.fileType + '_-1_' + productFile.productFileId + '_0.jpg'}}" class="swiper-lazy mw-100 small-carousel-image"> 
+                        <p>{{productFile.name}}</p>
+                        <div class="swiper-lazy-preloader"></div>
+                        <div class="control-icons" *ngIf="authService.loggedIn()">
+                          <a mat-button   href="../../assets/products/big/{{productFile.productId + '_' + productFile.fileType + '_-1_' + productFile.productFileId + '_0.rar'}}">
+                              <mat-icon class="mat-icon-sm">get_app</mat-icon>
+                          </a>
+                      </div>  
+                      </div>
+                  </div> 
+              </div>
+          </div>
+              
+      </div>
+  </div>   
+</div>

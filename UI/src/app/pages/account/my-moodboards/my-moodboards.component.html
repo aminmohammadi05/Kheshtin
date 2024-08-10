@@ -1,0 +1,44 @@
+
+<div class="px-3"> 
+
+<div class="theme-container">  
+
+<mat-sidenav-container class="all-properties mt-3"> 
+
+<mat-sidenav-content ngClass.gt-sm="distance"> 
+
+<div fxLayout="row wrap" class="properties-wrapper mt-0">  
+
+<div *ngFor="let moodBoard of (dataSource.moodBoards$ | async)" [fxFlex]="(viewType=='grid') ? viewCol : 100"  class="item">                         
+<app-mood-board-item [moodBoard]="moodBoard" [viewType]="viewType" [viewColChanged]="viewCol" [fullWidthPage]="false"></app-mood-board-item>
+</div>
+
+<div *ngIf="(dataSource.moodBoards$ | async)?.length == 0" fxFlex="100" fxLayoutAlign="center center" [style.min-height.px]="200">                
+<mat-spinner ></mat-spinner>
+<!-- <mat-chip-listbox *ngIf="message">
+  <mat-chip selected disableRipple="true" color="warn" class="uppercase ws-nowrap">
+      {{message}}
+  </mat-chip> 
+</mat-chip-listbox>  -->
+</div>            
+
+<div  fxFlex="100" fxLayoutAlign="center center" class="p-2">
+<mat-paginator [length]="(dataSource.pagination$ | async)?.totalItems"
+            [pageSize]="(dataSource.pagination$ | async)?.itemsPerPage"
+            [hidePageSize]="true"
+            (page)="onPageChange($event)"
+            class="w-100 mat-elevation-z1">
+</mat-paginator>
+</div>          
+
+</div>
+
+
+
+</mat-sidenav-content>
+</mat-sidenav-container>
+
+</div>
+
+</div>
+

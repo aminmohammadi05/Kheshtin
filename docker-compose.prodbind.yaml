@@ -1,0 +1,145 @@
+version: '3.9'
+
+services:
+  bind9:
+    container_name: kheshtin-dns
+    image: ubuntu/bind9:latest:v1.0.37
+    environment:
+      BIND9_USER: root
+      TZ: 'Asia/Tehran'
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    volumes:
+      - ./config:/etc/bind
+      - ./cache:/var/cache/bind
+      - ./records:/var/lib/bind
+    restart: always
+  # certbot:
+  #   container_name: certbot
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./certbot
+  #   depends_on:
+  #     - nginx
+  #   image: certbot/certbot:v.1.0.3
+  #   command: certonly --webroot --webroot-path=/var/www/certbot --email kheshtinco@gmail.com --agree-tos --no-eff-email --keep --expand --cert-name kheshtin.ir -d test.kheshtin.ir -d orchard.kheshtin.ir -d kheshtin.ir
+  #   volumes:
+  #     - /root/certbot/www/:/var/www/certbot/:rw
+  #     - /root/certbot/conf/:/etc/letsencrypt/:rw
+  #   networks:
+  #     - elastic
+  # nginx:
+  #   container_name: nginx
+  #   depends_on:
+  #     - api
+  #     - ui
+  #   restart: always
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./nginx
+  #   image: nginx:v1.0.8
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     - ./nginx/conf/:/etc/nginx/conf.d/:ro
+  #     - /root/certbot/www/:/var/www/certbot/:ro
+  #     - /root/certbot/conf/:/etc/nginx/ssl/:ro
+  #   links:
+  #     - ui
+  #     - api
+  #   networks:
+  #     - elastic
+
+  # # UI Container spec. note that 'ui' is the name of the container internally (also 'container_name')
+  # ui:
+  #   container_name: kheshtin-ui-prod
+  #   image: kheshtin-ui-prod:v1.0.40
+  #   env_file: ./UI/.env
+  #   build:
+  #     context: ./UI
+  #     dockerfile: DockerFile_UI.prod
+  #   links:
+  #     - api
+  #   networks:
+  #     - elastic
+
+  # # API container spec.
+  # api:
+  #   container_name: kheshtin-api
+  #   image: kheshtin-api:v1.0.13
+  #   build:
+  #     context: ./API
+  #     dockerfile: DockerFile_API
+  #   environment:
+  #     ASPNETCORE_ENVIRONMENT: Production
+  #     ASPNETCORE_URLS: http://+:5555
+  #   depends_on:
+  #     - sql
+  #   links:
+  #     - sql
+  #   networks:
+  #     - elastic
+  #   volumes:
+  #     - /root/orchard/App_Data:/app/App_Data
+  #     - /root/orchard/wwwroot:/app/wwwroot
+
+  # # Database Container spec.
+  # sql:
+  #   container_name: kheshtin-sql
+  #   image: kheshtin-sql:v1.0.5
+  #   user: root
+  #   environment:
+  #     ACCEPT_EULA: 'Y'
+  #     SA_PASSWORD: 'Pa55w0rd<db0562096>'
+  #     TZ: 'Asia/Tehran'
+  #   build:
+  #     context: ./DB
+  #     dockerfile: DockerFile_SQL
+  #   ports:
+  #     - 1633:1433
+  #   networks:
+  #     - elastic
+  #   volumes:
+  #     - /root/sqlserver/data:/var/opt/mssql/data
+  #     - /root/sqlserver/log:/var/opt/mssql/log
+  #     - /root/sqlserver/secrets:/var/opt/mssql/secrets
+  # es01:
+  #   # run sysctl -w vm.max_map_count=262144
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+  #   container_name: es01
+  #   environment:
+  #     - node.name=es01
+  #     - cluster.name=es-docker-cluster
+  #     - cluster.initial_master_nodes=es01
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - data01:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9200:9200
+  #   networks:
+  #     - elastic
+
+  # kib01:
+  #   image: docker.elastic.co/kibana/kibana:7.10.2
+  #   container_name: kib01
+  #   ports:
+  #     - 5601:5601
+  #   environment:
+  #     ELASTICSEARCH_URL: http://es01:9200
+  #     ELASTICSEARCH_HOSTS: http://es01:9200
+  #   networks:
+  #     - elastic
+volumes:
+  data01:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge

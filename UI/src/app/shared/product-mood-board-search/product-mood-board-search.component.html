@@ -1,0 +1,320 @@
+<div class="scrollable-area">
+    <div id="texture-controls">
+        <div  class="sidebar-section section-first" id="category-section">
+            <div class="section-header">فیلتر محصولات</div>
+
+            <!-- <div class="input-line">
+                <mat-slide-toggle (change)="getMyProducts($event)">محصولات من</mat-slide-toggle>
+            </div> -->
+
+            <!-- <div class="input-line">
+                <input id="filterMyProducts" class="parameter" type="checkbox" [checked]="false" 
+                    (change)="getMyProducts($event)" />
+                <label for="filterMyProducts">محصولات من</label><br>
+            </div> -->
+
+            <!-- Category -->
+            <div class="input-label">شاخه</div>
+            <div class="input-row">
+                <div class="pseudo-select menu-toggle app-input psuedo-with-reset" (click)="this.showCategoriesDialog = !this.showCategoriesDialog;" data-image-src="herringbone">
+                    <div class="pseudo-select-text" *ngIf="searchFields.categoriesBox.length === 0">انتخاب نشده</div>
+                    <div class="pseudo-select-text" *ngIf="searchFields.categoriesBox.length > 0">{{searchFields.categoriesBox[0].name}}</div>
+                    <div class="circle-thumb" *ngIf="searchFields.categoriesBox.length === 0"></div>
+                    <div class="circle-thumb selected-circle-thumb"  *ngIf="searchFields.categoriesBox.length > 0"
+                        style="background-image: url('../../assets/categories/{{searchFields.categoriesBox[0].categoryId}}.webp');background-size:100%; background-repeat: no-repeat;">
+                    </div>
+                    <input id="category-input" type="text" class="hidden-input parameter" data-crop="new" data-regen="true">
+                </div>
+                <div id="reset-category" data-rotate="0" class="app-icon-button" (click)="categoryChanged(null)">
+                    <div class="svg-icon svg-icon-path app-icon" >
+                        <svg id="Rotate" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path class="cls-1" d="M135.394,62.739a62.665,62.665,0,1,0-.538,37.147"></path><path id="Shape_1_copy" data-name="Shape 1 copy" class="cls-1" d="M148.785,22.881L137.623,64.218"></path><path class="cls-1" d="M95.967,53.142l41.656,11.076"></path></svg>
+                    </div>                    
+                </div>
+            </div>
+
+            <!-- Producer -->
+            <div class="input-label">تولید کننده</div>
+            <div class="input-row">
+                <div class="pseudo-select menu-toggle app-input psuedo-with-reset" data-target="producer-menu" (click)="this.showProducersDialog = !this.showProducersDialog" data-image-src="herringbone">
+                    <div class="pseudo-select-text" *ngIf="searchFields.brandsBox.length === 0">انتخاب نشده</div>
+                    <div class="pseudo-select-text" *ngIf="searchFields.brandsBox.length > 0">{{searchFields.brandsBox[0].name}}</div>
+                    <div class="circle-thumb" *ngIf="searchFields.brandsBox.length === 0"></div>
+                    <div class="circle-thumb selected-circle-thumb"  *ngIf="searchFields.brandsBox.length > 0"
+                        style="background-image: url('../../assets/brands/small/{{searchFields.brandsBox[0].brandId}}.png');background-size:100%; background-repeat: no-repeat;">
+                    </div>
+                    <input id="brand-input" type="text" class="hidden-input parameter" data-crop="new" data-regen="true">
+                </div>
+                <div id="reset-category" data-rotate="0" class="app-icon-button" (click)="brandChanged(null)">
+                    <div class="svg-icon svg-icon-path app-icon">
+                        <svg id="Rotate" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path class="cls-1" d="M135.394,62.739a62.665,62.665,0,1,0-.538,37.147"></path><path id="Shape_1_copy" data-name="Shape 1 copy" class="cls-1" d="M148.785,22.881L137.623,64.218"></path><path class="cls-1" d="M95.967,53.142l41.656,11.076"></path></svg>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Material -->
+            <div class="input-label">جنس</div>
+            <div class="input-row">
+                <div class="pseudo-select menu-toggle app-input psuedo-with-reset" data-target="material-menu" (click)="this.showMaterialsDialog = !this.showMaterialsDialog" data-image-src="herringbone">
+                    <div class="pseudo-select-text" *ngIf="searchFields.materialsBox.length === 0">انتخاب نشده</div>
+                    <div class="pseudo-select-text" *ngIf="searchFields.materialsBox.length > 0">{{searchFields.materialsBox[0].label}}</div>
+                    <div class="circle-thumb" *ngIf="searchFields.materialsBox.length === 0"></div>
+                    <div class="circle-thumb selected-circle-thumb"  *ngIf="searchFields.materialsBox.length > 0"
+                        style="background-size:100%; background-repeat: no-repeat;">
+                    </div>
+                    <input id="brand-input" type="text" class="hidden-input parameter" data-crop="new" data-regen="true">
+                </div>
+                <div id="reset-category" data-rotate="0" class="app-icon-button" (click)="materialChanged(null)">
+                    <div class="svg-icon svg-icon-path app-icon" >
+                        <svg id="Rotate" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path class="cls-1" d="M135.394,62.739a62.665,62.665,0,1,0-.538,37.147"></path><path id="Shape_1_copy" data-name="Shape 1 copy" class="cls-1" d="M148.785,22.881L137.623,64.218"></path><path class="cls-1" d="M95.967,53.142l41.656,11.076"></path></svg>
+                    </div>                    
+                </div>
+            </div>
+
+            <!-- Color -->
+            <div class="input-label">رنگ</div>
+            <div class="input-row">
+                <div class="pseudo-select menu-toggle app-input psuedo-with-reset" data-target="color-menu" (click)="this.showColorsDialog = !this.showColorsDialog" data-image-src="herringbone">
+                    <div class="pseudo-select-text" *ngIf="searchFields.colorsBox.length === 0">انتخاب نشده</div>
+                    <div class="pseudo-select-text" *ngIf="searchFields.colorsBox.length > 0">{{searchFields.colorsBox[0].label}}</div>
+                    <div class="circle-thumb" *ngIf="searchFields.colorsBox.length === 0"></div>
+                    <div class="circle-thumb selected-circle-thumb"  *ngIf="searchFields.colorsBox.length > 0"
+                        style="background-size:100%; background-repeat: no-repeat;"
+                        [style.background-color]="'#' + searchFields.colorsBox[0].value">
+                    </div>
+                    <input id="brand-input" type="text" class="hidden-input parameter" data-crop="new" data-regen="true">
+                </div>
+                <div id="reset-category" data-rotate="0" class="app-icon-button" (click)="colorChanged(null)">
+                    <div class="svg-icon svg-icon-path app-icon" >
+                        <svg id="Rotate" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path class="cls-1" d="M135.394,62.739a62.665,62.665,0,1,0-.538,37.147"></path><path id="Shape_1_copy" data-name="Shape 1 copy" class="cls-1" d="M148.785,22.881L137.623,64.218"></path><path class="cls-1" d="M95.967,53.142l41.656,11.076"></path></svg>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+            <!-- <div class="input-row">
+                <div id="rows-input-group" class="input-group hide-0 default-parameter">
+                    <div class="input-label">سطرها</div>
+                    <input id="rows" data-parameter="rows" class="rows-parameter parameter pattern-row-column"
+                        type="number" data-crop="new" data-regen="true" data-initial-value="6" value="5">
+                </div>
+                <div id="columns-input-group" class="input-group hide-0 default-parameter">
+                    <div class="input-label">ستون ها</div>
+                    <input id="columns" data-parameter="columns"
+                        class="columns-parameter parameter pattern-row-column" data-crop="new" data-regen="true"
+                        data-initial-value="4" type="number" value="5">
+                </div>
+            </div> -->
+
+            <!-- <div class="input-row" style="">
+                <div id="texture-size" class="input-label" style="height:2px;margin-top:9px; direction: ltr;">1146 x
+                    891 mm</div>
+            </div> -->
+        
+    </div>
+
+    <div class="sidebar-section">
+        <div class="section-header">تنظیمات مودبرد</div>
+        <div class="input-row">
+            <div id="tint-container" class="input-block product-toggled-parameter" style="">
+                <div class="input-label">رنگ پس زمینه‌ی مودبرد</div>
+                <div id="tile-tint" data-target="spectrum-menu"
+                    class="spectrum parameter pseudo-select menu-toggle app-input"
+                    [(colorPicker)]="color1" 
+                    [cpPosition]="'top-left'" [cpPositionRelativeToArrow]="true" [cpPositionOffset]="'10%'"
+                    (colorPickerOpen)="onEventLog('colorPickerOpen', $event)"
+                    (colorPickerClose)="onEventLog('colorPickerClose', $event)"
+                    (cpInputChange)="onEventLog('cpInputChange', $event)"
+                    (cpSliderDragStart)="onEventLog('cpSliderDragStart', $event)"
+                    (cpSliderDragEnd)="onEventLog('cpSliderDragEnd', $event)">
+                    <div class="pseudo-select-text">{{color1}}</div>
+                    <div class="circle-thumb circle-icon" style="background-image: url('/assets/images/icons/paint.png');" [style.background-color]="color1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Menu -->
+<div *ngIf="showCategoriesDialog" class="menu-dialog menu-full active" data-option="pattern" id="category-menu">
+    <div class="arrow">
+        <svg class="diamond" version="1.1" viewBox="0 0 50 100" style="top: 180.528px;">
+            <polygon fill="#FFFFFF" points="0,0 50,50 0,100 "></polygon>
+        </svg>
+    </div>
+    <div class="header">
+        <div class="menu-title menu-item">انتخاب شاخه</div>
+        <div class="svg-icon menu-toggle svg-icon-fill icon x-icon app-icon close-menu" (click)="this.showCategoriesDialog = false">
+            <svg id="X" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+                <path class="asudbeu" d="M27.2,122.238L122.238,27.2,132.8,37.762,37.762,132.8Z"></path>
+                <path id="Rectangle_1_copy" data-name="Rectangle 1 copy" class="asudbeu"
+                    d="M37.762,27.2L132.8,122.238,122.238,132.8,27.2,37.762Z"></path>
+            </svg>
+        </div>
+    </div>
+    <div class="menu-content">
+        <div class="menu-option-container">
+            <div class="sidebar-section">
+                <div *ngFor="let category of (categories | async)" class="menu-option" (click)="categoryChanged(category)">
+                    <div class="menu-option-img-container option-img-container dialog-img" 
+                    [ngClass]="{'option-img-container-selected': searchFields.categoriesBox.length > 0 && category.categoryId === searchFields.categoriesBox[0].categoryId}"
+                        style="background-image: url('../../assets/categories/{{category.categoryId}}.webp');background-size:100%; background-repeat: no-repeat;">
+                    </div>
+                    <div class="menu-option-title">{{category.name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Brand / Producer Menu -->
+<div *ngIf="showProducersDialog" class="menu-dialog menu-full active" data-option="pattern" id="producer-menu" >
+    <div class="arrow">
+        <svg class="diamond" version="1.1" viewBox="0 0 50 100" style="top: 180.528px;">
+            <polygon fill="#FFFFFF" points="0,0 50,50 0,100 "></polygon>
+        </svg>
+    </div>
+    <div class="header">
+        <div class="menu-title menu-item">انتخاب تولید کننده</div>
+        <div class="svg-icon menu-toggle svg-icon-fill icon x-icon app-icon close-menu" (click)="this.showProducersDialog = false">
+            <svg id="X" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+                <path class="asudbeu" d="M27.2,122.238L122.238,27.2,132.8,37.762,37.762,132.8Z"></path>
+                <path id="Rectangle_1_copy" data-name="Rectangle 1 copy" class="asudbeu"
+                    d="M37.762,27.2L132.8,122.238,122.238,132.8,27.2,37.762Z"></path>
+            </svg>
+        </div>
+    </div>
+    <div class="menu-content">
+        <div class="menu-option-container">
+            <div class="sidebar-section">
+                <div *ngFor="let brand of (brands | async)" class="menu-option" (click)="brandChanged(brand)">
+                    <div class="menu-option-img-container option-img-container dialog-img"
+                    [ngClass]="{'option-img-container-selected': searchFields.brandsBox.length > 0 && brand.brandId === searchFields.brandsBox[0].brandId}"
+                        style="background-image: url('../../assets/brands/small/{{brand.brandId}}.png');">
+                    </div>
+                    <div class="menu-option-title">{{brand.name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Material Menu -->
+<div *ngIf="showMaterialsDialog" class="menu-dialog menu-full active" data-option="pattern" id="material-menu" >
+    <div class="arrow">
+        <svg class="diamond" version="1.1" viewBox="0 0 50 100" style="top: 180.528px;">
+            <polygon fill="#FFFFFF" points="0,0 50,50 0,100 "></polygon>
+        </svg>
+    </div>
+    <div class="header">
+        <div class="menu-title menu-item">انتخاب جنس</div>
+        <div class="svg-icon menu-toggle svg-icon-fill icon x-icon app-icon close-menu" (click)="this.showMaterialsDialog = false">
+            <svg id="X" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+                <path class="asudbeu" d="M27.2,122.238L122.238,27.2,132.8,37.762,37.762,132.8Z"></path>
+                <path id="Rectangle_1_copy" data-name="Rectangle 1 copy" class="asudbeu"
+                    d="M37.762,27.2L132.8,122.238,122.238,132.8,27.2,37.762Z"></path>
+            </svg>
+        </div>
+    </div>
+    <div class="menu-content">
+        <div class="menu-option-container">
+            <div class="sidebar-section">
+                <div *ngFor="let material of allMaterials" class="menu-option" (click)="materialChanged(material)">
+                    <div class="menu-option-img-container option-img-container dialog-img"
+                    [ngClass]="{'option-img-container-selected': searchFields.materialsBox.length > 0 && material.id === searchFields.materialsBox[0].id}"
+                        style="background-size:100%; background-repeat: no-repeat;">
+                    </div>
+                    <div class="menu-option-title">{{material.label}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Color Menu -->
+<div *ngIf="showColorsDialog" class="menu-dialog menu-full active" data-option="pattern" id="color-menu">
+    <div class="arrow">
+        <svg class="diamond" version="1.1" viewBox="0 0 50 100" style="top: 180.528px;">
+            <polygon fill="#FFFFFF" points="0,0 50,50 0,100 "></polygon>
+        </svg>
+    </div>
+    <div class="header">
+        <div class="menu-title menu-item">انتخاب رنگ</div>
+        <div class="svg-icon menu-toggle svg-icon-fill icon x-icon app-icon close-menu" (click)="this.showColorsDialog = false">
+            <svg id="X" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+                <path class="asudbeu" d="M27.2,122.238L122.238,27.2,132.8,37.762,37.762,132.8Z"></path>
+                <path id="Rectangle_1_copy" data-name="Rectangle 1 copy" class="asudbeu"
+                    d="M37.762,27.2L132.8,122.238,122.238,132.8,27.2,37.762Z"></path>
+            </svg>
+        </div>
+    </div>
+    <div class="menu-content">
+        <div class="menu-option-container">
+            <div class="sidebar-section">
+                <div *ngFor="let color of allColors" class="menu-option" (click)="colorChanged(color)">
+                    <div class="menu-option-img-container option-img-container dialog-img"
+                    [ngClass]="{'option-img-container-selected': searchFields.colorsBox.length > 0 && color.value === searchFields.colorsBox[0].value}"
+                        style="background-size:100%; background-repeat: no-repeat;"
+                        [style.background-color]="'#' + color.value">
+                    </div>
+                    <div class="menu-option-title">{{color.label}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div >
+        <form [formGroup]="verticalForm" class="search-wrapper search-padding" [ngClass]="'variant-'+variant">
+
+            <div [fxLayout]="(vertical) ? 'column' : 'row wrap'"> 
+                <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+                    <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
+                        <mat-label>شاخه ها</mat-label>
+                        <mat-select placeholder="لطفا شاخه های مورد نظر خود را انتخاب کنید" formControlName="categoriesBox" (selectionChange)="categoryChanged($event)" multiple>
+                            <mat-option *ngFor="let category of (categories | async)" [value]="category">
+                                {{category.name}}
+                            </mat-option>
+                        </mat-select>                   
+                          
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+                    <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
+                        <mat-label>تولید کنندگان</mat-label>
+                        <mat-select placeholder="لطفا تولید کنندگان مورد نظر خود را از لیست انتخاب کنید" (selectionChange)="brandChanged($event)" formControlName="brandsBox" multiple>
+                            <mat-option *ngFor="let brand of (brands | async)" [value]="brand">
+                                {{brand.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+                    <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
+                        <mat-label>جنس</mat-label> 
+                        <mat-select placeholder="لطفا جنس را انتخاب کنید" formControlName="materialsBox" (selectionChange)="materialChanged($event)">
+                            <mat-option *ngFor="let material of allMaterials" [value]="material.id">
+                                 {{material.label}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+                    <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
+                        <mat-label>رنگ</mat-label> 
+                        <mat-select placeholder="لطفا رنگ را انتخاب کنید" formControlName="colorsBox" (selectionChange)="colorChanged($event)">
+                            <mat-select-trigger>
+                                <span class="color-span" [ngStyle]="{ 'background-color': '#' + this.verticalForm.get('colorsBox').value }"></span>
+                              </mat-select-trigger>
+                            <mat-option *ngFor="let color of allColors" [value]="color.value">
+                                
+                                <span class="color-span" [ngStyle]="{ 'background-color': '#' + color.value }"></span>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>        
+        </form>
+    
+</div> -->

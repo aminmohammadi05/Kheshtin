@@ -1,0 +1,62 @@
+<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]"
+    [class.full-width-page]="fullWidthPage" fxLayout="row wrap">
+
+    <div fxFlex="100" fxShrink="3" [fxFlex.gt-sm]="(viewType=='list') ? 40 : 100"
+        [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section">
+        
+        <div  class="mat-card-image w-100 m-0">
+            <div class="swiper-container" [swiper]="config">
+                <div class="swiper-wrapper">
+                    <div *ngFor="let image of product.imageList.contentItems" class="swiper-slide">
+                        <img src="https://orchard.kheshtin.ir{{image.image.urls[0]}}"
+                            class="swiper-lazy">
+                        <div class="swiper-lazy-preloader"></div>
+                    </div>
+                </div>
+                <div class="swiper-pagination white"></div>
+                <button mat-icon-button class="swiper-button-prev swipe-arrow">
+                    <mat-icon class="mat-icon-lg">keyboard_arrow_left</mat-icon>
+                </button>
+                <button mat-icon-button class="swiper-button-next swipe-arrow">
+                    <mat-icon class="mat-icon-lg">keyboard_arrow_right</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <!-- <div class="control-icons">
+            <button mat-button [disabled]="onFavorites()" (click)="addToFavorites()" class="tooltip">
+                <span class="tooltiptext">افزودن به علاقه مندی ها</span>
+                <mat-icon class="mat-icon-sm">favorite_border</mat-icon>
+            </button>
+            <button mat-button [disabled]="onCompare()" (click)="addToCompare()" class="tooltip">
+                <span class="tooltiptext">افزودن به لیست مقایسه ها</span>
+                <mat-icon class="mat-icon-sm">compare_arrows</mat-icon>
+            </button>
+            <button mat-button [disabled]="onMoodBoard()" (click)="addToMoodBoard()" class="tooltip">
+                <span class="tooltiptext">افزودن به مود برد</span>
+                <mat-icon class="mat-icon-sm">dashboard</mat-icon>
+            </button>
+        </div> -->
+
+    </div>
+    <div fxFlex="100" [fxFlex.gt-sm]="(viewType=='list') ? 60 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100"
+        class="p-3">
+
+        <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100" *ngIf="product">
+            <mat-card-content class="mb-0">
+
+                <div fxLayout="row" fxLayoutAlign="space-between start">
+                    <h1 class="title"><a [routerLink]="['/products', product.contentItemId, product.displayText]">{{product.displayText}}</a></h1>
+                    <span>{{product.brandCollection.contentItems[0].brand.contentItems[0].displayText}}</span>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between end" class="address mt-0 mb-2">
+                    <span>{{product.productCategory.contentItems[0].displayText}}</span>
+                    <img src="https://orchard.kheshtin.ir{{product.brandCollection.contentItems[0].brand.contentItems[0].ovalImage.urls[0]}}"
+                            class="swiper-lazy brand-logo"/>
+                </div>
+            </mat-card-content>
+        </div>
+
+    </div>
+
+</mat-card>

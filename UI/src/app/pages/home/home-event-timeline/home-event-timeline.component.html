@@ -1,0 +1,17 @@
+<div class="section mt-3">
+    <div class="px-3">
+        <div >
+            <h1 class="section-title">آخرین رویدادها</h1>
+            
+            
+              <div *ngIf="events.length > 0 && days.length > 0" style="margin-left: auto;
+                margin-right: auto;
+                float: none; max-width:61.56rem">
+                <app-event-timeline-vertical *ngIf="isMobile" [events]="events"></app-event-timeline-vertical>
+                <app-event-timeline-grid *ngIf="!isMobile" [events]="events"></app-event-timeline-grid>
+                <!-- <app-event-timeline-advanced [events]="events" [days]="days" [options]="options"></app-event-timeline-advanced> -->
+              </div>
+              
+        </div>
+    </div>   
+</div>

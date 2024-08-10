@@ -1,0 +1,14 @@
+<div class="section mt-3">
+  <div class="px-3">
+      <div class="theme-container">
+        <h1 class="section-title"> محصولات جدید</h1>
+        <div fxLayout="row wrap" class="properties-wrapper">
+          <div *ngFor="let product of recentProductsObjects " [fxFlex]="(viewType=='grid') ? viewCol : 100" class="item">
+              <app-product-item [product]="product" [viewType]="viewType" [viewColChanged]="viewCol"></app-product-item>
+          </div>
+      </div>
+          
+              
+      </div>
+  </div>   
+</div> 

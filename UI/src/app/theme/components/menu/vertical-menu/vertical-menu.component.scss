@@ -1,0 +1,87 @@
+@import "../../../styles/mixins";
+
+
+
+.menu-expand-icon{
+
+    position: absolute;
+
+    right: 0.625rem;
+
+    top: 0.625rem;
+
+}
+
+
+
+.menu-item{
+
+    .mat-button{
+
+        width: 100%;
+
+        font-weight: 400;
+
+        text-transform: uppercase;
+
+        height: 2.375rem;
+
+        &.expanded{
+
+            .menu-expand-icon{
+
+                -webkit-transform: rotate(180deg);
+
+                -moz-transform: rotate(180deg);
+
+                transform: rotate(180deg);
+
+            }
+
+        }
+
+    }
+
+    .mat-button-wrapper{
+
+        padding-left: 1.0rem;
+
+    }    
+
+}
+
+
+
+.sub-menu{
+
+    @include menu-level-padding('ltr');
+
+    max-height: 0;
+
+    overflow: hidden;
+
+    -webkit-transition: max-height 0.25s ease-out;  
+
+    -moz-transition: max-height 0.25s ease-out;  
+
+    transition: max-height 0.25s ease-out;    
+
+    .mat-button{
+
+        padding-left: 2.25rem;      
+
+    } 
+
+    &.show{
+
+        max-height: 31.25rem;
+
+        -webkit-transition: max-height 0.25s ease-in;
+
+        -moz-transition: max-height 0.25s ease-in;
+
+        transition: max-height 0.25s ease-in;
+
+    }    
+
+}
