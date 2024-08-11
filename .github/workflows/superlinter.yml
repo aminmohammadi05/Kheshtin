@@ -1,17 +1,40 @@
-name: Super-Linter
+name: Deploy
 
-on: push
+on:
+  push:
+    branches:
+      - main
+
 
 jobs:
-  super-lint:
-    name: Lint code base
+  deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Run Super-Linter
-        uses: github/super-linter@v4
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+steps:
+  - name: Checkout code
+
+uses: actions/checkout@v2
+  - name: Set up SSH
+
+run: |
+  command -v ssh-agent >/dev/null || ( sudo apt-get update && sudo apt-get install -y openssh-client )
+  eval $(ssh-agent -s)
+  echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  mkdir -p ~/.ssh
+  chmod 700 ~/.ssh
+  ssh-keyscan ${{ secrets.REPO_IPADDRESS }} >> ~/.ssh/known_hosts
+  chmod 644 ~/.ssh/known_hosts
+env:
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  - name: Log in to Docker Hub
+
+run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+  - name: Check Docker version
+
+run: docker --version
+  - name: Docker Compose down
+
+run: docker-compose -f docker-compose.prod.yaml down
+  - name: Docker Compose up
+
+run: docker-compose -f docker-compose.prod.yaml up -d
