@@ -1,28 +1,13 @@
 name: Deploy
 
-on:
-  push:
-    branches:
-      - main
-
+on: [push]
 
 jobs:
-  build:
+  simpleExample:
     runs-on: self-hosted
-  deploy:
-    runs-on: self-hosted
-
     steps:
-      - uses: actions/checkout@v4 
-      - name: Docker login
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-      - name: Docker version
-        run: docker --version
-      - name: Docker Compose down
-        run: docker-compose -f docker-compose.prod.yaml down
-      - name: Docker Compose up
-        run: docker-compose -f docker-compose.prod.yaml up -d
-
+    # checkout branch
+    - uses: actions/checkout@master
 
 
 
