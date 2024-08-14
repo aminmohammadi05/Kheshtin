@@ -7,7 +7,7 @@ query SearchProducts {
       description
       displayText
       imageList {
-        contentItems {
+        contentItems(first: 4) {
           ... on ProductImage {
             displayText
             userTitle

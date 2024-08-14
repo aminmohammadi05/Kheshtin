@@ -46,7 +46,7 @@
             <mat-card-content class="mb-0">
 
                 <div fxLayout="row" fxLayoutAlign="space-between start">
-                    <h1 class="title"><a [routerLink]="['/products', product.contentItemId, product.displayText]">{{product.displayText}}</a></h1>
+                    <h1 class="title"><a [routerLink]="['/products', product.contentItemId, product.displayText]" style="color: #5C5B5B; font-size: 1.25rem">{{product.displayText}}</a></h1>
                     <span>{{product.brandCollection.contentItems[0].brand.contentItems[0].displayText}}</span>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-between end" class="address mt-0 mb-2">

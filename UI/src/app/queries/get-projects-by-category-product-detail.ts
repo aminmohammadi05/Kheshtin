@@ -7,7 +7,7 @@ query GetProjectByCategoryProjectDetail($searchText: String!) {
       displayText
       userTitle
     bag {
-      contentItems {
+      contentItems(first: 4) {
         ... on ProjectImage {
           displayText
           image {

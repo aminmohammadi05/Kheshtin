@@ -41,7 +41,7 @@ export class DesignOfficesComponent implements OnInit, OnDestroy, AfterViewInit 
   public slides: PageImages[] = [];
   public totalDesignOffices: Observable<number>;
   public viewType = 'grid';
-  public viewCol = 33.3;
+  public viewCol = 25;
   public count = 12;
   public sort: string;
   public searchFields: DesignOfficeSearch = new DesignOfficeSearch({

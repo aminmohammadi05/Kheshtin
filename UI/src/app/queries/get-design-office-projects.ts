@@ -7,7 +7,7 @@ query GetDesignOfficeProjectByCondition($searchText: String!) {
       displayText
       userTitle
       bag {
-        contentItems {
+        contentItems(first: 4) {
           ... on ProjectImage {
             displayText
             image {

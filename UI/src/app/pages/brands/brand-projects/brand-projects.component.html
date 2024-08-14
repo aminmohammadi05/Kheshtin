@@ -29,12 +29,20 @@
   </div>            
 
   <div  fxFlex="100" fxLayoutAlign="center center" class="p-2">
-      <mat-paginator [length]="searchFields.pageQuery.totalItems"
+      <!-- <mat-paginator [length]="searchFields.pageQuery.totalItems"
                     [pageSize]="12"
                     [hidePageSize]="true"
                     (page)="onPageChange($event)"
                     class="w-100 mat-elevation-z1">
-      </mat-paginator>
+      </mat-paginator> -->
+      <app-pagination
+                  #pagination
+                  [collectionSize]="searchFields.pageQuery.totalItems"
+                  [pageSize]="12"
+                  [firstLastButtons]="true"
+                  [maxSize]="2"
+                  (PageChange)="PageChange($event)"
+                ></app-pagination>
   </div>          
 
 </div>

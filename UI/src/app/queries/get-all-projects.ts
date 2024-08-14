@@ -4,7 +4,7 @@ query GetAllProjects($first: Int!, $skip: Int!) {
     project(first: $first, skip: $skip) {
       displayText
       imageList {
-        contentItems {
+        contentItems(first: 4) {
           ... on ProjectImage {
             displayText
             image {

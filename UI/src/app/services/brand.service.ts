@@ -144,7 +144,7 @@ export class BrandService {
     }).pipe(pluck("data")) ]);
   }
   getProjectsByBrandId(searchFields: BrandOfficeProjectSearch, searchText): Observable<any> {
-    return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/getProjectByBrandId?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.brandId}'}`),
+    return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/getSelectedProjectsByBrandIdEls?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.brandId}'}`),
     this.apollo.query({
       query: GET_PROJECTS_BY_BRAND_ID,
       variables: { searchText : searchText}

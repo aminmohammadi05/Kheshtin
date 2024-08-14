@@ -6,7 +6,7 @@ query GetRelatedBlogs($searchText: String!) {
   getRelatedBlogs(parameters: $searchText) {
       displayText
       bag {
-        contentItems {
+        contentItems(first: 4) {
           ... on BlogImage {
             displayText
             userTitle
