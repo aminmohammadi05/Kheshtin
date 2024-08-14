@@ -6,17 +6,18 @@
           <span *ngFor="let status of product.propertyStatus" [style.background-color]="getStatusBgColor(status)">{{status}}</span>
       </div> -->
      
-      <div class="mat-card-image m-0" fxLayout="column" fxLayoutAlign="center center">
+      <div class="mat-card-image m-0" fxLayout="column" fxLayoutAlign="center center" >
           <img src="https://orchard.kheshtin.ir{{designOffice.logo.urls[0]}}">
       </div>
       
   </div>
+  <hr style="margin-left: 0.5rem;margin-right: 0.5rem;"/>
   <div fxFlex="100" [fxFlex.gt-sm]="(viewType=='list') ? 60 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
 
       <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
           <mat-card-content class="mb-0">
             
-              <h1 class="title"><a [routerLink]="['/designoffices', designOffice.contentItemId, 0, 1, designOffice.displayText ]">{{designOffice.displayText}}</a></h1>
+              <h1 class="title"><a [routerLink]="['/designoffices', designOffice.contentItemId, 0, 1, designOffice.displayText ]" style="color: #5C5B5B; font-size: 1.25rem">{{designOffice.displayText}}</a></h1>
 
               <!-- <p fxLayout="row" class="address"> -->
                   <!-- <mat-icon class="text-muted">location_on</mat-icon> -->
