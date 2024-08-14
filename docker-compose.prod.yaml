@@ -59,7 +59,7 @@ services:
   # UI Container spec. note that 'ui' is the name of the container internally (also 'container_name')
   ui:
     container_name: kheshtin-ui-prod
-    image: kheshtin-ui-prod:v1.0.88
+    image: kheshtin-ui-prod:v1.0.89
     env_file: ./UI/.env
     build:
       context: ./UI
@@ -72,7 +72,7 @@ services:
   # API container spec.
   api:
     container_name: kheshtin-api
-    image: kheshtin-api:v1.0.13
+    image: kheshtin-api:v1.0.14
     build:
       context: ./API
       dockerfile: DockerFile_API
