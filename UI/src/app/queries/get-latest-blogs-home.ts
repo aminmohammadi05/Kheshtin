@@ -8,7 +8,7 @@ query GetLatestBlogs($searchText: String!) {
       secondHeaderTitle
       createdUtc
       bag {
-        contentItems {
+        contentItems(first: 4) {
           ... on BlogImage {
             displayText
             userTitle

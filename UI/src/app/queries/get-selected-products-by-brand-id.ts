@@ -15,7 +15,7 @@ query GetSelectedProductsByBrandId($searchText: String!) {
       }
     }
     imageList {
-      contentItems {
+      contentItems(first: 4) {
         ... on ProductImage {
           displayText
           image {

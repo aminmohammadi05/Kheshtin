@@ -7,7 +7,7 @@ query GetSelectedProjectsByBrandId($searchText: String!) {
     displayText
       userTitle
       imageList {
-        contentItems {
+        contentItems(first: 4) {
           ... on ProjectImage {
             displayText
             image {

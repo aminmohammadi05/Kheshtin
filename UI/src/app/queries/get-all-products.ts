@@ -15,7 +15,7 @@ query GetAllProducts($first: Int!, $skip: Int!) {
         }
       }
       imageList {
-        contentItems {
+        contentItems(first: 4) {
           ... on ProductImage {
             displayText
             image {

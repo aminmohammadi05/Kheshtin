@@ -8,7 +8,7 @@ query GetBlogByCondition($searchText: String!) {
       createdUtc
       secondHeaderTitle
       bag {
-        contentItems {
+        contentItems(first: 4) {
           ... on BlogImage {
             displayText
             userTitle

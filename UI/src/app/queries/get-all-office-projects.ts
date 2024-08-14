@@ -5,7 +5,7 @@ query GetAllOfficeProjects($first: Int!, $skip: Int!) {
       displayText
       userTitle
       bag {
-        contentItems {
+        contentItems(first: 4) {
           ... on ProjectImage {
             displayText
             image {

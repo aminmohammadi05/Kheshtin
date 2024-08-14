@@ -7,7 +7,7 @@ query GetAllBlogs($first: Int!, $skip: Int!) {
       createdUtc
       contentItemId
       bag {
-        contentItems {
+        contentItems(first: 4) {
           ... on BlogImage {
             displayText
             userTitle
