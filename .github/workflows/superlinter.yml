@@ -2,11 +2,8 @@ name: Deploy
 
 on: 
   push:
-<<<<<<< HEAD
     branches: main
-=======
-    branches: master
->>>>>>> feature/UI-stylings-modifications
+
 
 jobs:
   kheshtin-cicd:
