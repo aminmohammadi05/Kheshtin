@@ -16,7 +16,7 @@
       <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
           <mat-card-content class="mb-0">
             
-              <h1 class="title"><a (click)="collectionSelected(brandCollection)">{{brandCollection.userTitle}}</a></h1>
+              <h1 class="title"><a (click)="collectionSelected(brandCollection)" style="color: #5C5B5B; font-size: 1.25rem">{{brandCollection.userTitle}}</a></h1>
 
               <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="brand && brand.contentItems && brand.contentItems[0]">
                   <div>

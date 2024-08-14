@@ -43,11 +43,12 @@ import { BrandResellerService } from 'src/app/services/brand-reseller.service';
 import { OfficeProjectService } from 'src/app/services/office-project.service';
 import { MatTabGroup } from '@angular/material/tabs';
 import { BrandCollectionSearch } from 'src/app/models/brand-collection-search';
+import { getImagesWithAbsolutePath, myDomain } from 'src/app/services/helpers/urlHelper';
 
 @Component({
   selector: 'app-brand-detail',
   templateUrl: './brand-detail.component.html',
-  styleUrls: ['./brand-detail.component.css']
+  styleUrls: ['./brand-detail.component.scss']
 })
 export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   @ViewChild('sidenav', { static: true }) sidenav: any;
@@ -209,7 +210,7 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   public getSelectedProjectsByBrandId(id) {
     this.brandService.getSelectedProjectsByBrandId(`{from: 0, size: 10, fulltext:'${id}'}`).subscribe((x: any) => {
      
-      this.officeProjectsOverview = x.getSelectedProjectByBrandId;
+      this.officeProjectsOverview = x.getSelectedProjectsByBrandIdEls;
       
     });
   }
@@ -218,38 +219,50 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
 
   ngAfterViewInit() {
     this.config = {
-      observer: false,
-      slidesPerView: 1,
-      spaceBetween: 0,
+      observer: true,
+      
+      slidesPerView: 5,
+      spaceBetween: 32,
       keyboard: true,
-      navigation: true,
-      pagination: false,
+      navigation: { nextEl: '.prop-next', prevEl: '.prop-prev'},
+      pagination: true,
       grabCursor: true,
       loop: false,
-      preloadImages: false,
-      lazy: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false
+      preloadImages: true,
+      lazy: false,
+      breakpoints: {
+        600: {
+          slidesPerView: 1
+        },
+        960: {
+          slidesPerView: 2,
+        },
+        1280: {
+          slidesPerView: 3,
+        }
       }
     };
 
     this.config2 = {
-      observer: false,
-      slidesPerView: 4,
-      spaceBetween: 16,
+      observer: true,
+      
+      slidesPerView: 5,
+      spaceBetween: 32,
       keyboard: true,
-      navigation: false,
-      pagination: false,
+      navigation: { nextEl: '.prop-next', prevEl: '.prop-prev'},
+      pagination: true,
       grabCursor: true,
       loop: false,
-      preloadImages: false,
-      lazy: true,
+      preloadImages: true,
+      lazy: false,
       breakpoints: {
-        480: {
-          slidesPerView: 2
-        },
         600: {
+          slidesPerView: 1
+        },
+        960: {
+          slidesPerView: 2,
+        },
+        1280: {
           slidesPerView: 3,
         }
       }
@@ -364,6 +377,8 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
     // this.tabChanged.next(clickedIndex);
   }
 
-
+  getHtml(value) {
+    return getImagesWithAbsolutePath(value, myDomain);
+  } 
 
 }

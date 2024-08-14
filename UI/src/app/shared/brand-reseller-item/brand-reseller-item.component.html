@@ -5,20 +5,31 @@
       <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
           <mat-card-content class="mb-0">
             
-              <h1 class="title">{{brandReseller.displayText}}</h1>
-              <div class="features mt-3">                    
-                <p><span>آدرس</span><span>{{brandReseller.address}}</span></p>
-                <p><span>شهر</span><span>{{brandReseller.city}}</span></p>
-                <p><span>تلفن</span><span>{{brandReseller.phone}}</span></p>
+              <h1 class="title" style="color: #5C5B5B; font-size: 1.25rem">{{brandReseller.displayText}}</h1>
+              <div fxLayout="row" fxLayoutAlign="space-between center" style="width:100%"> 
+                <div fxFlex="20">
+                    <span >آدرس</span>
+                    <br/>
+                    <span >شهر</span>
+                    <br/>
+                    <span >تلفن</span>
+                </div>                   
+                <div fxFlex="80">
+                    <span >{{brandReseller.address}}</span>
+                    <br/>
+                <span >{{brandReseller.city}}</span>
+                <br/>
+                <span >{{brandReseller.phone}}</span>
+                </div>
+                
              </div> 
 
-              <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutAlign="space-between center" style="width:100%">
                   <div>
                       {{brand.displayText}}
                   </div>
-                  <img style="float: none;
-                  width: 145px;
-                  height: 40px;
+                  <img style="float: none;                  
+                  height: 6rem;
                   border-radius: 20px;"
                   src="https://orchard.kheshtin.ir{{brand.ovalImage.urls[0]}}" class="swiper-lazy">
               </div>

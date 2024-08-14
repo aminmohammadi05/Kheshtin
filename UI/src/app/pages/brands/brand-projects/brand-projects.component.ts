@@ -101,7 +101,7 @@ export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit 
         
           this.searchFields.pageQuery.totalItems = y[0].count
           this.message = y[0].count === 0 ? "موردی یافت نشد" : '';
-          this.officeProjects = y[1].getProjectByBrandId;
+          this.officeProjects = y[1].getSelectedProjectsByBrandIdEls;
           this.isLoading = false;
         });
       }
