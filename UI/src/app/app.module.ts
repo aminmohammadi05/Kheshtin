@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, forwardRef } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
@@ -49,56 +49,46 @@ import { EncodeHttpParamsInterceptor } from './theme/utils/encode-http-params-in
 import { GraphQLModule } from './graphql.module';
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    PagesComponent,
-    NotFoundComponent,
-    UserMenuComponent,
-    CurrencyComponent,
-    LangComponent,
-    SocialIconsComponent,
-    ContactsComponent,
-    Toolbar1Component,
-    Toolbar2Component,
-    HorizontalMenuComponent,
-    VerticalMenuComponent,
-    FooterComponent,
-    LockScreenComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    EmbedVideo.forRoot(),
-    NgProgressModule,
-    NgProgressHttpModule,
-    InputFileModule.forRoot(config),
-    AppRouting,
-    SharedModule,    
-    FontAwesomeModule,
-    GraphQLModule
-  ],
-  providers: [
-    AppSettings,
-    { provide: OverlayContainer, useClass: CustomOverlayContainer },
-    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: RefreshTokenInterceptorService,
-      multi: true
-     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AddCsrfHeaderInterceptorService,
-      multi: true
-    },
-    // { provide: HTTP_INTERCEPTORS,
-    //   useClass: WithCredentialsInterceptorService,
-    //   multi: true
-    // }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        PagesComponent,
+        NotFoundComponent,
+        UserMenuComponent,
+        CurrencyComponent,
+        LangComponent,
+        SocialIconsComponent,
+        ContactsComponent,
+        Toolbar1Component,
+        Toolbar2Component,
+        HorizontalMenuComponent,
+        VerticalMenuComponent,
+        FooterComponent,
+        LockScreenComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        EmbedVideo.forRoot(),
+        NgProgressModule,
+        NgProgressHttpModule,
+        InputFileModule.forRoot(config),
+        AppRouting,
+        SharedModule,
+        FontAwesomeModule,
+        GraphQLModule], providers: [
+        AppSettings,
+        { provide: OverlayContainer, useClass: CustomOverlayContainer },
+        { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RefreshTokenInterceptorService,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AddCsrfHeaderInterceptorService,
+            multi: true
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule { }

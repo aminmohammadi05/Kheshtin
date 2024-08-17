@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import {} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ApolloClientOptions, ApolloLink, InMemoryCache } from '@apollo/client/core'
