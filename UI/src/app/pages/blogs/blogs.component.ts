@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
 import { Blog } from 'src/app/models/blog';
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
 import { Pagination } from 'src/app/models/pagination';

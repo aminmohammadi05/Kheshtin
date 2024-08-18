@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Category } from 'src/app/models/category';
 import { Observable } from 'rxjs';
@@ -9,11 +9,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { DesignOfficeSearch } from 'src/app/models/design-office-search';
 import { OfficeProjectCategory } from 'src/app/models/office-project-category';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-design-offices-search',
   templateUrl: './design-offices-search.component.html',
-  styleUrls: ['./design-offices-search.component.css']
+  styleUrls: ['./design-offices-search.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatFormFieldModule, ReactiveFormsModule,  FlexLayoutModule],
 })
 export class DesignOfficesSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;

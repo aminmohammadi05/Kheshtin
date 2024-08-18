@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, forwardRef } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
@@ -16,7 +16,6 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
 
 import { AppRouting } from './app.routing';
-import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { AppSettings } from './app.settings';
 import { AppInterceptor } from './theme/utils/app-interceptor';
@@ -37,16 +36,9 @@ import { FooterComponent } from './theme/components/footer/footer.component';
 import { LockScreenComponent } from './pages/lock-screen/lock-screen.component';
 import { RefreshTokenInterceptorService } from './theme/utils/refresh-token-interceptor.service';
 import { AddCsrfHeaderInterceptorService } from './theme/utils/add-csrf-header-interceptor.service';
-import { WithCredentialsInterceptorService } from './theme/utils/with-credentials-interceptor.service';
-import { SafeHtmlPipe } from './theme/pipes/safe-html.pipe';
-import { FileTypePipe } from './theme/pipes/file-type.pipe';
-import { FileValueAccessorDirective } from './theme/directives/file-value-accessor.directive';
-import { FileValidatorDirective } from './theme/directives/file-validator.directive';
-import { CategoriesComponent } from './pages/categories/categories.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ConfirmationComponent } from './pages/confirmation/confirmation.component';
-import { EncodeHttpParamsInterceptor } from './theme/utils/encode-http-params-interceptor.service';
 import { GraphQLModule } from './graphql.module';
+import { SwiperModule } from 'ngx-swiper-wrapper';
 
 
 @NgModule({ declarations: [
@@ -66,6 +58,7 @@ import { GraphQLModule } from './graphql.module';
         LockScreenComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
+        SwiperModule,
         BrowserAnimationsModule,
         FormsModule,
         EmbedVideo.forRoot(),
@@ -73,7 +66,6 @@ import { GraphQLModule } from './graphql.module';
         NgProgressHttpModule,
         InputFileModule.forRoot(config),
         AppRouting,
-        SharedModule,
         FontAwesomeModule,
         GraphQLModule], providers: [
         AppSettings,

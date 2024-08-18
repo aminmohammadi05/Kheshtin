@@ -12,9 +12,6 @@ import { TextureShowRoomComponent, TextureShowRoomDownloadDialogComponent } from
     TextureShowRoomDownloadDialogComponent
 
   ],
-  entryComponents: [
-    TextureShowRoomDownloadDialogComponent
-  ],
   imports: [
     CommonModule,
     RouterModule.forChild([

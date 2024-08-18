@@ -13,8 +13,6 @@ import { MoodBoardDetailComponent } from './mood-board-detail/mood-board-detail.
     MoodBoardComponent,
     MoodBoardDetailComponent
   ],
-  entryComponents: [
-  ],
   imports: [
     CommonModule,
     RouterModule.forChild([

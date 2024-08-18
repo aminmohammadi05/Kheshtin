@@ -91,13 +91,13 @@
 
       <!-- <a routerLink="/account/favorites" mat-icon-button fxShow="false" fxShow.gt-md class="mr-3 ml-2 tooltip">
         <span class="tooltiptext">علاقه مندی ها</span>
-        <mat-icon [matBadge]="(userFavorites | async).length" [matBadgeHidden]="(userFavorites | async).length == 0"
+        <mat-icon matBadge="(userFavorites | async).length" matBadgeHidden="(userFavorites | async).length == 0"
           matBadgeSize="small" matBadgeColor="warn">favorite_border</mat-icon>
       </a>
       <a routerLink="/compare" mat-icon-button fxShow="false" fxShow.gt-md class="mr-3 ml-2 tooltip">
         <span class="tooltiptext">لیست مقایسه ها</span>
-        <mat-icon [matBadge]="productService.Data.compareList.length"
-          [matBadgeHidden]="productService.Data.compareList.length == 0" matBadgeSize="small" matBadgeColor="warn">
+        <mat-icon matBadge="productService.Data.compareList.length"
+          matBadgeHidden="productService.Data.compareList.length == 0" matBadgeSize="small" matBadgeColor="warn">
           compare_arrows</mat-icon>
       </a>
       <a routerLink="/mood-board-candidate-products" mat-icon-button fxShow="false" fxShow.gt-md class="mr-3 ml-2 tooltip">

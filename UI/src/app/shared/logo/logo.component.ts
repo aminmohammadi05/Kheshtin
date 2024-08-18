@@ -3,7 +3,8 @@ import { Component, Input, ViewChild, ElementRef, OnInit, Renderer2 } from '@ang
 @Component({
   selector: 'app-logo',
   templateUrl: './logo.component.html',
-  styleUrls: ['./logo.component.scss']
+  styleUrls: ['./logo.component.scss'],
+  standalone: true,
 })
 export class LogoComponent implements OnInit {
   @Input() logoWidth = '11.0625rem';

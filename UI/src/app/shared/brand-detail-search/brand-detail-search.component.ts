@@ -8,11 +8,17 @@ import { CategoryFlatNode } from 'src/app/pages/categories/categories.component'
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { BrandSearch } from 'src/app/models/brand-search';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-brand-detail-search',
   templateUrl: './brand-detail-search.component.html',
-  styleUrls: ['./brand-detail-search.component.css']
+  styleUrls: ['./brand-detail-search.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule, MatExpansionModule,  FlexLayoutModule],
 })
 export class BrandDetailSearchComponent implements OnInit, AfterViewInit {
   @Input() brandId = '';

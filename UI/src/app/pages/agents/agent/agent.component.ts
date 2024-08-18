@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
 import { Subscription } from 'rxjs'; 
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service'; 

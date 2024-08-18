@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
 import { AuthService } from 'src/app/services/auth.service';
 import { Login } from 'src/app/models/login';
 import { User } from 'src/app/models/user';

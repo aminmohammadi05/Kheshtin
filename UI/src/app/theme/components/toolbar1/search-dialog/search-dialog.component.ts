@@ -1,11 +1,17 @@
 import { Component, OnInit,  Inject, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { HomeSearch } from 'src/app/models/home-search';
 
 @Component({
   selector: 'search-dialog',
   templateUrl: 'search-dialog.component.html',
+  standalone: true,
+  imports: [MatIconModule, MatButtonModule, MatInputModule, MatFormFieldModule],
 })
 export class SearchDialogComponent implements OnInit{
     @ViewChild('searchField', { static: true }) searchField: any;

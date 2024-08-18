@@ -5,11 +5,18 @@ import { Settings, AppSettings } from '../../app.settings';
 import { AppService } from '../../app.service';
 import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
 import { DesignOffice } from 'src/app/models/design-office';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { SafeHtmlPipe } from 'src/app/theme/pipes/safe-html.pipe';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-design-office-item',
   templateUrl: './design-office-item.component.html',
-  styleUrls: ['./design-office-item.component.scss']
+  styleUrls: ['./design-office-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule,  FlexLayoutModule, RouterModule],
 })
 export class DesignOfficeItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() designOffice: any;

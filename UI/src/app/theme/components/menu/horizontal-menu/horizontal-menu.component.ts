@@ -20,11 +20,15 @@ import { DesignOfficeSearch } from 'src/app/models/design-office-search';
 import { Pagination } from 'src/app/models/pagination';
 import { HomeSearch } from 'src/app/models/home-search';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-horizontal-menu',
   templateUrl: './horizontal-menu.component.html',
   styleUrls: ['./horizontal-menu.component.scss'],
+  standalone: true,
+  imports: [MatButtonModule],
   providers: [ MenuService ]
 })
 export class HorizontalMenuComponent implements OnInit  {

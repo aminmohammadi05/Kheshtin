@@ -1,22 +1,29 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Brand } from 'src/app/models/brand';
 import { CategoryFlatNode } from 'src/app/pages/categories/categories.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 
 import { DesignOfficeSearch } from 'src/app/models/design-office-search';
 import { OfficeProjectCategory } from 'src/app/models/office-project-category';
 import { Pagination } from 'src/app/models/pagination';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-design-office-detail-search',
   templateUrl: './design-office-detail-search.component.html',
-  styleUrls: ['./design-office-detail-search.component.css']
+  styleUrls: ['./design-office-detail-search.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule,  FlexLayoutModule, MatSelectModule, MatFormFieldModule, ReactiveFormsModule],
 })
 export class DesignOfficeDetailSearchComponent implements OnInit, AfterViewInit {
   @Input() officeId = '';

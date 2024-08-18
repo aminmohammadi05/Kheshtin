@@ -5,11 +5,15 @@ import { Login } from 'src/app/models/login';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { DOCUMENT } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-menu',
   templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss']
+  styleUrls: ['./user-menu.component.scss'],
+  standalone: true,
+  imports: [MatMenuModule, MatIconModule],
 })
 export class UserMenuComponent implements OnInit, AfterViewInit {
   public user: Observable<User>;

@@ -41,10 +41,6 @@ import { PaginationModule,PaginationConfig } from 'ngx-bootstrap/pagination';
     EditProductsDialogComponent,
     MyMoodBoardsComponent
   ],
-  entryComponents: [
-    ChooseProductsDialogComponent,
-    EditProductsDialogComponent
-  ],
   imports: [
     CommonModule,
     FormsModule,

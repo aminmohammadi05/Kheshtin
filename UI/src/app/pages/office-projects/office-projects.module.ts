@@ -24,9 +24,6 @@ import { OfficeProjectHeaderCarouselComponent } from 'src/app/shared/office-proj
     ]),
     SharedModule
   ],
-  entryComponents:[
-    OfficeProjectImageViewDialogComponent
-  ],
   declarations: [
     OfficeProjectDetailsComponent,
     OfficeProjectImageViewDialogComponent,

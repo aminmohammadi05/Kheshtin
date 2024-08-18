@@ -20,10 +20,6 @@ import { MoodBoardExtraInfoComponent } from './mood-board-extra-info-dialog.comp
     MoodBoardExtraInfoComponent,
     // MoodBoardToolboxComponent
   ],
-  entryComponents: [
-    MoodBoardProductDetailDialogComponent,
-    MoodBoardExtraInfoComponent
-  ],
   imports: [
     CommonModule,
     RouterModule.forChild([

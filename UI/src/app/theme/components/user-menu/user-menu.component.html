@@ -5,7 +5,7 @@ height: 100%;">
         <span fxShow="false" fxShow.gt-sm class="mx-1 uppercase" style="color: #5C5B5B;">حساب کاربری</span> 
         <mat-icon class="mat-icon-sm caret" style="color: #5C5B5B;">arrow_drop_down</mat-icon>
     </a>
-        <mat-menu #userMenu="matMenu" [overlapTrigger]="false" xPosition="before"  class="user-menu styled">
+        <mat-menu #userMenu="matMenu" overlapTrigger="false" xPosition="before"  class="user-menu styled">
             <span (mouseleave)="userMenuTrigger.closeMenu()">
                 <!-- <div fxLayout="row" fxLayoutAlign="start center" class="user-info">                   
                     <img [src]="(user | async)?.profilePicture | safeHtml"  width="50">
@@ -22,8 +22,8 @@ height: 100%;">
                 </a> -->
                 <a mat-menu-item routerLink="/account/favorites" style="font-family: Vazir FD; font-size: 14px;"> 
                     <!-- <mat-icon class="mat-icon-sm">favorite_border</mat-icon> -->
-                    <span [matBadge]="appService.Data.favorites.length" 
-                          [matBadgeHidden]="appService.Data.favorites.length == 0"
+                    <span matBadge="appService.Data.favorites.length" 
+                          matBadgeHidden="appService.Data.favorites.length == 0"
                           matBadgeSize="small" 
                           matBadgeColor="warn" 
                           matBadgeOverlap="false"
@@ -31,8 +31,8 @@ height: 100%;">
                 </a>
                 <a mat-menu-item routerLink="/compare" style="font-family: Vazir FD;font-size: 14px;"> 
                     <!-- <mat-icon class="mat-icon-sm">compare_arrows</mat-icon>  -->
-                    <span [matBadge]="appService.Data.compareList.length" 
-                          [matBadgeHidden]="appService.Data.compareList.length == 0"
+                    <span matBadge="appService.Data.compareList.length" 
+                          matBadgeHidden="appService.Data.compareList.length == 0"
                           matBadgeSize="small" 
                           matBadgeColor="warn" 
                           matBadgeOverlap="false"

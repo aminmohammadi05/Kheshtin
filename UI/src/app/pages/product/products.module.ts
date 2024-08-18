@@ -31,13 +31,6 @@ import { PaginationModule,PaginationConfig } from 'ngx-bootstrap/pagination';
     ProductTextureImageViewDialogComponent
 
   ],
-  entryComponents: [
-    BrandInfoRequestDialogComponent,
-    BrandContactInfoRequestDialogComponent,
-    ProductImageViewDialogComponent,
-    ProductThreeDImageViewDialogComponent,
-    ProductTextureImageViewDialogComponent
-  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     MatDialogModule,

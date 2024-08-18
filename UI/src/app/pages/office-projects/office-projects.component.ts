@@ -3,7 +3,7 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, Cha
 
 import { FormControl } from '@angular/forms';
 import { Observable, fromEvent, merge, Subscription, BehaviorSubject, combineLatest, forkJoin, zip } from 'rxjs';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import {} from 'ngx-scrollbar';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
@@ -46,7 +46,7 @@ export class OfficeProjectsComponent implements OnInit, OnDestroy, AfterViewInit
 @ViewChild('sidenav', { static: true }) sidenav: any;
 public sidenavOpen = true;
 @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-public psConfig: PerfectScrollbarConfigInterface = {
+public psConfig = {
   wheelPropagation: true
 };
 public allOfficeProjects: OfficeProject[] = [];

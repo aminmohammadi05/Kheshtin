@@ -5,7 +5,7 @@ import { Category } from 'src/app/models/category';
 import { forkJoin, fromEvent, Observable, of, zip } from 'rxjs';
 import { Brand } from 'src/app/models/brand';
 import { CategoryFlatNode } from 'src/app/pages/categories/categories.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Search } from 'src/app/models/search';
@@ -13,11 +13,21 @@ import { InputFile } from 'ngx-input-file';
 import { BrandProductCollection } from 'src/app/models/brand-product-collection';
 import { BrandCollection } from 'src/app/models/brand-collection';
 import { HomeSearch } from 'src/app/models/home-search';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-horizontal-properties-search',
   templateUrl: './horizontal-properties-search.component.html',
-  styleUrls: ['./horizontal-properties-search.component.scss']
+  styleUrls: ['./horizontal-properties-search.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatFormFieldModule,MatSelectModule, MatFormFieldModule, ReactiveFormsModule,  FlexLayoutModule],
 })
 export class HorizontalPropertiesSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;

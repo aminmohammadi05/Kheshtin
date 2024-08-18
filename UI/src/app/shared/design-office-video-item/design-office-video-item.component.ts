@@ -13,11 +13,20 @@ import { Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DesignOfficeVideo } from 'src/app/models/design-office-video';
 import { DesignOffice } from 'src/app/models/design-office';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { SafeHtmlPipe } from 'src/app/theme/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-design-office-video-item',
   templateUrl: './design-office-video-item.component.html',
-  styleUrls: ['./design-office-video-item.component.scss']
+  styleUrls: ['./design-office-video-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule,  FlexLayoutModule, SafeHtmlPipe],
 })
 export class DesignOfficeVideoItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() designOfficeVideo: any;

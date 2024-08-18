@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-lang',
   templateUrl: './lang.component.html',
-  styleUrls: ['./lang.component.scss']
+  styleUrls: ['./lang.component.scss'],
+  standalone: true,
+  imports: [MatMenuModule, MatIconModule, MatButtonModule]
 })
 export class LangComponent implements OnInit {
   public flags = [

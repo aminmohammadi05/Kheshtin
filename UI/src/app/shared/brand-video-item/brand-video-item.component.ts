@@ -14,11 +14,22 @@ import { Observable } from 'rxjs';
 import { BrandCatalog } from 'src/app/models/brand-catalog';
 import { BrandVideo } from 'src/app/models/brand-video';
 import { Brand } from 'src/app/models/brand';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { SafeHtmlPipe } from 'src/app/theme/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-brand-video-item',
   templateUrl: './brand-video-item.component.html',
-  styleUrls: ['./brand-video-item.component.scss']
+  styleUrls: ['./brand-video-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule,  FlexLayoutModule, SafeHtmlPipe],
 })
 export class BrandVideoItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brandVideo: any;

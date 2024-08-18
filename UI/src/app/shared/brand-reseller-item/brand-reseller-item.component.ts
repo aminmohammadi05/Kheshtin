@@ -15,11 +15,17 @@ import { BrandCatalog } from 'src/app/models/brand-catalog';
 import { BrandVideo } from 'src/app/models/brand-video';
 import { BrandReseller } from 'src/app/models/brand-reseller';
 import { Brand } from 'src/app/models/brand';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { SafeHtmlPipe } from 'src/app/theme/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-brand-reseller-item',
   templateUrl: './brand-reseller-item.component.html',
-  styleUrls: ['./brand-reseller-item.component.scss']
+  styleUrls: ['./brand-reseller-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule,  FlexLayoutModule],
 })
 export class BrandResellerItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brandReseller: any;

@@ -20,11 +20,22 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchDialogComponent } from './search-dialog/search-dialog.component';
 import { AppSettings } from 'src/app/app.settings';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { HorizontalMenuComponent } from '../menu/horizontal-menu/horizontal-menu.component';
+import { SocialIconsComponent } from '../social-icons/social-icons.component';
+import { ContactsComponent } from '../contacts/contacts.component';
+import { LogoComponent } from 'src/app/shared/logo/logo.component';
+import { UserMenuComponent } from '../user-menu/user-menu.component';
+import { LangComponent } from '../lang/lang.component';
+import { CurrencyComponent } from '../currency/currency.component';
 
 @Component({
   selector: 'app-toolbar1',
   styleUrls: ['./toolbar1.component.scss'],
   templateUrl: './toolbar1.component.html',
+  standalone: true,
+  imports: [MatIconModule, MatToolbarModule, HorizontalMenuComponent, SocialIconsComponent, ContactsComponent, LogoComponent, UserMenuComponent, LangComponent, CurrencyComponent],
   encapsulation: ViewEncapsulation.None
 })
 export class Toolbar1Component implements OnInit {

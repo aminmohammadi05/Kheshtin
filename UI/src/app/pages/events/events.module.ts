@@ -23,7 +23,6 @@ import { EventHeaderCarouselComponent } from 'src/app/shared/event-header-carous
     ]),
     SharedModule
   ],
-  entryComponents:[],
   declarations: [
     EventDetailsComponent,
     EventHeaderCarouselComponent,

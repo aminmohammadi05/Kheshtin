@@ -7,11 +7,20 @@ import { CompareOverviewComponent } from '../compare-overview/compare-overview.c
 import { OfficeProject } from 'src/app/models/office-project';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+// import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-office-project-item',
   templateUrl: './office-project-item.component.html',
-  styleUrls: ['./office-project-item.component.scss']
+  styleUrls: ['./office-project-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, MatIconModule, MatButtonModule, MatCardModule, FlexLayoutModule],
 })
 export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() project: any;

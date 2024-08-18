@@ -3,7 +3,7 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, Cha
 
 import { FormControl } from '@angular/forms';
 import { Observable, fromEvent, merge, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';

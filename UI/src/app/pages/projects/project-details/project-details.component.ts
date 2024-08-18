@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { AppSettings, Settings } from 'src/app/app.settings';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
 import { tap, map } from 'rxjs/operators';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 
