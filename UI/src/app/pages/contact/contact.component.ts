@@ -1,11 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
+import { FileTypePipe } from 'src/app/theme/pipes/file-type.pipe';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatCardModule, ReactiveFormsModule, FlexLayoutModule, HeaderImageComponent]
 })
 export class ContactComponent implements OnInit {
   public contactForm: FormGroup;

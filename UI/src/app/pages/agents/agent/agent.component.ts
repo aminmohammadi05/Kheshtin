@@ -1,20 +1,36 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {  } from 'ngx-scrollbar';
 import { Subscription } from 'rxjs'; 
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service'; 
 import { Settings, AppSettings } from 'src/app/app.settings'; 
 import { Property, PaginationOld } from 'src/app/app.models'; 
 import { emailValidator } from 'src/app/theme/utils/app-validators';
+import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { PropertiesSearchComponent } from 'src/app/shared/properties-search/properties-search.component';
+import { GetInTouchComponent } from 'src/app/shared/get-in-touch/get-in-touch.component';
+import { PropertiesSearchResultsFiltersComponent } from 'src/app/shared/properties-search-results-filters/properties-search-results-filters.component';
+import { PropertiesToolbarComponent } from 'src/app/shared/properties-toolbar/properties-toolbar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
+import { RatingComponent } from 'src/app/shared/rating/rating.component';
+
 
 @Component({
   selector: 'app-agent',
   templateUrl: './agent.component.html',
-  styleUrls: ['./agent.component.scss']
+  styleUrls: ['./agent.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatCardModule, MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,ReactiveFormsModule,  FlexLayoutModule, PaginationComponent, PropertiesToolbarComponent , PropertiesSearchComponent, PropertiesSearchResultsFiltersComponent, GetInTouchComponent, RatingComponent],
 })
 export class AgentComponent implements OnInit {
   private sub: any;
@@ -23,7 +39,7 @@ export class AgentComponent implements OnInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen:boolean = true;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation:true
   };
   public properties: Property[];

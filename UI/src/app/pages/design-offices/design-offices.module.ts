@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignOfficesComponent } from './design-offices.component';
 import { DesignOfficeDetailComponent } from './design-office-detail/design-office-detail.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { DesignOfficesSearchComponent } from 'src/app/shared/design-offices-search/design-offices-search.component';
 
@@ -23,17 +22,10 @@ import { DesignOfficeProjectsComponent } from './design-office-projects/design-o
     RouterModule.forChild([
       { path: ':page', component: DesignOfficesComponent, pathMatch: 'full' },
       { path: ':designOfficeId/:tab/:page/:urlTitle', component: DesignOfficeDetailComponent }
-    ]),
-    SharedModule
+    ])
+    
   ],
   declarations: [
-    DesignOfficesComponent,
-    DesignOfficeDetailComponent,
-    DesignOfficeDetailSearchComponent,
-    DesignOfficeVideosComponent,
-    DesignOfficeVideoItemComponent,
-    DesignOfficeProjectsComponent
-    // DesignOfficesCarouselComponent,
   ]
 })
 export class DesignOfficesModule { }

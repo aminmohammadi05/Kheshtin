@@ -1,9 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-properties-toolbar',
   templateUrl: './properties-toolbar.component.html',
-  styleUrls: ['./properties-toolbar.component.scss']
+  styleUrls: ['./properties-toolbar.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule,MatSidenavModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, MatMenuModule],
 })
 export class PropertiesToolbarComponent implements OnInit, OnChanges {
   @Input() isHomePage = false;

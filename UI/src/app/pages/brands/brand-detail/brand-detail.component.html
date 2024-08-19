@@ -93,14 +93,14 @@
                 <button mat-mini-fab color="primary" class="prop-prev  swipe-arrow" style="position:relative;margin-right: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_right</mat-icon>
                 </button>
-                <div class="swiper-container h-100 carousel-outer" [swiper]="config2" style="width:100%">
+                <swiper-container class=" h-100 carousel-outer"  style="width:100%">
                   <div class="swiper-wrapper h-100">
-                    <div *ngFor="let product of (productsOverview)" class="swiper-slide">
+                    <swiper-slide *ngFor="let product of (productsOverview)" class="">
                       <app-product-item [product]="product" [viewType]="viewType" [viewColChanged]="viewCol" [fullWidthPage]="false">
                       </app-product-item>
-                    </div>
+                    </swiper-slide>
                   </div>                  
-                </div>
+                </swiper-container>
                 <button mat-mini-fab color="primary" class="prop-next  swipe-arrow" style="position:relative;margin-left: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_left</mat-icon>
                 </button>
@@ -124,15 +124,15 @@
                 <button mat-mini-fab color="primary" class="prop-prev  swipe-arrow" style="position:relative;margin-right: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_right</mat-icon>
                 </button>
-                <div class="swiper-container h-100 carousel-outer" [swiper]="config2" style="width:100%">
+                <swiper-container class="h-100 carousel-outer"  style="width:100%">
                   <div class="swiper-wrapper h-100">
-                    <div *ngFor="let coll of brandCollectionsOverview" class="swiper-slide">
+                    <swiper-slide *ngFor="let coll of brandCollectionsOverview" >
                       <app-brand-collection-item [brand]="(brand)" [brandCollection]="coll"
                         [viewType]="viewType" [viewColChanged]="viewCol" [fullWidthPage]="false"></app-brand-collection-item>
-                    </div>
+                    </swiper-slide>
                   </div>
                   
-                </div>
+                </swiper-container>
                 <button mat-mini-fab color="primary" class="prop-next  swipe-arrow" style="position:relative;margin-left: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_left</mat-icon>
                 </button>
@@ -156,15 +156,15 @@
                 <button mat-mini-fab color="primary" class="prop-prev  swipe-arrow" style="position:relative;margin-right: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_right</mat-icon>
                 </button>
-                <div class="swiper-container h-100 carousel-outer" [swiper]="config2" style="width:100%">
+                <swiper-container class=" h-100 carousel-outer" style="width:100%">
                   <div class="swiper-wrapper h-100">
-                    <div *ngFor="let video of (videosOverview )" class="swiper-slide">
+                    <swiper-slide *ngFor="let video of (videosOverview )" >
                       <app-brand-video-item [brand]="(brand)" [brandVideo]="video" [viewType]="viewType"
                         [viewColChanged]="viewCol" [fullWidthPage]="false"></app-brand-video-item>
 
-                    </div>
+                    </swiper-slide>
                   </div>
-                </div>
+                </swiper-container>
                 <button mat-mini-fab color="primary" class="prop-next  swipe-arrow" style="position:relative;margin-left: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_left</mat-icon>
                 </button>
@@ -188,15 +188,15 @@
                 <button mat-mini-fab color="primary" class="prop-prev  swipe-arrow" style="position:relative;margin-right: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_right</mat-icon>
                 </button>
-                <div class="swiper-container h-100 carousel-outer" [swiper]="config2" style="width:100%">
+                <swiper-container class=" h-100 carousel-outer"  style="width:100%">
                   <div class="swiper-wrapper h-100">
-                    <div *ngFor="let catalog of (catalogsOverview )" class="swiper-slide">
+                    <swiper-slide *ngFor="let catalog of (catalogsOverview )" >
                       <app-brand-catalog-item [brand]="(brand)" [brandCatalog]="catalog" [viewType]="viewType"
                         [viewColChanged]="viewCol" [fullWidthPage]="false"></app-brand-catalog-item>
 
-                    </div>
+                    </swiper-slide>
                   </div>
-                </div>
+                </swiper-container>
                 <button mat-mini-fab color="primary" class="prop-next  swipe-arrow" style="position:relative;margin-left: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_left</mat-icon>
                 </button>
@@ -220,15 +220,15 @@
                 <button mat-mini-fab color="primary" class="prop-prev  swipe-arrow" style="position:relative;margin-right: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_right</mat-icon>
                 </button>
-                <div class="swiper-container h-100 carousel-outer" [swiper]="config2" style="width:100%">
+                <swiper-container class=" h-100 carousel-outer"  style="width:100%">
                   <div class="swiper-wrapper h-100">
-                    <div *ngFor="let project of (officeProjectsOverview)" class="swiper-slide">
+                    <swiper-slide *ngFor="let project of (officeProjectsOverview)" >
                       <app-office-project-item [project]="project" [viewType]="viewType" [viewColChanged]="viewCol"
                         [fullWidthPage]="false"></app-office-project-item>
 
-                    </div>
+                    </swiper-slide>
                   </div>
-                </div>
+                </swiper-container>
                 <button mat-mini-fab color="primary" class="prop-next  swipe-arrow" style="position:relative;margin-left: 1rem; background-color: black; opacity: .35;">
                   <mat-icon>keyboard_arrow_left</mat-icon>
                 </button>

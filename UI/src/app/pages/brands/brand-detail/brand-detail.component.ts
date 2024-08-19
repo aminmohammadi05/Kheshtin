@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy, ViewChild,
-  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2 } from '@angular/core';
+  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, 
+  CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
@@ -41,14 +42,37 @@ import { BrandCollectionService } from 'src/app/services/brand-collection.servic
 import { BrandVideoService } from 'src/app/services/brand-video.service';
 import { BrandResellerService } from 'src/app/services/brand-reseller.service';
 import { OfficeProjectService } from 'src/app/services/office-project.service';
-import { MatTabGroup } from '@angular/material/tabs';
+import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { BrandCollectionSearch } from 'src/app/models/brand-collection-search';
 import { getImagesWithAbsolutePath, myDomain } from 'src/app/services/helpers/urlHelper';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
+import { BrandCatalogItemComponent } from 'src/app/shared/brand-catalog-item/brand-catalog-item.component';
+import { BrandCollectionItemComponent } from 'src/app/shared/brand-collection-item/brand-collection-item.component';
+import { BrandResellerItemComponent } from 'src/app/shared/brand-reseller-item/brand-reseller-item.component';
+import { BrandVideoItemComponent } from 'src/app/shared/brand-video-item/brand-video-item.component';
+import { OfficeProjectItemComponent } from 'src/app/shared/office-project-item/office-project-item.component';
+import { BrandProductsComponent } from '../brand-products/brand-products.component';
+import { BrandCollectionsComponent } from 'src/app/shared/brand-collections/brand-collections.component';
+import { VideosComponent } from '../videos/videos.component';
+import { ResellersComponent } from '../resellers/resellers.component';
+import { CatalogsComponent } from '../catalogs/catalogs.component';
+import { BrandProjectsComponent } from '../brand-projects/brand-projects.component';
 
 @Component({
   selector: 'app-brand-detail',
   templateUrl: './brand-detail.component.html',
-  styleUrls: ['./brand-detail.component.scss']
+  styleUrls: ['./brand-detail.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatTabsModule, MatListModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, FlexLayoutModule, ProductItemComponent, BrandCatalogItemComponent, BrandCollectionItemComponent, BrandResellerItemComponent, BrandVideoItemComponent, OfficeProjectItemComponent, BrandProductsComponent, BrandCollectionsComponent, VideosComponent, ResellersComponent, CatalogsComponent, BrandProjectsComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   @ViewChild('sidenav', { static: true }) sidenav: any;
@@ -57,7 +81,7 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   viewType = 'grid';
   viewCol = 25;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public sidenavOpen = true;

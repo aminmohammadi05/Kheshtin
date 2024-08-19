@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, combineLatest, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
@@ -23,18 +23,37 @@ import { PageImages } from 'src/app/models/page-images';
 import { InitializeService } from 'src/app/services/initialize.service';
 import { BrandSearch } from 'src/app/models/brand-search';
 import { BrandsDataSource } from 'src/app/services/brands-data-source';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
+import { BrandsSearchComponent } from 'src/app/shared/brands-search/brands-search.component';
+import { BrandsSearchResultsFiltersComponent } from 'src/app/shared/brands-search-results-filters/brands-search-results-filters.component';
+import { BrandItemComponent } from 'src/app/shared/brand-item/brand-item.component';
+import { BrandsCarouselComponent } from 'src/app/shared/brands-carousel/brands-carousel.component';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-brands',
   templateUrl: './brands.component.html',
-  styleUrls: ['./brands.component.css']
+  styleUrls: ['./brands.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatSidenavModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, FlexLayoutModule, PaginationComponent, HeaderCarouselComponent, HeaderImageComponent, BrandsSearchComponent, BrandsSearchResultsFiltersComponent, BrandItemComponent, BrandsCarouselComponent ]
 })
 export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   public categoriesBS : BehaviorSubject<Category[]> = new BehaviorSubject([]);
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public allBrands: Brand[] = [];

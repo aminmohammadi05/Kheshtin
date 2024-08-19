@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StepOneComponent } from './step-one/step-one.component';
 import { StepTwoComponent } from './step-two/step-two.component';
 import { StepThreeComponent } from './step-three/step-three.component';
@@ -7,11 +7,19 @@ import { PreviewComponent } from './preview/preview.component';
 import { Project } from 'src/app/models/project';
 import * as uuid from 'uuid';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @Component({
   selector: 'app-insert-project',
   templateUrl: './insert-project.component.html',
-  styleUrls: ['./insert-project.component.css']
+  styleUrls: ['./insert-project.component.css'],
+  standalone: true,
+  imports: [CommonModule,FormsModule, MatIconModule, MatStepperModule, MatChipsModule, MatFormFieldModule,  ReactiveFormsModule, StepOneComponent, StepTwoComponent, StepThreeComponent, PreviewComponent],
 })
 export class InsertProjectComponent implements OnInit, AfterViewInit {
   project: Project = new Project();

@@ -3,7 +3,7 @@
 
         <mat-sidenav-container class="account">
             <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="account-sidenav">
-                <mat-card [perfectScrollbar]="psConfig"> 
+                <mat-card > 
                     <button fxHide="false" fxHide.gt-sm mat-mini-fab color="warn" class="close" (click)="sidenav.toggle()">
                         <mat-icon>close</mat-icon>
                     </button>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -11,11 +11,22 @@ import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { DesignOffice } from 'src/app/models/design-office';
 import { AuthService } from 'src/app/services/auth.service';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { GetInTouchComponent } from '../get-in-touch/get-in-touch.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-events-search',
   templateUrl: './events-search.component.html',
-  styleUrls: ['./events-search.component.css']
+  styleUrls: ['./events-search.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, ReactiveFormsModule, MatSelectModule, MatFormFieldModule],
 })
 export class EventsSearchComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() variant = 1;

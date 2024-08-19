@@ -1,18 +1,24 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../../app.service'; 
 import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Brand } from 'src/app/models/brand';
-import { CategoryFlatNode } from 'src/app/pages/categories/categories.component';
+import { CategoriesComponent, CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { BrandSearch } from 'src/app/models/brand-search';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-brands-search',
   templateUrl: './brands-search.component.html',
-  styleUrls: ['./brands-search.component.css']
+  styleUrls: ['./brands-search.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatFormFieldModule, ReactiveFormsModule,  FlexLayoutModule, CategoriesComponent],
 })
 export class BrandsSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;

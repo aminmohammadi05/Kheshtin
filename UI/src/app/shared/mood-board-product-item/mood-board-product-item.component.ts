@@ -9,10 +9,18 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserMoodBoardCandidateProduct } from 'src/app/models/user-mood-board-candidate-product';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { FileTypePipe } from 'src/app/theme/pipes/file-type.pipe';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @Component({
   selector: 'app-mood-board-product-item',
   templateUrl: './mood-board-product-item.component.html',
-  styleUrls: ['./mood-board-product-item.component.scss']
+  styleUrls: ['./mood-board-product-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatCardModule, FileTypePipe, FlexLayoutModule]
 })
 export class MoodBoardProductItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() product: Product;

@@ -1,15 +1,26 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { MediaObserver } from '@angular/flex-layout';
+import { FlexLayoutModule, MediaObserver } from '@angular/flex-layout';
 import { Observable } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import * as momentj from 'jalali-moment';
 import * as Moment from 'moment';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @Component({
   selector: 'app-event-detail-timeline-box',
   templateUrl: './event-detail-timeline-box.component.html',
-  styleUrls: ['./event-detail-timeline-box.component.scss']
+  styleUrls: ['./event-detail-timeline-box.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class EventDetailTimelineBoxComponent implements OnInit{
   @Input() recentEvents: any[];

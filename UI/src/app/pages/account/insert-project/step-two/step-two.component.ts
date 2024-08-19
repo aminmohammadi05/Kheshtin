@@ -1,5 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, Output, forwardRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 import { Project } from 'src/app/models/project';
 
 const noop = () => {
@@ -15,7 +21,9 @@ export const STEP_TWO_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'app-step-two',
   templateUrl: './step-two.component.html',
   styleUrls: ['./step-two.component.css'],
-  providers: [STEP_TWO_CONTROL_VALUE_ACCESSOR]
+  providers: [STEP_TWO_CONTROL_VALUE_ACCESSOR],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatSelectModule],
 })
 export class StepTwoComponent implements OnInit, ControlValueAccessor {
   private innerProject = new Project();

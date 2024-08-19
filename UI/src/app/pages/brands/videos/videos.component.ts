@@ -5,10 +5,10 @@ import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
@@ -29,18 +29,30 @@ import { BrandReseller } from 'src/app/models/brand-reseller';
 import { BrandVideoSearch } from 'src/app/models/brand-video-search';
 import { BrandVideoDataSource } from 'src/app/services/brand-video-data-source';
 import { BrandVideoService } from 'src/app/services/brand-video.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatListModule } from '@angular/material/list';
+import { BrandVideoItemComponent } from 'src/app/shared/brand-video-item/brand-video-item.component';
 
 @Component({
   selector: 'app-videos',
   templateUrl: './videos.component.html',
-  styleUrls: ['./videos.component.css']
+  styleUrls: ['./videos.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, FlexLayoutModule, PaginationComponent, BrandVideoItemComponent]
 })
 export class VideosComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;
   @Input() tabChanged: Subject<number>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
 

@@ -4,13 +4,19 @@ import * as Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import { Observable, Subscription } from 'rxjs';
 const moment = extendMoment(Moment);
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-event-timeline-vertical',
   templateUrl: './event-timeline-vertical.component.html',
-  styleUrls: ['./event-timeline-vertical.component.scss']
+  styleUrls: ['./event-timeline-vertical.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule]
 })
 export class EventTimelineVerticalComponent {
   @Input() events: any[];

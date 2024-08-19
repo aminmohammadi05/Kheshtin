@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
@@ -23,17 +23,35 @@ import { InitializeService } from 'src/app/services/initialize.service';
 import { DesignOfficeSearch } from 'src/app/models/design-office-search';
 import { DesignOfficeDataSource } from 'src/app/services/design-office-data-source';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
+import { DesignOfficesSearchComponent } from 'src/app/shared/design-offices-search/design-offices-search.component';
+import { DesignOfficesSearchResultsFiltersComponent } from 'src/app/shared/design-offices-search-results-filters/design-offices-search-results-filters.component';
+import { DesignOfficeItemComponent } from 'src/app/shared/design-office-item/design-office-item.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-design-offices',
   templateUrl: './design-offices.component.html',
-  styleUrls: ['./design-offices.component.css']
+  styleUrls: ['./design-offices.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatButtonModule, MatSidenavModule, FlexLayoutModule, ReactiveFormsModule, MatProgressSpinnerModule, MatFormFieldModule, HeaderCarouselComponent, HeaderImageComponent, DesignOfficesSearchComponent, DesignOfficesSearchResultsFiltersComponent, DesignOfficeItemComponent, PaginationComponent],
 })
 export class DesignOfficesComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public allDesignOffices: DesignOffice[] = [];

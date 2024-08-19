@@ -5,6 +5,13 @@ import { ProjectService } from 'src/app/services/project.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { InputFile, InputFileComponent } from 'ngx-input-file';
+import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 
 const noop = () => {
 };
@@ -19,7 +26,9 @@ export const PREVIEW_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'app-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.css'],
-  providers: [PREVIEW_CONTROL_VALUE_ACCESSOR]
+  providers: [PREVIEW_CONTROL_VALUE_ACCESSOR],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatGridListModule,MatChipsModule, MatListModule, MatCardModule, MatFormFieldModule],
 })
 export class PreviewComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   private innerProject = new Project();

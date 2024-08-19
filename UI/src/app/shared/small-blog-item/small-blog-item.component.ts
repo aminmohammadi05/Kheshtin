@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
@@ -12,10 +12,19 @@ import * as moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Blog } from 'src/app/models/blog';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 @Component({
   selector: 'app-small-blog-item',
   templateUrl: './small-blog-item.component.html',
-  styleUrls: ['./small-blog-item.component.scss']
+  styleUrls: ['./small-blog-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SmallBlogItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() blog: any;

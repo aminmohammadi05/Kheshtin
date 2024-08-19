@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { AppSettings, Settings } from 'src/app/app.settings';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { tap, map, mergeMap } from 'rxjs/operators';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 import { Product } from 'src/app/models/product';
@@ -23,14 +23,26 @@ import * as uuid from 'uuid';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EventService } from 'src/app/services/event.service';
 import { getImagesWithAbsolutePath, myDomain} from 'src/app/services/helpers/urlHelper';
-import { NgxMasonryOptions } from 'ngx-masonry';
+import { NgxMasonryModule, NgxMasonryOptions } from 'ngx-masonry';
 import { Lightbox } from 'ngx-lightbox';
 import { log } from 'console';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { EventDetailTimelineBoxComponent } from 'src/app/shared/event-detail-timeline-box/event-detail-timeline-box.component';
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
-  styleUrls: ['./event-details.component.scss']
+  styleUrls: ['./event-details.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule, FlexLayoutModule, MatChipsModule, MatListModule, MatSidenavModule, NgxMasonryModule, MatDividerModule, EventDetailTimelineBoxComponent]
 })
 export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  {
   viewType: string = 'grid';
@@ -39,7 +51,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  
   @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
   @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public sidenavOpen = true;

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Category } from 'src/app/models/category';
 import { Observable } from 'rxjs';
@@ -9,11 +9,22 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { ProductMoodBoardSearch } from 'src/app/models/product-mood-board-search';
 import { DesignMoodBoardProductSearch } from 'src/app/models/design-mood-board-product-search';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MoodBoardProductItemComponent } from '../mood-board-product-item/mood-board-product-item.component';
 
 @Component({
   selector: 'app-product-mood-board-search',
   templateUrl: './product-mood-board-search.component.html',
-  styleUrls: ['./product-mood-board-search.component.scss']
+  styleUrls: ['./product-mood-board-search.component.scss'],
+  standalone: true,
+  imports: []
 })
 export class ProductMoodBoardSearchComponent implements OnInit, AfterViewInit {
   public color1 = '#c8c8c8';

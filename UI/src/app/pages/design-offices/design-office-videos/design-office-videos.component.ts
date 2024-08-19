@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, ViewChild,
 import { ActivatedRoute, Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import { } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -24,17 +24,27 @@ import { OneOfficeVideoDataSource } from 'src/app/services/one-office-video-data
 import { DesignOfficeVideoService } from 'src/app/services/design-office-video.service';
 import { OneOfficeVideoSearch } from 'src/app/models/one-office-video-search';
 import { DesignOfficeService } from 'src/app/services/design-office.service';
+import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { DesignOfficeVideoItemComponent } from 'src/app/shared/design-office-video-item/design-office-video-item.component';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-design-office-videos',
   templateUrl: './design-office-videos.component.html',
-  styleUrls: ['./design-office-videos.component.css']
+  styleUrls: ['./design-office-videos.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, FlexLayoutModule, MatProgressSpinnerModule, DesignOfficeVideoItemComponent, PaginationComponent],
 })
 export class DesignOfficeVideosComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() designOffice: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
 

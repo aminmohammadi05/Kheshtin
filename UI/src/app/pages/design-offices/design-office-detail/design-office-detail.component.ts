@@ -1,47 +1,54 @@
 import { Component, OnInit, OnDestroy, ViewChild,
-  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2 } from '@angular/core';
+  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
-import { Property } from 'src/app/app.models';
+import {  } from 'ngx-scrollbar';
 import { Settings, AppSettings } from 'src/app/app.settings';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
 import { EmbedVideoService } from 'ngx-embed-video';
-import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 import { DesignOfficeService } from 'src/app/services/design-office.service';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { DesignOffice } from 'src/app/models/design-office';
-import { tap, map, debounceTime, distinctUntilChanged, withLatestFrom } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { Pagination } from 'src/app/models/pagination';
 import { MatPaginator } from '@angular/material/paginator';
-import { DesignOfficeSearch } from 'src/app/models/design-office-search';
-import * as uuid from 'uuid';
-import { OneOfficeProjectDataSource } from 'src/app/services/one-office-project-data-source';
 import { OfficeProjectService } from 'src/app/services/office-project.service';
-import { DesignOfficeProject } from 'src/app/models/design-office-project';
 import { DesignOfficeProjectSearch } from 'src/app/models/design-office-project-search';
-import { MatTabGroup } from '@angular/material/tabs';
-import { ProjectCategory } from 'src/app/models/project-category';
+import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { getImagesWithAbsolutePath, myDomain} from 'src/app/services/helpers/urlHelper';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { RatingComponent } from 'src/app/shared/rating/rating.component';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { DesignOfficeProjectsComponent } from '../design-office-projects/design-office-projects.component';
+import { DesignOfficeVideosComponent } from '../design-office-videos/design-office-videos.component';
 
 @Component({
   selector: 'app-design-office-detail',
   templateUrl: './design-office-detail.component.html',
-  styleUrls: ['./design-office-detail.component.scss']
+  styleUrls: ['./design-office-detail.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatTabsModule, MatButtonModule, MatSidenavModule, FlexLayoutModule, ReactiveFormsModule, MatProgressSpinnerModule, MatFormFieldModule, DesignOfficeVideosComponent, DesignOfficeProjectsComponent, RatingComponent, PaginationComponent],
 })
 export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   @ViewChild('tabGroup', { static: true }) tabGroup: MatTabGroup;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public sidenavOpen = true;

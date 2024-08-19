@@ -1,7 +1,7 @@
 import { AfterViewInit, OnInit, Component, Input, Inject, ChangeDetectorRef, ElementRef, ViewChild, Renderer2, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CompactType, DisplayGrid, GridsterConfig, GridsterItem, GridType } from 'angular-gridster2';
+import { CompactType, DisplayGrid, GridsterConfig, GridsterItem, GridsterModule, GridType } from 'angular-gridster2';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, take, tap } from 'rxjs/operators';
 import { AppSettings, Settings } from 'src/app/app.settings';
@@ -20,10 +20,22 @@ import { MoodBoardCandidateProductDataSource } from 'src/app/services/mood-board
 import { ProductsService } from 'src/app/services/products.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserMoodBoardCandidateProductSearch } from 'src/app/models/user-mood-board-candidate-product-search';
-import { MatTabGroup } from '@angular/material/tabs';
+import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { UserMoodBoardCandidateProduct } from 'src/app/models/user-mood-board-candidate-product';
 import { DesignMoodBoardProduct } from 'src/app/models/design-mood-board-product';
 import { DesignMoodBoardProductSearch } from 'src/app/models/design-mood-board-product-search';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { ProductMoodBoardSearchComponent } from 'src/app/shared/product-mood-board-search/product-mood-board-search.component';
+import { MoodBoardProductItemComponent } from 'src/app/shared/mood-board-product-item/mood-board-product-item.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { TileLayersComponent } from './tile-layers/tile-layers.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 export interface ProductMoodBoardData {
   isCandidateProducts: boolean;
@@ -43,7 +55,9 @@ export interface Tile {
 @Component({
   selector: 'app-design-mood-board',
   templateUrl: './design-mood-board.component.html',
-  styleUrls: ['./design-mood-board.component.scss']
+  styleUrls: ['./design-mood-board.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatTabsModule, MatFormFieldModule, MatCardModule, FlexLayoutModule, MatDividerModule, MatProgressSpinnerModule, MatPaginatorModule, GridsterModule, ReactiveFormsModule, ProductMoodBoardSearchComponent, MoodBoardProductItemComponent, TileLayersComponent]
 })
 export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestroy {
     options: GridsterConfig;

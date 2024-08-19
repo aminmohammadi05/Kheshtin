@@ -10,17 +10,17 @@
           <img src="https://orchard.kheshtin.ir{{blog.bag.contentItems[0].image.urls[0] }}">
       </div>
       <div *ngIf="blog.bag.contentItems.length > 1 " class="mat-card-image w-100 m-0">
-          <div class="swiper-container" [swiper]="config" style="border-radius: 5px;">
+          <swiper-container  style="border-radius: 5px;">
               <div class="swiper-wrapper" style="border-radius: 5px;"> 
-                  <div *ngFor="let image of blog.bag.contentItems | blogBagType: 'BlogImage' | orderBy: 'priority' : 'asc'" class="swiper-slide" style="border-radius: 5px;">
+                  <swiper-slide *ngFor="let image of blog.bag.contentItems | blogBagType: 'BlogImage' | orderBy: 'priority' : 'asc'"  style="border-radius: 5px;">
                       <img src="https://orchard.kheshtin.ir{{image.image.urls[0]}}" class="swiper-lazy" style="border-radius: 5px;">
                      
-                  </div> 
+                  </swiper-slide> 
               </div>  
               <div class="swiper-pagination white"></div>  
               <button mat-icon-button class="swiper-button-prev swipe-arrow"><mat-icon class="mat-icon-lg">keyboard_arrow_left</mat-icon></button>
               <button mat-icon-button class="swiper-button-next swipe-arrow"><mat-icon class="mat-icon-lg">keyboard_arrow_right</mat-icon></button>
-          </div>
+          </swiper-container>
       </div>
 
       

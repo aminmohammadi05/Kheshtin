@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { AppSettings, Settings } from 'src/app/app.settings';
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
 import { EmbedVideoService } from 'ngx-embed-video';
@@ -19,19 +19,32 @@ import { map } from 'rxjs/operators';
 import { getImagesWithAbsolutePath, myDomain} from 'src/app/services/helpers/urlHelper';
 import { Lightbox } from 'ngx-lightbox';
 import { orderBy } from 'lodash';
-import { NgxMasonryOptions } from 'ngx-masonry';
+import { NgxMasonryModule, NgxMasonryOptions } from 'ngx-masonry';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { SimilarBlogsCarouselComponent } from 'src/app/shared/similar-blogs-carousel/similar-blogs-carousel.component';
+import { BlogBagTypePipe } from 'src/app/theme/pipes/blog-bag.pipe';
+import { MatCardModule } from '@angular/material/card';
+import { OrderByPipe } from 'src/app/theme/pipes/order-by.pipe';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @Component({
   selector: 'app-blog-post',
   templateUrl: './blog-post.component.html',
-  styleUrls: ['./blog-post.component.scss']
+  styleUrls: ['./blog-post.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule,MatCardModule,MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, NgxMasonryModule, SimilarBlogsCarouselComponent, BlogBagTypePipe, OrderByPipe],
 })
 export class BlogPostComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public sidenavOpen = false;

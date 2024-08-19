@@ -3,15 +3,23 @@ import { AppService } from 'src/app/app.service';
 import * as moment from 'jalali-moment';
 import { Observable } from 'rxjs';
 import _ from 'lodash'
-import { MediaObserver } from '@angular/flex-layout';
+import { FlexLayoutModule, MediaObserver } from '@angular/flex-layout';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { BlogItemHomeComponent } from 'src/app/shared/blog-item-home/blog-item-home.component';
+import { EventTimelineGridComponent } from 'src/app/shared/event-timeline-grid/event-timeline-grid.component';
+import { EventTimelineVerticalComponent } from 'src/app/shared/event-timeline-vertical/event-timeline-vertical.component';
 
 
 
 @Component({
   selector: 'app-home-event-timeline',
   templateUrl: './home-event-timeline.component.html',
-  styleUrls: ['./home-event-timeline.component.scss']
+  styleUrls: ['./home-event-timeline.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, EventTimelineGridComponent, EventTimelineVerticalComponent]
 })
 export class HomeEventTimelineComponent implements OnInit {
   @Input() recentEvents: Observable<any[]>;

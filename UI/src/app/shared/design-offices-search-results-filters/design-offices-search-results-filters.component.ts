@@ -1,10 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { DesignOfficeSearch } from 'src/app/models/design-office-search';
 
 @Component({
   selector: 'app-design-offices-search-results-filters',
   templateUrl: './design-offices-search-results-filters.component.html',
-  styleUrls: ['./design-offices-search-results-filters.component.css']
+  styleUrls: ['./design-offices-search-results-filters.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule],
 })
 export class DesignOfficesSearchResultsFiltersComponent implements OnInit {
   @Input() searchFields: DesignOfficeSearch;

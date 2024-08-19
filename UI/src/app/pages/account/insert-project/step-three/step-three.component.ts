@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Inject, Output, forwardRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { Product } from 'src/app/models/product';
 import { Brand } from 'src/app/models/brand';
 import { BrandService } from 'src/app/services/brand.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { ProductsService } from 'src/app/services/products.service';
 import { Project } from 'src/app/models/project';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,6 +13,16 @@ import { Pagination } from 'src/app/models/pagination';
 import { FileValidatorDirective } from 'src/app/theme/directives/file-validator.directive';
 import { Search } from 'src/app/models/search';
 import { Category } from 'src/app/models/category';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatListModule } from '@angular/material/list';
 
 const noop = () => {
 };
@@ -31,7 +41,9 @@ export interface ChooseProductDialogData {
   selector: 'app-step-three',
   templateUrl: './step-three.component.html',
   styleUrls: ['./step-three.component.css'],
-  providers: [STEP_THREE_CONTROL_VALUE_ACCESSOR]
+  providers: [STEP_THREE_CONTROL_VALUE_ACCESSOR],
+  standalone: true,
+  imports: [CommonModule, MatIconModule,MatChipsModule, MatListModule, MatButtonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatSelectModule, MatDividerModule],
 })
 export class StepThreeComponent implements OnInit, ControlValueAccessor {
   private innerProject = new Project();
@@ -115,7 +127,9 @@ export class StepThreeComponent implements OnInit, ControlValueAccessor {
 @Component({
   selector: 'app-choose-products-dialog',
   templateUrl: 'choose-products-dialog.html',
-  styleUrls: ['./step-three.component.css']
+  styleUrls: ['./step-three.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, MatDialogModule],
 })
 export class ChooseProductsDialogComponent implements OnInit {
   productForm: FormGroup;

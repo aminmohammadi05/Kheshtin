@@ -3,15 +3,15 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, Cha
 
 import { FormControl } from '@angular/forms';
 import { Observable, fromEvent, merge, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { debounceTime, distinctUntilChanged, tap, switchMap, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
 import { AppSettings, Settings } from 'src/app/app.settings';
 import { AppService } from 'src/app/app.service';
 import { Pagination } from 'src/app/models/pagination';
@@ -25,11 +25,25 @@ import { EventService } from 'src/app/services/event.service';
 import { BasicDataService } from 'src/app/services/basic-data.service';
 import { log } from 'console';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
+import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { EventItemComponent } from 'src/app/shared/event-item/event-item.component';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { MatCardModule } from '@angular/material/card';
+import { EventsSearchResultsFiltersComponent } from 'src/app/shared/events-search-results-filters/events-search-results-filters.component';
+import { EventsSearchComponent } from 'src/app/shared/events-search/events-search.component';
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
-  styleUrls: ['./events.component.css']
+  styleUrls: ['./events.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule, FlexLayoutModule, HeaderImageComponent, MatChipsModule, MatListModule, MatSidenavModule, EventItemComponent, PaginationComponent, HeaderCarouselComponent, EventsSearchResultsFiltersComponent, EventsSearchComponent]
 })
 export class EventsComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCategories: EventCategory[] = [];
@@ -44,7 +58,7 @@ export class EventsComponent implements OnInit, OnDestroy, AfterViewInit {
 @ViewChild('sidenav', { static: true }) sidenav: any;
 public sidenavOpen = true;
 @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-public psConfig: PerfectScrollbarConfigInterface = {
+public psConfig = {
   wheelPropagation: true
 };
 public allEvents: Event[] = [];

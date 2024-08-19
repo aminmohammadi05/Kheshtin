@@ -1,9 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-rating',
   templateUrl: './rating.component.html',
-  styleUrls: ['./rating.component.scss']
+  styleUrls: ['./rating.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, FlexLayoutModule]
 })
 export class RatingComponent {
   @Input() ratingsCount:number;

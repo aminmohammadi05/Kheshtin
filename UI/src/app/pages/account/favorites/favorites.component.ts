@@ -1,20 +1,30 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { Property } from 'src/app/app.models';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ProductsService } from 'src/app/services/products.service';
 import { UserFavorites } from 'src/app/models/user-favorites';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { tap, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.scss']
+  styleUrls: ['./favorites.component.scss'],
+  standalone: true,
+    imports: [CommonModule, MatIconModule,MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  FlexLayoutModule, ReactiveFormsModule, MatPaginatorModule],
 })
 export class FavoritesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'image', 'title', 'actions' ];

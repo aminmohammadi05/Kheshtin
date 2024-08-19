@@ -5,10 +5,10 @@ import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
@@ -30,17 +30,29 @@ import { BrandReseller } from 'src/app/models/brand-reseller';
 import { BrandCollectionSearch } from 'src/app/models/brand-collection-search';
 import { BrandCollectionDataSource } from 'src/app/services/brand-collection-data-source';
 import { BrandCollectionService } from 'src/app/services/brand-collection.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BrandCollectionItemComponent } from 'src/app/shared/brand-collection-item/brand-collection-item.component';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-collections',
   templateUrl: './collections.component.html',
-  styleUrls: ['./collections.component.css']
+  styleUrls: ['./collections.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, FlexLayoutModule, BrandCollectionItemComponent, PaginationComponent ]
 })
 export class CollectionsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
 

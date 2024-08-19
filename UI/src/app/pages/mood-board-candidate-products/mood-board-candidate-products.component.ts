@@ -3,7 +3,7 @@ import { AppService } from '../../app.service';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { Subscription } from 'rxjs';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Property } from 'src/app/app.models';
 import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
@@ -16,11 +16,19 @@ import { UserMoodBoardCandidateProduct } from 'src/app/models/user-mood-board-ca
 import { MoodBoardCandidateProductDataSource } from 'src/app/services/mood-board-candidate-product-data-source';
 import { UserService } from 'src/app/services/user.service';
 import { UserMoodBoardCandidateProductSearch } from 'src/app/models/user-mood-board-candidate-product-search';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-mood-board-candidate-products',
   templateUrl: './mood-board-candidate-products.component.html',
-  styleUrls: ['./mood-board-candidate-products.component.scss']
+  styleUrls: ['./mood-board-candidate-products.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatButtonModule,MatListModule, MatPaginatorModule, ProductItemComponent ]
 })
 export class MoodBoardCandidateProductsComponent implements OnInit, OnDestroy {
   @ViewChild(SwiperDirective) directiveRef: SwiperDirective;

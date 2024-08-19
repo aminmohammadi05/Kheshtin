@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { SafeHtmlPipe } from 'src/app/theme/pipes/safe-html.pipe';
 import { FileTypePipe } from 'src/app/theme/pipes/file-type.pipe';
@@ -20,12 +19,10 @@ import { EventHeaderCarouselComponent } from 'src/app/shared/event-header-carous
     RouterModule.forChild([
       { path: ':page', component: EventsComponent, pathMatch: 'full' },
       { path: ':eventId/:urlTitle', component: EventDetailsComponent }
-    ]),
-    SharedModule
+    ])
+    
   ],
   declarations: [
-    EventDetailsComponent,
-    EventHeaderCarouselComponent,
   ]
 })
 export class EventsModule {

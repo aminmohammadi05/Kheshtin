@@ -5,7 +5,7 @@ import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -33,11 +33,26 @@ import { BrandOfficeProjectsDataSource } from 'src/app/services/brand-office-pro
 import { OfficeProjectService } from 'src/app/services/office-project.service';
 import { BrandProductDataSource } from 'src/app/services/brand-product-data-source';
 import { BrandProductSearch } from 'src/app/models/brand-product-search';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { PropertiesSearchResultsFiltersComponent } from 'src/app/shared/properties-search-results-filters/properties-search-results-filters.component';
+import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
+import { PropertiesSearchComponent } from 'src/app/shared/properties-search/properties-search.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 @Component({
   selector: 'app-brand-products',
   templateUrl: './brand-products.component.html',
-  styleUrls: ['./brand-products.component.css']
+  styleUrls: ['./brand-products.component.css'],
+  standalone: true,
+  imports: [CommonModule,MatCardModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatSidenavModule,  FlexLayoutModule, PaginationComponent, PropertiesSearchComponent, ProductItemComponent, PropertiesSearchResultsFiltersComponent],
 })
 export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;
@@ -47,7 +62,7 @@ export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public categoriesBS : BehaviorSubject<Category[]> = new BehaviorSubject([]);
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public products: any[] = [];

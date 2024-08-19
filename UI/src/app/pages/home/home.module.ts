@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../../shared/shared.module';
 import { HomeComponent } from './home.component';
 import { HotOfferTodayComponent } from './hot-offer-today/hot-offer-today.component';
 import { RecentProductsComponent } from './recent-products/recent-products.component';
@@ -16,22 +15,14 @@ import { DxGanttModule } from 'devextreme-angular';
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    HotOfferTodayComponent,
-    RecentProductsComponent,
-    RecentBlogsComponent,
-    RecentOfficeProjectsComponent,
-    HorizontalPropertiesSearchComponent,
-    OfficeProjectsCarouselComponent,
-    HomeEventTimelineComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
       { path: '', component: HomeComponent, pathMatch: 'full'  }
-    ]),
+    ])
     
-    SharedModule
+    
   ]
 })
 export class HomeModule { }

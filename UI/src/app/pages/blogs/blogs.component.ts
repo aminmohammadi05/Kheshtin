@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { Blog } from 'src/app/models/blog';
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
 import { Pagination } from 'src/app/models/pagination';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { AppService } from 'src/app/app.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { MediaObserver, MediaChange, FlexLayoutModule } from '@angular/flex-layout';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { BlogService } from 'src/app/services/blog.service';
@@ -20,18 +20,34 @@ import { BrandSearch } from 'src/app/models/brand-search';
 import { Category } from 'src/app/models/category';
 import { BasicDataService } from 'src/app/services/basic-data.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { BlogsSearchResultsFiltersComponent } from 'src/app/shared/blogs-search-results-filters/blogs-search-results-filters.component';
+import { BlogsSearchComponent } from 'src/app/shared/blogs-search/blogs-search.component';
+import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
+import { BlogItemComponent } from 'src/app/shared/blog-item/blog-item.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
-  styleUrls: ['./blogs.component.scss']
+  styleUrls: ['./blogs.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule,MatSidenavModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, PaginationComponent, HeaderCarouselComponent, HeaderImageComponent, BlogsSearchComponent, BlogsSearchResultsFiltersComponent, BlogItemComponent],
 })
 export class BlogsComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   public categoriesBS : BehaviorSubject<Category[]> = new BehaviorSubject([]);
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public allBlogs: Blog[] = [];

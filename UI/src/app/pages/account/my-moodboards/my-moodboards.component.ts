@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 import { ProductsDataSource } from 'src/app/services/products-data-source';
 import { CategoryService } from 'src/app/services/category.service';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { debounceTime, distinctUntilChanged, tap, skip, switchMap, map } from 'rxjs/operators';
 import { Pagination } from 'src/app/models/pagination';
@@ -27,17 +27,27 @@ import { MoodBoardSearch } from 'src/app/models/mood-board-search';
 import { MyMoodBoardDataSource } from 'src/app/services/my-mood-board-data-source';
 import { MoodBoardService } from 'src/app/services/mood-board.service';
 import { MyMoodBoardSearch } from 'src/app/models/my-mood-board-search';
+import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MoodBoardItemComponent } from 'src/app/shared/mood-board-item/mood-board-item.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
     selector: 'app-my-mood-boards',
     templateUrl: './my-moodboards.component.html',
-    styleUrls: ['./my-moodboards.component.css']
+    styleUrls: ['./my-moodboards.component.css'],
+    standalone: true,
+    imports: [CommonModule, MatIconModule, MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  FlexLayoutModule, MatPaginatorModule, MoodBoardItemComponent],
   })
 export class MyMoodBoardsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public allMoodBoards: UserMoodBoard[] = [];

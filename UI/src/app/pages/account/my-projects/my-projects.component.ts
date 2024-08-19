@@ -1,18 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { Property } from 'src/app/app.models';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Project } from 'src/app/models/project';
 import { AuthService } from 'src/app/services/auth.service';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-my-projects',
   templateUrl: './my-projects.component.html',
-  styleUrls: ['./my-projects.component.scss']
+  styleUrls: ['./my-projects.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, MatPaginatorModule],
 })
 export class MyProjectsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'image', 'title', 'published', 'actions' ];

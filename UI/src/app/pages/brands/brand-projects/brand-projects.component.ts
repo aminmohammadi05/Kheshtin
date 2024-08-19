@@ -5,7 +5,7 @@ import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -31,18 +31,27 @@ import { BrandOfficeProjectSearch } from 'src/app/models/brand-office-project-se
 import { BrandOfficeProjectsDataSource } from 'src/app/services/brand-office-project-data-source';
 import { OfficeProjectService } from 'src/app/services/office-project.service';
 import { BrandOfficeProject } from 'src/app/models/brand-office-project';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-brand-projects',
   templateUrl: './brand-projects.component.html',
-  styleUrls: ['./brand-projects.component.css']
+  styleUrls: ['./brand-projects.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, PaginationComponent],
 })
 export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;
   @Input() tabChanged: Subject<number>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
 

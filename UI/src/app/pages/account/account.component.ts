@@ -1,19 +1,28 @@
 import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import { Router, NavigationEnd, NavigationStart, RouterModule } from '@angular/router';
+import {  } from 'ngx-scrollbar';
 import { AuthService } from 'src/app/services/auth.service';
 import { Login } from 'src/app/models/login';
 import { User } from 'src/app/models/user';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  styleUrls: ['./account.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatStepperModule,  MatFormFieldModule, MatSidenavModule, MatCardModule, MatButtonModule, RouterModule ],
 })
 export class AccountComponent implements OnInit, AfterViewInit {
   loggedInUser: Observable<User>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   @ViewChild('sidenav', { static: true }) sidenav: any;

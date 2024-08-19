@@ -13,13 +13,13 @@
                 src="https://orchard.kheshtin.ir{{blog.bag.contentItems[0].image.urls[0]}}">
         </div>
         <div *ngIf="blog.bag.contentItems.length > 1" class="mat-card-image w-100 m-0">
-            <div class="swiper-container" [swiper]="config">
+            <swiper-container >
                 <div class="swiper-wrapper">
-                    <div *ngFor="let image of blog.bag.contentItems | blogBagType: 'BlogImage' | orderBy: 'priority' : 'asc'" class="swiper-slide">
+                    <swiper-slide *ngFor="let image of blog.bag.contentItems | blogBagType: 'BlogImage' | orderBy: 'priority' : 'asc'" >
                         <img src="https://orchard.kheshtin.ir{{image.image.urls[0]}}"
                             class="swiper-lazy">
                         <div class="swiper-lazy-preloader"></div>
-                    </div>
+                    </swiper-slide>
                 </div>
                 <div class="swiper-pagination white"></div>
                 <button mat-icon-button class="swiper-button-prev swipe-arrow" >
@@ -28,7 +28,7 @@
                 <button mat-icon-button class="swiper-button-next swipe-arrow">
                     <mat-icon class="mat-icon-lg">keyboard_arrow_right</mat-icon>
                 </button>
-            </div>
+            </swiper-container>
         </div>
 
     </div>

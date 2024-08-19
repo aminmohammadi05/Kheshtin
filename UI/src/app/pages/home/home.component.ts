@@ -3,7 +3,7 @@ import { Settings, AppSettings } from '../../app.settings';
 import { AppService } from '../../app.service';
 import { Property } from '../../app.models';
 import { Subscription, Observable, of, combineLatest, fromEvent, Subject } from 'rxjs';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
 import { debounceTime, distinctUntilChanged, tap, map, switchMap, withLatestFrom, filter, mergeMap } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
 import { Brand } from 'src/app/models/brand';
@@ -23,11 +23,20 @@ import { BlogService } from 'src/app/services/blog.service';
 import { BrandService } from 'src/app/services/brand.service';
 import { BasicDataService } from 'src/app/services/basic-data.service';
 import { EventService } from 'src/app/services/event.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { HomeEventTimelineComponent } from './home-event-timeline/home-event-timeline.component';
+import { RecentBlogsComponent } from './recent-blogs/recent-blogs.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatProgressSpinnerModule, HomeEventTimelineComponent, RecentBlogsComponent, HeaderCarouselComponent],
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   public quickCategorySubject = new Subject<any>();

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, ElementRef, Inject } from '@angular/core';
 import { Project } from 'src/app/models/project';
 import { ChooseProductsDialogComponent } from '../insert-project/step-three/step-three.component';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from 'src/app/services/project.service';
@@ -22,6 +22,17 @@ import { Search } from 'src/app/models/search';
 import { DomSanitizer } from '@angular/platform-browser';
 import { InputFile, InputFileComponent } from 'ngx-input-file';
 import { Category } from 'src/app/models/category';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 export interface EditProductDialogData {
   brandList: Observable<Brand[]>;
   selectedProducts: Product[];
@@ -29,7 +40,9 @@ export interface EditProductDialogData {
 @Component({
   selector: 'app-edit-project',
   templateUrl: './edit-project.component.html',
-  styleUrls: ['./edit-project.component.css']
+  styleUrls: ['./edit-project.component.css'],
+  standalone: true,
+    imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  FlexLayoutModule, ReactiveFormsModule, MatDividerModule, MatSelectModule],
 })
 export class EditProjectComponent implements OnInit, AfterViewInit {
   projectId = '';
@@ -300,7 +313,9 @@ saveChanges() {
 @Component({
   selector: 'app-edit-products-dialog',
   templateUrl: 'edit-products-dialog.html',
-  styleUrls: ['./edit-project.component.css']
+  styleUrls: ['./edit-project.component.css'],
+  standalone: true,
+    imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  FlexLayoutModule, ReactiveFormsModule, MatDividerModule, MatSelectModule],
 })
 export class EditProductsDialogComponent implements OnInit {
   productForm: FormGroup;

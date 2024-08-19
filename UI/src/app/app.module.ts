@@ -7,10 +7,10 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { EmbedVideo } from 'ngx-embed-video';
-import { InputFileConfig, InputFileModule } from 'ngx-input-file';
-const config: InputFileConfig = {
-  fileAccept: '*'
-};
+// import { InputFileConfig, InputFileModule } from 'ngx-input-file';
+// const config: InputFileConfig = {
+//   fileAccept: '*'
+// };
 
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
@@ -64,7 +64,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
         EmbedVideo.forRoot(),
         NgProgressModule,
         NgProgressHttpModule,
-        InputFileModule.forRoot(config),
+        // InputFileModule.forRoot(config),
         AppRouting,
         FontAwesomeModule,
         GraphQLModule], providers: [

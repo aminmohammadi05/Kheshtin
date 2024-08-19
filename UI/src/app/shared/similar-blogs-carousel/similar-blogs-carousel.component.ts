@@ -1,12 +1,22 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Blog } from 'src/app/models/blog';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { SmallBlogItemComponent } from '../small-blog-item/small-blog-item.component';
 
 @Component({
   selector: 'app-similar-blogs-carousel',
   templateUrl: './similar-blogs-carousel.component.html',
-  styleUrls: ['./similar-blogs-carousel.component.scss']
+  styleUrls: ['./similar-blogs-carousel.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatFormFieldModule,  FlexLayoutModule, SmallBlogItemComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SimilarBlogsCarouselComponent implements OnInit, AfterViewInit {
   @Input() blogs: Array<any> = [];

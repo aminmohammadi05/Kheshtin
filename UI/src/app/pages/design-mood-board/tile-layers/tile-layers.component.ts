@@ -1,13 +1,21 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MoodBoardProduct } from 'src/app/models/moodboard-product';
 import { Product } from 'src/app/models/product';
 import { ProductMoodBoardSearch } from 'src/app/models/product-mood-board-search';
+import {DragDropModule} from '@angular/cdk/drag-drop'
 
 @Component({
     selector: 'app-tile-layers',
     templateUrl: './tile-layers.component.html',
-    styleUrls: ['./tile-layers.component.css']
+    styleUrls: ['./tile-layers.component.css'],
+    standalone: true,
+    imports: [CommonModule, MatIconModule, MatFormFieldModule, FlexLayoutModule, DragDropModule]
   })
 export class TileLayersComponent implements OnInit {
     @Input() products: MoodBoardProduct[];

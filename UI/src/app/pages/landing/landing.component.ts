@@ -1,11 +1,24 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { AppSettings, Settings } from 'src/app/app.settings';
+import { LogoComponent } from 'src/app/shared/logo/logo.component';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss'] 
+  styleUrls: ['./landing.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatFormFieldModule, MatSidenavModule, ReactiveFormsModule, MatButtonModule,MatListModule, MatToolbarModule, LogoComponent ] 
 })
 export class LandingComponent implements OnInit {
  

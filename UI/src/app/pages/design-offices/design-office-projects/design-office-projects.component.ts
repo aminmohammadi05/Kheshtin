@@ -3,10 +3,10 @@ import { Component, OnInit, OnDestroy, ViewChild,
 import { ActivatedRoute, Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
@@ -27,18 +27,35 @@ import { ProjectCategory } from 'src/app/models/project-category';
 import { ProjectSearch } from 'src/app/models/project-search';
 import { ProjectService } from 'src/app/services/project.service';
 import { DesignOfficeProjectSearch } from 'src/app/models/design-office-project-search';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { DesignOfficeDetailComponent } from '../design-office-detail/design-office-detail.component';
+import { DesignOfficesSearchResultsFiltersComponent } from 'src/app/shared/design-offices-search-results-filters/design-offices-search-results-filters.component';
+import { DesignOfficeItemComponent } from 'src/app/shared/design-office-item/design-office-item.component';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { CategoriesComponent } from '../../categories/categories.component';
+import { DesignOfficeDetailSearchComponent } from 'src/app/shared/design-office-detail-search/design-office-detail-search.component';
 
 @Component({
   selector: 'app-design-office-projects',
   templateUrl: './design-office-projects.component.html',
-  styleUrls: ['./design-office-projects.component.css']
+  styleUrls: ['./design-office-projects.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatButtonModule, MatSidenavModule, FlexLayoutModule, ReactiveFormsModule, MatProgressSpinnerModule, MatFormFieldModule, DesignOfficeDetailSearchComponent, DesignOfficesSearchResultsFiltersComponent, DesignOfficeItemComponent, PaginationComponent, CategoriesComponent],
 })
 export class DesignOfficeProjectsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() designOffice: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public categoriesBS : BehaviorSubject<ProjectCategory[]> = new BehaviorSubject([]);
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public sidenavOpen = true;

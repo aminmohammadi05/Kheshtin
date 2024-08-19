@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../../shared/shared.module';
 import { InputFileModule } from 'ngx-input-file';
 import { AccountComponent } from './account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -26,20 +25,6 @@ import { PaginationModule,PaginationConfig } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
-    AccountComponent,
-    MyProjectsComponent,
-    FavoritesComponent,
-    ProfileComponent,
-    EditProjectComponent,
-    InsertProjectComponent,
-    StepOneComponent,
-    StepTwoComponent,
-    StepThreeComponent,
-    PreviewComponent,
-    ChooseProductsDialogComponent,
-    EditProductsDialogComponent,
-    MyMoodBoardsComponent
   ],
   imports: [
     CommonModule,
@@ -59,7 +44,7 @@ import { PaginationModule,PaginationConfig } from 'ngx-bootstrap/pagination';
         ]
       }
     ]),
-    SharedModule,
+    
     InputFileModule,
     FontAwesomeModule
   ]

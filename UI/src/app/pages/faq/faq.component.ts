@@ -1,9 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { GetInTouchComponent } from 'src/app/shared/get-in-touch/get-in-touch.component';
 
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.scss']
+  styleUrls: ['./faq.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatProgressSpinnerModule, MatExpansionModule, GetInTouchComponent],
 })
 export class FaqComponent implements OnInit {
   public faqs = [

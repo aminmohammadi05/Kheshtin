@@ -1,14 +1,21 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
-import {CompactType, DirTypes, GridType, GridsterComponent, GridsterConfig, GridsterItem, GridsterItemComponent, GridsterPush} from 'angular-gridster2';
+import {CompactType, DirTypes, GridType, GridsterComponent, GridsterConfig, GridsterItem, GridsterItemComponent, GridsterModule, GridsterPush} from 'angular-gridster2';
 import { max } from 'lodash';
 import * as momentj from 'jalali-moment';
 import * as Moment from 'moment';
 import { extendMoment } from 'moment-range';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { EventTimelineVerticalComponent } from '../event-timeline-vertical/event-timeline-vertical.component';
 const moment = extendMoment(Moment);
 @Component({
   selector: 'app-event-timeline-grid',
   templateUrl: './event-timeline-grid.component.html',
-  styleUrls: ['./event-timeline-grid.component.scss']
+  styleUrls: ['./event-timeline-grid.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, GridsterModule]
 })
 export class EventTimelineGridComponent implements OnInit, AfterViewInit{
   topVar = 0;

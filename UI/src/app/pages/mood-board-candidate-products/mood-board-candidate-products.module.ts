@@ -6,7 +6,7 @@ import { MoodBoardCandidateProductsComponent } from './mood-board-candidate-prod
 
 
 @NgModule({
-  declarations: [MoodBoardCandidateProductsComponent],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild([

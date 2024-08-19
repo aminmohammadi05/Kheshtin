@@ -1,15 +1,26 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
 import { AppService } from '../../app.service';
 import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
 import { Brand } from 'src/app/models/brand';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { BlogBagTypePipe } from 'src/app/theme/pipes/blog-bag.pipe';
+import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-brand-item',
   templateUrl: './brand-item.component.html',
-  styleUrls: ['./brand-item.component.scss']
+  styleUrls: ['./brand-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, RouterModule]
 })
 export class BrandItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brand: any;

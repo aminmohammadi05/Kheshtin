@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, forwardRef, AfterViewInit, OnChanges } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, ControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
 import { Province } from 'src/app/models/province';
 import { ProjectService } from 'src/app/services/project.service';
 import { City } from 'src/app/models/city';
@@ -11,6 +11,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable, of } from 'rxjs';
 import { Login } from 'src/app/models/login';
 import { tap, map } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 const noop = () => {
 };
@@ -25,7 +32,9 @@ export const STEP_ONE_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'app-step-one',
   templateUrl: './step-one.component.html',
   styleUrls: ['./step-one.component.css'],
-  providers: [STEP_ONE_CONTROL_VALUE_ACCESSOR]
+  providers: [STEP_ONE_CONTROL_VALUE_ACCESSOR],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatSelectModule],
 })
 export class StepOneComponent implements OnInit, OnChanges, AfterViewInit,  ControlValueAccessor {
   loginList: Observable<Login[]>;

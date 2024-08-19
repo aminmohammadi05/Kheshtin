@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
@@ -8,10 +8,25 @@ import { Event as LocalEvent } from 'src/app/models/event';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as moment from 'jalali-moment';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { PaginationComponent } from 'ngx-bootstrap/pagination';
+import { HeaderCarouselComponent } from '../header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../header-image/header-image.component';
+import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-event-item',
   templateUrl: './event-item.component.html',
-  styleUrls: ['./event-item.component.scss']
+  styleUrls: ['./event-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule, FlexLayoutModule, HeaderImageComponent, MatChipsModule, MatListModule, MatSidenavModule, RouterModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EventItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() event: any;

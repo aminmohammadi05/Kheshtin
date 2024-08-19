@@ -1,14 +1,14 @@
 <div  class="properties-carousel" fxLayout="row" fxLayoutAlign="space-between center">   
   <button mat-mini-fab color="primary" class="prop-next  swipe-arrow" style="position:relative; margin-left: 1rem; background-color: black; opacity: .35;"><mat-icon>keyboard_arrow_right</mat-icon></button> 
-  <div class="swiper-container h-100 carousel-outer" [swiper]="config"  > 
+  <swiper-container class=" h-100 carousel-outer" > 
       <div class="swiper-wrapper h-100" >
-        <div *ngFor="let blog of blogs" class="swiper-slide">
+        <swiper-slide *ngFor="let blog of blogs" >
             <app-small-blog-item [blog]="blog" [viewType]="viewType" [viewColChanged]="viewCol"></app-small-blog-item>                 
-        </div>   
+        </swiper-slide>   
           
       </div>                      
       
-  </div>
+  </swiper-container>
   <button mat-mini-fab color="primary" class="prop-prev  swipe-arrow" style="position:relative;margin-right: 1rem; background-color: black; opacity: .35;"><mat-icon>keyboard_arrow_left</mat-icon></button>
   
 </div>

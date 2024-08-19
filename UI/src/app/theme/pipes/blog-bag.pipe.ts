@@ -4,6 +4,7 @@ import { FileToUpload } from '../../models/file-to-upload';
 
 @Pipe({
   name: 'blogBagType',
+  standalone: true,
   pure: false
 })
 export class BlogBagTypePipe implements PipeTransform {
