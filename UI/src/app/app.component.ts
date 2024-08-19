@@ -1,14 +1,17 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Settings, AppSettings } from './app.settings';
-import { Router, NavigationEnd, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
+import { Router, NavigationEnd, RouteConfigLoadStart, RouteConfigLoadEnd, RouterModule } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import 'lodash';
+import { NgProgressModule } from '@ngx-progressbar/core';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [NgProgressModule, RouterModule]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   public loadingRouteConfig: boolean;

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { InputFileModule } from 'ngx-input-file';
+// import { InputFileModule } from 'ngx-input-file';
 import { AccountComponent } from './account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FavoritesComponent } from './favorites/favorites.component';
@@ -45,7 +45,7 @@ import { PaginationModule,PaginationConfig } from 'ngx-bootstrap/pagination';
       }
     ]),
     
-    InputFileModule,
+    // InputFileModule,
     FontAwesomeModule
   ]
 })
