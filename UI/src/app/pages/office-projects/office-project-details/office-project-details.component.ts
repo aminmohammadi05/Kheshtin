@@ -4,15 +4,15 @@ import { Component,
   ViewChildren,
   QueryList, OnDestroy, AfterViewInit, HostListener, ChangeDetectorRef, Input, Inject, ElementRef, Renderer2 } from '@angular/core';
 import { OfficeProject } from 'src/app/models/office-project';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Meta } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { AppSettings, Settings } from 'src/app/app.settings';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import {  } from 'ngx-scrollbar';
 import { tap, map, mergeMap } from 'rxjs/operators';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 import { Product } from 'src/app/models/product';
@@ -24,11 +24,17 @@ import * as uuid from 'uuid';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OfficeProjectService } from 'src/app/services/office-project.service';
 import { getImagesWithAbsolutePath, myDomain} from 'src/app/services/helpers/urlHelper';
-import { NgxMasonryOptions } from 'ngx-masonry';
+import { NgxMasonryModule, NgxMasonryOptions } from 'ngx-masonry';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatSidenav } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { Lightbox } from 'ngx-lightbox';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDividerModule } from '@angular/material/divider';
 
 export interface OfficeProjectImageData {
   officeProject: Observable<OfficeProject>;
@@ -37,7 +43,9 @@ export interface OfficeProjectImageData {
 @Component({
   selector: 'app-office-project-details',
   templateUrl: './office-project-details.component.html',
-  styleUrls: ['./office-project-details.component.scss']
+  styleUrls: ['./office-project-details.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatSidenavModule, NgxMasonryModule, FlexLayoutModule, MatDividerModule, RouterModule]
 })
 export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterViewInit  {
   viewType: string = 'grid';
@@ -47,7 +55,7 @@ export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterVi
   @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
   @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public sidenavOpen = true;

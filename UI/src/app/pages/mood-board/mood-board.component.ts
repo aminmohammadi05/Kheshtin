@@ -1,8 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef} from '@angular/core';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { MatPaginator } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import {  } from 'ngx-scrollbar';
 import { Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
@@ -15,18 +24,26 @@ import { AuthService } from 'src/app/services/auth.service';
 import { InitializeService } from 'src/app/services/initialize.service';
 import { MoodBoardDataSource } from 'src/app/services/mood-board-data-source';
 import { MoodBoardService } from 'src/app/services/mood-board.service';
+import { BrandsCarouselComponent } from 'src/app/shared/brands-carousel/brands-carousel.component';
+import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
+import { MoodBoardItemComponent } from 'src/app/shared/mood-board-item/mood-board-item.component';
+import { MoodBoardsSearchResultsFiltersComponent } from 'src/app/shared/mood-boards-search-results-filters/mood-boards-search-results-filters.component';
+import { MoodBoardsSearchComponent } from 'src/app/shared/mood-boards-search/mood-boards-search.component';
 
 
 @Component({
   selector: 'app-mood-board',
   templateUrl: './mood-board.component.html',
-  styleUrls: ['./mood-board.component.css']
+  styleUrls: ['./mood-board.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, FlexLayoutModule, MatChipsModule, MatListModule, MatFormFieldModule, MatSidenavModule, MatProgressSpinnerModule, MatPaginatorModule, RouterModule, HeaderCarouselComponent, HeaderImageComponent, MoodBoardsSearchComponent, MoodBoardsSearchResultsFiltersComponent, MoodBoardItemComponent, BrandsCarouselComponent ]
 })
 export class MoodBoardComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public allMoodBoards: UserMoodBoard[] = [];

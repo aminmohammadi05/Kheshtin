@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Category } from 'src/app/models/category';
 import { Observable } from 'rxjs';
 import { Brand } from 'src/app/models/brand';
-import { CategoryFlatNode } from 'src/app/pages/categories/categories.component';
+import { CategoriesComponent, CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { BrandSearch } from 'src/app/models/brand-search';
@@ -12,13 +12,15 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { BrandCollectionsComponent } from '../brand-collections/brand-collections.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-brand-detail-search',
   templateUrl: './brand-detail-search.component.html',
   styleUrls: ['./brand-detail-search.component.css'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatExpansionModule,  FlexLayoutModule],
+  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatExpansionModule,  FlexLayoutModule, BrandCollectionsComponent, CategoriesComponent, ReactiveFormsModule],
 })
 export class BrandDetailSearchComponent implements OnInit, AfterViewInit {
   @Input() brandId = '';

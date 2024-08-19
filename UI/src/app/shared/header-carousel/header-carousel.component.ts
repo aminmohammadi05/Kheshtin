@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, OnChanges, ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { PageImages } from 'src/app/models/page-images';
@@ -7,12 +7,23 @@ import { Router } from '@angular/router';
 import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { LazyLoadScriptService } from 'src/app/services/lazy-load-script-service';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 declare var $;
 @Component({
   selector: 'app-header-carousel',
   templateUrl: './header-carousel.component.html',
-  styleUrls: ['./header-carousel.component.scss']
+  styleUrls: ['./header-carousel.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatButtonModule, MatCardModule, FlexLayoutModule, ReactiveFormsModule, SlickCarouselModule ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HeaderCarouselComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
  

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { matchingPasswords, emailValidator } from 'src/app/theme/utils/app-validators';
@@ -9,11 +9,21 @@ import { ProfessionalArea } from 'src/app/models/professional-area';
 import { UserProfessionalArea } from 'src/app/models/user-professional-area';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  standalone: true,
+  imports: [CommonModule,MatIconModule, MatCardModule, MatExpansionModule,  FlexLayoutModule, MatDividerModule, ReactiveFormsModule, MatFormFieldModule, FontAwesomeModule],
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
 

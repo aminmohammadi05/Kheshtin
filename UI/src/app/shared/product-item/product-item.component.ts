@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
@@ -13,10 +13,18 @@ import { Route, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { DesignMoodBoardComponent } from 'src/app/pages/design-mood-board/design-mood-board.component';
 import { MoodBoardCandidateProductOverviewComponent } from '../mood-board-candidate-product-overview/mood-board-candidate-product-overview.component';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.scss']
+  styleUrls: ['./product-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatIconModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() product: any;

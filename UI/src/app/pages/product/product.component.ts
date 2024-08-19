@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+ import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, of, combineLatest, zip, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
@@ -24,18 +24,31 @@ import { InitializeService } from 'src/app/services/initialize.service';
 import { Search } from 'src/app/models/search';
 import { BasicDataService } from 'src/app/services/basic-data.service';
 import { BrandProductCollection } from 'src/app/models/brand-product-collection';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { BrandsCarouselComponent } from 'src/app/shared/brands-carousel/brands-carousel.component';
+import { PropertiesSearchResultsFiltersComponent } from 'src/app/shared/properties-search-results-filters/properties-search-results-filters.component';
+
+import { MatChipsModule } from '@angular/material/chips';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { PropertiesSearchComponent } from 'src/app/shared/properties-search/properties-search.component';
+import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.css'],
+  standalone: true,
+  imports : [CommonModule, MatIconModule, FlexLayoutModule, MatCardModule, MatSidenavModule, BrandsCarouselComponent, MatChipsModule, PropertiesSearchResultsFiltersComponent, PaginationComponent, PropertiesSearchComponent, ProductItemComponent]
 })
 export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   public categoriesBS : BehaviorSubject<Category[]> = new BehaviorSubject([]);
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public allProducts: any[] = [];

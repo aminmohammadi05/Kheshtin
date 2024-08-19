@@ -71,26 +71,26 @@
               <div class="mt-3 main-carousel-container">
                   <div class="main-carousel mb-3"> 
                         
-                      <div id="main-carousel" class="swiper-container" [swiper]="config" (indexChange)="onIndexChange($event)"> 
+                      <swiper-container id="main-carousel"  (indexChange)="onIndexChange($event)"> 
                           <div class="swiper-wrapper">      
-                              <div *ngFor="let image of product?.imageList.contentItems" class="swiper-slide">
+                              <swiper-slide *ngFor="let image of product?.imageList.contentItems" >
                                   <img src="https://orchard.kheshtin.ir{{image.image.urls[0]}} " class="swiper-lazy">
                                   <div class="swiper-lazy-preloader"></div>          
-                              </div>
+                              </swiper-slide>
                           </div>                      
                           <button mat-mini-fab color="primary" class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
                           <button mat-mini-fab color="primary" class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button> 
-                      </div>
+                      </swiper-container>
                   </div>
                   <div class="small-carousel">   
-                      <div id="small-carousel" class="swiper-container" [swiper]="config2"> 
+                      <swiper-container id="small-carousel" > 
                           <div class="swiper-wrapper">      
-                              <div *ngFor="let image of product?.imageList.contentItems ; let i=index;" class="swiper-slide" [ngClass]="'thumb-'+i" [class.active-thumb]="i == 0">
+                              <swiper-slide *ngFor="let image of product?.imageList.contentItems ; let i=index;"  [ngClass]="'thumb-'+i" [class.active-thumb]="i == 0">
                                   <img src="https://orchard.kheshtin.ir{{ image.image.urls[0] }}" class="swiper-lazy mw-100 small-carousel-image" (click)="selectImage(i)">
                                   <div class="swiper-lazy-preloader"></div>  
-                              </div>
+                              </swiper-slide>
                           </div>  
-                      </div>
+                      </swiper-container>
                   </div>
                 </div> 
               

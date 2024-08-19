@@ -1,14 +1,17 @@
 import { Component, OnInit, forwardRef, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormBuilder, Form, FormGroup, FormControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormBuilder, Form, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BrandCollectionListDatabase } from 'src/app/services/brand-collection-list-database';
 import { BrandCollection } from 'src/app/models/brand-collection';
 import { BrandCollectionService } from 'src/app/services/brand-collection.service';
 import { AuthService } from 'src/app/services/auth.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-brand-collections',
   templateUrl: './brand-collections.component.html',
   styleUrls: ['./brand-collections.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule, MatCheckboxModule],
   providers: [BrandCollectionListDatabase,
     {
       provide: NG_VALUE_ACCESSOR,

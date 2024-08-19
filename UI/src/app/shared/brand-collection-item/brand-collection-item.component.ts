@@ -16,11 +16,20 @@ import { BrandCollection } from 'src/app/models/brand-collection';
 import { Brand } from 'src/app/models/brand';
 import { Search } from 'src/app/models/search';
 import { Pagination } from 'src/app/models/pagination';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-brand-collection-item',
   templateUrl: './brand-collection-item.component.html',
-  styleUrls: ['./brand-collection-item.component.scss']
+  styleUrls: ['./brand-collection-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule, FlexLayoutModule],
 })
 export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brandCollection: any;

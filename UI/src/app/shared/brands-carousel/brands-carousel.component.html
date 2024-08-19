@@ -5,16 +5,15 @@
           <p class="text-center">لیست شماری از برندهای تولید کننده</p>
 
           <div class="clients-carousel"> 
-              <div class="swiper-container h-100" [swiper]="config"> 
-                  <div class="swiper-wrapper h-100">      
-                      <div *ngFor="let brand of brands" class="swiper-slide">
+              <swiper-container>                  
+                      <swiper-slide *ngFor="let brand of brands" >
                           <div class="client-item"> 
-                              <img src="https://orchard.kheshtin.ir{{brand.cardImage.urls[0]}}" class="swiper-lazy"> 
+                              <img src="https://orchard.kheshtin.ir{{brand.cardImage.urls[0]}}" class="swiper-lazy">
                              
                           </div>
-                      </div>
-                  </div> 
-              </div>
+                      </swiper-slide>
+                 
+              </swiper-container>
           </div>
               
       </div>

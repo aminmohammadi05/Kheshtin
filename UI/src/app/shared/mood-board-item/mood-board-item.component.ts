@@ -9,15 +9,33 @@ import { ProductsService } from 'src/app/services/products.service';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import * as moment from 'jalali-moment'; // add this 1 of 4
-import { Route, Router } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Blog } from 'src/app/models/blog';
 import { BlogService } from 'src/app/services/blog.service';
 import { UserMoodBoard } from 'src/app/models/user-moodboard';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { BrandsCarouselComponent } from '../brands-carousel/brands-carousel.component';
+import { HeaderCarouselComponent } from '../header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../header-image/header-image.component';
+import { MoodBoardsSearchResultsFiltersComponent } from '../mood-boards-search-results-filters/mood-boards-search-results-filters.component';
+import { MoodBoardsSearchComponent } from '../mood-boards-search/mood-boards-search.component';
 @Component({
   selector: 'app-mood-board-item',
   templateUrl: './mood-board-item.component.html',
-  styleUrls: ['./mood-board-item.component.scss']
+  styleUrls: ['./mood-board-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, FlexLayoutModule, MatFormFieldModule, RouterModule ]
 })
 export class MoodBoardItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() moodBoard: UserMoodBoard;

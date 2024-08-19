@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { AppService } from 'src/app/app.service';
 import { Observable } from 'rxjs';
@@ -7,7 +7,9 @@ import { Brand } from 'src/app/models/brand';
 @Component({
   selector: 'app-brands-carousel',
   templateUrl: './brands-carousel.component.html',
-  styleUrls: ['./brands-carousel.component.scss']
+  styleUrls: ['./brands-carousel.component.scss'],
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BrandsCarouselComponent implements OnInit {
   @Input() public brands: any[];

@@ -5,12 +5,23 @@ import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { BasicDataService } from 'src/app/services/basic-data.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-vertical-menu',
   templateUrl: './vertical-menu.component.html',
   styleUrls: ['./vertical-menu.component.scss'],
-  providers: [ MenuService ]
+  providers: [ MenuService ],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule]
 })
 export class VerticalMenuComponent implements OnInit {
   public menuItemList: [];

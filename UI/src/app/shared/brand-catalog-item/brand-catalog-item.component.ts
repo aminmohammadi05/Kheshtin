@@ -13,11 +13,22 @@ import { Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrandCatalog } from 'src/app/models/brand-catalog';
 import { Brand } from 'src/app/models/brand';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CategoriesComponent } from 'src/app/pages/categories/categories.component';
+import { BrandCollectionsComponent } from '../brand-collections/brand-collections.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-brand-catalog-item',
   templateUrl: './brand-catalog-item.component.html',
-  styleUrls: ['./brand-catalog-item.component.scss']
+  styleUrls: ['./brand-catalog-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatIconModule,  FlexLayoutModule],
 })
 export class BrandCatalogItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brandCatalog: any;

@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, Output, EventEmitter, forwardRef, Inp
 import { CategorylistDatabase } from 'src/app/services/category-list-database';
 import { Category } from 'src/app/models/category';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
+import { MatTreeFlattener, MatTreeFlatDataSource, MatTreeModule } from '@angular/material/tree';
 import { SelectionModel } from '@angular/cdk/collections';
 import { BrandService } from 'src/app/services/brand.service';
 import { BrandCategoryService } from 'src/app/services/brand-category.service';
@@ -12,6 +12,14 @@ import { Observable, Subject, of } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { BrandCollectionsComponent } from 'src/app/shared/brand-collections/brand-collections.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 export class CategoryFlatNode {
   constructor(public id: number,
               public item: string,
@@ -22,6 +30,8 @@ export class CategoryFlatNode {
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatTreeModule, MatCheckboxModule, MatButtonModule, MatIconModule],
   providers: [CategorylistDatabase,
     {
       provide: NG_VALUE_ACCESSOR,

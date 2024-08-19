@@ -4,7 +4,8 @@ import { FileToUpload } from '../../models/file-to-upload';
 
 @Pipe({
   name: 'fileType',
-  pure: false
+  pure: false,
+  standalone: true,
 })
 export class FileTypePipe implements PipeTransform {
 

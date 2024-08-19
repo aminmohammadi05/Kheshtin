@@ -1,14 +1,29 @@
 import { Component, OnInit, ViewChild, HostListener, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { Settings, AppSettings } from '../app.settings';
 import { SlideInOutAnimation } from '../theme/components/animations/slide-in-out';
 import { BasicDataService } from '../services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { FooterComponent } from '../theme/components/footer/footer.component';
+import { Toolbar1Component } from '../theme/components/toolbar1/toolbar1.component';
+import { VerticalMenuComponent } from '../theme/components/menu/vertical-menu/vertical-menu.component';
 
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
-  animations: [SlideInOutAnimation]
+  animations: [SlideInOutAnimation],
+  standalone: true,
+  imports : [CommonModule, MatIconModule, MatFormFieldModule, FlexLayoutModule, MatButtonModule, MatSidenavModule, FooterComponent, RouterModule, Toolbar1Component, VerticalMenuComponent]
 })
 export class PagesComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav:any;  

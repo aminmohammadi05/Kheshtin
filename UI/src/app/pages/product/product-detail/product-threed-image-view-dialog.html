@@ -7,10 +7,10 @@
           <mat-card class="mat-elevation-z0 brand-background">
             <mat-card-content>
               <div class="main-carousel mb-3">
-                <div id="main-carousel" class="swiper-container image-dialog-carousel" [swiper]="config"
+                <swiper-container id="main-carousel" class=" image-dialog-carousel"
                   (indexChange)="onIndexChange($event)">
                   <div class="swiper-wrapper">
-                    <div *ngFor="let image of carouselProductFiles" class="swiper-slide" style="text-align: center;">
+                    <swiper-slide *ngFor="let image of carouselProductFiles"  style="text-align: center;">
                       <img
                         src="https://orchard.kheshtin.ir{{image.productFileImage.urls[0] }} "
                         class="swiper-lazy"  style="max-width: 80%;max-height: 80%;">
@@ -35,7 +35,7 @@
                           class="uppercase mx-1 button-image download-button"></button>
 
                       </div>
-                    </div>
+                    </swiper-slide>
                   </div>
                   <button mat-mini-fab color="primary" class="swiper-button-prev swipe-arrow">
                     <mat-icon>keyboard_arrow_left</mat-icon>
@@ -43,7 +43,7 @@
                   <button mat-mini-fab color="primary" class="swiper-button-next swipe-arrow">
                     <mat-icon>keyboard_arrow_right</mat-icon>
                   </button>
-                </div>
+                </swiper-container>
               </div>
 
             </mat-card-content>

@@ -1,11 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { log } from 'console';
 import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss']
+  styleUrls: ['./pagination.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FlexLayoutModule, MatIconModule, MatButtonModule]
 })
 export class PaginationComponent implements OnInit {
   /** The total number of records */

@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Observable, fromEvent, merge, Subscription, BehaviorSubject, combineLatest, forkJoin, zip } from 'rxjs';
 import {} from 'ngx-scrollbar';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
@@ -26,11 +26,26 @@ import { ProjectCategory } from 'src/app/models/project-category';
 import { DesignOffice } from 'src/app/models/design-office';
 import { BasicDataService } from 'src/app/services/basic-data.service';
 import { SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
+import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
+import { OfficeProjectsSearchComponent } from 'src/app/shared/office-projects-search/office-projects-search.component';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { OfficeProjectsSearchResultsFiltersComponent } from 'src/app/shared/office-projects-search-results-filters/office-projects-search-results-filters.component';
+import { OfficeProjectItemComponent } from 'src/app/shared/office-project-item/office-project-item.component';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-office-projects',
   templateUrl: './office-projects.component.html',
-  styleUrls: ['./office-projects.component.css']
+  styleUrls: ['./office-projects.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatProgressSpinnerModule, MatChipsModule, MatButtonModule, MatCardModule, MatSidenavModule,HeaderImageComponent, HeaderCarouselComponent, OfficeProjectItemComponent, OfficeProjectsSearchResultsFiltersComponent, OfficeProjectsSearchComponent, PaginationComponent]
 })
 export class OfficeProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCategories: OfficeProjectCategory[] = [];

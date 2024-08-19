@@ -1,7 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../../shared/shared.module';
 import { ProductComponent } from './product.component';
 import { BrandContactInfoRequestDialogComponent,
   BrandInfoRequestDialogComponent, ProductDetailComponent,
@@ -21,14 +20,7 @@ import { PaginationModule,PaginationConfig } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
-    ProductComponent,
-    ProductDetailComponent,
-    BrandInfoRequestDialogComponent,
-    BrandContactInfoRequestDialogComponent,
-    ProductTexturesHeaderCarouselComponent,
-    ProductImageViewDialogComponent,
-    ProductThreeDImageViewDialogComponent,
-    ProductTextureImageViewDialogComponent
+    
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -39,8 +31,8 @@ import { PaginationModule,PaginationConfig } from 'ngx-bootstrap/pagination';
     RouterModule.forChild([
       { path: ':page', component: ProductComponent, pathMatch: 'full' },
       { path: ':productId/:urlTitle', component: ProductDetailComponent }
-    ]),
-    SharedModule
+    ])
+    
   ]
 })
 export class ProductsModule {

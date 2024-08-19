@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Vie
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Meta } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {  } from 'ngx-scrollbar';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable, of } from 'rxjs';
 import { AppSettings, Settings } from 'src/app/app.settings';
@@ -13,11 +13,21 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MoodBoardService } from 'src/app/services/mood-board.service';
 import * as uuid from 'uuid';
 import * as moment from 'jalali-moment'; // add this 1 of 4
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { SmallProductItemComponent } from 'src/app/shared/small-product-item/small-product-item.component';
 
 @Component({
   selector: 'app-mood-board-detail',
   templateUrl: './mood-board-detail.component.html',
-  styleUrls: ['./mood-board-detail.component.scss']
+  styleUrls: ['./mood-board-detail.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, FlexLayoutModule, MatFormFieldModule, MatSidenavModule, SmallProductItemComponent ]
 })
 export class MoodBoardDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   viewType: string = 'grid';
@@ -26,7 +36,7 @@ export class MoodBoardDetailComponent implements OnInit, OnDestroy, AfterViewIni
   @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
   @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
   @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
+  public psConfig = {
     wheelPropagation: true
   };
   public sidenavOpen = true;

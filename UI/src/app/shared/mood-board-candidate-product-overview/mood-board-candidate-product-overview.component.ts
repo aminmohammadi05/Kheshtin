@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet'; 
 import { Property } from '../../app.models';
 import { Settings, AppSettings } from '../../app.settings';
@@ -8,11 +8,20 @@ import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-mood-board-candidate-product-overview',
   templateUrl: './mood-board-candidate-product-overview.component.html',
-  styleUrls: ['./mood-board-candidate-product-overview.component.scss'] 
+  styleUrls: ['./mood-board-candidate-product-overview.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatIconModule, MatToolbarModule, MatListModule]
 })
 export class MoodBoardCandidateProductOverviewComponent implements OnInit {
 

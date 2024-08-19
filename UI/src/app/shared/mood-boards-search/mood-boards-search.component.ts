@@ -1,19 +1,28 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../../app.service'; 
 import { Category } from 'src/app/models/category';
 import { Observable } from 'rxjs';
 import { Brand } from 'src/app/models/brand';
-import { CategoryFlatNode } from 'src/app/pages/categories/categories.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { CategoriesComponent, CategoryFlatNode } from 'src/app/pages/categories/categories.component';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { BlogSearch } from 'src/app/models/blog-search';
 import { MoodBoardSearch } from 'src/app/models/mood-board-search';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-mood-boards-search',
   templateUrl: './mood-boards-search.component.html',
-  styleUrls: ['./mood-boards-search.component.scss']
+  styleUrls: ['./mood-boards-search.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, FlexLayoutModule, MatFormFieldModule, ReactiveFormsModule, MatSelectModule, CategoriesComponent ]
 })
 export class MoodBoardsSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;

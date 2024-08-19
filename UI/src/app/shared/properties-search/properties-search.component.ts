@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Category } from 'src/app/models/category';
 import { BehaviorSubject, forkJoin, fromEvent, Observable, of, zip } from 'rxjs';
@@ -13,11 +13,20 @@ import { InputFile } from 'ngx-input-file';
 import { BrandProductCollection } from 'src/app/models/brand-product-collection';
 import { BrandCollection } from 'src/app/models/brand-collection';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-properties-search',
   templateUrl: './properties-search.component.html',
-  styleUrls: ['./properties-search.component.scss']
+  styleUrls: ['./properties-search.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatIconModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule]
 })
 export class PropertiesSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -11,11 +11,26 @@ import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { DesignOffice } from 'src/app/models/design-office';
 import { AuthService } from 'src/app/services/auth.service';
 import { BasicDataService } from 'src/app/services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { PaginationComponent } from 'ngx-bootstrap/pagination';
+import { HeaderCarouselComponent } from '../header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../header-image/header-image.component';
+import { OfficeProjectItemComponent } from '../office-project-item/office-project-item.component';
+import { OfficeProjectsSearchResultsFiltersComponent } from '../office-projects-search-results-filters/office-projects-search-results-filters.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-office-projects-search',
   templateUrl: './office-projects-search.component.html',
-  styleUrls: ['./office-projects-search.component.css']
+  styleUrls: ['./office-projects-search.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatButtonModule, MatCardModule, FlexLayoutModule, ReactiveFormsModule]
 })
 export class OfficeProjectsSearchComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() variant = 1;

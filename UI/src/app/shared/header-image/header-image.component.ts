@@ -1,11 +1,17 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer} from '@angular/platform-browser'
 import { Settings, AppSettings } from '../../app.settings';
+import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-header-image',
   templateUrl: './header-image.component.html',
-  styleUrls: ['./header-image.component.scss']
+  styleUrls: ['./header-image.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class HeaderImageComponent implements OnInit {
   @Input('backgroundImage') backgroundImage;

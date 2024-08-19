@@ -5,14 +5,12 @@
         [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section">
         
         <div  class="mat-card-image w-100 m-0">
-            <div class="swiper-container" [swiper]="config">
-                <div class="swiper-wrapper">
-                    <div *ngFor="let image of product.imageList.contentItems" class="swiper-slide">
+            <swiper-container >               
+                    <swiper-slide *ngFor="let image of product.imageList.contentItems" >
                         <img src="https://orchard.kheshtin.ir{{image.image.urls[0]}}"
                             class="swiper-lazy">
                         <div class="swiper-lazy-preloader"></div>
-                    </div>
-                </div>
+                    </swiper-slide>                
                 <div class="swiper-pagination white"></div>
                 <button mat-icon-button class="swiper-button-prev swipe-arrow">
                     <mat-icon class="mat-icon-lg">keyboard_arrow_left</mat-icon>
@@ -20,7 +18,7 @@
                 <button mat-icon-button class="swiper-button-next swipe-arrow">
                     <mat-icon class="mat-icon-lg">keyboard_arrow_right</mat-icon>
                 </button>
-            </div>
+            </swiper-container>
         </div>
 
         <!-- <div class="control-icons">

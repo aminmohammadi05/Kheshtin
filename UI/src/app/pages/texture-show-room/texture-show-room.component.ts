@@ -4,7 +4,7 @@ import { Component,
   ViewChildren,
   QueryList, OnDestroy, AfterViewInit, HostListener, ElementRef, ViewEncapsulation, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Meta } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
@@ -22,11 +22,19 @@ import { saveAs } from 'file-saver/FileSaver';
 import { TextureShowRoom } from 'src/app/models/texture-show-room';
 import { ShowRoomService } from 'src/app/services/show-room.service';
 import { ShowRoomProduct } from 'src/app/models/show-room-product';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatDividerModule} from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-texture-show-room',
   templateUrl: './texture-show-room.component.html',
   styleUrls: ['./texture-show-room.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatCardModule, MatExpansionModule,  FlexLayoutModule, MatDividerModule],
   encapsulation: ViewEncapsulation.None
 })
 export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewInit  {
@@ -332,6 +340,8 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
 @Component({
   selector: 'app-texture-show-room-download-dialog',
   templateUrl: 'texture-show-room-download-dialog.html',
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatCardModule, MatExpansionModule,  FlexLayoutModule, MatDividerModule],
 })
 export class TextureShowRoomDownloadDialogComponent implements OnInit {
   public settings: Settings;
