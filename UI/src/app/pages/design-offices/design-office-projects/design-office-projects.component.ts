@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy, ViewChild,
   ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
-import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
-import { EmbedVideoService } from 'ngx-embed-video';
+
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
@@ -53,14 +53,14 @@ import { DesignOfficeDetailSearchComponent } from 'src/app/shared/design-office-
 export class DesignOfficeProjectsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() designOffice: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
+  // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public categoriesBS : BehaviorSubject<ProjectCategory[]> = new BehaviorSubject([]);
   public psConfig = {
     wheelPropagation: true
   };
   public sidenavOpen = true;
-  public config: SwiperConfigInterface = {};
-  public config2: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
+  // public config2: SwiperConfigInterface = {};
   public projects: any[] = [];
   public totalVideos: Observable<number>;
   public viewType = 'grid';
@@ -85,7 +85,7 @@ export class DesignOfficeProjectsComponent implements OnInit, OnDestroy, AfterVi
               public appService: AppService,
               private route: ActivatedRoute,
               private router: Router,
-              private embedService: EmbedVideoService,
+              
               private officeVideoService: DesignOfficeVideoService,
               public fb: FormBuilder,
               private projectService: ProjectService,
@@ -150,77 +150,77 @@ export class DesignOfficeProjectsComponent implements OnInit, OnDestroy, AfterVi
 
   ngAfterViewInit() {
     this.cdRef.detectChanges();
-    this.config = {
-      observer: false,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: true,
-      navigation: true,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false
-      }
-    };
+    // this.config = {
+    //   observer: false,
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: true,
+    //   navigation: true,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   autoplay: {
+    //     delay: 5000,
+    //     disableOnInteraction: false
+    //   }
+    // };
 
-    this.config2 = {
-      observer: false,
-      slidesPerView: 4,
-      spaceBetween: 16,
-      keyboard: true,
-      navigation: false,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      breakpoints: {
-        480: {
-          slidesPerView: 2
-        },
-        600: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    // this.config2 = {
+    //   observer: false,
+    //   slidesPerView: 4,
+    //   spaceBetween: 16,
+    //   keyboard: true,
+    //   navigation: false,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   breakpoints: {
+    //     480: {
+    //       slidesPerView: 2
+    //     },
+    //     600: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
 
   }
 
   public onOpenedChange() {
-    this.swipers.forEach(swiper => {
-      if (swiper) {
-        swiper.update();
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper) {
+    //     swiper.update();
+    //   }
+    // });
   }
 
   public selectImage(index: number) {
-    this.swipers.forEach(swiper => {
-      if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
-        swiper.setIndex(index);
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
+    //     swiper.setIndex(index);
+    //   }
+    // });
   }
 
   public onIndexChange(index: number) {
-    this.swipers.forEach(swiper => {
-      const elem = swiper['elementRef'].nativeElement;
-      if (elem.id === 'small-carousel') {
-        swiper.setIndex(index);
-        for(let i = 0; i < elem.children[0].children.length; i++) {
-          const element = elem.children[0].children[i];
-          if (element.classList.contains('thumb-' + index)) {
-            element.classList.add('active-thumb');
-          } else {
-            element.classList.remove('active-thumb');
-          }
-        }
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   const elem = swiper['elementRef'].nativeElement;
+    //   if (elem.id === 'small-carousel') {
+    //     swiper.setIndex(index);
+    //     for(let i = 0; i < elem.children[0].children.length; i++) {
+    //       const element = elem.children[0].children[i];
+    //       if (element.classList.contains('thumb-' + index)) {
+    //         element.classList.add('active-thumb');
+    //       } else {
+    //         element.classList.remove('active-thumb');
+    //       }
+    //     }
+    //   }
+    // });
   }
   public searchChanged(event) {
     event.valueChanges.subscribe(() => {

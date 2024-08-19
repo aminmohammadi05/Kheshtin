@@ -10,7 +10,7 @@ import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
-import { EmbedVideoService } from 'ngx-embed-video';
+
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 import { BrandService } from 'src/app/services/brand.service';
@@ -83,7 +83,7 @@ export class CollectionsComponent implements OnInit, OnDestroy, AfterViewInit  {
               public appService: AppService,
               private route: ActivatedRoute,
               private router: Router,
-              private embedService: EmbedVideoService,
+              
               public fb: FormBuilder,
               private productService: ProductsService,
               private brandService: BrandService,

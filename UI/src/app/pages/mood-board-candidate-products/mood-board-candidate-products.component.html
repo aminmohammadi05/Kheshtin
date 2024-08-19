@@ -6,7 +6,7 @@
       
       <mat-card fxLayout="row" fxLayoutAlign="space-between center" class="compare-toolbar">      
         <h3 class="uppercase">تعداد: {{pagination.totalItems}}</h3>      
-        <div fxLayout="row" fxLayoutAlign="center center" *ngIf="config.simulateTouch">
+        <div fxLayout="row" fxLayoutAlign="center center" > <!--*ngIf="config.simulateTouch"-->
             <button mat-mini-fab color="primary" class="carousel-prev swiper-button-prev swipe-arrow mx-2"><mat-icon>keyboard_arrow_left</mat-icon></button>
             <button mat-mini-fab color="primary" class="carousel-next swiper-button-next swipe-arrow mx-2"><mat-icon>keyboard_arrow_right</mat-icon></button> 
         </div> 

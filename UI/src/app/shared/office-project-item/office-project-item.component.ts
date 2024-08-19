@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
-import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+// import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
 import { AppService } from '../../app.service';
@@ -29,12 +29,12 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
   @Input() fullWidthPage = true;
   public column = 4;
   // public address:string;
-  @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
-  public config: SwiperConfigInterface = {};
-  private pagination: SwiperPaginationInterface = {
-    el: '.swiper-pagination',
-    clickable: true
-  };
+  // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
+  // public config: SwiperConfigInterface = {};
+  // private pagination: SwiperPaginationInterface = {
+  //   el: '.swiper-pagination',
+  //   clickable: true
+  // };
   public settings: Settings;
   constructor(public appSettings: AppSettings,
               public appService: AppService) {
@@ -56,7 +56,7 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
       this.getColumnCount(changes.viewColChanged.currentValue);
       if (!changes.viewColChanged.isFirstChange()) {
         if (this.project.officeProjectImageList.length > 1) {
-           this.directiveRef.update();
+          //  this.directiveRef.update();
         }
       }
     }
@@ -106,24 +106,24 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
 
 
   public initCarousel() {
-    this.config = {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: false,
-      navigation: true,
-      pagination: this.pagination,
-      grabCursor: true,
-      loop: true,
-      preloadImages: false,
-      lazy: true,
-      nested: true,
-      // autoplay: {
-      //   delay: 5000,
-      //   disableOnInteraction: false
-      // },
-      speed: 500,
-      effect: 'slide'
-    };
+    // this.config = {
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: false,
+    //   navigation: true,
+    //   pagination: this.pagination,
+    //   grabCursor: true,
+    //   loop: true,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   nested: true,
+    //   // autoplay: {
+    //   //   delay: 5000,
+    //   //   disableOnInteraction: false
+    //   // },
+    //   speed: 500,
+    //   effect: 'slide'
+    // };
   }
   getOfficeProjectImages(project){
     return project.bag.contentItems.filter(x => x.__typename === "ProjectImage");

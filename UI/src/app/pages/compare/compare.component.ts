@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AppService } from '../../app.service';
-import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { Subscription } from 'rxjs';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
@@ -14,8 +14,8 @@ import { Product } from 'src/app/models/product';
   styleUrls: ['./compare.component.scss']
 })
 export class CompareComponent implements OnInit, OnDestroy {
-  @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
-  public config: SwiperConfigInterface = {};
+  // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
+  // public config: SwiperConfigInterface = {};
   public watcher: Subscription;
   public settings: Settings;
   constructor(public appSettings: AppSettings,
@@ -26,30 +26,30 @@ export class CompareComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.config = {
-      observer: true,
-      slidesPerView: 4,
-      spaceBetween: 16,
-      keyboard: false,
-      navigation: false,
-      pagination: false,
-      simulateTouch: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: true,
-      lazy: false,
-      breakpoints: {
-        600: {
-          slidesPerView: 1
-        },
-        960: {
-          slidesPerView: 2,
-        },
-        1280: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    // this.config = {
+    //   observer: true,
+    //   slidesPerView: 4,
+    //   spaceBetween: 16,
+    //   keyboard: false,
+    //   navigation: false,
+    //   pagination: false,
+    //   simulateTouch: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: true,
+    //   lazy: false,
+    //   breakpoints: {
+    //     600: {
+    //       slidesPerView: 1
+    //     },
+    //     960: {
+    //       slidesPerView: 2,
+    //     },
+    //     1280: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
     this.watchForChanges();
   }
 
@@ -59,22 +59,22 @@ export class CompareComponent implements OnInit, OnDestroy {
 
   public disableSwiper() {
     setTimeout(() => {
-      if (this.directiveRef) {
-        this.config.keyboard = false;
-        this.config.navigation = false;
-        this.config.simulateTouch = false;
-        this.directiveRef.update();
-      }
+      // if (this.directiveRef) {
+      //   this.config.keyboard = false;
+      //   this.config.navigation = false;
+      //   this.config.simulateTouch = false;
+      //   this.directiveRef.update();
+      // }
     });
   }
   public enableSwiper() {
     setTimeout(() => {
-      if (this.directiveRef) {
-        this.config.keyboard = true;
-        this.config.navigation = { nextEl: '.carousel-next', prevEl: '.carousel-prev' };
-        this.config.simulateTouch = true;
-        this.directiveRef.update();
-      }
+      // if (this.directiveRef) {
+      //   this.config.keyboard = true;
+      //   this.config.navigation = { nextEl: '.carousel-next', prevEl: '.carousel-prev' };
+      //   this.config.simulateTouch = true;
+      //   this.directiveRef.update();
+      // }
     });
   }
 

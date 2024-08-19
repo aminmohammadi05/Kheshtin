@@ -20,7 +20,7 @@ import { ProjectProduct } from 'src/app/models/project-product';
 import { Pagination } from 'src/app/models/pagination';
 import { Search } from 'src/app/models/search';
 import { DomSanitizer } from '@angular/platform-browser';
-import { InputFile, InputFileComponent } from 'ngx-input-file';
+
 import { Category } from 'src/app/models/category';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -33,6 +33,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
 export interface EditProductDialogData {
   brandList: Observable<Brand[]>;
   selectedProducts: Product[];
@@ -42,7 +43,7 @@ export interface EditProductDialogData {
   templateUrl: './edit-project.component.html',
   styleUrls: ['./edit-project.component.css'],
   standalone: true,
-    imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  FlexLayoutModule, ReactiveFormsModule, MatDividerModule, MatSelectModule],
+    imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  FlexLayoutModule, MaterialFileInputModule, ReactiveFormsModule, MatDividerModule, MatSelectModule],
 })
 export class EditProjectComponent implements OnInit, AfterViewInit {
   projectId = '';
@@ -63,7 +64,7 @@ export class EditProjectComponent implements OnInit, AfterViewInit {
   selectedProducts: Product[];
   listOfProducts = '';
   brandList: Observable<Brand[]>;
-  currentImages = new Array<InputFile>();
+  currentImages = new Array<FileInput>();
   @ViewChild('imageInput') imageInput: ElementRef;
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,

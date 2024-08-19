@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { PageImages } from 'src/app/models/page-images';
 import { Observable, of } from 'rxjs';
@@ -25,7 +25,7 @@ export class MoodBoardProductsCarouselComponent implements OnInit, OnDestroy, Af
   @Input() moodBoardId: string;
   @Input() currentProducts: Array<Product>;
   @Input() pageNumber: number;
-  public config: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
   public currentSlide: Product;
   @Input() selectedProducts: MoodBoardProduct[] = [];
   public settings: Settings;
@@ -54,20 +54,20 @@ export class MoodBoardProductsCarouselComponent implements OnInit, OnDestroy, Af
   }
 
   public initCarousel() {
-    this.config = {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: true,
-      navigation: true,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      autoplay: false,
-      speed: 500,
-      effect: 'slide'
-    };
+    // this.config = {
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: true,
+    //   navigation: true,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   autoplay: false,
+    //   speed: 500,
+    //   effect: 'slide'
+    // };
   }
 
   ngOnDestroy() {

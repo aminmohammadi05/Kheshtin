@@ -4,13 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
-import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
-import { EmbedVideoService } from 'ngx-embed-video';
+
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 import { BrandService } from 'src/app/services/brand.service';
@@ -50,13 +50,13 @@ export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit 
   @Input() brand: any;
   @Input() tabChanged: Subject<number>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
+  // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public psConfig = {
     wheelPropagation: true
   };
 
-  public config: SwiperConfigInterface = {};
-  public config2: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
+  // public config2: SwiperConfigInterface = {};
   public officeProjects: any[] = [];
   public allOfficeProjects: any[] = [];
   public totalOfficeProjects: Observable<number>;
@@ -83,7 +83,7 @@ export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit 
               private route: ActivatedRoute,
               private router: Router,
               private brandService: BrandService,
-              private embedService: EmbedVideoService,
+   
               public fb: FormBuilder,
               private officeProjectService: OfficeProjectService,
               private cdRef: ChangeDetectorRef,
@@ -126,77 +126,77 @@ export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit 
 
   ngAfterViewInit() {
     this.cdRef.detectChanges();
-    this.config = {
-      observer: false,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: true,
-      navigation: true,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false
-      }
-    };
+    // this.config = {
+    //   observer: false,
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: true,
+    //   navigation: true,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   autoplay: {
+    //     delay: 5000,
+    //     disableOnInteraction: false
+    //   }
+    // };
 
-    this.config2 = {
-      observer: false,
-      slidesPerView: 4,
-      spaceBetween: 16,
-      keyboard: true,
-      navigation: false,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      breakpoints: {
-        480: {
-          slidesPerView: 2
-        },
-        600: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    // this.config2 = {
+    //   observer: false,
+    //   slidesPerView: 4,
+    //   spaceBetween: 16,
+    //   keyboard: true,
+    //   navigation: false,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   breakpoints: {
+    //     480: {
+    //       slidesPerView: 2
+    //     },
+    //     600: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
     this.getBrandProjects();
   }
 
   public onOpenedChange() {
-    this.swipers.forEach(swiper => {
-      if (swiper) {
-        swiper.update();
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper) {
+    //     swiper.update();
+    //   }
+    // });
   }
 
   public selectImage(index: number) {
-    this.swipers.forEach(swiper => {
-      if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
-        swiper.setIndex(index);
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
+    //     swiper.setIndex(index);
+    //   }
+    // });
   }
 
   public onIndexChange(index: number) {
-    this.swipers.forEach(swiper => {
-      const elem = swiper['elementRef'].nativeElement;
-      if (elem.id === 'small-carousel') {
-        swiper.setIndex(index);
-        for(let i = 0; i < elem.children[0].children.length; i++) {
-          const element = elem.children[0].children[i];
-          if (element.classList.contains('thumb-' + index)) {
-            element.classList.add('active-thumb');
-          } else {
-            element.classList.remove('active-thumb');
-          }
-        }
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   const elem = swiper['elementRef'].nativeElement;
+    //   if (elem.id === 'small-carousel') {
+    //     swiper.setIndex(index);
+    //     for(let i = 0; i < elem.children[0].children.length; i++) {
+    //       const element = elem.children[0].children[i];
+    //       if (element.classList.contains('thumb-' + index)) {
+    //         element.classList.add('active-thumb');
+    //       } else {
+    //         element.classList.remove('active-thumb');
+    //       }
+    //     }
+    //   }
+    // });
   }
 
   public resetPagination() {

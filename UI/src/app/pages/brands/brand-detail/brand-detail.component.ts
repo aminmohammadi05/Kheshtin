@@ -5,13 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
-import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
-import { EmbedVideoService } from 'ngx-embed-video';
+
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 import { BrandService } from 'src/app/services/brand.service';
@@ -78,15 +78,15 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   @ViewChild('tabGroup', { static: true }) tabGroup: MatTabGroup;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
+  // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   viewType = 'grid';
   viewCol = 25;
   public psConfig = {
     wheelPropagation: true
   };
   public sidenavOpen = true;
-  public config: SwiperConfigInterface = {};
-  public config2: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
+  // public config2: SwiperConfigInterface = {};
   private sub: any;
   public brand: any;
   public officeProjectsOverview: any[];
@@ -128,7 +128,7 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   constructor(public appSettings: AppSettings,
               public appService: AppService,
               private brandService: BrandService,
-              private embedService: EmbedVideoService,
+
               private brandCatalogService: BrandCatalogService,
               private brandCollectionService: BrandCollectionService,
               private brandOfficeProjectService: OfficeProjectService,
@@ -242,89 +242,89 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
 
 
   ngAfterViewInit() {
-    this.config = {
-      observer: true,
+    // this.config = {
+    //   observer: true,
       
-      slidesPerView: 5,
-      spaceBetween: 32,
-      keyboard: true,
-      navigation: { nextEl: '.prop-next', prevEl: '.prop-prev'},
-      pagination: true,
-      grabCursor: true,
-      loop: false,
-      preloadImages: true,
-      lazy: false,
-      breakpoints: {
-        600: {
-          slidesPerView: 1
-        },
-        960: {
-          slidesPerView: 2,
-        },
-        1280: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    //   slidesPerView: 5,
+    //   spaceBetween: 32,
+    //   keyboard: true,
+    //   navigation: { nextEl: '.prop-next', prevEl: '.prop-prev'},
+    //   pagination: true,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: true,
+    //   lazy: false,
+    //   breakpoints: {
+    //     600: {
+    //       slidesPerView: 1
+    //     },
+    //     960: {
+    //       slidesPerView: 2,
+    //     },
+    //     1280: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
 
-    this.config2 = {
-      observer: true,
+    // this.config2 = {
+    //   observer: true,
       
-      slidesPerView: 5,
-      spaceBetween: 32,
-      keyboard: true,
-      navigation: { nextEl: '.prop-next', prevEl: '.prop-prev'},
-      pagination: true,
-      grabCursor: true,
-      loop: false,
-      preloadImages: true,
-      lazy: false,
-      breakpoints: {
-        600: {
-          slidesPerView: 1
-        },
-        960: {
-          slidesPerView: 2,
-        },
-        1280: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    //   slidesPerView: 5,
+    //   spaceBetween: 32,
+    //   keyboard: true,
+    //   navigation: { nextEl: '.prop-next', prevEl: '.prop-prev'},
+    //   pagination: true,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: true,
+    //   lazy: false,
+    //   breakpoints: {
+    //     600: {
+    //       slidesPerView: 1
+    //     },
+    //     960: {
+    //       slidesPerView: 2,
+    //     },
+    //     1280: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
    
   }
 
   public onOpenedChange() {
-    this.swipers.forEach(swiper => {
-      if (swiper) {
-        swiper.update();
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper) {
+    //     swiper.update();
+    //   }
+    // });
   }
 
   public selectImage(index: number) {
-    this.swipers.forEach(swiper => {
-      if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
-        swiper.setIndex(index);
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
+    //     swiper.setIndex(index);
+    //   }
+    // });
   }
 
   public onIndexChange(index: number) {
-    this.swipers.forEach(swiper => {
-      const elem = swiper['elementRef'].nativeElement;
-      if (elem.id === 'small-carousel') {
-        swiper.setIndex(index);
-        for(let i = 0; i < elem.children[0].children.length; i++) {
-          const element = elem.children[0].children[i];
-          if (element.classList.contains('thumb-' + index)) {
-            element.classList.add('active-thumb');
-          } else {
-            element.classList.remove('active-thumb');
-          }
-        }
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   const elem = swiper['elementRef'].nativeElement;
+    //   if (elem.id === 'small-carousel') {
+    //     swiper.setIndex(index);
+    //     for(let i = 0; i < elem.children[0].children.length; i++) {
+    //       const element = elem.children[0].children[i];
+    //       if (element.classList.contains('thumb-' + index)) {
+    //         element.classList.add('active-thumb');
+    //       } else {
+    //         element.classList.remove('active-thumb');
+    //       }
+    //     }
+    //   }
+    // });
   }
 
 

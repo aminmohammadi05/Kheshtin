@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Blog } from 'src/app/models/blog';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -20,7 +20,7 @@ import { SmallBlogItemComponent } from '../small-blog-item/small-blog-item.compo
 })
 export class SimilarBlogsCarouselComponent implements OnInit, AfterViewInit {
   @Input() blogs: Array<any> = [];
-  public config: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
   @Input() viewType: string = 'grid';
   @Input() viewCol: number = 20;
   constructor() { }
@@ -29,30 +29,30 @@ export class SimilarBlogsCarouselComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.config = {
-      observer: true,
+    // this.config = {
+    //   observer: true,
       
-      slidesPerView: 5,
-      spaceBetween: 32,
-      keyboard: true,
-      navigation: { nextEl: '.prop-next', prevEl: '.prop-prev'},
-      pagination: true,
-      grabCursor: true,
-      loop: false,
-      preloadImages: true,
-      lazy: false,
-      breakpoints: {
-        600: {
-          slidesPerView: 1
-        },
-        960: {
-          slidesPerView: 2,
-        },
-        1280: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    //   slidesPerView: 5,
+    //   spaceBetween: 32,
+    //   keyboard: true,
+    //   navigation: { nextEl: '.prop-next', prevEl: '.prop-prev'},
+    //   pagination: true,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: true,
+    //   lazy: false,
+    //   breakpoints: {
+    //     600: {
+    //       slidesPerView: 1
+    //     },
+    //     960: {
+    //       slidesPerView: 2,
+    //     },
+    //     1280: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
   }
 
 }

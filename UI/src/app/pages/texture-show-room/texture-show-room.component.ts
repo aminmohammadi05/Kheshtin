@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { AuthService } from 'src/app/services/auth.service';
 import { Meta } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { AppSettings, Settings } from 'src/app/app.settings';
 import { tap } from 'rxjs/operators';
 
@@ -42,14 +42,14 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
   @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
   @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
   @ViewChild('screen', { static: true }) screen: any;
-  @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
+  // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
 
   public viewType = 'grid';
   public viewCol = 33.3;
   img = '';
   public sidenavOpen = true;
-  public config: SwiperConfigInterface = {};
-  public config2: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
+  // public config2: SwiperConfigInterface = {};
   private sub: any;
   public product: ShowRoomProduct;
   public settings: Settings;
@@ -214,78 +214,78 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
 
 
   ngAfterViewInit() {
-    this.config = {
-      observer: false,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: true,
-      navigation: true,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false
-      }
-    };
+    // this.config = {
+    //   observer: false,
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: true,
+    //   navigation: true,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   autoplay: {
+    //     delay: 5000,
+    //     disableOnInteraction: false
+    //   }
+    // };
 
-    this.config2 = {
-      observer: false,
-      slidesPerView: 7,
-      spaceBetween: 16,
-      keyboard: true,
-      navigation: false,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      breakpoints: {
-        480: {
-          slidesPerView: 2
-        },
-        600: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    // this.config2 = {
+    //   observer: false,
+    //   slidesPerView: 7,
+    //   spaceBetween: 16,
+    //   keyboard: true,
+    //   navigation: false,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   breakpoints: {
+    //     480: {
+    //       slidesPerView: 2
+    //     },
+    //     600: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
 
   }
 
 
   public onOpenedChange() {
-    this.swipers.forEach(swiper => {
-      if (swiper) {
-        swiper.update();
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper) {
+    //     swiper.update();
+    //   }
+    // });
   }
 
   public selectImage(index: number) {
-    this.swipers.forEach(swiper => {
-      if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
-        swiper.setIndex(index);
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
+    //     swiper.setIndex(index);
+    //   }
+    // });
   }
 
   public onIndexChange(index: number) {
-    this.swipers.forEach(swiper => {
-      const elem = swiper['elementRef'].nativeElement;
-      if (elem.id === 'small-carousel') {
-        swiper.setIndex(index);
-        for(let i = 0; i < elem.children[0].children.length; i++) {
-          const element = elem.children[0].children[i];
-          if (element.classList.contains('thumb-' + index)) {
-            element.classList.add('active-thumb');
-          } else {
-            element.classList.remove('active-thumb');
-          }
-        }
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   const elem = swiper['elementRef'].nativeElement;
+    //   if (elem.id === 'small-carousel') {
+    //     swiper.setIndex(index);
+    //     for(let i = 0; i < elem.children[0].children.length; i++) {
+    //       const element = elem.children[0].children[i];
+    //       if (element.classList.contains('thumb-' + index)) {
+    //         element.classList.add('active-thumb');
+    //       } else {
+    //         element.classList.remove('active-thumb');
+    //       }
+    //     }
+    //   }
+    // });
   }
   public getBrand(brandId) {
     // this.brand = this.store.select(getBrandById(brandId));

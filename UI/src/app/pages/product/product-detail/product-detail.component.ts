@@ -6,13 +6,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
-import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
 import { Property } from 'src/app/app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
-import { EmbedVideoService } from 'ngx-embed-video';
+
 import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
 import { BrandService } from 'src/app/services/brand.service';
@@ -180,10 +180,10 @@ public getFloatLabel() {
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductThreeDImageViewDialogComponent implements OnInit {
-  public config: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
   public settings: Settings;
   public selectedProductFile: any;
-  @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
+  // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public selectedImageId: number;
   carouselProductFiles: any[];
   productFiles: any[];
@@ -204,37 +204,37 @@ export class ProductThreeDImageViewDialogComponent implements OnInit {
       this.productFiles = this.data.productFiles;
 }
 ngOnInit() {
-  this.config = {
-    observer: false,
-    slidesPerView: 1,
-    spaceBetween: 0,
-    keyboard: true,
-    navigation: true,
-    pagination: false,
-    grabCursor: true,
-    loop: false,
-    preloadImages: false,
-    lazy: true
-  };
+  // this.config = {
+  //   observer: false,
+  //   slidesPerView: 1,
+  //   spaceBetween: 0,
+  //   keyboard: true,
+  //   navigation: true,
+  //   pagination: false,
+  //   grabCursor: true,
+  //   loop: false,
+  //   preloadImages: false,
+  //   lazy: true
+  // };
 
 }
 
 public onIndexChange(index: number) {
   this.selectedProductFile = this.productFiles[index];
-  this.swipers.forEach(swiper => {
-    const elem = swiper['elementRef'].nativeElement;
-    if (elem.id === 'small-carousel') {
-      swiper.setIndex(index);
-      for(let i = 0; i < elem.children[0].children.length; i++) {
-        const element = elem.children[0].children[i];
-        if (element.classList.contains('thumb-' + index)) {
-          element.classList.add('active-thumb');
-        } else {
-          element.classList.remove('active-thumb');
-        }
-      }
-    }
-  });
+  // this.swipers.forEach(swiper => {
+  //   const elem = swiper['elementRef'].nativeElement;
+  //   if (elem.id === 'small-carousel') {
+  //     swiper.setIndex(index);
+  //     for(let i = 0; i < elem.children[0].children.length; i++) {
+  //       const element = elem.children[0].children[i];
+  //       if (element.classList.contains('thumb-' + index)) {
+  //         element.classList.add('active-thumb');
+  //       } else {
+  //         element.classList.remove('active-thumb');
+  //       }
+  //     }
+  //   }
+  // });
 }
 productFileExists(fileId: string, fileType: number) {
   return this.productFiles.filter(x => x.contentItemId === fileId && +x.fileType.contentItems[0].id.split('-')[1] === fileType)[0];
@@ -277,10 +277,10 @@ public groupBy(array, key) {
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductTextureImageViewDialogComponent implements OnInit {
-  public config: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
   public settings: Settings;
   public selectedProductFile;
-  @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
+  // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public selectedImageId: number;
   carouselProductFiles: any[];
   productFiles: any[];
@@ -301,18 +301,18 @@ export class ProductTextureImageViewDialogComponent implements OnInit {
       this.productFiles = this.data.productFiles;
 }
 ngOnInit() {
-  this.config = {
-    observer: false,
-    slidesPerView: 1,
-    spaceBetween: 0,
-    keyboard: true,
-    navigation: true,
-    pagination: false,
-    grabCursor: true,
-    loop: false,
-    preloadImages: false,
-    lazy: true
-  };
+  // this.config = {
+  //   observer: false,
+  //   slidesPerView: 1,
+  //   spaceBetween: 0,
+  //   keyboard: true,
+  //   navigation: true,
+  //   pagination: false,
+  //   grabCursor: true,
+  //   loop: false,
+  //   preloadImages: false,
+  //   lazy: true
+  // };
 
 }
 
@@ -332,20 +332,20 @@ productFileExists(fileId: number, fileType: number) {
 }
 public onIndexChange(index: number) {
   this.selectedProductFile = this.productFiles[index];
-  this.swipers.forEach(swiper => {
-    const elem = swiper['elementRef'].nativeElement;
-    if (elem.id === 'small-carousel') {
-      swiper.setIndex(index);
-      for(let i = 0; i < elem.children[0].children.length; i++) {
-        const element = elem.children[0].children[i];
-        if (element.classList.contains('thumb-' + index)) {
-          element.classList.add('active-thumb');
-        } else {
-          element.classList.remove('active-thumb');
-        }
-      }
-    }
-  });
+  // this.swipers.forEach(swiper => {
+  //   const elem = swiper['elementRef'].nativeElement;
+  //   if (elem.id === 'small-carousel') {
+  //     swiper.setIndex(index);
+  //     for(let i = 0; i < elem.children[0].children.length; i++) {
+  //       const element = elem.children[0].children[i];
+  //       if (element.classList.contains('thumb-' + index)) {
+  //         element.classList.add('active-thumb');
+  //       } else {
+  //         element.classList.remove('active-thumb');
+  //       }
+  //     }
+  //   }
+  // });
 }
 // selectImage(index) {
 //   this.selectedIndex = index;
@@ -381,11 +381,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   @ViewChild('sidenav', { static: true }) sidenav: ElementRef;
   @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
   @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
-  @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
+  // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   // @ViewChild('container', { static: true }) container: ElementRef;
   public sidenavOpen = true;
-  public config: SwiperConfigInterface = {};
-  public config2: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
+  // public config2: SwiperConfigInterface = {};
   private sub: any;
   public product: any;
   public settings: Settings;
@@ -429,7 +429,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
               public appService: AppService,
               private activatedRoute: ActivatedRoute,
               private projectService: OfficeProjectService,
-              private embedService: EmbedVideoService,
+              
               private scene: EngineFrameService,
               public fb: FormBuilder,
               private route: ActivatedRoute,
@@ -485,78 +485,78 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
 
   ngAfterViewInit() {
     
-    this.config = {
-      observer: false,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: true,
-      navigation: true,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false
-      }
-    };
+    // this.config = {
+    //   observer: false,
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: true,
+    //   navigation: true,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   autoplay: {
+    //     delay: 5000,
+    //     disableOnInteraction: false
+    //   }
+    // };
 
-    this.config2 = {
-      observer: false,
-      slidesPerView: 7,
-      spaceBetween: 16,
-      keyboard: true,
-      navigation: false,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      breakpoints: {
-        480: {
-          slidesPerView: 2
-        },
-        600: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    // this.config2 = {
+    //   observer: false,
+    //   slidesPerView: 7,
+    //   spaceBetween: 16,
+    //   keyboard: true,
+    //   navigation: false,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   breakpoints: {
+    //     480: {
+    //       slidesPerView: 2
+    //     },
+    //     600: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
 
   }
 
 
   public onOpenedChange() {
-    this.swipers.forEach(swiper => {
-      if (swiper) {
-        swiper.update();
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper) {
+    //     swiper.update();
+    //   }
+    // });
   }
 
   public selectImage(index: number) {
-    this.swipers.forEach(swiper => {
-      if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
-        swiper.setIndex(index);
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
+    //     swiper.setIndex(index);
+    //   }
+    // });
   }
 
   public onIndexChange(index: number) {
-    this.swipers.forEach(swiper => {
-      const elem = swiper['elementRef'].nativeElement;
-      if (elem.id === 'small-carousel') {
-        swiper.setIndex(index);
-        for(let i = 0; i < elem.children[0].children.length; i++) {
-          const element = elem.children[0].children[i];
-          if (element.classList.contains('thumb-' + index)) {
-            element.classList.add('active-thumb');
-          } else {
-            element.classList.remove('active-thumb');
-          }
-        }
-      }
-    });
+    // this.swipers.forEach(swiper => {
+    //   const elem = swiper['elementRef'].nativeElement;
+    //   if (elem.id === 'small-carousel') {
+    //     swiper.setIndex(index);
+    //     for(let i = 0; i < elem.children[0].children.length; i++) {
+    //       const element = elem.children[0].children[i];
+    //       if (element.classList.contains('thumb-' + index)) {
+    //         element.classList.add('active-thumb');
+    //       } else {
+    //         element.classList.remove('active-thumb');
+    //       }
+    //     }
+    //   }
+    // });
   }
 
   public addToCompare() {

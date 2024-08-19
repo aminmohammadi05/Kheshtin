@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, OnChanges, ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { PageImages } from 'src/app/models/page-images';
 import { Observable } from 'rxjs';
@@ -30,7 +30,7 @@ export class HeaderCarouselComponent implements OnInit, OnDestroy, AfterViewInit
   @Input() pageNumber: number;
   @Input() contentOffsetToTop;
   @Input('title') title;
-  public config: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
   public currentSlide: PageImages;
   public currentIndex = 0;
   public settings: Settings;

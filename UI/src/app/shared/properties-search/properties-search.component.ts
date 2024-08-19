@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Search } from 'src/app/models/search';
-import { InputFile } from 'ngx-input-file';
+import { FileInput, MaterialFileInputModule  } from 'ngx-material-file-input';
 import { BrandProductCollection } from 'src/app/models/brand-product-collection';
 import { BrandCollection } from 'src/app/models/brand-collection';
 import { BasicDataService } from 'src/app/services/basic-data.service';
@@ -26,7 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
   templateUrl: './properties-search.component.html',
   styleUrls: ['./properties-search.component.scss'],
   standalone: true,
-  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatIconModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule]
+  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatIconModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MaterialFileInputModule ]
 })
 export class PropertiesSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;
@@ -354,9 +354,9 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     this.SearchChange.emit(this.verticalForm);
   }
 
-  public imageSelected(image: InputFile) {
-    if (image && image.file) {
-      this.getBase64(image.file).then(
+  public imageSelected(image: FileInput) {
+    if (image && image.files) {
+      this.getBase64(image.files).then(
         data => {
           this.searchFields.imageUploaded = data.toString();
           this.verticalForm.get('imageToSearch').setValue([{ id: 1,
@@ -370,8 +370,8 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
       this.SearchChange.emit(this.verticalForm);
     }
   }
-  public imageDeleted(image: InputFile) {
-    if (image && image.file) {
+  public imageDeleted(image: FileInput) {
+    if (image && image.files) {
       this.searchFields.imageUploaded = '';
       // this.store.dispatch(new ResetImageIsInResultRequest());
       // this.store.dispatch(new SaveSearchForRequest(this.searchFields));

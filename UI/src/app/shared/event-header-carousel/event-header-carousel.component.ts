@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { PageImages } from 'src/app/models/page-images';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ export class EventHeaderCarouselComponent implements OnInit, OnDestroy, AfterVie
   @Input() slides: Array<EventImage>;
   @Input() pageNumber: number;
   @Input() contentOffsetToTop;
-  public config: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
   public currentSlide: EventImage;
   public settings: Settings;
   constructor(public appSettings: AppSettings,
@@ -41,20 +41,20 @@ export class EventHeaderCarouselComponent implements OnInit, OnDestroy, AfterVie
   }
 
   public initCarousel() {
-    this.config = {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: true,
-      navigation: true,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      autoplay: false,
-      speed: 500,
-      effect: 'slide'
-    };
+    // this.config = {
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: true,
+    //   navigation: true,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   autoplay: false,
+    //   speed: 500,
+    //   effect: 'slide'
+    // };
   }
 
   ngOnDestroy() {

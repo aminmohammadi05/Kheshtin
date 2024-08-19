@@ -4,7 +4,7 @@ import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { InputFile, InputFileComponent } from 'ngx-input-file';
+import { MaterialFileInputModule  } from 'ngx-material-file-input';
 import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,7 +28,7 @@ export const PREVIEW_CONTROL_VALUE_ACCESSOR: any = {
   styleUrls: ['./preview.component.css'],
   providers: [PREVIEW_CONTROL_VALUE_ACCESSOR],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatGridListModule,MatChipsModule, MatListModule, MatCardModule, MatFormFieldModule],
+  imports: [CommonModule, MatIconModule, MatGridListModule,MatChipsModule, MatListModule, MatCardModule, MatFormFieldModule, MaterialFileInputModule],
 })
 export class PreviewComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   private innerProject = new Project();

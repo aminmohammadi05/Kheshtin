@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
-import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+// import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
 import { AppService } from '../../app.service';
@@ -40,12 +40,12 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
   liked: Observable<boolean>;
   public column = 4;
   // public address:string;
-  @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
-  public config: SwiperConfigInterface = {};
-  private pagination: SwiperPaginationInterface = {
-    el: '.swiper-pagination',
-    clickable: true
-  };
+  // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
+  // public config: SwiperConfigInterface = {};
+  // private pagination: SwiperPaginationInterface = {
+  //   el: '.swiper-pagination',
+  //   clickable: true
+  // };
   public settings: Settings;
   public searchFields = new Search({
     searchId: 1,
@@ -76,7 +76,7 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
       this.getColumnCount(changes.viewColChanged.currentValue);
       if (!changes.viewColChanged.isFirstChange()) {
         if (this.brandCollection.collectionImage) {
-           this.directiveRef.update();
+          //  this.directiveRef.update();
         }
       }
     }
@@ -126,24 +126,24 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
 
 
   public initCarousel() {
-    this.config = {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: false,
-      navigation: true,
-      pagination: this.pagination,
-      grabCursor: true,
-      loop: true,
-      preloadImages: false,
-      lazy: true,
-      nested: true,
-      // autoplay: {
-      //   delay: 5000,
-      //   disableOnInteraction: false
-      // },
-      speed: 500,
-      effect: 'slide'
-    };
+    // this.config = {
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: false,
+    //   navigation: true,
+    //   pagination: this.pagination,
+    //   grabCursor: true,
+    //   loop: true,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   nested: true,
+    //   // autoplay: {
+    //   //   delay: 5000,
+    //   //   disableOnInteraction: false
+    //   // },
+    //   speed: 500,
+    //   effect: 'slide'
+    // };
   }
 
   public changeDateToFa(date) {

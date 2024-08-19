@@ -1,5 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { AppService } from 'src/app/app.service';
 import { Observable } from 'rxjs';
 import { Brand } from 'src/app/models/brand';
@@ -13,7 +13,7 @@ import { Brand } from 'src/app/models/brand';
 })
 export class BrandsCarouselComponent implements OnInit {
   @Input() public brands: any[];
-  public config: SwiperConfigInterface = { };
+  // public config: SwiperConfigInterface = { };
   constructor(public appService: AppService) { }
 
   ngOnInit() {
@@ -21,44 +21,44 @@ export class BrandsCarouselComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    this.config = {
-      observer: true,
-      slidesPerView: 9,
-      spaceBetween: 16,       
-      keyboard: true,
-      navigation: false,
-      pagination: false,
-      grabCursor: true,        
-      loop: false,
-      preloadImages: false,
-      lazy: true,  
-      autoplay: {
-        delay: 6000,
-        disableOnInteraction: false
-      },
-      speed: 500,
-      effect: "slide",
-      breakpoints: {
-        320: {
-          slidesPerView: 1
-        },
-        480: {
-          slidesPerView: 2
-        },
-        600: {
-          slidesPerView: 3,
-        },
-        960: {
-          slidesPerView: 4,
-        },
-        1280: {
-          slidesPerView: 5,
-        },
-        1500: {
-          slidesPerView: 6,
-        }
-      }
-    }
+    // this.config = {
+    //   observer: true,
+    //   slidesPerView: 9,
+    //   spaceBetween: 16,       
+    //   keyboard: true,
+    //   navigation: false,
+    //   pagination: false,
+    //   grabCursor: true,        
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,  
+    //   autoplay: {
+    //     delay: 6000,
+    //     disableOnInteraction: false
+    //   },
+    //   speed: 500,
+    //   effect: "slide",
+    //   breakpoints: {
+    //     320: {
+    //       slidesPerView: 1
+    //     },
+    //     480: {
+    //       slidesPerView: 2
+    //     },
+    //     600: {
+    //       slidesPerView: 3,
+    //     },
+    //     960: {
+    //       slidesPerView: 4,
+    //     },
+    //     1280: {
+    //       slidesPerView: 5,
+    //     },
+    //     1500: {
+    //       slidesPerView: 6,
+    //     }
+    //   }
+    // }
   }
 
 }

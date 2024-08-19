@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AppService } from '../../app.service';
-import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { Subscription } from 'rxjs';
 import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
@@ -31,8 +31,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatButtonModule,MatListModule, MatPaginatorModule, ProductItemComponent ]
 })
 export class MoodBoardCandidateProductsComponent implements OnInit, OnDestroy {
-  @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
-  public config: SwiperConfigInterface = {};
+  // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
+  // public config: SwiperConfigInterface = {};
   public pagination: Pagination = new Pagination(0, 12, null, null);
   public message: string;
   public settings: Settings;
@@ -68,30 +68,30 @@ export class MoodBoardCandidateProductsComponent implements OnInit, OnDestroy {
     //     }
     //   }})).subscribe();
     this.getProducts();
-    this.config = {
-      observer: true,
-      slidesPerView: 4,
-      spaceBetween: 16,
-      keyboard: false,
-      navigation: false,
-      pagination: false,
-      simulateTouch: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: true,
-      lazy: false,
-      breakpoints: {
-        600: {
-          slidesPerView: 1
-        },
-        960: {
-          slidesPerView: 2,
-        },
-        1280: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    // this.config = {
+    //   observer: true,
+    //   slidesPerView: 4,
+    //   spaceBetween: 16,
+    //   keyboard: false,
+    //   navigation: false,
+    //   pagination: false,
+    //   simulateTouch: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: true,
+    //   lazy: false,
+    //   breakpoints: {
+    //     600: {
+    //       slidesPerView: 1
+    //     },
+    //     960: {
+    //       slidesPerView: 2,
+    //     },
+    //     1280: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
     this.watchForChanges();
   }
 
@@ -101,22 +101,22 @@ export class MoodBoardCandidateProductsComponent implements OnInit, OnDestroy {
 
   public disableSwiper() {
     setTimeout(() => {
-      if (this.directiveRef) {
-        this.config.keyboard = false;
-        this.config.navigation = false;
-        this.config.simulateTouch = false;
-        this.directiveRef.update();
-      }
+      // if (this.directiveRef) {
+      //   this.config.keyboard = false;
+      //   this.config.navigation = false;
+      //   this.config.simulateTouch = false;
+      //   this.directiveRef.update();
+      // }
     });
   }
   public enableSwiper() {
     setTimeout(() => {
-      if (this.directiveRef) {
-        this.config.keyboard = true;
-        this.config.navigation = { nextEl: '.carousel-next', prevEl: '.carousel-prev' };
-        this.config.simulateTouch = true;
-        this.directiveRef.update();
-      }
+      // if (this.directiveRef) {
+      //   this.config.keyboard = true;
+      //   this.config.navigation = { nextEl: '.carousel-next', prevEl: '.carousel-prev' };
+      //   this.config.simulateTouch = true;
+      //   this.directiveRef.update();
+      // }
     });
   }
 

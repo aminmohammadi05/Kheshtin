@@ -25,7 +25,7 @@ import { OfficeProjectService } from 'src/app/services/office-project.service';
 import { ProjectCategory } from 'src/app/models/project-category';
 import { DesignOffice } from 'src/app/models/design-office';
 import { BasicDataService } from 'src/app/services/basic-data.service';
-import { SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
 import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
 import { OfficeProjectsSearchComponent } from 'src/app/shared/office-projects-search/office-projects-search.component';
@@ -88,11 +88,11 @@ public watcher: Subscription;
 public totalOfficeProjects: Observable<number>;
 public isLoading = false;
 public settings: Settings;
-public config: SwiperConfigInterface = {};
-private pagination: SwiperPaginationInterface = {
-  el: '.swiper-pagination',
-  clickable: true
-};
+// public config: SwiperConfigInterface = {};
+// private pagination: SwiperPaginationInterface = {
+//   el: '.swiper-pagination',
+//   clickable: true
+// };
   constructor(private route: ActivatedRoute,
               private router: Router,
               private projectService: OfficeProjectService,
@@ -143,24 +143,24 @@ private pagination: SwiperPaginationInterface = {
     
   }
   public initCarousel() {
-    this.config = {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: false,
-      navigation: true,
-      pagination: this.pagination,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      nested: true,
-      // autoplay: {
-      //   delay: 5000,
-      //   disableOnInteraction: false
-      // },
-      speed: 500,
-      effect: 'slide'
-    };
+    // this.config = {
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: false,
+    //   navigation: true,
+    //   pagination: this.pagination,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   nested: true,
+    //   // autoplay: {
+    //   //   delay: 5000,
+    //   //   disableOnInteraction: false
+    //   // },
+    //   speed: 500,
+    //   effect: 'slide'
+    // };
   }
   ngAfterViewInit() {
     this.initCarousel();
