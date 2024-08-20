@@ -13,23 +13,23 @@ import { ProductUsage } from './product-usage';
 
 // Author : Amin Mohammadi
 export class Product {
-    productId: string;
-    displayId: string;
-    urlTitle: string;
-    name: string;
-    description: string;
-    productionCode: string;
-    productStatus: number;
-    ratingsCount: number;
-    ratingsValue: number;
-    keywordList: string;
-    isInCompareList: boolean;
-    isInImageSearchResultList: boolean;
-    createDate: string;
+    productId!: string;
+    displayId!: string;
+    urlTitle!: string;
+    name!: string;
+    description!: string;
+    productionCode!: string;
+    productStatus!: number;
+    ratingsCount!: number;
+    ratingsValue!: number;
+    keywordList!: string;
+    isInCompareList!: boolean;
+    isInImageSearchResultList!: boolean;
+    createDate!: string;
     brandProductCollectionList: BrandProductCollection[] = [];
     productFiles: ProductFile[] = [];
     userFavorites: UserFavorites[] = [];
-    productBlogPosts: ProductBlogPost[];
+    productBlogPosts!: ProductBlogPost[];
     productKeywordList: ProductKeyword[] = [];
     productCategoryList: ProductCategory[] = [];
     userMoodBoardCandidateProduct: UserMoodBoardCandidateProduct[] = [];

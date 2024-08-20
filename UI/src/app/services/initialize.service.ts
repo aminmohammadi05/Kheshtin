@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+
 import { Observable } from 'rxjs';
 import { PageImages } from '../models/page-images';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

@@ -6,7 +6,7 @@ import { BrandCollection } from './brand-collection';
 export class TokenInfo {
     token: string;
     email: string;
-    constructor(data?) {
+    constructor(data?: { token?: any; email?: any; }) {
         data = data || {};
         this.token = data.token;
         this.email = data.email;

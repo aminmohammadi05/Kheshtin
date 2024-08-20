@@ -8,7 +8,8 @@ import { Component, Input, ViewChild, ElementRef, OnInit, Renderer2 } from '@ang
 })
 export class LogoComponent implements OnInit {
   @Input() logoWidth = '11.0625rem';
-  @ViewChild('logo', { static: true }) logo: ElementRef;
+  @ViewChild('logo', { static: true })
+  logo!: ElementRef;
   constructor(private renderer: Renderer2) {
 
   }

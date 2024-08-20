@@ -4,10 +4,10 @@ import { EventCategory } from './event-category';
 export class EventCategorySet {
     eventId: string;
     eventCategoryId: number;
-    event: Event;
-    eventCategory: EventCategory;
+    event!: Event;
+    eventCategory!: EventCategory;
     createUserId: number;
-    constructor(data?) {
+    constructor(data?: { eventId?: any; eventCategoryId?: any; createUserId?: any; }) {
         data = data || {};
         this.eventId = data.eventId;
         this.eventCategoryId = data.eventCategoryId;

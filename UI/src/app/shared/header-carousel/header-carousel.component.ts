@@ -1,12 +1,9 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, OnChanges, ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 // import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
-import { PageImages } from 'src/app/models/page-images';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { LazyLoadScriptService } from 'src/app/services/lazy-load-script-service';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,8 +12,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { PageImages } from '../../models/page-images';
+import { HomeCarousel } from '../../models/home-carousel';
+import { BasicDataService } from '../../services/basic-data.service';
 
-declare var $;
+declare var $: any;
 @Component({
   selector: 'app-header-carousel',
   templateUrl: './header-carousel.component.html',
@@ -27,14 +27,16 @@ declare var $;
 })
 export class HeaderCarouselComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
  
-  @Input() pageNumber: number;
-  @Input() contentOffsetToTop;
-  @Input('title') title;
+  @Input()
+  pageNumber!: number;
+  @Input()
+  contentOffsetToTop: boolean = false;
+  @Input('title') title: any;
   // public config: SwiperConfigInterface = {};
-  public currentSlide: PageImages;
+  public currentSlide: PageImages = new PageImages;
   public currentIndex = 0;
   public settings: Settings;
-  public slides: [];
+  public slides: HomeCarousel[] = [];
   constructor(public appSettings: AppSettings,
               public basicDataService: BasicDataService,
               private cdRef: ChangeDetectorRef,
@@ -43,7 +45,7 @@ export class HeaderCarouselComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngOnInit() {
-    this.basicDataService.getHomeCarouselList().subscribe(x => {
+    this.basicDataService.getHomeCarouselList().subscribe((x) => {
       this.slides = x.homeCarousel
     });
     if (this.contentOffsetToTop) {

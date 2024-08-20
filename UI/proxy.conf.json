@@ -1,6 +1,0 @@
-{
-    "/api/graphql": {
-      "target": "http://api:5555",
-      "secure": false
-    }
-  }

@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet'; 
 import { Property } from '../../app.models';
 import { Settings, AppSettings } from '../../app.settings';
-import { AppService } from 'src/app/app.service';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
+
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+import { Product } from '../../models/product';
+import { ProductsService } from '../../services/products.service';
 @Component({
   selector: 'app-compare-overview',
   templateUrl: './compare-overview.component.html',
@@ -23,7 +23,7 @@ import {MatListModule} from '@angular/material/list';
 })
 export class CompareOverviewComponent implements OnInit {
 
-  public products: Product[];
+  public products: Product[] = [];
   public settings: Settings;
   constructor(public productService: ProductsService,
               public appSettings: AppSettings,
@@ -39,7 +39,7 @@ export class CompareOverviewComponent implements OnInit {
     this.bottomSheetRef.dismiss(isRedirect);
   }
 
-  public remove(product, event: any) {
+  public remove(product: any, event: any) {
     const index: number = this.productService.Data.compareList.indexOf(product);
     if (index !== -1) {
       this.productService.Data.compareList.splice(index, 1);

@@ -1,34 +1,21 @@
 import { Component, OnInit, ViewChild, Renderer2, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { MenuService } from '../menu.service';
-import { Observable, Subject, BehaviorSubject, of } from 'rxjs';
-import { Category } from 'src/app/models/category';
-import { filter, tap, map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
-import { SignalRService } from 'src/app/services/signal-r.service';
-import { ProjectComment } from 'src/app/models/project-comment';
-import { ProjectAdminReply } from 'src/app/models/project-admin-reply';
-import { AuthService } from 'src/app/services/auth.service';
-import { Brand } from 'src/app/models/brand';
-import { MatMenu, MatMenuPanel, MatMenuTrigger } from '@angular/material/menu';
-import { Settings, AppSettings } from 'src/app/app.settings';
 import { Router } from '@angular/router';
-import { Search } from 'src/app/models/search';
-
-import { BrandSearch } from 'src/app/models/brand-search';
-import { OfficeProjectSearch } from 'src/app/models/office-project-search';
-import { DesignOfficeSearch } from 'src/app/models/design-office-search';
-import { Pagination } from 'src/app/models/pagination';
-import { HomeSearch } from 'src/app/models/home-search';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AppSettings, Settings } from '../../../../app.settings';
+import { AuthService } from '../../../../services/auth.service';
+import { BasicDataService } from '../../../../services/basic-data.service';
+import { CommonModule } from '@angular/common';
+import { MenuItem } from '../../../../models/query-menu/menu-item';
+
 
 @Component({
   selector: 'app-horizontal-menu',
   templateUrl: './horizontal-menu.component.html',
   styleUrls: ['./horizontal-menu.component.scss'],
   standalone: true,
-  imports: [MatButtonModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule],
   providers: [ MenuService ]
 })
 export class HorizontalMenuComponent implements OnInit  {
@@ -36,17 +23,20 @@ export class HorizontalMenuComponent implements OnInit  {
   enteredButton = false;
   isMatMenuOpen = false;
   isMatMenu2Open = false;
-  prevButtonTrigger;
+  prevButtonTrigger: any;
   // @ViewChild('objectmenu', {static: true}) menu: MatMenu;
   public selectedId = 0;
   public selectedMenuItem = '';
   
   public settings: Settings;
-  @ViewChild('objectsMenu') objectsMenu: ElementRef;
-  @ViewChild('roundImage') roundImage: ElementRef;
-  @ViewChild('roundImageTexture') roundImageTexture: ElementRef;
+  @ViewChild('objectsMenu')
+  objectsMenu!: ElementRef;
+  @ViewChild('roundImage')
+  roundImage!: ElementRef;
+  @ViewChild('roundImageTexture')
+  roundImageTexture!: ElementRef;
   public colorMap = new Map<number, string[]>();
-  public menuItemList: [];
+  public menuItemList!: MenuItem[];
  
   constructor(public router: Router,
               private authService: AuthService,

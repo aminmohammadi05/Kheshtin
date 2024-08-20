@@ -7,9 +7,9 @@ export class EventKeyword {
     action: string;
     keyword: string;
     value: string;
-    event: Event;
+    event!: Event;
     createUserId: number;
-    constructor(data?) {
+    constructor(data?: { keywordId?: any; eventId?: any; page?: any; action?: any; keyword?: any; value?: any; createUserId?: any; }) {
         data = data || {};
         this.keywordId = data.keywordId;
         this.eventId = data.eventId;

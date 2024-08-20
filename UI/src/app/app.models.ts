@@ -82,8 +82,8 @@ export class Location {
 }
 
 export class Price {
-    public sale: number;
-    public rent: number;
+    public sale!: number;
+    public rent!: number;
 }
 
 

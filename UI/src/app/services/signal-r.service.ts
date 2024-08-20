@@ -6,7 +6,8 @@ import { ProjectAdminReply } from '../models/project-admin-reply';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { HubConnection } from '@aspnet/signalr';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,8 @@ export class SignalRService {
   private adminRepliesDataSource = new BehaviorSubject(this.projectsAdminReplies);
   adminRepliesCurrentData = this.adminRepliesDataSource.asObservable();
 
-private hubConnection: signalR.HubConnection;
+
+  private hubConnection!: signalR.HubConnection;
   public startConnection(): Observable<HubConnection> {
     this.hubConnection = new signalR.HubConnectionBuilder()
                             .withUrl(this.baseUrl + 'chartbase', { accessTokenFactory: () => this.authService.getJwtToken() })

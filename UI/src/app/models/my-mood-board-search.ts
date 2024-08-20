@@ -8,7 +8,7 @@ export class MyMoodBoardSearch {
     userId: number;
     searchBox: string;
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; categoriesBoxNested?: any; categoriesBox?: any; userId?: any; searchBox?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.categoriesBoxNested = data.categoriesBoxNested ? data.categoriesBoxNested : [];

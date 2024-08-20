@@ -8,7 +8,7 @@ export class DesignOfficeProjectSearch {
     searchBox: string;
     designerId: string;
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; categories?: any; designerId?: any; searchBox?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.categories = data.categories ? data.categories : [];

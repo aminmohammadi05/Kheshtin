@@ -9,7 +9,7 @@ export class OfficeProjectSearch {
     designers: DesignOffice[];
     hashtagObject: any;
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; categories?: any; designers?: any; searchBox?: any; hashtagObject?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.categories = data.categories ? data.categories : [];

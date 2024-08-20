@@ -23,7 +23,7 @@ export class CurrencyComponent implements OnInit {
     this.currency = this.settings.currency;
   }
   
-  public changeCurrency(currency){
+  public changeCurrency(currency: string){
     this.currency = currency;
     this.settings.currency = currency;
   } 

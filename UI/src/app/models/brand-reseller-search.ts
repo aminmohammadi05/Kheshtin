@@ -6,7 +6,7 @@ export class BrandResellerSearch {
     brandId: string;
     searchBox: string;
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; brandId?: any; searchBox?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.brandId = data.brandId;

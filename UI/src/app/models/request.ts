@@ -3,7 +3,7 @@ export class BrandRequest {
     name: string;
     email: string;
     requestText: string;
-    constructor(data?) {
+    constructor(data?: { options?: any; name?: any; email?: any; requestText?: any; }) {
         data = data || {};
         this.options = data.options;
         this.name = data.name;

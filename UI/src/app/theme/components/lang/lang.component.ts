@@ -25,7 +25,7 @@ export class LangComponent implements OnInit {
     this.flag = this.flags[0]; 
   }
 
-  public changeLang(flag){
+  public changeLang(flag: any){
     this.flag = flag;
   }
 

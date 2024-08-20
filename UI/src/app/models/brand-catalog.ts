@@ -7,9 +7,9 @@ export class BrandCatalog {
     title: string;
     catalogImage: string;
     catalogFile: string;
-    createDate: string;
-    brand: Brand;
-    constructor(data?) {
+    createDate!: string;
+    brand!: Brand;
+    constructor(data?: { brandCatalogId?: any; brandId?: any; title?: any; catalogImage?: any; catalogFile?: any; }) {
         data = data || {};
         this.brandCatalogId = data.brandCatalogId;
         this.brandId = data.brandId;

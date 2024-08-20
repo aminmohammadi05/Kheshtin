@@ -12,9 +12,9 @@ export class MoodBoardProduct {
     rows: number;
     cols: number;
     layerIndex: number;
-    product: ProductFile;
-    moodBoardProduct: UserMoodBoard;
-    constructor(data?) {
+    product: ProductFile = new ProductFile;
+    moodBoardProduct!: UserMoodBoard;
+    constructor(data?: { layerIndex?: any; productId?: any; productFileId?: any; fileType?: any; moodBoardId?: any; createUserId?: any; x?: any; y?: any; rows?: any; cols?: any; }) {
         data = data || {};
         this.layerIndex = data.layerIndex;
         this.productId = data.productId;

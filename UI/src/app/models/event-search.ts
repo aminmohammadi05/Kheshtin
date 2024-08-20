@@ -7,7 +7,7 @@ export class EventSearch {
     searchBox: string;
     hashtagObject: any;
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; categories?: any; searchBox?: any; hashtagObject?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.categories = data.categories ? data.categories : [];

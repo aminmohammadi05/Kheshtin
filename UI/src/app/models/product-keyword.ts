@@ -1,15 +1,15 @@
 import { Product } from './product';
 
 export class ProductKeyword {
-    keywordId: string;
+    keywordId!: string;
     productId: string;
     page: string;
     action: string;
     keyword: string;
-    value: string;
-    product: Product;
+    value!: string;
+    product!: Product;
     createUserId: number;
-    constructor(data?) {
+    constructor(data?: { productId?: any; page?: any; action?: any; keyword?: any; createUserId?: any; }) {
         data = data || {};
         this.productId = data.productId;
         this.page = data.page;

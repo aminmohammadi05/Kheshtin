@@ -12,7 +12,7 @@
       <div *ngIf="blog.bag.contentItems.length > 1 " class="mat-card-image w-100 m-0">
           <swiper-container  style="border-radius: 5px;">
               <div class="swiper-wrapper" style="border-radius: 5px;"> 
-                  <swiper-slide *ngFor="let image of blog.bag.contentItems | blogBagType: 'BlogImage' | orderBy: 'priority' : 'asc'"  style="border-radius: 5px;">
+                  <swiper-slide *ngFor="let image of blog.bag.contentItems | blogBagType: 'BlogImage' | orderBy: 'priority'"  style="border-radius: 5px;">
                       <img src="https://orchard.kheshtin.ir{{image.image.urls[0]}}" class="swiper-lazy" style="border-radius: 5px;">
                      
                   </swiper-slide> 

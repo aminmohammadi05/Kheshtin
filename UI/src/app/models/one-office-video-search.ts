@@ -7,7 +7,7 @@ export class OneOfficeVideoSearch {
     searchBox: string;
     designerId: string;
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; designerId?: any; searchBox?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.designerId = data.designerId;

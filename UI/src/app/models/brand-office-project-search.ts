@@ -9,7 +9,7 @@ export class BrandOfficeProjectSearch {
     searchBox: string;
     designers: DesignOffice[];
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; brandId?: any; categories?: any; designers?: any; searchBox?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.brandId = data.brandId;

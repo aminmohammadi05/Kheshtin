@@ -28,11 +28,11 @@ import { VerticalMenuComponent } from '../theme/components/menu/vertical-menu/ve
 export class PagesComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav:any;  
   public toolbarTypes = [1, 2];
-  public toolbarTypeOption:number;
+  public toolbarTypeOption!: number;
   public headerTypes = ['default', 'image', 'carousel'];
-  public headerTypeOption:string;
+  public headerTypeOption!: string;
   public searchPanelVariants = [1, 2, 3];
-  public searchPanelVariantOption:number;
+  public searchPanelVariantOption!: number;
   public headerFixed: boolean = false;
   public showBackToTop: boolean = false;
   public scrolledCount = 0;
@@ -53,7 +53,7 @@ export class PagesComponent implements OnInit, AfterViewInit {
   }
 
   
-  public changeTheme(theme){
+  public changeTheme(theme: string){
     this.settings.theme = theme;       
   }
 
@@ -129,7 +129,7 @@ export class PagesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    document.getElementById('preloader').classList.add('hide');
+    document.getElementById('preloader')!.classList.add('hide');
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {        
         this.sidenav.close();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
+
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable, combineLatest } from 'rxjs';
@@ -17,6 +17,7 @@ import { GET_LATEST_BLOGS_HOME } from '../queries/get-latest-blogs-home';
 import { GET_BLOG_BY_ID } from '../queries/get-blog-by-id';
 import { GET_RELATED_BLOGS } from '../queries/get-related-blogs';
 import { BasicDataService } from './basic-data.service';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +31,11 @@ export class BlogService {
     private authService: AuthService) { }
   
 
-  getAllBlogsAuth(userId): Observable<Blog[]> {
+  getAllBlogsAuth(userId: any): Observable<Blog[]> {
     return this.http.get<Blog[]>(this.baseUrl + `users/${userId}/blogposts/GetAllBlogs/`);
   }
 
-  getBlogs(searchFields: BlogSearch, searchText): Observable<any> {
+  getBlogs(searchFields: BlogSearch, searchText: any): Observable<any> {
    
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/searchBlogs?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categoriesBox ? searchFields.categoriesBox.map(x => 'ProjectType-'+x.categoryId).join(' ') : ''} ${searchFields.hashtagObject ? searchFields.hashtagObject.searchField.replace("#", "") : ''}'}`),
     this.apollo.query({
@@ -59,7 +60,7 @@ export class BlogService {
    
   }
 
-  getLatestBlogsHome(searchText): Observable<any> {
+  getLatestBlogsHome(searchText: string): Observable<any> {
     return this.apollo.query({
       query: GET_LATEST_BLOGS_HOME,
       variables: { searchText : searchText}
@@ -68,7 +69,7 @@ export class BlogService {
   }
 
   getBlogsAuth(term = 'filter=', categories: string[]= [],
-               pageNumber = 0, pageSize = 3, userId): Observable<PaginatedResult<Blog[]>> {
+               pageNumber = 0, pageSize = 3, userId: any): Observable<PaginatedResult<Blog[]>> {
    const paginatedResult: PaginatedResult<Blog[]> = new PaginatedResult<Blog[]>();
    let params = new HttpParams();
    params = params.append('pageNumber', pageNumber.toString());
@@ -78,25 +79,25 @@ export class BlogService {
      categories.join('_') , { observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
 }
-  getBlogById(blogId): Observable<any> {
+  getBlogById(blogId: any): Observable<any> {
     return this.apollo.query({
       query: GET_BLOG_BY_ID,
       variables: { contentItemId : blogId}
     }).pipe(pluck("data"))
   }
 
-  getBlogByIdAuth(blogId, userId): Observable<Blog> {
+  getBlogByIdAuth(blogId: string, userId: any): Observable<Blog> {
     return this.http.get<Blog>(this.baseUrl + `users/${userId}/blogposts/GetBlogByDisplayId/` + blogId);
   }
 
-  getBlogCategories(blogId): Observable<Blog> {
+  getBlogCategories(blogId: string): Observable<Blog> {
     return this.http.get<Blog>(this.baseUrl + 'publicblogposts/GetBlogCategoriesPublic/' + blogId);
   }
 
@@ -110,7 +111,7 @@ export class BlogService {
   }
 
 
-  public getRelatedBlogs(searchText): Observable<any> {
+  public getRelatedBlogs(searchText: any): Observable<any> {
     return this.apollo.query({
       query: GET_RELATED_BLOGS,
       variables: { searchText : searchText}

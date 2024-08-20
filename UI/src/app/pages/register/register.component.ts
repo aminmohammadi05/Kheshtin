@@ -2,11 +2,8 @@ import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/co
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { matchingPasswords, emailValidator } from 'src/app/theme/utils/app-validators';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
-import { ProfessionalArea } from 'src/app/models/professional-area';
-import { UserProfessionalArea } from 'src/app/models/user-professional-area';
+
+
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
@@ -17,6 +14,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProfessionalArea } from '../../models/professional-area';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
+import { emailValidator, matchingPasswords } from '../../theme/utils/app-validators';
 
 @Component({
   selector: 'app-register',
@@ -27,10 +28,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
 
-  professionalAreaList: Observable<ProfessionalArea[]>;
+  professionalAreaList!: Observable<ProfessionalArea[]>;
   selectedProfessionalAreaList: any[] = [];
   user: User = new User();
-  public registerForm: FormGroup;
+  public registerForm!: FormGroup;
   public hide = true;
   public userTypes = [
     { id: 1, name: 'Agent' },
@@ -72,29 +73,29 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   public onRegisterFormSubmit(values: Object): void {
     if (this.registerForm.valid) {
       this.user.userProfessionalAreaList = [];
-      this.selectedProfessionalAreaList = this.registerForm.get('professionAreaBox').value;
+      this.selectedProfessionalAreaList = this.registerForm.get('professionAreaBox')!.value;
       this.selectedProfessionalAreaList.map(c => {
       this.user.userProfessionalAreaList.push({
         professionalAreaId: c.professionalAreaId,
-        professionalArea: null,
-        user: null,
+        professionalArea: new ProfessionalArea(),
+        user: new User(),
         userId: 0
       });
     });
-      this.user.name = this.registerForm.get('name').value;
-      this.user.lastName = this.registerForm.get('lastName').value;
-      this.user.password = this.registerForm.get('password').value;
-      this.user.mobilePhone = this.registerForm.get('mobilePhone').value;
-      this.user.phoneNumber = this.registerForm.get('phoneNumber').value;
-      this.user.email = this.registerForm.get('email').value;
-      this.user.address = this.registerForm.get('address').value;
-      this.user.postalCode = this.registerForm.get('postalCode').value;
-      this.user.otherProfessionalArea = this.registerForm.get('otherProfessions').value;
-      this.user.businessName = this.registerForm.get('business').value;
-      this.user.webSiteUrl = this.registerForm.get('webSiteUrl').value;
-      this.user.facebookProfileUrl = this.registerForm.get('facebookProfileUrl').value;
-      this.user.twitterProfileUrl = this.registerForm.get('twitterProfileUrl').value;
-      this.user.linkedInProfileUrl = this.registerForm.get('linkedInProfileUrl').value;
+      this.user.name = this.registerForm.get('name')!.value;
+      this.user.lastName = this.registerForm.get('lastName')!.value;
+      this.user.password = this.registerForm.get('password')!.value;
+      this.user.mobilePhone = this.registerForm.get('mobilePhone')!.value;
+      this.user.phoneNumber = this.registerForm.get('phoneNumber')!.value;
+      this.user.email = this.registerForm.get('email')!.value;
+      this.user.address = this.registerForm.get('address')!.value;
+      this.user.postalCode = this.registerForm.get('postalCode')!.value;
+      this.user.otherProfessionalArea = this.registerForm.get('otherProfessions')!.value;
+      this.user.businessName = this.registerForm.get('business')!.value;
+      this.user.webSiteUrl = this.registerForm.get('webSiteUrl')!.value;
+      this.user.facebookProfileUrl = this.registerForm.get('facebookProfileUrl')!.value;
+      this.user.twitterProfileUrl = this.registerForm.get('twitterProfileUrl')!.value;
+      this.user.linkedInProfileUrl = this.registerForm.get('linkedInProfileUrl')!.value;
 
       // this.store.dispatch(new RefreshUserRegisterRequest(this.user));
       // this.store.pipe(select(getRegisteredUser(this.user)),
@@ -107,14 +108,14 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onThumbnailSelected(event) {
+  onThumbnailSelected(event: { target: { files: Blob[]; }; }) {
     if (event.target.files &&
       event.target.files[0].size < 5 * 1024 * 1024 ) {
         const reader = new FileReader();
 
         reader.onload = ((file: File) => {
           return (evt) => {
-            this.user.profilePicture = 'data:' + event.target.files[0].type + ';base64,' + btoa(evt.target.result as string);
+            this.user.profilePicture = 'data:' + event.target.files[0].type + ';base64,' + btoa(evt.target!.result as string);
           };
         })(event.target.files[0]);
 

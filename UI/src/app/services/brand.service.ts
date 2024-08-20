@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, combineLatest } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -29,6 +29,7 @@ import { BrandCatalogSearch } from '../models/brand-catalog-search';
 import { GET_BRAND_CATALOGS_BY_BRAND_ID } from '../queries/get-brand-catalogs-by-brand-id';
 import { BrandOfficeProjectSearch } from '../models/brand-office-project-search';
 import { GET_PROJECTS_BY_BRAND_ID } from '../queries/get-projects-by-brand-id';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -39,7 +40,7 @@ export class BrandService {
   constructor(private http: HttpClient, private authService: AuthService,
     private apollo: Apollo) { }
 
-  getBrands(searchFields: BrandSearch, searchText): Observable<any> {
+  getBrands(searchFields: BrandSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/searchBrands?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categoriesBox ? searchFields.categoriesBox.map(x => 'ProductCategory-'+x.categoryId).join(' ') : ''}'}`),
     this.apollo.query({
       query: GET_BRANDS_BY_CONDITION,
@@ -62,7 +63,7 @@ export class BrandService {
     ]);
   }
 
-  getBrandsSelectedForHome(searchText): Observable<any> {
+  getBrandsSelectedForHome(searchText: string): Observable<any> {
     return this.apollo.query({
       query: GET_BRANDS_SELECTED_FOR_HOME,
       variables: { searchText : searchText}
@@ -71,14 +72,14 @@ export class BrandService {
 
  
 
-  getAllBrandsAuth(userId): Observable<Brand[]> {
+  getAllBrandsAuth(userId: any): Observable<Brand[]> {
     return this.http.get<Brand[]>(this.baseUrl + `users/${userId}/brands/GetAllBrands/`);
   }
 
   
 
   getBrandsAuth(term = 'filter=', categories: string[]= [],
-                pageNumber = 0, pageSize = 3, userId): Observable<PaginatedResult<Brand[]>> {
+                pageNumber = 0, pageSize = 3, userId: any): Observable<PaginatedResult<Brand[]>> {
    const paginatedResult: PaginatedResult<Brand[]> = new PaginatedResult<Brand[]>();
    let params = new HttpParams();
    params = params.append('pageNumber', (pageNumber - 1).toString());
@@ -88,31 +89,31 @@ export class BrandService {
      categories.join('_') , { observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
 }
-  getBrandById(brandId): Observable<any> {
+  getBrandById(brandId: any): Observable<any> {
     return this.apollo.query({
       query: GET_BRAND_BY_ID,
       variables: { contentItemId : brandId}
     }).pipe(pluck("data"));
   }
 
-  getBrandTotalProducts(brandName): Observable<any> {
+  getBrandTotalProducts(brandName: any): Observable<any> {
     return this.http.get<any>(this.baseUrl +
        `queries/GetBrandProductsCount?parameters={"from": 0, "size": 1,"fulltext" :  "${brandName}"}`);
   }
-  getSelectedBrandCollectionsByBrandId(searchText): Observable<any> {
+  getSelectedBrandCollectionsByBrandId(searchText: any): Observable<any> {
     return this.apollo.query({
       query: GET_SELECTED_BRAND_COLLECTIONS_BY_BRAND_ID,
       variables: { searchText : searchText}
     }).pipe(pluck("data"));
   }
-  getBrandCollectionsByBrandId(searchFields: BrandCollectionSearch, searchText): Observable<any> {
+  getBrandCollectionsByBrandId(searchFields: BrandCollectionSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/getBrandCollectionByBrandId?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.brandId}'}`),
     this.apollo.query({
       query: GET_BRAND_COLLECTIONS_BY_BRAND_ID,
@@ -120,7 +121,7 @@ export class BrandService {
     }).pipe(pluck("data")) ]);
   }
 
-  getVideosByBrandId(searchFields: BrandVideoSearch, searchText): Observable<any> {
+  getVideosByBrandId(searchFields: BrandVideoSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/getVideoByBrandId?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.brandId}'}`),
     this.apollo.query({
       query: GET_VIDEOS_BY_BRAND_ID,
@@ -128,7 +129,7 @@ export class BrandService {
     }).pipe(pluck("data")) ]);
   }
 
-  getBrandResellersByBrandId(searchFields: BrandCollectionSearch, searchText): Observable<any> {
+  getBrandResellersByBrandId(searchFields: BrandCollectionSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/getResellerByBrandId?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.brandId}'}`),
     this.apollo.query({
       query: GET_BRAND_RESELLERS_BY_BRAND_ID,
@@ -136,14 +137,14 @@ export class BrandService {
     }).pipe(pluck("data")) ]);
   }
 
-  getBrandCatalogsByBrandId(searchFields: BrandCatalogSearch, searchText): Observable<any> {
+  getBrandCatalogsByBrandId(searchFields: BrandCatalogSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/getBrandCatalogByBrandId?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.brandId}'}`),
     this.apollo.query({
       query: GET_BRAND_CATALOGS_BY_BRAND_ID,
       variables: { searchText : searchText}
     }).pipe(pluck("data")) ]);
   }
-  getProjectsByBrandId(searchFields: BrandOfficeProjectSearch, searchText): Observable<any> {
+  getProjectsByBrandId(searchFields: BrandOfficeProjectSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/getSelectedProjectsByBrandIdEls?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.brandId}'}`),
     this.apollo.query({
       query: GET_PROJECTS_BY_BRAND_ID,
@@ -151,38 +152,38 @@ export class BrandService {
     }).pipe(pluck("data")) ]);
   }
 
-  getSelectedProductsByBrandId(searchText): Observable<any> {
+  getSelectedProductsByBrandId(searchText: any): Observable<any> {
     return this.apollo.query({
       query: GET_SELECTED_PRODUCTS_BY_BRAND_ID,
       variables: { searchText : searchText}
     }).pipe(pluck("data"));
   }
-  getSelectedVideosByBrandId(searchText): Observable<any> {
+  getSelectedVideosByBrandId(searchText: any): Observable<any> {
     return this.apollo.query({
       query: GET_SELECTED_VIDEOS_BY_BRAND_ID,
       variables: { searchText : searchText}
     }).pipe(pluck("data"));
   }
 
-  getSelectedCatalogsByBrandId(searchText): Observable<any> {
+  getSelectedCatalogsByBrandId(searchText: any): Observable<any> {
     return this.apollo.query({
       query: GET_SELECTED_CATALOGS_BY_BRAND_ID,
       variables: { searchText : searchText}
     }).pipe(pluck("data"));
   }
 
-  getSelectedProjectsByBrandId(searchText): Observable<any> {
+  getSelectedProjectsByBrandId(searchText: any): Observable<any> {
     return this.apollo.query({
       query: GET_SELECTED_PROJECTS_BY_BRAND_ID,
       variables: { searchText : searchText}
     }).pipe(pluck("data"));
   }
 
-  getBrandByIdAuth(brandId, userId): Observable<Brand> {
+  getBrandByIdAuth(brandId: string, userId: any): Observable<Brand> {
     return this.http.get<Brand>(this.baseUrl + `users/${userId}/brands/GetBrandByDisplayId/` + brandId);
   }
 
-  getBrandCategories(brandId): Observable<Brand> {
+  getBrandCategories(brandId: string): Observable<Brand> {
     return this.http.get<Brand>(this.baseUrl + 'publicbrands/GetBrandCategoriesPublic/' + brandId);
   }
 
@@ -194,7 +195,7 @@ export class BrandService {
   getCsrfToken(): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'antiforgery/GenerateAntiForgeryTokens');
   }
-  sendDataRequest(userId, request): Observable<BrandRequest> {
+  sendDataRequest(userId: any, request: any): Observable<BrandRequest> {
     return this.http.post<any>(this.baseUrl + `users/${userId}/brands/CreateBrandRequest/`, request);
   }
 }

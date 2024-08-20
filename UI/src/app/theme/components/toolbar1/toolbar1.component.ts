@@ -1,60 +1,67 @@
 import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { AppService } from 'src/app/app.service';
+
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, tap } from 'rxjs/operators';
-import * as moment from 'jalali-moment'; 
-import { SignalRService } from 'src/app/services/signal-r.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { HttpClient } from '@angular/common/http';
-import { ProjectComment } from 'src/app/models/project-comment';
-import { ProjectAdminReply } from 'src/app/models/project-admin-reply';
-import { UserFavorites } from 'src/app/models/user-favorites';
-import { ProductsService } from 'src/app/services/products.service';
+import moment from 'jalali-moment'; 
+
 import { Router } from '@angular/router';
 import { SlideInOutAnimation } from '../animations/slide-in-out';
-import { UserMoodBoardCandidateProduct } from 'src/app/models/user-mood-board-candidate-product';
-import { HomeSearch } from 'src/app/models/home-search';
-import { Category } from 'src/app/models/category';
+
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchDialogComponent } from './search-dialog/search-dialog.component';
-import { AppSettings } from 'src/app/app.settings';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HorizontalMenuComponent } from '../menu/horizontal-menu/horizontal-menu.component';
 import { SocialIconsComponent } from '../social-icons/social-icons.component';
 import { ContactsComponent } from '../contacts/contacts.component';
-import { LogoComponent } from 'src/app/shared/logo/logo.component';
+
 import { UserMenuComponent } from '../user-menu/user-menu.component';
 import { LangComponent } from '../lang/lang.component';
 import { CurrencyComponent } from '../currency/currency.component';
+import { UserFavorites } from '../../../models/user-favorites';
+import { UserMoodBoardCandidateProduct } from '../../../models/user-mood-board-candidate-product';
+import { ProjectComment } from '../../../models/project-comment';
+import { ProjectAdminReply } from '../../../models/project-admin-reply';
+import { HomeSearch } from '../../../models/home-search';
+import { LogoComponent } from '../../../shared/logo/logo.component';
+import { ProductsService } from '../../../services/products.service';
+import { SignalRService } from '../../../services/signal-r.service';
+import { AppSettings } from '../../../app.settings';
+import { AuthService } from '../../../services/auth.service';
+import { HttpClient } from '@aspnet/signalr';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-toolbar1',
   styleUrls: ['./toolbar1.component.scss'],
   templateUrl: './toolbar1.component.html',
   standalone: true,
-  imports: [MatIconModule, MatToolbarModule, HorizontalMenuComponent, SocialIconsComponent, ContactsComponent, LogoComponent, UserMenuComponent, LangComponent, CurrencyComponent],
+  imports: [CommonModule, MatFormFieldModule, MatIconModule, MatToolbarModule, HorizontalMenuComponent, SocialIconsComponent, ContactsComponent, LogoComponent, UserMenuComponent, LangComponent, CurrencyComponent],
   encapsulation: ViewEncapsulation.None
 })
 export class Toolbar1Component implements OnInit {
   @Output() MenuIconClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() TopToolbarHovered: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('searchField', { static: true }) searchField: any;
-  @ViewChild('searchIcon') filterIcon: ElementRef;
-  @ViewChild('searchMenu') userMenu: ElementRef;
+  @ViewChild('searchIcon')
+  filterIcon!: ElementRef;
+  @ViewChild('searchMenu')
+  userMenu!: ElementRef;
   hide = false;
-  userFavorites: Observable<UserFavorites[]>;
-  userMoodBoardCandidates: Observable<UserMoodBoardCandidateProduct[]>;
-  isUserAuthenticated: Observable<boolean>;
-  isNotAuthenticated: Observable<boolean>;
-  messageCount: Observable<number>;
-  adminMessageCount: Observable<number>;
-  unreadProjectComments: Observable<ProjectComment[]>;
-  unreadProjectAdminReplies: Observable<ProjectAdminReply[]>;
-  currentDate: string;
-  router: string;
+  userFavorites!: Observable<UserFavorites[]>;
+  userMoodBoardCandidates!: Observable<UserMoodBoardCandidateProduct[]>;
+  isUserAuthenticated!: Observable<boolean>;
+  isNotAuthenticated!: Observable<boolean>;
+  messageCount!: Observable<number>;
+  adminMessageCount!: Observable<number>;
+  unreadProjectComments!: Observable<ProjectComment[]>;
+  unreadProjectAdminReplies!: Observable<ProjectAdminReply[]>;
+  currentDate!: string;
+  router!: string;
   searchClicked = false;
   public searchFields = new HomeSearch({
     searchId: 1,

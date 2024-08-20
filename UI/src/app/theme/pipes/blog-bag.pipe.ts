@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ProductFile } from 'src/app/models/product-file';
-import { FileToUpload } from '../../models/file-to-upload';
+
+
 
 @Pipe({
   name: 'blogBagType',

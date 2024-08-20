@@ -1,97 +1,97 @@
 @use '@angular/material' as mat;
 @include mat.core();
-$custom-typography: mat.define-typography-level(
-  $font-family: 'Vazir FD',
-  $font-weight: 400,
-  $font-size: 1rem,
-  $line-height: 1,
-  $letter-spacing: normal,
-);
+// $custom-typography: mat.define-typography-level(
+//   $font-family: 'Vazir FD',
+//   $font-weight: 400,
+//   $font-size: 1rem,
+//   $line-height: 1,
+//   $letter-spacing: normal,
+// );
 
 
 @import 'theme-reset';
 
 
-.app{
+// .app{
 
-    &.green{
+//     &.green{
 
-        @import "skins/green";
+//         @import "skins/green";
 
-        @include mat.all-component-themes($green-theme);
+//         @include mat.all-component-themes($green-theme);
 
-        @include theme-reset($green-theme);
+//         @include theme-reset($green-theme);
 
-    }
+//     }
 
-    &.blue{
+//     &.blue{
 
-        @import "skins/blue";
+//         @import "skins/blue";
 
-        @include mat.all-component-themes($blue-theme);
+//         @include mat.all-component-themes($blue-theme);
 
-        @include theme-reset($blue-theme);
+//         @include theme-reset($blue-theme);
 
-    }
+//     }
 
-    &.red{
+//     &.red{
 
-        @import "skins/red";
+//         @import "skins/red";
 
-        @include mat.all-component-themes($red-theme);
+//         @include mat.all-component-themes($red-theme);
 
-        @include theme-reset($red-theme);
+//         @include theme-reset($red-theme);
 
-    }
+//     }
 
-    &.pink{
+//     &.pink{
 
-        @import "skins/pink";
+//         @import "skins/pink";
 
-        @include mat.all-component-themes($pink-theme);
+//         @include mat.all-component-themes($pink-theme);
 
-        @include theme-reset($pink-theme);
+//         @include theme-reset($pink-theme);
 
-    }
+//     }
 
-    &.purple{
+//     &.purple{
 
-        @import "skins/purple";
+//         @import "skins/purple";
 
-        @include mat.all-component-themes($purple-theme);
+//         @include mat.all-component-themes($purple-theme);
 
-        @include theme-reset($purple-theme);
+//         @include theme-reset($purple-theme);
 
-    }
+//     }
 
-    &.grey{
+//     &.grey{
 
-        @import "skins/grey";
+//         @import "skins/grey";
 
-        @include mat.all-component-themes($grey-theme);
+//         @include mat.all-component-themes($grey-theme);
 
-        @include theme-reset($grey-theme);
+//         @include theme-reset($grey-theme);
 
-    }
+//     }
 
-    &.orange-dark{
+//     &.orange-dark{
 
-        @import "skins/orange-white";
+//         @import "skins/orange-white";
 
-        @include mat.all-component-themes($orange-dark-theme);
+//         @include mat.all-component-themes($orange-dark-theme);
 
-        @include theme-reset($orange-dark-theme);     
+//         @include theme-reset($orange-dark-theme);     
 
-    }
+//     }
 
-    &.orange-white{
+//     &.orange-white{
 
-        @import "skins/orange-white";
+//         @import "skins/orange-white";
 
-        @include mat.all-component-themes($orange-dark-theme);
+//         @include mat.all-component-themes($orange-dark-theme);
 
-        @include theme-reset($orange-dark-theme);     
+//         @include theme-reset($orange-dark-theme);     
 
-    }
+//     }
 
-}
+// }

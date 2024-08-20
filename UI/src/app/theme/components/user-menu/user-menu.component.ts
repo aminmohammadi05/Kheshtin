@@ -1,12 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit, ViewEncapsulation, Renderer2, ElementRef, ViewChild, Inject } from '@angular/core';
-import { AppService } from 'src/app/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { Login } from 'src/app/models/login';
+
 import { Observable } from 'rxjs';
-import { User } from 'src/app/models/user';
+
 import { DOCUMENT } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { User } from '../../../models/user';
+import { AuthService } from '../../../services/auth.service';
+
 
 @Component({
   selector: 'app-user-menu',
@@ -16,9 +17,10 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatMenuModule, MatIconModule],
 })
 export class UserMenuComponent implements OnInit, AfterViewInit {
-  public user: Observable<User>;
-  @ViewChild('userMenu') userMenu: ElementRef;
-  constructor(public appService: AppService,
+  public user!: Observable<User>;
+  @ViewChild('userMenu')
+  userMenu!: ElementRef;
+  constructor(
               public authService: AuthService,
               private cdRef: ChangeDetectorRef) {}
 

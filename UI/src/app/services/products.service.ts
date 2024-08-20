@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+
 import { Observable, combineLatest, of } from 'rxjs';
 import { Product} from '../models/product';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -24,6 +24,8 @@ import { GET_LATEST_PRODUCTS_HOME } from '../queries/get-latest-products-home';
 import { GET_PRODUCT_BY_ID } from '../queries/get-product-by-id';
 import { GET_PRODUCTS_BY_CATEGORY_PRODUCT_DETAIL } from '../queries/get-products-by-category-product-detail';
 import { BrandProductSearch } from '../models/brand-product-search';
+import { environment } from '../../environments/environment';
+import { ComponentType } from '@angular/cdk/portal';
 
 export class Data {
   constructor(public products: Product[],
@@ -48,11 +50,8 @@ constructor(private http: HttpClient,
             private bottomSheet: MatBottomSheet,
             private snackBar: MatSnackBar,
             public appSettings: AppSettings) { }
-addProduct(product): Observable<Product> {
-  return this.http.post<Product>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid +
-   '/products/CreateProduct',  product);
-}
-getBrandProductsByCategoryAuth(brand: string, category: number, userId) {
+
+getBrandProductsByCategoryAuth(brand: string, category: number, userId: string) {
   return this.http.get<Product[]>(this.baseUrl + 'users/' + userId +
    '/products/GetBrandProductsByCategoryAuth/' + brand + '/' + category);
 }
@@ -74,15 +73,15 @@ getProducts1(term = 'filter=',
      { headers: new HttpHeaders({'Content-Type': 'application/json'}), observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
 }
 
-getProducts(searchFields: Search, searchText): Observable<any> {
+getProducts(searchFields: Search, searchText: string): Observable<any> {
   return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/searchProducts?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categoriesBox ? searchFields.categoriesBox.map(x => 'ProductCategory-'+x.categoryId).join(' ') : ''} ${searchFields.brandsBox ? searchFields.brandsBox.map(x => x.name).join(' ') : ''} ${searchFields.brandCollectionBox ? searchFields.brandCollectionBox.map(x => x.brandCollectionId).join(' ') : ''}'}`),
     this.apollo.query({
       query: GET_PRODUCTS_BY_CONDITION,
@@ -95,19 +94,19 @@ getProducts(searchFields: Search, searchText): Observable<any> {
   // }).pipe(pluck("data"))
 }
 
-getLatestProductsHome(searchText): Observable<any>{
+getLatestProductsHome(searchText: any): Observable<any>{
   return this.apollo.query({
     query: GET_LATEST_PRODUCTS_HOME,
     variables: { searchText : searchText}
   }).pipe(pluck("data"))
 }
-getProductsOfSelectedCategoryHome(searchText): Observable<any>{
+getProductsOfSelectedCategoryHome(searchText: any): Observable<any>{
   return this.apollo.query({
     query: GET_PRODUCTS_BY_CATEGORY_HOME,
     variables: { searchText : searchText}
   }).pipe(pluck("data"))
 }
-public getRelatedProducts(searchText): Observable<any> {
+public getRelatedProducts(searchText: any): Observable<any> {
   return this.apollo.query({
     query: GET_PRODUCTS_BY_CATEGORY_PRODUCT_DETAIL,
     variables: { searchText : searchText}
@@ -124,7 +123,7 @@ getAllProducts(first: number, skip: number): Observable<any> {
     ]);
   
 }
-getAllBrandProducts(searchFields: BrandProductSearch, searchText): Observable<any[]> {
+getAllBrandProducts(searchFields: BrandProductSearch, searchText: any): Observable<any[]> {
   return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/searchProducts?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categoriesBox ? searchFields.categoriesBox.map(x => 'ProductCategory-'+x.categoryId).join(' ') : ''} ${searchFields.brandsBox ? searchFields.brandsBox.map(x => x.brandId).join(' ') : ''} ${searchFields.brandCollectionBox ? searchFields.brandCollectionBox.map(x => x.brandCollectionId).join(' ') : ''}'}`),
     this.apollo.query({
       query: GET_PRODUCTS_BY_CONDITION,
@@ -151,9 +150,9 @@ getBrandProductsPaginated(term = 'filter=',
      { headers: new HttpHeaders({'Content-Type': 'application/json'}), observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
@@ -180,7 +179,7 @@ productFileRarDownload(productFile: ProductFile, fileType: number) {
       map(response => {
         const fileName = productFile.name + '_' + (fileType === 5 ? '3dobject' : fileType === 6 ? 'revit' : fileType === 4 ? '3dmax' : fileType === 13 ? 'autocad' : fileType === 2 ? 'vray' : fileType === 3 ? 'texture' : '') + '.rar';
         const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(response.body);
+        link.href = window.URL.createObjectURL(response.body!);
         link.download = fileName;
         link.click();
       })
@@ -203,21 +202,21 @@ getMoodBoardProducts(term = 'filter=',
      { headers: new HttpHeaders({'Content-Type': 'application/json'}), observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
 }
-getBrandProducts(brandId): Observable<Product[]> {
+getBrandProducts(brandId: string): Observable<Product[]> {
   return this.http.get<Product[]>(this.baseUrl + 'publicproducts/GetBrandProductsPublic/' + brandId);
 }
-getBrandTextureProducts(brandId): Observable<ShowRoomProduct[]> {
+getBrandTextureProducts(brandId: string): Observable<ShowRoomProduct[]> {
   return this.http.get<ShowRoomProduct[]>(this.baseUrl + 'publicproducts/GetBrandTextureProductsPublic/' + brandId);
 }
 
-getProductById(productId): Observable<any> {
+getProductById(productId: any): Observable<any> {
   return this.apollo.query({
     query: GET_PRODUCT_BY_ID,
     variables: { contentItemId : productId}
@@ -229,7 +228,7 @@ getRecentProducts(): Observable<Product[]> {
 getProductsById(productIdList: string[]): Observable<Product[]> {
   return this.http.get<Product[]>(this.baseUrl + 'publicproducts/GetProductsByIdListPublic/' + productIdList.join('_'));
 }
-getProductsByIdAuth(productIdList: string[], userId): Observable<Product[]> {
+getProductsByIdAuth(productIdList: string[], userId: any): Observable<Product[]> {
   return this.http.get<Product[]>(this.baseUrl + `users/${userId}/products/GetProductsByIdList/` + productIdList.join('_'));
 }
 
@@ -239,7 +238,7 @@ getProductsAuth(term = 'filter=',
                 categories: string[]= [],
                 fileTypes: string[]= [],
                 imageUploaded = '',
-                pageNumber = 0, pageSize = 3, userId): Observable<PaginatedResult<Product[]>> {
+                pageNumber = 0, pageSize = 3, userId: any): Observable<PaginatedResult<Product[]>> {
 
                   const paginatedResult: PaginatedResult<Product[]> = new PaginatedResult<Product[]>();
                   let params = new HttpParams();
@@ -251,9 +250,9 @@ getProductsAuth(term = 'filter=',
      { headers: new HttpHeaders({'Content-Type': 'application/json'}), observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
@@ -264,7 +263,7 @@ getBrandProductsAuthPaginated(term = 'filter=',
                 categories: string[]= [],
                 fileTypes: string[]= [],
                 imageUploaded = '',
-                pageNumber = 0, pageSize = 3, userId): Observable<PaginatedResult<BrandProduct[]>> {
+                pageNumber = 0, pageSize = 3, userId: any): Observable<PaginatedResult<BrandProduct[]>> {
 
                   const paginatedResult: PaginatedResult<BrandProduct[]> = new PaginatedResult<BrandProduct[]>();
                   let params = new HttpParams();
@@ -276,9 +275,9 @@ getBrandProductsAuthPaginated(term = 'filter=',
      { headers: new HttpHeaders({'Content-Type': 'application/json'}), observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
@@ -289,7 +288,7 @@ getMoodBoardProductsAuth(term = 'filter=',
                          categories: string[]= [],
                          colors: string[]= [],
                          materials: string[]= [],
-                         pageNumber = 0, pageSize = 3, userId): Observable<PaginatedResult<DesignMoodBoardProduct[]>> {
+                         pageNumber = 0, pageSize = 3, userId: any): Observable<PaginatedResult<DesignMoodBoardProduct[]>> {
 
                   const paginatedResult: PaginatedResult<DesignMoodBoardProduct[]> = new PaginatedResult<DesignMoodBoardProduct[]>();
                   let params = new HttpParams();
@@ -301,58 +300,32 @@ getMoodBoardProductsAuth(term = 'filter=',
      { headers: new HttpHeaders({'Content-Type': 'application/json'}), observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
 }
 
-getBrandProductsAuth(brandId, userId): Observable<Product[]> {
+getBrandProductsAuth(brandId: string, userId: any): Observable<Product[]> {
   return this.http.get<Product[]>(this.baseUrl + `users/${userId}/products/GetBrandProductsAuth/` + brandId);
 }
-getBrandTextureProductsAuth(brandId, userId): Observable<ShowRoomProduct[]> {
+getBrandTextureProductsAuth(brandId: string, userId: any): Observable<ShowRoomProduct[]> {
   return this.http.get<ShowRoomProduct[]>(this.baseUrl + `users/${userId}/products/GetBrandTextureProductsAuth/` + brandId);
 }
-getProductByIdAuth(productId, userId): Observable<Product> {
+getProductByIdAuth(productId: string, userId: any): Observable<Product> {
   return this.http.get<Product>(this.baseUrl + `users/${userId}/products/GetProductByDisplayId/` + productId);
 }
-getRecentProductsAuth(userId): Observable<Product[]> {
+getRecentProductsAuth(userId: any): Observable<Product[]> {
   return this.http.get<Product[]>(this.baseUrl + `users/${userId}/products/GetRecentProductsAuth/`);
 }
 
-removeImage(categoryId, productId, imageId) {
-  return this.http.delete(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
-   + '/products/DeleteProductImage/' + this.authService.getDecodedToken().groupsid + '/' +
-   categoryId + '/' + productId + '/' + imageId);
-}
-saveImage(image) {
-  return this.http.post(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
-   + '/products/SaveProductImage', image);
-}
-removeProduct(categoryId, productId) {
-  return this.http.delete(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
-   + '/products/DeleteProduct/' + productId);
-}
-removeProductProperty(shopId, categoryId, productId, propertyId) {
-  return this.http.delete(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
-   + '/products/DeleteProductProperty/' + this.authService.getDecodedToken().groupsid + '/' +
-   categoryId + '/' + productId + '/' + propertyId);
-}
-
-updateProduct(product) {
-  return this.http.put(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
-   + '/products/UpdateProduct/' + this.authService.getDecodedToken().groupsid , product);
-}
-updateProductProperty(product): Observable<Product> {
-  return this.http.post<Product>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
-   + '/products/UpdateProductProperties' , product);
-}
 
 
 
-public addToCompare(product: Product, component, direction) {
+
+public addToCompare(product: Product, component: ComponentType<unknown>, direction: any) {
   if (!this.Data.compareList.filter(item => item.productId === product.productId)[0]) {
     this.Data.compareList.push(product);
     this.bottomSheet.open(component, {
@@ -367,7 +340,7 @@ public addToCompare(product: Product, component, direction) {
 
 
 
-public addToFavorites(product: Product, direction) {
+public addToFavorites(product: Product, direction: any) {
   this.snackBar.open(product.name + '" به لیست علایق شما اضافه شد', '×', {
     verticalPosition: 'top',
     duration: 3000,
@@ -381,17 +354,17 @@ public getFeaturedProducts(): Observable<Product[]> {
 public getHomeProducts(): Observable<Product[]> {
   return this.http.get<Product[]>(this.baseUrl + 'publicproducts/GetHomeProductsPublic/');
 }
-public getHomeProductsAuth(userId): Observable<Product[]> {
+public getHomeProductsAuth(userId: any): Observable<Product[]> {
   return this.http.get<Product[]>(this.baseUrl + `users/${userId}
   /products/GetHomeProductsAuth/`);
 }
-public getFeaturedProductsAuth(userId): Observable<Product[]> {
+public getFeaturedProductsAuth(userId: any): Observable<Product[]> {
   return this.http.get<Product[]>(this.baseUrl + `users/${userId}
   /products/GetRecentProductsAuth/`);
 }
 
 
-public getRelatedProductsAuth(categories: number[]= [], userId): Observable<Product[]> {
+public getRelatedProductsAuth(categories: number[]= [], userId: any): Observable<Product[]> {
   return this.http.get<Product[]>(this.baseUrl + `users/${userId}
   /products/GetRelatedProductsAuth/${categories.map(x => x.toString()).join('_')}`);
 }

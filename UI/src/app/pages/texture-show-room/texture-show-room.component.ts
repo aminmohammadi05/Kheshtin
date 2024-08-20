@@ -5,29 +5,33 @@ import { Component,
   QueryList, OnDestroy, AfterViewInit, HostListener, ElementRef, ViewEncapsulation, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+
 import { Meta } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { AppSettings, Settings } from 'src/app/app.settings';
+
 import { tap } from 'rxjs/operators';
 
-import { emailValidator } from 'src/app/theme/utils/app-validators';
 import * as uuid from 'uuid';
+
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AppService } from 'src/app/app.service';
-import { Brand } from 'src/app/models/brand';
+
 declare let html2canvas: any;
-import { saveAs } from 'file-saver/FileSaver';
-import { TextureShowRoom } from 'src/app/models/texture-show-room';
-import { ShowRoomService } from 'src/app/services/show-room.service';
-import { ShowRoomProduct } from 'src/app/models/show-room-product';
+
+
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { ShowRoomProduct } from '../../models/show-room-product';
+import { AppSettings, Settings } from '../../app.settings';
+import { Brand } from '../../models/brand';
+import { TextureShowRoom } from '../../models/texture-show-room';
+import { ShowRoomService } from '../../services/show-room.service';
+import { AuthService } from '../../services/auth.service';
+import { emailValidator } from '../../theme/utils/app-validators';
 
 @Component({
   selector: 'app-texture-show-room',
@@ -38,9 +42,12 @@ import { MatIconModule } from '@angular/material/icon';
   encapsulation: ViewEncapsulation.None
 })
 export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewInit  {
-  @ViewChild('sidenav', { static: true }) sidenav: ElementRef;
-  @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
-  @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
+  @ViewChild('sidenav', { static: true })
+  sidenav!: ElementRef;
+  @ViewChild('stickyCard', { static: true })
+  stickyCard!: ElementRef;
+  @ViewChild('delimiter', { static: true })
+  delimiter!: ElementRef;
   @ViewChild('screen', { static: true }) screen: any;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
 
@@ -51,17 +58,17 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
   // public config: SwiperConfigInterface = {};
   // public config2: SwiperConfigInterface = {};
   private sub: any;
-  public product: ShowRoomProduct;
+  public product: ShowRoomProduct = new ShowRoomProduct;
   public settings: Settings;
   public embedVideo: any;
-  public mortgageForm: FormGroup;
+  public mortgageForm!: FormGroup;
   public monthlyPayment: any;
-  public contactForm: FormGroup;
+  public contactForm!: FormGroup;
   public bottom = 0;
-  public brand: Observable<Brand>;
-  public brands: Observable<Brand[]>;
-  public textureList: ShowRoomProduct[];
-  public createdTexture: TextureShowRoom;
+  public brand!: Observable<Brand>;
+  public brands!: Observable<Brand[]>;
+  public textureList!: ShowRoomProduct[];
+  public createdTexture!: TextureShowRoom;
 
   public showProducersDialog = false;
   public showProductsDialog = false;
@@ -85,16 +92,16 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
                          {colorId: 8, color: '#998675'},
                          {colorId: 9, color: '#c9b199'}];
 
-  productId: string;
-  brandId: string;
-  productImage: string;
-  selectedTexture: ShowRoomProduct;
+  productId!: string;
+  brandId!: string;
+  productImage!: string;
+  selectedTexture: ShowRoomProduct = new ShowRoomProduct;
   selectedOrder = 1;
   selectedColor: any;
-  capturedImage;
-  private dialogRef: MatDialogRef<TextureShowRoomDownloadDialogComponent>;
+  capturedImage: any;
+  private dialogRef!: MatDialogRef<TextureShowRoomDownloadDialogComponent>;
   constructor(public appSettings: AppSettings,
-              public appService: AppService,
+              
               private showRoomService: ShowRoomService,
               private activatedRoute: ActivatedRoute,
               public dialog: MatDialog,
@@ -109,11 +116,11 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
     this.selectedColor = this.textureColor.filter(x => x.colorId === 1)[0];
     // this.brands = this.store.pipe(select(getBrandsForAppId(1)));
     this.activatedRoute.params.subscribe(params => {
-      if (params.brandId && uuid.validate(params.brandId)) {
-        if (params.productId && uuid.validate(params.productId)) {
-          this.productId = params.productId;
+      if (params['brandId'] && uuid.validate(params['brandId'])) {
+        if (params['productId'] && uuid.validate(params['productId'])) {
+          this.productId = params['productId'];
         }
-        this.brandId = params.brandId;
+        this.brandId = params['brandId'];
         this.getBrandTextureProductsById(this.brandId);
       } else {
         this.brands.subscribe(b => {
@@ -172,9 +179,9 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
             this.selectedTexture.productFiles.filter(x => x.reservedField1 === selectedOrder)[0].productFileId : 1;
   }
 
-  public getBrandTextureProductsById(id) {
+  public getBrandTextureProductsById(id: string) {
     this.textureList = [];
-    this.selectedTexture = null;
+    this.selectedTexture;
     this.getBrand(id);
     // this.store.pipe(select(getBrandTextureShowRoomProductsById(id)),
     // tap(product => {
@@ -287,7 +294,7 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
     //   }
     // });
   }
-  public getBrand(brandId) {
+  public getBrand(brandId: string) {
     // this.brand = this.store.select(getBrandById(brandId));
   }
   public downloadTexture() {
@@ -296,9 +303,9 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
       productFileId: this.getProductFileId(this.selectedOrder) ,
       orientation: this.selectedOrder,
       bondingColor: this.selectedColor.colorId,
-      createUserId: this.authService.getDecodedToken().nameid,
+      // createUserId: this.authService.getDecodedToken().nameid,
     });
-    this.showRoomService.createShowRoomAuth(this.authService.getDecodedToken().nameid, this.createdTexture).subscribe(showRoom => {
+    this.showRoomService.createShowRoomAuth(undefined, this.createdTexture).subscribe(showRoom => {
       this.dialogRef = this.dialog.open(TextureShowRoomDownloadDialogComponent, {
         panelClass: 'calendar-form-dialog',
         data: {
@@ -319,9 +326,9 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   public captureImage() {
-    html2canvas(this.screen.nativeElement, {removeContainer: true}).then((canvas) => {
+    html2canvas(this.screen.nativeElement, {removeContainer: true}).then((canvas: { toBlob: (arg0: (blob: any) => void, arg1: string) => void; }) => {
       // Convert the canvas to blob
-      canvas.toBlob((blob) => {
+      canvas.toBlob((blob: Blob | MediaSource) => {
           // To download directly on browser default 'downloads' location
           const link = document.createElement('a');
           link.download = 'image.png';
@@ -346,10 +353,10 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
 export class TextureShowRoomDownloadDialogComponent implements OnInit {
   public settings: Settings;
   public selectedIndex = 1;
-  public selectedImageId: number;
-  showRoom: TextureShowRoom;
+  public selectedImageId!: number;
+  showRoom!: TextureShowRoom;
   @Input() variant = 1;
-  reqform: FormGroup;
+  reqform!: FormGroup;
   constructor(public appSettings: AppSettings,
               public authService: AuthService,
               public dialogRef: MatDialogRef<TextureShowRoomDownloadDialogComponent>,

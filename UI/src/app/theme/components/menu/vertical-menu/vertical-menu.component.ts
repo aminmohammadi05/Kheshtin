@@ -2,8 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MenuService } from '../menu.service';
 import { Menu } from '../menu.model';
 import { Observable } from 'rxjs';
-import { Category } from 'src/app/models/category';
-import { BasicDataService } from 'src/app/services/basic-data.service';
+
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -14,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
+import { BasicDataService } from '../../../../services/basic-data.service';
 
 @Component({
   selector: 'app-vertical-menu',
@@ -24,7 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [CommonModule, MatIconModule, MatButtonModule]
 })
 export class VerticalMenuComponent implements OnInit {
-  public menuItemList: [];
+  public menuItemList: [] = [];
   public selectedId = 0;
   public colorMap = new Map<number, string[]>();
   constructor(public menuService: MenuService,
@@ -54,7 +54,7 @@ export class VerticalMenuComponent implements OnInit {
     });
   }
 
-  onClick(menuId) {
+  onClick(menuId: any) {
     this.menuService.toggleMenuItem(menuId);
     this.menuService.closeOtherSubMenus(this.menuService.getVerticalMenuItems(), menuId);
   }

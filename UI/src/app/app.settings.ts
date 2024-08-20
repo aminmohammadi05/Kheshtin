@@ -33,7 +33,7 @@ export class Settings {
 
 @Injectable()
 export class AppSettings implements OnDestroy {
-    public isMobile : Observable<boolean>;
+    public isMobile!: Observable<boolean>;
     public mediaSubscription: Subscription;
     activeMediaQuery = '';
     constructor(public mediaObserver: MediaObserver) {

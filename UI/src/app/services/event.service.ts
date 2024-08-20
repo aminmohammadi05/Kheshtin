@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable, combineLatest } from 'rxjs';
@@ -17,6 +17,8 @@ import { GET_ALL_EVENTS } from '../queries/get-all-events';
 import { GET_EVENTS_BY_CONDITION } from '../queries/get-events-by-condition';
 import { GET_EVENT_BY_ID } from '../queries/get-event-by-id';
 import { GET_LATEST_EVENTS } from '../queries/get-latest-events';
+import { EventCategorySet } from '../models/event-category-set';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +30,7 @@ export class EventService {
               private authService: AuthService,
               private apollo: Apollo,
               public appSettings: AppSettings) { }
-  addEvent(event): Observable<Event> {
+  addEvent(event: any): Observable<Event> {
     return this.http.post<Event>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid +
      '/events/CreateEvent',  event);
   }
@@ -38,12 +40,12 @@ export class EventService {
      '/events/UpdateEvent/' + event.eventId,  event);
   }
 
-  removeUserEvent(eventId, userId): Observable<string> {
+  removeUserEvent(eventId: string, userId: string): Observable<string> {
     return this.http.delete<string>(this.baseUrl + 'users/' + userId +
      '/events/DeleteEvent/' +  eventId);
   }
 
-  getEvents(searchFields: EventSearch, searchText): Observable<any> {
+  getEvents(searchFields: EventSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/searchEvents?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categories ? searchFields.categories.map(x => 'EventType-'+x.categoryId).join(' ') : ''} ${searchFields.hashtagObject ? searchFields.hashtagObject.searchField.replace("#", "") : ''}'}`),
     this.apollo.query({
       query: GET_EVENTS_BY_CONDITION,
@@ -89,20 +91,20 @@ export class EventService {
     + term + '/' + designer + '/' + categories.join('_') , { observe: 'response', params})
     .pipe(
       map(response => {
-        paginatedResult.result = response.body;
+        paginatedResult.result = response.body!;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
         }
         return paginatedResult;
       }));
   }
 
   
-  getEvent(eventId): Observable<Event> {
+  getEvent(eventId: string): Observable<Event> {
     return this.http.get<Event>(this.baseUrl + 'publicevents/GetEventPublic/' + eventId);
   }
 
-  getEventAuth(eventId, userId: number): Observable<Event> {
+  getEventAuth(eventId: string, userId: number): Observable<Event> {
     return this.http.get<Event>(this.baseUrl + `users/${userId}/events/GetEventByDisplayId/` + eventId);
   }
 
@@ -117,9 +119,9 @@ return this.http.get<Event[]>(this.baseUrl + `users/${userId}/events/GetEvents/`
 + term + '/' + categories.join('_') , { observe: 'response', params})
 .pipe(
 map(response => {
-paginatedResult.result = response.body;
+paginatedResult.result = response.body!;
 if (response.headers.get('Pagination') != null) {
-paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
 }
 return paginatedResult;
 }));
@@ -143,10 +145,10 @@ getRelatedEventsAuth(categories: number[]= [], userId: number): Observable<Event
 }
 
 
-  getCitiesOfProvince(province): Observable<City[]> {
+  getCitiesOfProvince(province: string): Observable<City[]> {
     return this.http.get<City[]>(this.baseUrl + 'publicevents/GetCitiesOfProvincePublic/' + province);
   }
-  getCitiesOfProvinceAuth(province, userId): Observable<City[]> {
+  getCitiesOfProvinceAuth(province: string, userId: any): Observable<City[]> {
     return this.http.get<City[]>(this.baseUrl + `users/${userId}/events/GetCitiesOfProvince/` + province);
   }
 
@@ -158,7 +160,7 @@ getRelatedEventsAuth(categories: number[]= [], userId: number): Observable<Event
     return this.http.get<EventCategory[]>(this.baseUrl + `users/${userId}/eventcategories/GetEventCategories/`);
   }
 
-  filterData(data: Event[], params: any, sort?, page?, perPage?) {
+  filterData(data: Event[], params: any, sort?: any, page?: any, perPage?: any) {
     if (params) {
       if (params.searchBox) {
         data = data.filter(x => x.eventTitle.includes(params.searchBox.substring(7, params.searchBox.length - 1)));
@@ -166,9 +168,9 @@ getRelatedEventsAuth(categories: number[]= [], userId: number): Observable<Event
 
 
       if (params.categoriesBox && params.categoriesBox[0] !== '-1') {
-        const categories = [];
-        params.categoriesBox.forEach(category => { categories.push(category.name); });
-        const events = [];
+        const categories: EventCategorySet[] = [];
+        params.categoriesBox.forEach((category: { name: any; }) => { categories.push(category.name); });
+        const events: Event[] = [];
         data.filter(event =>
           event.eventCategorySetList.forEach(f => {
             if (categories.indexOf(f) > -1) {
@@ -184,17 +186,17 @@ getRelatedEventsAuth(categories: number[]= [], userId: number): Observable<Event
     return data;
   }
 
-  public sortData(sort, data) {
+  public sortData(sort: any, data: any[]) {
     if (sort) {
       switch (sort) {
         case 'Newest':
-          data = data.sort((a, b) => <any>new Date(b.published) - <any>new Date(a.published));
+          data = data.sort((a: { published: string | number | Date; }, b: { published: string | number | Date; }) => <any>new Date(b.published) - <any>new Date(a.published));
           break;
         case 'Oldest':
-          data = data.sort((a, b) => <any>new Date(a.published) - <any>new Date(b.published));
+          data = data.sort((a: { published: string | number | Date; }, b: { published: string | number | Date; }) => <any>new Date(a.published) - <any>new Date(b.published));
           break;
         case 'Popular':
-          data = data.sort((a, b) => {
+          data = data.sort((a: { ratingsValue: number; ratingsCount: number; }, b: { ratingsValue: number; ratingsCount: number; }) => {
             if (a.ratingsValue / a.ratingsCount < b.ratingsValue / b.ratingsCount) {
               return 1;
             }
@@ -206,7 +208,7 @@ getRelatedEventsAuth(categories: number[]= [], userId: number): Observable<Event
           break;
         case 'Price (Low to High)':
           if (this.appSettings.settings.currency === 'USD') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
               if ((a.priceDollar.sale || a.priceDollar.rent) > (b.priceDollar.sale || b.priceDollar.rent)) {
                 return 1;
               }
@@ -217,7 +219,7 @@ getRelatedEventsAuth(categories: number[]= [], userId: number): Observable<Event
             });
           }
           if (this.appSettings.settings.currency === 'EUR') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
               if ((a.priceEuro.sale || a.priceEuro.rent) > (b.priceEuro.sale || b.v.rent)) {
                 return 1;
               }
@@ -230,7 +232,7 @@ getRelatedEventsAuth(categories: number[]= [], userId: number): Observable<Event
           break;
         case 'Price (High to Low)':
           if (this.appSettings.settings.currency === 'USD') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
               if ((a.priceDollar.sale || a.priceDollar.rent) < (b.priceDollar.sale || b.priceDollar.rent)) {
                 return 1;
               }
@@ -241,7 +243,7 @@ getRelatedEventsAuth(categories: number[]= [], userId: number): Observable<Event
             });
           }
           if (this.appSettings.settings.currency === 'EUR') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
               if ((a.priceEuro.sale || a.priceEuro.rent) < (b.priceEuro.sale || b.v.rent)) {
                 return 1;
               }

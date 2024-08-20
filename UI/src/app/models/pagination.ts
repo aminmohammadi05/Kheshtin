@@ -8,6 +8,6 @@ export class Pagination {
 }
 
 export class PaginatedResult<T> {
-    result: T;
-    pagination: Pagination;
+    result!: T;
+    pagination!: Pagination;
 }

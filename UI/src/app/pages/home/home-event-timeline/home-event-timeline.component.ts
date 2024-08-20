@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ViewChildren, QueryList, Directive } from '@angular/core';
-import { AppService } from 'src/app/app.service';
+
 import * as moment from 'jalali-moment';
 import { Observable } from 'rxjs';
 import _ from 'lodash'
@@ -8,9 +8,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { BlogItemHomeComponent } from 'src/app/shared/blog-item-home/blog-item-home.component';
-import { EventTimelineGridComponent } from 'src/app/shared/event-timeline-grid/event-timeline-grid.component';
-import { EventTimelineVerticalComponent } from 'src/app/shared/event-timeline-vertical/event-timeline-vertical.component';
+import { EventTimelineGridComponent } from '../../../shared/event-timeline-grid/event-timeline-grid.component';
+import { EventTimelineVerticalComponent } from '../../../shared/event-timeline-vertical/event-timeline-vertical.component';
 
 
 
@@ -22,17 +21,19 @@ import { EventTimelineVerticalComponent } from 'src/app/shared/event-timeline-ve
   imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, EventTimelineGridComponent, EventTimelineVerticalComponent]
 })
 export class HomeEventTimelineComponent implements OnInit {
-  @Input() recentEvents: Observable<any[]>;
-  @ViewChild('nav') slider: ElementRef;
+  @Input()
+  recentEvents!: Observable<any[]>;
+  @ViewChild('nav')
+  slider!: ElementRef;
   options = {fomat: 'month'};
 
-  isMobile: boolean;
+  isMobile!: boolean;
 headerYears = [];
 headerMonths = [];
 headerDays = [];
 public events = [];
 public days = [];
-  constructor(public appService:AppService, public  mediaObserver: MediaObserver, private mediaMatcher: MediaMatcher,) {
+  constructor(public  mediaObserver: MediaObserver, private mediaMatcher: MediaMatcher,) {
     this.mediaObserver.asObservable().subscribe(() => {
       this.isMobile = this.mediaMatcher.matchMedia('(max-width: 900px)').matches;
     });
@@ -42,7 +43,7 @@ public days = [];
     
     this.recentEvents.subscribe((e: any) => {
       
-      e.event.map((et, ind) => {
+      e.event.map((et: { contentItemId: any; displayText: any; bag: { contentItems: any[]; }; }, ind: number) => {
         var parent = {
           width: 100,
           left: ind * 100,
@@ -54,8 +55,8 @@ public days = [];
           title: et.displayText,
           steps: []
         };
-        var eventTemp = et.bag.contentItems.filter(x => x.__typename === 'EventStep'); 
-        eventTemp.map((et, ind) => {
+        var eventTemp = et.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === 'EventStep'); 
+        eventTemp.map((et: { stepDate: any; eventIcon: { contentItems: { iconTitle: any; }[]; }; userTitle: any; }, ind: number) => {
           parent.steps.push({
             width: 100,
             left: ind * 100,
@@ -80,7 +81,7 @@ public days = [];
       })
       
       this.events.map(y => {
-        y.steps.map(z => {
+        y.steps.map((z: { start: any; end: any; }) => {
           if(!this.days.map(x => x.date).includes(z.start))
           {
             this.days.push({

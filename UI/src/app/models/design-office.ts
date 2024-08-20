@@ -7,26 +7,26 @@ import { OfficeProject } from './office-project';
 
 // Author : Amin Mohammadi
 export class DesignOffice {
-    officeId: string;
-    displayId: string;
-    id: number;
-    urlTitle: string;
-    name: string;
-    address: string;
-    email: string;
-    webSiteUrl: string;
-    description: string;
-    mobilePhone: string;
-    phoneNumber: string;
-    keywordList: string;
-    thumbnail: string;
-    ratingsCount: number;
-    ratingsValue: number;
-    facebook: string;
-    twitter: string;
-    linkedin: string;
-    instagram: string;
-    officeProjectList: OfficeProject[];
-    totalProjects: number;
-    totalVideos: number;
+    officeId!: string;
+    displayId!: string;
+    id!: number;
+    urlTitle!: string;
+    name!: string;
+    address!: string;
+    email!: string;
+    webSiteUrl!: string;
+    description!: string;
+    mobilePhone!: string;
+    phoneNumber!: string;
+    keywordList!: string;
+    thumbnail!: string;
+    ratingsCount!: number;
+    ratingsValue!: number;
+    facebook!: string;
+    twitter!: string;
+    linkedin!: string;
+    instagram!: string;
+    officeProjectList!: OfficeProject[];
+    totalProjects!: number;
+    totalVideos!: number;
 }

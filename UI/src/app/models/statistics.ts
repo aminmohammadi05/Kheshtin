@@ -1,6 +1,6 @@
 export class Statistics {
-    statisticsId: number;
-    createDate: string;
-    websiteVisits: number;
-    userLogins: number;
+    statisticsId!: number;
+    createDate!: string;
+    websiteVisits!: number;
+    userLogins!: number;
 }

@@ -10,8 +10,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
-import { AppSettings, Settings } from 'src/app/app.settings';
-import { LogoComponent } from 'src/app/shared/logo/logo.component';
+import { AppSettings, Settings } from '../../app.settings';
+import { LogoComponent } from '../../shared/logo/logo.component';
+
 
 @Component({
   selector: 'app-landing',
@@ -31,10 +32,10 @@ export class LandingComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    document.getElementById('preloader').classList.add('hide');
+    document.getElementById('preloader')!.classList.add('hide');
   }
 
-  public getDemo(number){
+  public getDemo(number: number){
     if(number == 1){
       this.settings.toolbar = 1;
       this.settings.header = 'default';
@@ -74,7 +75,7 @@ export class LandingComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  public getSkin(num){
+  public getSkin(num: number){
     if(num == 1){
       this.settings.theme = 'blue';
       this.settings.header = "carousel";
@@ -109,11 +110,11 @@ export class LandingComponent implements OnInit {
 
   public scrollToDemos() {
     var elmnt = document.getElementById("demos");
-    elmnt.scrollIntoView({behavior: "smooth"});
+    elmnt!.scrollIntoView({behavior: "smooth"});
   }
   public goToTop(){
     var elmnt = document.getElementById("top");
-    elmnt.scrollIntoView({behavior: "smooth"});
+    elmnt!.scrollIntoView({behavior: "smooth"});
   }
 
 }

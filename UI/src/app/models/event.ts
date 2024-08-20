@@ -12,10 +12,10 @@ export class Event {
     urlTitle: string;
     eventTitle: string;
     eventHtmlText: string;    
-    visitCount: number;
+    visitCount!: number;
     keywordList: string;
     eventDate: Date;
-    createDate: string;
+    createDate!: string;
     createUserId: number;
     subEventList: Event[] = [];
     eventImageList: EventImage[] = [];
@@ -23,7 +23,7 @@ export class Event {
     eventKeywordList: EventKeyword[] = [];
     eventCategorySetList: EventCategorySet[] = [];
 
-    constructor(data?) {
+    constructor(data?: { eventId?: any; parentEventId?: any; urlTitle?: any; displayId?: any; eventDate?: any; eventTitle?: any; eventHtmlText?: any; keywordList?: any; eventKeywordList?: any; createUserId?: any; subEventList?: any; eventImageList?: any; eventVideoList?: any; eventCategorySetList?: any; }) {
         data = data || {};
         this.eventId = data.eventId;
         this.parentEventId = data.parentEventId;

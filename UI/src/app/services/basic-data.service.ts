@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Brand } from '../models/brand';
 import { Category } from '../models/category';
 import { Product } from '../models/product';
-import { environment } from 'src/environments/environment.prod';
+
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
 import { MENU_LIST} from '../queries/menu'
@@ -17,20 +17,21 @@ import { Observable } from 'rxjs';
 import { EVENT_CATEGORIES } from '../queries/get-event-categories';
 import { GET_ALL_DESIGN_OFFICES_FOR_DROPDOWN } from '../queries/get-all-design-offices-for-drop-down';
 import { HOME_SERVICES } from '../queries/home-services';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasicDataService {
-  public allManufacturers: Brand[];
-  public allCategories: Category[];
-  public latestProducts: Product[];
+  public allManufacturers: Brand[] = [];
+  public allCategories: Category[] = [];
+  public latestProducts: Product[] = [];
   baseUrl = environment.apiUrl;
 constructor(private apollo: Apollo) { }
-encode(data) {
+encode(data: any) {
   return encodeURIComponent(JSON.stringify(data));
 }
-decode(searchString) {
+decode(searchString: string) {
   return JSON.parse(decodeURIComponent(searchString));
 }
 getMenuList(): Observable<any>{
@@ -86,7 +87,7 @@ getBrands(): Observable<any>{
   }).pipe(pluck("data"))
 }
 
-getBrandCollectionByBrandId(searchText): Observable<any>{
+getBrandCollectionByBrandId(searchText: any): Observable<any>{
   return this.apollo.query({
     query: GET_BRAND_COLLECTION_BY_BRAND_ID,
     variables: { searchText: searchText }

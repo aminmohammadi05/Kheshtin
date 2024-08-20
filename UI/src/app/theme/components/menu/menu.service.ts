@@ -33,21 +33,21 @@ export class MenuService {
     }
   }
 
-  public toggleMenuItem(menuId) {
+  public toggleMenuItem(menuId: string | number) {
     const menuItem = document.getElementById('menu-item-' + menuId);
     const subMenu = document.getElementById('sub-menu-' + menuId);
     if (subMenu) {
       if (subMenu.classList.contains('show')) {
         subMenu.classList.remove('show');
-        menuItem.classList.remove('expanded');
+        menuItem!.classList.remove('expanded');
       } else {
         subMenu.classList.add('show');
-        menuItem.classList.add('expanded');
+        menuItem!.classList.add('expanded');
       }
     }
   }
 
-  public closeOtherSubMenus(menu: Array<Menu>, menuId) {
+  public closeOtherSubMenus(menu: Array<Menu>, menuId: number) {
     const currentMenuItem = menu.filter(item => item.id === menuId)[0];
     menu.forEach(item => {
       if((item.id !== menuId && item.parentId === currentMenuItem.parentId) || (currentMenuItem.parentId === 0 && item.id !== menuId) ){
@@ -56,7 +56,7 @@ export class MenuService {
         if (subMenu) {
           if (subMenu.classList.contains('show')) {
             subMenu.classList.remove('show');
-            menuItem.classList.remove('expanded');
+            menuItem!.classList.remove('expanded');
           }
         }
       }
@@ -64,16 +64,16 @@ export class MenuService {
   }
 
   public closeAllSubMenus() {
-    verticalMenuItems.forEach(item => {
-      const subMenu = document.getElementById('sub-menu-' + item.id);
-      const menuItem = document.getElementById('menu-item-' + item.id);
-      if (subMenu) {
-        if (subMenu.classList.contains('show')) {
-          subMenu.classList.remove('show');
-          menuItem.classList.remove('expanded');
-        }
-      }
-    });
+    // verticalMenuItems.forEach(item => {
+    //   const subMenu = document.getElementById('sub-menu-' + item.id);
+    //   const menuItem = document.getElementById('menu-item-' + item.id);
+    //   if (subMenu) {
+    //     if (subMenu.classList.contains('show')) {
+    //       subMenu.classList.remove('show');
+    //       menuItem!.classList.remove('expanded');
+    //     }
+    //   }
+    // });
   }
 
 }

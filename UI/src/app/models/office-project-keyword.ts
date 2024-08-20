@@ -8,9 +8,9 @@ export class OfficeProjectKeyword {
     action: string;
     keyword: string;
     value: string;
-    officeProject: OfficeProject;
+    officeProject: OfficeProject = new OfficeProject;
     createUserId: number;
-    constructor(data?) {
+    constructor(data?: { keywordId?: any; officeProjectId?: any; page?: any; action?: any; keyword?: any; value?: any; createUserId?: any; }) {
         data = data || {};
         this.keywordId = data.keywordId;
         this.officeProjectId = data.officeProjectId;

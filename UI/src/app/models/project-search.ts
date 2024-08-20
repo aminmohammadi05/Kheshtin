@@ -9,7 +9,7 @@ export class ProjectSearch {
     searchBox: string;
     designersBox: User[];
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; categoriesBox?: any; searchBox?: any; designersBox?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.categoriesBox = data.categoriesBox ? data.categoriesBox : [];

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { emailValidator } from '../../utils/app-validators';
-import * as moment from 'jalali-moment';
-import { AppSettings } from 'src/app/app.settings';
+import moment from 'jalali-moment';
+
 import { SocialIconsComponent } from '../social-icons/social-icons.component';
-import { LogoComponent } from 'src/app/shared/logo/logo.component';
+import { AppSettings } from '../../../app.settings';
+import { LogoComponent } from '../../../shared/logo/logo.component';
+
 
 @Component({
   selector: 'app-footer',

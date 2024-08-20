@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { AppSettings } from 'src/app/app.settings';
+import { AppSettings } from '../../../app.settings';
+
 
 @Component({
   selector: 'app-social-icons',

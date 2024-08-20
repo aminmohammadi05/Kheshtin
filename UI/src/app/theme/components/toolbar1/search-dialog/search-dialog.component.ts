@@ -5,7 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
-import { HomeSearch } from 'src/app/models/home-search';
+import { HomeSearch } from '../../../../models/home-search';
+
 
 @Component({
   selector: 'search-dialog',

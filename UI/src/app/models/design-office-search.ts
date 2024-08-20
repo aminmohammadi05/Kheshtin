@@ -10,7 +10,7 @@ export class DesignOfficeSearch {
     searchBox: string;
     public pageQuery: Pagination;
     hashtagObject: any;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; designers?: any; categories?: any; searchBox?: any; pageQuery?: any; hashtagObject?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.designers = data.designers;

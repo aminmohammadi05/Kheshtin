@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable, combineLatest, forkJoin } from 'rxjs';
@@ -19,6 +19,8 @@ import { OfficeProjectSearch } from '../models/office-project-search';
 import { GET_LATEST_OFFICE_PROJECTS_HOME } from '../queries/get-latest-office-projects-home';
 import { GET_PROJECTS_BY_CATEGORY_PRODUCT_DETAIL } from '../queries/get-projects-by-category-product-detail';
 import { GET_OFFICE_PROJECT_BY_ID } from '../queries/get-office-project-by-id';
+import { OfficeProjectCategorySet } from '../models/office-project-category-set';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +32,7 @@ export class OfficeProjectService {
               private authService: AuthService,
               private apollo: Apollo,
               public appSettings: AppSettings) { }
-  addOfficeProject(officeProject): Observable<OfficeProject> {
+  addOfficeProject(officeProject: any): Observable<OfficeProject> {
     return this.http.post<OfficeProject>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid +
      '/officeProjects/CreateOfficeProject',  officeProject);
   }
@@ -40,13 +42,13 @@ export class OfficeProjectService {
      '/officeProjects/UpdateOfficeProject/' + officeProject.projectId,  officeProject);
   }
 
-  removeUserOfficeProject(officeProjectId, userId): Observable<string> {
+  removeUserOfficeProject(officeProjectId: string, userId: string): Observable<string> {
     return this.http.delete<string>(this.baseUrl + 'users/' + userId +
      '/officeProjects/DeleteOfficeProject/' +  officeProjectId);
   }
 
   
-  getOfficeProjects(searchFields: OfficeProjectSearch, searchText): Observable<any> {
+  getOfficeProjects(searchFields: OfficeProjectSearch, searchText: any): Observable<any> {
    
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/searchProjects?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categories ? searchFields.categories.map(x => 'ProjectType-'+x.id).join(' ') : ''} ${searchFields.designers ? searchFields.designers.map(x => x.id).join(' ') : ''} ${searchFields.hashtagObject ? searchFields.hashtagObject.searchField.replace("#", "") : ''}'}`),
     this.apollo.query({
@@ -70,7 +72,7 @@ export class OfficeProjectService {
     ]);
   }
 
-  getLatestOfficeProjectsHome(searchText):  Observable<any> {
+  getLatestOfficeProjectsHome(searchText: string):  Observable<any> {
     return this.apollo.query({
       query: GET_LATEST_OFFICE_PROJECTS_HOME,
       variables: { searchText : searchText}
@@ -94,9 +96,9 @@ export class OfficeProjectService {
     + term + '/' + designers + '/' + categories.join('_') , { observe: 'response', params})
     .pipe(
       map(response => {
-        paginatedResult.result = response.body;
+        paginatedResult.result = response.body!;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
         }
         return paginatedResult;
       }));
@@ -112,21 +114,21 @@ export class OfficeProjectService {
       + brandId , { observe: 'response', params})
       .pipe(
       map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-      paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+      paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
       }));
 }
-getRelatedOfficeProjectByProductId(productId): Observable<OfficeProject[]> {
+getRelatedOfficeProjectByProductId(productId: string): Observable<OfficeProject[]> {
 return this.http.get<OfficeProject[]>(this.baseUrl + 'publicofficeproject/GetOfficeProjectsByProductIdPublic/'+ productId );
 }
-getRelatedOfficeProjectByProductIdAuth(userId, productId): Observable<OfficeProject[]> {
+getRelatedOfficeProjectByProductIdAuth(userId: any, productId: string): Observable<OfficeProject[]> {
   return this.http.get<OfficeProject[]>(this.baseUrl + `users/${userId}/officeprojects/GetOfficeProjectsByProductId/`+ productId );
   }
 
-getOfficeProjectByBrandIdAuth(userId, brandId = 'empty',
+getOfficeProjectByBrandIdAuth(userId: any, brandId = 'empty',
                               pageNumber = 0, pageSize = 3): Observable<PaginatedResult<OfficeProject[]>> {
       const paginatedResult: PaginatedResult<OfficeProject[]> = new PaginatedResult<OfficeProject[]>();
       let params = new HttpParams();
@@ -136,9 +138,9 @@ getOfficeProjectByBrandIdAuth(userId, brandId = 'empty',
       , { observe: 'response', params})
       .pipe(
       map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-      paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+      paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
       }));
@@ -154,9 +156,9 @@ getOfficeProjectByBrandIdAuth(userId, brandId = 'empty',
     + term + '/' + designer + '/' + categories.join('_') , { observe: 'response', params})
     .pipe(
       map(response => {
-        paginatedResult.result = response.body;
+        paginatedResult.result = response.body!;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
         }
         return paginatedResult;
       }));
@@ -171,7 +173,7 @@ getOfficeProjectByBrandIdAuth(userId, brandId = 'empty',
     return this.http.get<Province[]>(this.baseUrl + 'publicofficeproject/GetAllProvincesPublic/');
   }
 
-  getProvincesAuth(userId): Observable<Province[]> {
+  getProvincesAuth(userId: any): Observable<Province[]> {
     return this.http.get<Province[]>(this.baseUrl + `users/${userId}/officeprojects/GetAllProvinces/`);
   }
 
@@ -181,11 +183,11 @@ getOfficeProjectByBrandIdAuth(userId, brandId = 'empty',
   getDesignersAuth(userId: number): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl + `users/${userId}/officeprojects/GetAllDesignersAuth/`);
   }
-  getOfficeProject(officeProjectId): Observable<OfficeProject> {
+  getOfficeProject(officeProjectId: string): Observable<OfficeProject> {
     return this.http.get<OfficeProject>(this.baseUrl + 'publicofficeproject/GetOfficeProjectPublic/' + officeProjectId);
   }
 
-  getOfficeProjectAuth(officeProjectId, userId: number): Observable<OfficeProject> {
+  getOfficeProjectAuth(officeProjectId: string, userId: number): Observable<OfficeProject> {
     return this.http.get<OfficeProject>(this.baseUrl + `users/${userId}/officeprojects/GetOfficeProjectByDisplayId/` + officeProjectId);
   }
 
@@ -200,9 +202,9 @@ return this.http.get<OfficeProject[]>(this.baseUrl + `users/${userId}/officeproj
 + term + '/' + designers.join('_') + '/' + categories.join('_') , { observe: 'response', params})
 .pipe(
 map(response => {
-paginatedResult.result = response.body;
+paginatedResult.result = response.body!;
 if (response.headers.get('Pagination') != null) {
-paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
 }
 return paginatedResult;
 }));
@@ -219,9 +221,9 @@ return this.http.get<DesignOfficeProject[]>(this.baseUrl + `users/${userId}/offi
 + term + '/' + designers + '/' + categories.join('_') , { observe: 'response', params})
 .pipe(
 map(response => {
-paginatedResult.result = response.body;
+paginatedResult.result = response.body!;
 if (response.headers.get('Pagination') != null) {
-paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
 }
 return paginatedResult;
 }));
@@ -246,10 +248,10 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
 }
 
 
-  getCitiesOfProvince(province): Observable<City[]> {
+  getCitiesOfProvince(province: string): Observable<City[]> {
     return this.http.get<City[]>(this.baseUrl + 'publicofficeproject/GetCitiesOfProvincePublic/' + province);
   }
-  getCitiesOfProvinceAuth(province, userId): Observable<City[]> {
+  getCitiesOfProvinceAuth(province: string, userId: any): Observable<City[]> {
     return this.http.get<City[]>(this.baseUrl + `users/${userId}/officeprojects/GetCitiesOfProvince/` + province);
   }
 
@@ -261,16 +263,16 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
     return this.http.get<OfficeProjectCategory[]>(this.baseUrl + `users/${userId}/officeprojectcategories/GetOfficeProjectCategories/`);
   }
 
-  filterData(data: OfficeProject[], params: any, sort?, page?, perPage?) {
+  filterData(data: OfficeProject[], params: any, sort?: any, page?: any, perPage?: any) {
     if (params) {
       if (params.searchBox) {
         data = data.filter(x => x.name.includes(params.searchBox.substring(7, params.searchBox.length - 1)));
       }
 
       if (params.designersBox && params.designersBox[0] !== 'empty') {
-        const designers = [];
-        params.designersBox.forEach(designer => { designers.push(designer.name); });
-        const officeProjects = [];
+        const designers: any[] = [];
+        params.designersBox.forEach((designer: { name: any; }) => { designers.push(designer.name); });
+        const officeProjects: any[] = [];
         designers.forEach(designer => {
           officeProjects.concat(data.filter(officeProject => officeProject.createUserId === designer));
         });
@@ -278,9 +280,9 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
       }
 
       if (params.categoriesBox && params.categoriesBox[0] !== '-1') {
-        const categories = [];
-        params.categoriesBox.forEach(category => { categories.push(category.name); });
-        const officeProjects = [];
+        const categories: OfficeProjectCategorySet[] = [];
+        params.categoriesBox.forEach((category: { name: any; }) => { categories.push(category.name); });
+        const officeProjects: OfficeProject[] = [];
         data.filter(officeProject =>
           officeProject.officeProjectCategorySetList.forEach(f => {
             if (categories.indexOf(f) > -1) {
@@ -296,17 +298,17 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
     return data;
   }
 
-  public sortData(sort, data) {
+  public sortData(sort: any, data: any[]) {
     if (sort) {
       switch (sort) {
         case 'Newest':
-          data = data.sort((a, b) => <any>new Date(b.published) - <any>new Date(a.published));
+          data = data.sort((a: { published: string | number | Date; }, b: { published: string | number | Date; }) => <any>new Date(b.published) - <any>new Date(a.published));
           break;
         case 'Oldest':
-          data = data.sort((a, b) => <any>new Date(a.published) - <any>new Date(b.published));
+          data = data.sort((a: { published: string | number | Date; }, b: { published: string | number | Date; }) => <any>new Date(a.published) - <any>new Date(b.published));
           break;
         case 'Popular':
-          data = data.sort((a, b) => {
+          data = data.sort((a: { ratingsValue: number; ratingsCount: number; }, b: { ratingsValue: number; ratingsCount: number; }) => {
             if (a.ratingsValue / a.ratingsCount < b.ratingsValue / b.ratingsCount) {
               return 1;
             }
@@ -318,7 +320,7 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
           break;
         case 'Price (Low to High)':
           if (this.appSettings.settings.currency === 'USD') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
               if ((a.priceDollar.sale || a.priceDollar.rent) > (b.priceDollar.sale || b.priceDollar.rent)) {
                 return 1;
               }
@@ -329,7 +331,7 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
             });
           }
           if (this.appSettings.settings.currency === 'EUR') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
               if ((a.priceEuro.sale || a.priceEuro.rent) > (b.priceEuro.sale || b.v.rent)) {
                 return 1;
               }
@@ -342,7 +344,7 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
           break;
         case 'Price (High to Low)':
           if (this.appSettings.settings.currency === 'USD') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
               if ((a.priceDollar.sale || a.priceDollar.rent) < (b.priceDollar.sale || b.priceDollar.rent)) {
                 return 1;
               }
@@ -353,7 +355,7 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
             });
           }
           if (this.appSettings.settings.currency === 'EUR') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
               if ((a.priceEuro.sale || a.priceEuro.rent) < (b.priceEuro.sale || b.v.rent)) {
                 return 1;
               }

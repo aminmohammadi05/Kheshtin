@@ -10,7 +10,7 @@ export class DesignMoodBoardProductSearch {
     colorsBox: string[];
     materialsBox: string[];
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; brandsBox?: any; categoriesBox?: any; colorsBox?: any; materialsBox?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.brandsBox = data.brandsBox ? data.brandsBox : [];

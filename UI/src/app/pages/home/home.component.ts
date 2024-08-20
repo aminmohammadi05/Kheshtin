@@ -1,35 +1,36 @@
 import { Component, OnInit, DoCheck, OnDestroy, AfterViewInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Settings, AppSettings } from '../../app.settings';
-import { AppService } from '../../app.service';
 import { Property } from '../../app.models';
-import { Subscription, Observable, of, combineLatest, fromEvent, Subject } from 'rxjs';
+import { Subscription, Observable, of, combineLatest, fromEvent, Subject, MonoTypeOperatorFunction } from 'rxjs';
 import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
 import { debounceTime, distinctUntilChanged, tap, map, switchMap, withLatestFrom, filter, mergeMap } from 'rxjs/operators';
-import { Category } from 'src/app/models/category';
-import { Brand } from 'src/app/models/brand';
-import { Pagination } from 'src/app/models/pagination';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
-import { InitializeService } from 'src/app/services/initialize.service';
-import { PageImages } from 'src/app/models/page-images';
-import { AuthService } from 'src/app/services/auth.service';
+
 import { Router } from '@angular/router';
-import { Search } from 'src/app/models/search';
-import { OfficeProject } from 'src/app/models/office-project';
-import { OfficeProjectService } from 'src/app/services/office-project.service';
-import { CategoriesQuickAccessService } from 'src/app/shared/categories-quick-access/categories-quick-access.service';
-import { Blog } from 'src/app/models/blog';
-import { BlogService } from 'src/app/services/blog.service';
-import { BrandService } from 'src/app/services/brand.service';
-import { BasicDataService } from 'src/app/services/basic-data.service';
-import { EventService } from 'src/app/services/event.service';
+
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeEventTimelineComponent } from './home-event-timeline/home-event-timeline.component';
 import { RecentBlogsComponent } from './recent-blogs/recent-blogs.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
+import { Category } from '../../models/category';
+import { PageImages } from '../../models/page-images';
+import { Product } from '../../models/product';
+import { Search } from '../../models/search';
+import { Pagination } from '../../models/pagination';
+import { OfficeProject } from '../../models/office-project';
+import { Blog } from '../../models/blog';
+import { HeaderCarouselComponent } from '../../shared/header-carousel/header-carousel.component';
+import { ProductsService } from '../../services/products.service';
+import { BrandService } from '../../services/brand.service';
+import { BasicDataService } from '../../services/basic-data.service';
+import { OfficeProjectService } from '../../services/office-project.service';
+import { InitializeService } from '../../services/initialize.service';
+import { CategoriesQuickAccessService } from '../../shared/categories-quick-access/categories-quick-access.service';
+import { BlogService } from '../../services/blog.service';
+import { EventService } from '../../services/event.service';
+import { AuthService } from '../../services/auth.service';
+import { Brand } from '../../models/brand';
 
 @Component({
   selector: 'app-home',
@@ -41,19 +42,19 @@ import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-c
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   public quickCategorySubject = new Subject<any>();
   subscription = new Subscription();
-  watcher: Subscription;
+  watcher: Subscription = new Subscription;
   activeMediaQuery = '';
-  public isUserAuthenticated: Observable<boolean>;
-  public categories: Observable<Category[]>;
-  public brands: Brand[];
+  public isUserAuthenticated!: Observable<boolean>;
+  public categories!: Observable<Category[]>;
+  public brands: Brand[] = [];
   public slides: PageImages[] = [];
   // public properties: Property[];
-  public products: Product[];
-  public latestProducts: Product[];
+  public products: Product[] = [];
+  public latestProducts: Product[] = [];
   public viewType = 'grid';
   public viewCol = 25;
   public count = 4;
-  public sort: string;
+  public sort!: string;
   public searchFields: Search = new Search({
     brandsBox: [],
     categoriesBoxNested: [],
@@ -64,23 +65,22 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     searchBox: '',
     vertical: false
   });
-  public removedSearchField: string;
+  public removedSearchField!: string;
   selectedCategoryForMenu: any;
   public isLoading = false;
   public showProductsSection = false;
-  public pagination: Pagination = new Pagination(0, this.count, null, null);
-  public message: string;
-  public recentProductsTextures: Observable<Product[]>;
-  public latestOfficeProjects: Observable<OfficeProject[]>;
-  public latestBlogs: Blog[];
-  public latestEvents: Observable<any[]>;
-  public homeServices: any[];
+  public pagination: Pagination = new Pagination(0, this.count, 0, 0);
+  public message!: string;
+  public recentProductsTextures!: Observable<Product[]>;
+  public latestOfficeProjects!: Observable<OfficeProject[]>;
+  public latestBlogs: Blog[] = [];
+  public latestEvents!: Observable<any[]>;
+  public homeServices: any[] = [];
 
-  @ViewChild('quickCategory') quickCategory;
+  @ViewChild('quickCategory') quickCategory: any;
 
   public settings: Settings;
   constructor(public appSettings: AppSettings,
-              public appService: AppService,
               public productService: ProductsService,
               public brandService: BrandService,
               public basicService: BasicDataService,
@@ -162,19 +162,19 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.settings.loadMore.complete = false;
     this.settings.loadMore.start = false;
     this.settings.loadMore.page = 0;
-    this.pagination = new Pagination(0, this.count, null, null);
+    this.pagination = new Pagination(0, this.count, 0, 0);
   }
 
 
-  public searchClicked(event) {
+  public searchClicked(event: any) {
     this.router.navigate(['/products']);
   }
-  public searchChanged(event) {
+  public searchChanged(event: { valueChanges: { subscribe: (arg0: () => void) => void; pipe: (arg0: MonoTypeOperatorFunction<unknown>, arg1: MonoTypeOperatorFunction<unknown>) => { (): any; new(): any; subscribe: { (arg0: () => void): void; new(): any; }; }; }; value: Search; }) {
     event.valueChanges.subscribe(() => {
       this.resetLoadMore();
       this.searchFields = event.value;
       setTimeout(() => {
-        this.removedSearchField = null;
+        this.removedSearchField = '';
       });
     });
     event.valueChanges.pipe(debounceTime(500), distinctUntilChanged()).subscribe(() => {
@@ -183,15 +183,15 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-  public removeSearchField(field) {
-    this.message = null;
+  public removeSearchField(field: string) {
+    this.message = '';
     this.removedSearchField = field;
   }
 
 
   getProductsOfCategory(category: any ) {
   }
-  openProductsPart(isOpen) {
+  openProductsPart(isOpen: boolean) {
     this.isLoading = true;
     this.showProductsSection = isOpen;
   }

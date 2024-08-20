@@ -17,7 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 export class LockScreenComponent implements OnInit {
   public date:any = new Date();
   public timerInterval:any;
-  public form: FormGroup;
+  public form!: FormGroup;
   constructor(public fb: FormBuilder, public router:Router) { }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class LockScreenComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    document.getElementById('preloader').classList.add('hide');
+    document.getElementById('preloader')!.classList.add('hide');
   }
 
   ngOnDestroy(){

@@ -9,7 +9,7 @@ export class BrandSearch {
     brandCollectionBox: BrandCollection[];
     searchBox: string;
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; categoriesBoxNested?: any; categoriesBox?: any; brandCollectionBox?: any; searchBox?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.categoriesBoxNested = data.categoriesBoxNested ? data.categoriesBoxNested : [];

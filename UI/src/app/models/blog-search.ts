@@ -8,7 +8,7 @@ export class BlogSearch {
     searchBox: string;
     hashtagObject: any;
     public pageQuery: Pagination;
-    constructor(data?) {
+    constructor(data?: { searchId?: any; categoriesBoxNested?: any; categoriesBox?: any; searchBox?: any; hashtagObject?: any; pageQuery?: any; }) {
         data = data || {};
         this.searchId = data.searchId;
         this.categoriesBoxNested = data.categoriesBoxNested ? data.categoriesBoxNested : [];

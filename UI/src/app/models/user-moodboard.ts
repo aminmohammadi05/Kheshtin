@@ -2,7 +2,7 @@ import { MoodBoardProduct } from './moodboard-product';
 
 export class UserMoodBoard {
     moodBoardId: string;
-    displayId: string;
+    displayId!: string;
     urlTitle: string;
     moodBoardName: string;
     moodBoardDescription: string;
@@ -11,7 +11,7 @@ export class UserMoodBoard {
     totalRows: number;
     moodBoardProductList: MoodBoardProduct[] = [];
     createUserId: number;
-    constructor(data?) {
+    constructor(data?: { moodBoardId?: any; urlTitle?: any; moodBoardName?: any; moodBoardDescription?: any; backgroundColor?: any; moodBoardProductList?: any; totalCols?: any; totalRows?: any; createUserId?: any; }) {
         data = data || {};
         this.moodBoardId = data.moodBoardId;
         this.urlTitle = data.urlTitle;
