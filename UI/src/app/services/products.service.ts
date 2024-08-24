@@ -4,7 +4,7 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, combineLatest, of } from 'rxjs';
 import { Product} from '../models/product';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthService } from './auth.service';
+// import { AuthService } from './auth.service';
 import { PaginatedResult, Pagination } from '../models/pagination';
 import { catchError, map } from 'rxjs/operators';
 import { AppSettings } from '../app.settings';
@@ -46,7 +46,7 @@ export class ProductsService {
   hostUrl = environment.hostUrl;
 constructor(private http: HttpClient,
             private apollo: Apollo,
-            private authService: AuthService,
+            // private authService: AuthService,
             private bottomSheet: MatBottomSheet,
             private snackBar: MatSnackBar,
             public appSettings: AppSettings) { }

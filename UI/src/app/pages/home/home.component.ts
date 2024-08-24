@@ -31,13 +31,16 @@ import { BlogService } from '../../services/blog.service';
 import { EventService } from '../../services/event.service';
 import { AuthService } from '../../services/auth.service';
 import { Brand } from '../../models/brand';
+import { ProductItemComponent } from '../../shared/product-item/product-item.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+// import { GraphQLModule } from '../../graphql.module';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatProgressSpinnerModule, HomeEventTimelineComponent, RecentBlogsComponent, HeaderCarouselComponent],
+  imports: [CommonModule, MatFormFieldModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatProgressSpinnerModule, HomeEventTimelineComponent, RecentBlogsComponent, HeaderCarouselComponent, ProductItemComponent],
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   public quickCategorySubject = new Subject<any>();
@@ -110,9 +113,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.brandService.getBrandsSelectedForHome('{from: 0, size: 4}').subscribe(x => {
       this.brands = x.getBrandsSelectedForHome;
     });
-    this.basicService.getHomeServices().subscribe(x => {
-      this.homeServices = x.homeService;
-    });
+    // this.basicService.getHomeServices().subscribe(x => {
+    //   this.homeServices = x.homeService;
+    // });
     // this.getSlides();
     this.getProducts();
   }

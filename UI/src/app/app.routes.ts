@@ -58,7 +58,7 @@ export const routes: Routes = [
             //     loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule) }
         ]
     },
-    { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
-    { path: 'lock-screen', component: LockScreenComponent },
-    { path: '**', component: NotFoundComponent }
+    // { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
+    // { path: 'lock-screen', component: LockScreenComponent },
+    // { path: '**', component: NotFoundComponent }
 ];

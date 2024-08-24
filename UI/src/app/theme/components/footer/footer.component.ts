@@ -6,6 +6,7 @@ import moment from 'jalali-moment';
 import { SocialIconsComponent } from '../social-icons/social-icons.component';
 import { AppSettings } from '../../../app.settings';
 import { LogoComponent } from '../../../shared/logo/logo.component';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { LogoComponent } from '../../../shared/logo/logo.component';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   standalone: true,
-  imports: [SocialIconsComponent, LogoComponent],
+  imports: [CommonModule, SocialIconsComponent, LogoComponent],
 })
 export class FooterComponent implements OnInit {
   constructor(public appSettings: AppSettings) { }

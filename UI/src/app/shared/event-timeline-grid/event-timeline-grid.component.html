@@ -14,7 +14,7 @@
       <gridster-item [item]="item" *ngFor="let item of dashboard" style="background: transparent;">
         <div class="button-holder " style="width: 100%" *ngIf="item.y === 0">
           
-          <label  style="float:right; text-decoration:none; color: #5C5B5B; font-size: 1.25rem; font-weight: 700;padding: 0 10px 0 10px;background: #FFFFFF;">{{ item.label }}</label>
+          <label  style="float:right; text-decoration:none; color: #5C5B5B; font-size: 1.25rem; font-weight: 700;padding: 0 10px 0 10px;background: #FFFFFF;">{{ item['label'] }}</label>
           
         </div>
         <div class="button-holder " style="border-bottom: #5C5B5B; width: 100%;
@@ -26,7 +26,7 @@
         color: #5C5B5B;
         font-weight: 300;
         border-width: 3px;" *ngIf="item.y === 1">
-          <div>{{item.label}}</div>
+          <div>{{item["label"]}}</div>
           <div >
            
             <svg  width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 29px;">
@@ -50,34 +50,34 @@
                 </li>
               </ul>
             </div> -->
-            <div class="questionNumbers" [ngStyle]="{'padding-right': item.startPercent + '%',
-            'padding-left': item.endPercent + '%'}">
+            <div class="questionNumbers" [ngStyle]="{'padding-right': item['startPercent'] + '%',
+            'padding-left': item['endPercent'] + '%'}">
            
               
             
-           <a [routerLink]="['/events', item.contentItemId, item.label]" *ngIf="!item.hasContent" style="float:right; text-decoration:none; color: #5C5B5B; font-size: 1rem; font-weight: 700; text-overflow: ellipsis;
+           <a [routerLink]="['/events', item['contentItemId'], item['label']]" *ngIf="!item['hasContent']" style="float:right; text-decoration:none; color: #5C5B5B; font-size: 1rem; font-weight: 700; text-overflow: ellipsis;
            white-space: nowrap;
-           overflow: hidden;">{{ item.label }}</a>
+           overflow: hidden;">{{ item['label'] }}</a>
             
             </div>
-            <div class="questionNumbers" [ngStyle]="{'padding-right': item.startPercent + '%',
-            'padding-left': item.endPercent + '%'}">
+            <div class="questionNumbers" [ngStyle]="{'padding-right': item['startPercent'] + '%',
+            'padding-left': item['endPercent'] + '%'}">
            
               
               <div class="questionNumberLine" style="height: 8px; width: 100%; 
               border-radius: 7px 7px 7px 7px;
               border-right: none;
-              border-left: none;"  [ngStyle]="{ 'background-color': item.color, 'border': '0.5px solid ' + item.color}"></div>
+              border-left: none;"  [ngStyle]="{ 'background-color': item['color'], 'border': '0.5px solid ' + item['color']}"></div>
               
             
             </div>
-            <div class="questionNumbers" [ngStyle]="{'padding-right': item.startPercent + '%',
-            'padding-left': item.endPercent + '%'}">
+            <div class="questionNumbers" [ngStyle]="{'padding-right': item['startPercent'] + '%',
+            'padding-left': item['endPercent'] + '%'}">
             <div class="chart-wrapper" style="width: 100%" perfectScrollbar>
               <ul class="chart-values" >
-                <li *ngFor="let step of getEventDuration(item)" class="icon-color" style="list-style-type: none; padding: 0;">
-                   <mat-icon style="padding-top: 3px;" *ngIf="step[0] && step[0].icon" [ngStyle]="{'color': item.color}">{{step[0].icon}}</mat-icon>
-                </li>
+                <!-- <li *ngFor="let step of getEventDuration(item)" class="icon-color" style="list-style-type: none; padding: 0;">
+                   <mat-icon style="padding-top: 3px;" *ngIf="step[0] && step[0].icon" [ngStyle]="{'color': item['color']}">{{step[0].icon}}</mat-icon>
+                </li> -->
               </ul>
             </div>
           </div>

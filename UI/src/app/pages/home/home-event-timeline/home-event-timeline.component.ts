@@ -10,6 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { EventTimelineGridComponent } from '../../../shared/event-timeline-grid/event-timeline-grid.component';
 import { EventTimelineVerticalComponent } from '../../../shared/event-timeline-vertical/event-timeline-vertical.component';
+import { Event } from '../../../models/query-home-event/event';
+import { EventStep } from '../../../models/query-home-event/event-step';
+import { EventDays } from '../../../models/query-home-event/event-days';
 
 
 
@@ -31,8 +34,8 @@ export class HomeEventTimelineComponent implements OnInit {
 headerYears = [];
 headerMonths = [];
 headerDays = [];
-public events = [];
-public days = [];
+public events: Event[] = [];
+public days: EventDays[] = [];
   constructor(public  mediaObserver: MediaObserver, private mediaMatcher: MediaMatcher,) {
     this.mediaObserver.asObservable().subscribe(() => {
       this.isMobile = this.mediaMatcher.matchMedia('(max-width: 900px)').matches;
@@ -44,7 +47,7 @@ public days = [];
     this.recentEvents.subscribe((e: any) => {
       
       e.event.map((et: { contentItemId: any; displayText: any; bag: { contentItems: any[]; }; }, ind: number) => {
-        var parent = {
+        const parent = {
           width: 100,
           left: ind * 100,
           color: 'red',
@@ -54,10 +57,11 @@ public days = [];
           // end: eventTemp[eventTemp.length -1].stepEndDate, 
           title: et.displayText,
           steps: []
-        };
+        } as unknown as Event;
+        
         var eventTemp = et.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === 'EventStep'); 
         eventTemp.map((et: { stepDate: any; eventIcon: { contentItems: { iconTitle: any; }[]; }; userTitle: any; }, ind: number) => {
-          parent.steps.push({
+          var eventStep = {
             width: 100,
             left: ind * 100,
             color: 'red',
@@ -66,7 +70,8 @@ public days = [];
             icon: et.eventIcon.contentItems[0].iconTitle,            
             end: eventTemp[eventTemp.length -1].stepEndDate, 
             title: et.userTitle
-          });
+          };
+          parent.steps.push(eventStep as EventStep);
         })
         this.events.push(parent);
         // this.events.push({

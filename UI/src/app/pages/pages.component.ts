@@ -16,6 +16,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { FooterComponent } from '../theme/components/footer/footer.component';
 import { Toolbar1Component } from '../theme/components/toolbar1/toolbar1.component';
 import { VerticalMenuComponent } from '../theme/components/menu/vertical-menu/vertical-menu.component';
+import { AuthService } from '../services/auth.service';
+
+// import { GraphQLModule } from '../graphql.module';
 
 @Component({
   selector: 'app-pages',
@@ -23,7 +26,8 @@ import { VerticalMenuComponent } from '../theme/components/menu/vertical-menu/ve
   styleUrls: ['./pages.component.scss'],
   animations: [SlideInOutAnimation],
   standalone: true,
-  imports : [CommonModule, MatIconModule, MatFormFieldModule, FlexLayoutModule, MatButtonModule, MatSidenavModule, FooterComponent, RouterModule, Toolbar1Component, VerticalMenuComponent]
+  imports : [CommonModule, MatIconModule, MatFormFieldModule, FlexLayoutModule, MatButtonModule, MatSidenavModule, FooterComponent, RouterModule, Toolbar1Component, VerticalMenuComponent],
+  providers:  [ AppSettings, BasicDataService ]
 })
 export class PagesComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav:any;  
@@ -37,7 +41,10 @@ export class PagesComponent implements OnInit, AfterViewInit {
   public showBackToTop: boolean = false;
   public scrolledCount = 0;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public cdRef: ChangeDetectorRef, public router:Router, public basicDataService: BasicDataService) {
+  constructor(public appSettings:AppSettings, public cdRef: ChangeDetectorRef,
+     public router:Router,
+      public basicDataService: BasicDataService
+    ) {
     this.settings = this.appSettings.settings;
     
   }

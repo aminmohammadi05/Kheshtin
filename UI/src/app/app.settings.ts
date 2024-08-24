@@ -31,7 +31,9 @@ export class Settings {
                 }
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class AppSettings implements OnDestroy {
     public isMobile!: Observable<boolean>;
     public mediaSubscription: Subscription;

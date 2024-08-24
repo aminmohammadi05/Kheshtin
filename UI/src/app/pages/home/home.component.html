@@ -21,7 +21,7 @@
         <mat-spinner *ngIf="isLoading"></mat-spinner> 
         <div fxLayout="row wrap" class="properties-wrapper" >
             <div *ngFor="let product of products" [fxFlex]="(viewType=='grid') ? viewCol : 100" class="item">
-                <app-product-item [product]="product" [viewType]="viewType" [viewColChanged]="viewCol"></app-product-item>
+                <app-product-item [product]="product" [viewType]="viewType"></app-product-item>
             </div>
         </div>
     </div>

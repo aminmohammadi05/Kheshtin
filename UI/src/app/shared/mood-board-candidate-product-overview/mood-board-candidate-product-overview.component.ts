@@ -2,10 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet'; 
 import { Property } from '../../app.models';
 import { Settings, AppSettings } from '../../app.settings';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
 import { map } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -15,6 +12,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { Product } from '../../models/product';
+import { ProductsService } from '../../services/products.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-mood-board-candidate-product-overview',
@@ -25,7 +25,7 @@ import { MatListModule } from '@angular/material/list';
 })
 export class MoodBoardCandidateProductOverviewComponent implements OnInit {
 
-  public products: Observable<Product[]>;
+  public products!: Observable<Product[]>;
   public settings: Settings;
   constructor(public productService: ProductsService,
               public appSettings: AppSettings,
@@ -43,7 +43,7 @@ export class MoodBoardCandidateProductOverviewComponent implements OnInit {
     this.bottomSheetRef.dismiss(isRedirect);
   }
 
-  public remove(product, event: any) {
+  public remove(product: any, event: any) {
     if (this.authService.loggedIn()) {
       // this.store.dispatch(new UserUnSelectRequest(this.authService.getDecodedToken().nameid, product.productId));
     } else {

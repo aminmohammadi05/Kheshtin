@@ -17,7 +17,7 @@ import { Event } from '../../models/query-home-event/event';
   templateUrl: './event-timeline-vertical.component.html',
   styleUrls: ['./event-timeline-vertical.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, MatIconModule, RouterModule]
 })
 export class EventTimelineVerticalComponent {
   @Input()
@@ -28,23 +28,23 @@ export class EventTimelineVerticalComponent {
   ngOnInit(){
     
     this.events.map((s, i) => {
-      // const minEvent = s.steps.map((x: { start: any; }) => x.start).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[0];
-      // const maxEvent = s.steps.map((x: { end: any; }) => x.end).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[s.steps.length - 1];
-      // const minDate = moment(new Date(minEvent));
-      // const maxDate = moment(new Date(maxEvent));
+      const minEvent = s.steps.map((x: { start: any; }) => x.start).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[0];
+      const maxEvent = s.steps.map((x: { end: any; }) => x.end).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[s.steps.length - 1];
+      const minDate = moment(new Date(minEvent));
+      const maxDate = moment(new Date(maxEvent));
 
 
 
-
-      // this.tempEvents.push({
-      //   side: i % 2 === 0 ? 'left' : 'right',
-      //   title: s.title,
-      //   contentItemId: s.contentItemId,
-      //   start: minEvent,
-      //   group: 0,
-      //   end: maxEvent,
-      //   steps: [...s.steps]
-      // });
+var event = {
+  side: i % 2 === 0 ? 'left' : 'right',
+  title: s.title,
+  contentItemId: s.contentItemId,
+  start: minEvent,
+  group: 0,
+  end: maxEvent,
+  steps: [...s.steps]
+}
+      this.tempEvents.push(event as Event);
     });
    
   }

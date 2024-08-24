@@ -1,10 +1,19 @@
-import { BagContentItems } from "./event-bag-content-items";
-import { EventTypeContentItems } from "./event-type-content-items";
+
+import { EventStep } from "./event-step";
+
 export interface Event {
-    displayText: string;
+    width: number;
+    label: string;
+    start: string;
+    end: string;
+    group: number;
+    left: number;
+    color: string;
+    opacity: number;
+    title: string;
     contentItemId: string;
-    eventType: EventTypeContentItems;
-    bag: BagContentItems;
+    side: string;
+    steps: EventStep[]
     }
     
  

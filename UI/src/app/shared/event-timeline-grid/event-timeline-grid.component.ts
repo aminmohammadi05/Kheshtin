@@ -1,37 +1,45 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import {CompactType, DirTypes, GridType, GridsterComponent, GridsterConfig, GridsterItem, GridsterItemComponent, GridsterModule, GridsterPush} from 'angular-gridster2';
 import { max } from 'lodash';
-import * as momentj from 'jalali-moment';
+import momentj from 'jalali-moment';
 import * as Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { EventTimelineVerticalComponent } from '../event-timeline-vertical/event-timeline-vertical.component';
+import { Event } from '../../models/query-home-event/event';
+import { Month } from '../../models/query-home-event/event-month';
+import { EventGrid } from '../../models/query-home-event/event-grid';
+import { RouterModule } from '@angular/router';
+
 const moment = extendMoment(Moment);
 @Component({
   selector: 'app-event-timeline-grid',
   templateUrl: './event-timeline-grid.component.html',
   styleUrls: ['./event-timeline-grid.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, GridsterModule]
+  imports: [CommonModule, RouterModule, MatIconModule, MatButtonModule, FlexLayoutModule, GridsterModule]
 })
 export class EventTimelineGridComponent implements OnInit, AfterViewInit{
   topVar = 0;
-  options: GridsterConfig;
-  dashboard: Array<GridsterItem>;
-  itemToPush: GridsterItemComponent;
-  tempEvents = [];
+  options!: GridsterConfig;
+  dashboard!: Array<GridsterItem>;
+  itemToPush!: GridsterItemComponent;
+  tempEvents: Event[] = [];
   groups = [];
-  columns = [];
-  yearAndMonth = [];
-  @Input() events: any[];
-  @ViewChildren('monthElement') monthsElements: QueryList<any>;
-  @ViewChildren('yearElement') yearsElements: QueryList<any>;
-  @ViewChild('widgetsContent', { read: ElementRef }) public widgetsContent: ElementRef<any>;
+  columns: string[] = [];
+  yearAndMonth: EventGrid[] = [];
+  @Input()
+  events!: any[];
+  @ViewChildren('monthElement')
+  monthsElements!: QueryList<any>;
+  @ViewChildren('yearElement')
+  yearsElements!: QueryList<any>;
+  @ViewChild('widgetsContent', { read: ElementRef })
+  public widgetsContent!: ElementRef<any>;
   headerData: any[] = [];
-  months = {
+  months:{ [key: number]: Month } = {
     1 : {id: 1, name: 'فروردین'},
     2 : {id: 2, name: 'اردیبهشت'},
     3 : {id: 3, name: 'خرداد'},
@@ -51,7 +59,7 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
     }
   ngOnInit() {
   
-    let totalSteps = [];
+    let totalSteps: any[] = [];
     this.events.map(x => {
      totalSteps = [...totalSteps, ...x.steps];
    });
@@ -59,22 +67,22 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
 
 
     this.events.map(s => {
-      const minEvent = s.steps.map(x => x.start).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[0];
-      const maxEvent = s.steps.map(x => x.end).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[s.steps.length - 1];
+      const minEvent = s.steps.map((x: { start: any; }) => x.start).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[0];
+      const maxEvent = s.steps.map((x: { end: any; }) => x.end).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[s.steps.length - 1];
       const minDate = moment(new Date(minEvent));
       const maxDate = moment(new Date(maxEvent));
 
 
 
-
-      this.tempEvents.push({
+      var e = {
         title: s.title,
         contentItemId: s.contentItemId,
         start: minEvent,
         group: 0,
         end: maxEvent,
         steps: [...s.steps]
-      });
+      }
+      this.tempEvents.push(e as Event);
     });
 
 
@@ -94,11 +102,11 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
         this.headerData.push({year: newYear, months: [{month: this.months[+newMonth], days: [{day: newDay}]}]});
       }
       else{
-        if (!this.headerData.filter(x => x.year === newYear)[0].months.map(x => x.month).includes(this.months[+newMonth])){
+        if (!this.headerData.filter(x => x.year === newYear)[0].months.map((x: { month: any; }) => x.month).includes(this.months[+newMonth])){
           this.headerData.filter(x => x.year === newYear)[0].months.push({month: this.months[+newMonth], days: [{day: newDay}]});
         } else {
-          if (!this.headerData.filter(x => x.year === newYear)[0].months.filter(x => x.month === this.months[+newMonth])[0].days.map(x => x.day).includes(newDay)){
-            this.headerData.filter(x => x.year === newYear)[0].months.filter(x => x.month === this.months[+newMonth])[0].days.push({day: newDay});
+          if (!this.headerData.filter(x => x.year === newYear)[0].months.filter((x: { month: any; }) => x.month === this.months[+newMonth])[0].days.map((x: { day: any; }) => x.day).includes(newDay)){
+            this.headerData.filter(x => x.year === newYear)[0].months.filter((x: { month: any; }) => x.month === this.months[+newMonth])[0].days.push({day: newDay});
           }
 
         }
@@ -126,7 +134,7 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
       if (prevMonth !== +newMonth) {
         month++;
         prevMonth = +newMonth;
-        if (this.yearAndMonth.filter(xx => xx.x === month && xx.label === this.months[+newMonth]).length === 0) {
+        if (this.yearAndMonth.filter(xx => xx.x === month && xx.label === this.months[+newMonth].name).length === 0) {
           this.yearAndMonth.push(
           {
             cols: 1,
@@ -156,7 +164,7 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
         var totalDuration = Math.abs(momentj(momentj(momentj(s.end).format('jYYYY-jM') +'-'+ momentj(s.end).locale('fa').daysInMonth()).format('YYYY-MM-DD') ).diff(momentj(s.start).format('jYYYY-jM') + '-01', 'days'));
           var startPercent = this.percentage(Math.abs(momentj(momentj(s.start).format('jYYYY-jM') + '-01').diff(momentj(momentj(s.start).format('jYYYY-jM-jD')), 'days')), totalDuration);
           var endPercent = this.percentage(Math.abs(momentj(momentj(s.end).format('jYYYY-jM-jD') ).diff(momentj(momentj(s.end).format('jYYYY-jM')+ '-' + momentj(s.end).locale('fa').daysInMonth()), 'days')), totalDuration);
-        if (i === 0 && this.dashboard.filter(xx => xx.label === s.title).length === 0) {
+        if (i === 0 && this.dashboard.filter(xx => xx['label'] === s.title).length === 0) {
           this.dashboard.push(
           {
             cols: Array.from(moment.range(new Date(s.start), new Date(s.end)).by('month')).length,
@@ -177,9 +185,9 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
         }
         this.dashboard.map(x => {
           if (+momentj(new Date(s.start)).locale('fa').format('MM') === prevMonth &&
-          s.title !== x.label) {
+          s.title !== x['label']) {
             if ( Array.from(moment.range(new Date(minTotalEvent), new Date(s.start)).by('month')).length <= (x.x + x.cols)) {
-              if (this.dashboard.filter(xx => xx.label === s.title).length === 0){
+              if (this.dashboard.filter(xx => xx['label'] === s.title).length === 0){
                 ind++;
                 this.dashboard.push(
                   {
@@ -200,7 +208,7 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
                   });
               }
             } else  {
-              if (this.dashboard.filter(xx => xx.label === s.title).length === 0){
+              if (this.dashboard.filter(xx => xx['label'] === s.title).length === 0){
                 ind = 2;
                 this.dashboard.push(
                   {
@@ -257,7 +265,7 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
     
     
      }
-     percentage(partialValue, totalValue) {
+     percentage(partialValue: number, totalValue: number) {
       return (100 * partialValue) / totalValue;
    }
      ngAfterViewInit() {
@@ -276,28 +284,28 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
     this.widgetsContent.nativeElement.scrollTo({ left: (this.widgetsContent.nativeElement.scrollLeft - 150), behavior: 'smooth' });
   }
 
-  existsInGroups(t){
+  existsInGroups(t: any){
     let result = false;
-    this.groups.map(g => {
-  g.map(i => {
-    if (i === t) {
-      result = true;
-    }
-  });
-});
+//     this.groups.map(g => {
+//   g.map((i: any) => {
+//     if (i === t) {
+//       result = true;
+//     }
+//   });
+// });
     return result;
   }
-  getEventDuration(eventItem) {
+  getEventDuration(eventItem: { y: number; steps: any[]; }) {
     
     if (eventItem.y > 1) {
-      const minEvent = eventItem.steps.map(x => x.start).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[0];
-      const maxEvent = eventItem.steps.map(x => x.end).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[eventItem.steps.length - 1];
+      const minEvent = eventItem.steps.map((x: { start: any; }) => x.start).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[0];
+      const maxEvent = eventItem.steps.map((x: { end: any; }) => x.end).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[eventItem.steps.length - 1];
       const minDate = moment(new Date(minEvent));
       const maxDate = moment(new Date(maxEvent));
       const duration = maxDate.diff(minDate, 'days');
       const steps = [];
       for (let i = 0; i <= duration; i++) {
-        const item = eventItem.steps.map(x => x).filter(x => moment(new Date(x.start)).diff(minDate, 'days') === i );
+        const item = eventItem.steps.map((x: any) => x).filter((x: { start: string | number | Date; }) => moment(new Date(x.start)).diff(minDate, 'days') === i );
         if (item.length > 0) {
           steps.push(item);
         } else {
@@ -306,8 +314,9 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
       }
       return steps;
     }
+    return [];
   }
-  removeItem($event, item) {
+  removeItem($event: { preventDefault: () => void; stopPropagation: () => void; }, item: GridsterItem) {
     $event.preventDefault();
     $event.stopPropagation();
     this.dashboard.splice(this.dashboard.indexOf(item), 1);

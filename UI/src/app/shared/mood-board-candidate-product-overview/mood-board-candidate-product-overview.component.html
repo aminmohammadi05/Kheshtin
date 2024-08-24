@@ -10,7 +10,7 @@
   </div>
 </mat-toolbar>
 <mat-nav-list>
-  <a mat-list-item *ngFor="let product of products" (click)="hideSheet(true)">
+  <a mat-list-item *ngFor="let product of (products | async)" (click)="hideSheet(true)">
     <h3 mat-line class="fw-500">{{product.name}}</h3>
     <button mat-icon-button color="warn" class="remove" (click)="remove(product, $event)" matTooltip="حذف" matTooltipPosition="after">
         <mat-icon class="mat-icon-sm">close</mat-icon>

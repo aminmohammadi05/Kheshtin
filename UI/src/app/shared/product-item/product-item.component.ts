@@ -2,28 +2,29 @@ import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnCha
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
+
 import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
+
 import { map, tap, switchMap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import * as moment from 'jalali-moment'; // add this 1 of 4
-import { Route, Router } from '@angular/router';
+
+import moment from 'jalali-moment'; // add this 1 of 4
+import { Route, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { DesignMoodBoardComponent } from 'src/app/pages/design-mood-board/design-mood-board.component';
+
 import { MoodBoardCandidateProductOverviewComponent } from '../mood-board-candidate-product-overview/mood-board-candidate-product-overview.component';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+// import { AuthService } from '../../services/auth.service';
+import { ProductsService } from '../../services/products.service';
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatIconModule, RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
@@ -31,7 +32,7 @@ export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() viewType = 'grid';
   @Input() viewColChanged = false;
   @Input() fullWidthPage = true;
-  liked: Observable<boolean>;
+  liked!: Observable<boolean>;
   categoryList = '';
   brandName = '';
   public column = 4;
@@ -44,8 +45,7 @@ export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
   // };
   public settings: Settings;
   constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              public authService: AuthService,
+              // public authService: AuthService,
               public route: Router,
               public productService: ProductsService) {
     this.settings = this.appSettings.settings;
@@ -67,9 +67,9 @@ export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         // if (this.product.productFiles.length > 1 && this.directiveRef) {
         //    this.directiveRef.update();
         // }
@@ -88,7 +88,7 @@ export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -100,7 +100,7 @@ export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -183,16 +183,16 @@ export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   addToMoodBoard() {
-    if (this.authService.loggedIn()) {
-      // this.store.dispatch(new UserSelectRequest(this.authService.getDecodedToken().nameid, this.product.productId));
-    } else {
-      this.route.navigate(['/login']);
-    }
+    // if (this.authService.loggedIn()) {
+    //   // this.store.dispatch(new UserSelectRequest(this.authService.getDecodedToken().nameid, this.product.productId));
+    // } else {
+    //   this.route.navigate(['/login']);
+    // }
     
     
   }
 
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     const cdate = moment(date).locale('fa').format('YYYY/MM/DD');
     return of(cdate);
   }
@@ -208,6 +208,7 @@ export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
     } else {
       return of('');
     }
+    return of('');
 
   }
   public getBrandName() {
@@ -221,7 +222,7 @@ export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {
     } else {
       return of('');
     }
-
+    return of('');
   }
 
 }
