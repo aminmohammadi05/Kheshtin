@@ -33,7 +33,7 @@ export class MoodBoardProductsCarouselComponent implements OnInit, OnDestroy, Af
               public authService: AuthService,
               public cdr: ChangeDetectorRef,
               public route: Router) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

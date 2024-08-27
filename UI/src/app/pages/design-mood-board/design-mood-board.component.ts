@@ -115,7 +115,7 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
                 private candidateProductService: UserService,
                 private router: Router,
                 public productsDialog: MatDialog) {
-      this.settings = this.appSettings.settings;
+      this.settings = this.appSettings.createNew()
     }
     ngOnDestroy(): void {
     }
@@ -432,7 +432,7 @@ export class MoodBoardProductDetailDialogComponent implements OnInit {
               public dialogRef: MatDialogRef<MoodBoardProductDetailDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: ProductMoodBoardData,
               public fb: FormBuilder) {
-      this.settings = this.appSettings.settings;
+      this.settings = this.appSettings.createNew()
       this.products = this.data.products;
       this.candidateProducts = this.data.candidateProducts;
       this.isCandidateProducts = this.data.isCandidateProducts;

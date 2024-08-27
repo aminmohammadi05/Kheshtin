@@ -78,7 +78,7 @@ export class MoodBoardComponent implements OnInit, OnDestroy, AfterViewInit {
               private route: ActivatedRoute,
               private moodBoardService: MoodBoardService,
               private cdRef: ChangeDetectorRef) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
 //     this.watcher = mediaObserver.media$.subscribe((change: MediaChange) => {
 //     if (change.mqAlias === 'xs') {
 //       this.sidenavOpen = false;

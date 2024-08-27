@@ -1,16 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ChangeDetectorRef, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service';
-import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { OfficeProjectCategory } from 'src/app/models/office-project-category';
-import { User } from 'src/app/models/user';
-import { OfficeProjectSearch } from 'src/app/models/office-project-search';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { DesignOffice } from 'src/app/models/design-office';
-import { AuthService } from 'src/app/services/auth.service';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -18,12 +9,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { PaginationComponent } from 'ngx-bootstrap/pagination';
 import { HeaderCarouselComponent } from '../header-carousel/header-carousel.component';
 import { HeaderImageComponent } from '../header-image/header-image.component';
 import { OfficeProjectItemComponent } from '../office-project-item/office-project-item.component';
 import { OfficeProjectsSearchResultsFiltersComponent } from '../office-projects-search-results-filters/office-projects-search-results-filters.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DesignOffice } from '../../models/design-office';
+import { OfficeProjectCategory } from '../../models/office-project-category';
+import { OfficeProjectSearch } from '../../models/office-project-search';
+import { AuthService } from '../../services/auth.service';
+import { BasicDataService } from '../../services/basic-data.service';
 
 @Component({
   selector: 'app-office-projects-search',
@@ -36,18 +31,21 @@ export class OfficeProjectsSearchComponent implements OnInit, OnChanges, AfterVi
   @Input() variant = 1;
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
+  @Input()
+  removedSearchField!: string;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
   public searchInput: FormControl = new FormControl('');
   public selectedCategories: any[] = [];
   public selectedDesigners: any[] = [];
   public showMore = false;
-  public verticalForm: FormGroup;
-  @Input() categories: BehaviorSubject<OfficeProjectCategory[]> = new BehaviorSubject([]);
-  @Input() designers: BehaviorSubject<DesignOffice[]> = new BehaviorSubject([]);
-  public projectCategories: OfficeProjectCategory[];
-  public designOffices: DesignOffice[];
+  public verticalForm!: FormGroup;
+  @Input()
+  categories!: BehaviorSubject<OfficeProjectCategory[]>;
+  @Input()
+  designers!: BehaviorSubject<DesignOffice[]>;
+  public projectCategories!: OfficeProjectCategory[];
+  public designOffices!: DesignOffice[];
   
   public propertyTypes = [];
   public searchFields = new OfficeProjectSearch({
@@ -56,15 +54,15 @@ export class OfficeProjectsSearchComponent implements OnInit, OnChanges, AfterVi
     categories: [],
     searchBox: ''
   });
+  private authService= inject(AuthService);
+  public fb= inject( FormBuilder);
+  public basicDataService= inject( BasicDataService);
+  private cdr= inject( ChangeDetectorRef);
 
 
 
-
-  constructor(public appService: AppService,
-              private authService: AuthService,
-              public fb: FormBuilder,
-              public basicDataService: BasicDataService,
-              private cdr: ChangeDetectorRef) { }
+  constructor(
+              ) { }
 
   ngOnInit() {
     this.basicDataService.getProjectCategories().subscribe((x: any) => {
@@ -104,7 +102,7 @@ export class OfficeProjectsSearchComponent implements OnInit, OnChanges, AfterVi
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
+        // this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
       } else if (this.removedSearchField.indexOf(',') > -1) {
         const arr = this.removedSearchField.split(',');
         if (arr[0] === 'categories'){
@@ -117,8 +115,8 @@ export class OfficeProjectsSearchComponent implements OnInit, OnChanges, AfterVi
           this.searchFields.designers = this.selectedDesigners;
         }
         
-        this.verticalForm.get('categories').setValue(this.selectedCategories);
-        this.verticalForm.get('designers').setValue(this.selectedDesigners);
+        this.verticalForm.get('categories')!.setValue(this.selectedCategories);
+        this.verticalForm.get('designers')!.setValue(this.selectedDesigners);
         this.SearchChange.emit(this.verticalForm);
       }
       else if(this.removedSearchField === "hashtagObject") {
@@ -164,7 +162,7 @@ export class OfficeProjectsSearchComponent implements OnInit, OnChanges, AfterVi
     )
     .subscribe();
   }
-  public categoryChanged(event) {
+  public categoryChanged(event: { value: any; }) {
     if (event) {
       this.selectedCategories = [...event.value];
       this.searchFields.categories = this.selectedCategories;
@@ -172,7 +170,7 @@ export class OfficeProjectsSearchComponent implements OnInit, OnChanges, AfterVi
       this.SearchChange.emit(this.verticalForm);
     }
   }
-  public designerChanged(event) {
+  public designerChanged(event: { value: any; }) {
     if (event) {
       this.selectedDesigners = [...event.value];
       this.searchFields.designers = this.selectedDesigners;

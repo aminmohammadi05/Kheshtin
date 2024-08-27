@@ -37,7 +37,7 @@ export class BrandItemComponent implements OnInit, AfterViewInit, OnChanges {
   // };
   public settings: Settings;
   constructor(public appSettings: AppSettings, public appService: AppService) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() { }

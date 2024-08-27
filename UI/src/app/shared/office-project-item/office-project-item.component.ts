@@ -1,10 +1,9 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
+
 import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { OfficeProject } from 'src/app/models/office-project';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -36,9 +35,10 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
   //   clickable: true
   // };
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService) {
-    this.settings = this.appSettings.settings;
+  public appSettings= inject(AppSettings);
+  constructor(
+              ) {
+    this.settings = this.appSettings.createNew();
   }
 
   ngOnInit() { }
@@ -52,9 +52,9 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         if (this.project.officeProjectImageList.length > 1) {
           //  this.directiveRef.update();
         }
@@ -73,7 +73,7 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -85,7 +85,7 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -125,8 +125,8 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
     //   effect: 'slide'
     // };
   }
-  getOfficeProjectImages(project){
-    return project.bag.contentItems.filter(x => x.__typename === "ProjectImage");
+  getOfficeProjectImages(project: { bag: { contentItems: any[]; }; }){
+    return project.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === "ProjectImage");
   }
 
   public addToCompare() {
@@ -146,7 +146,7 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
   }
   public getDesignOfficeName() {
     if (this.project) {
-      return this.project.designOffice.contentItems.map(x => x.displayText).join(', ')
+      return this.project.designOffice.contentItems.map((x: { displayText: any; }) => x.displayText).join(', ')
     } else {
       return '';
     }
@@ -155,7 +155,7 @@ export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChan
   public getCategoriesNames() {
     if (this.project) {
      
-      return this.project.projectType.contentItems.map(x => x.displayText).join(', ')
+      return this.project.projectType.contentItems.map((x: { displayText: any; }) => x.displayText).join(', ')
     } else {
       return '';
     }

@@ -94,7 +94,7 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
               private productService: ProductsService,
               private brandService: BrandService,
               private cdRef: ChangeDetectorRef) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
 
 
 }

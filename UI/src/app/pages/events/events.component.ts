@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, inject } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 import { Observable, fromEvent, merge, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
@@ -8,35 +8,32 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
 import { debounceTime, distinctUntilChanged, tap, switchMap, map } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
 import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
-import { AppSettings, Settings } from 'src/app/app.settings';
-import { AppService } from 'src/app/app.service';
-import { Pagination } from 'src/app/models/pagination';
-import { InitializeService } from 'src/app/services/initialize.service';
-import { PageImages } from 'src/app/models/page-images';
-import { EventCategory } from 'src/app/models/event-category';
-import { EventDataSource } from 'src/app/services/event-data-source';
-import { Event } from 'src/app/models/event';
-import { EventSearch } from 'src/app/models/event-search';
-import { EventService } from 'src/app/services/event.service';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { log } from 'console';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
-import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { EventItemComponent } from 'src/app/shared/event-item/event-item.component';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { MatCardModule } from '@angular/material/card';
-import { EventsSearchResultsFiltersComponent } from 'src/app/shared/events-search-results-filters/events-search-results-filters.component';
-import { EventsSearchComponent } from 'src/app/shared/events-search/events-search.component';
+import { AppSettings, Settings } from '../../app.settings';
+import { EventCategory } from '../../models/event-category';
+import { EventSearch } from '../../models/event-search';
+import { PageImages } from '../../models/page-images';
+import { Pagination } from '../../models/pagination';
+import { AuthService } from '../../services/auth.service';
+import { BasicDataService } from '../../services/basic-data.service';
+import { EventDataSource } from '../../services/event-data-source';
+import { EventService } from '../../services/event.service';
+import { InitializeService } from '../../services/initialize.service';
+import { EventItemComponent } from '../../shared/event-item/event-item.component';
+import { EventsSearchResultsFiltersComponent } from '../../shared/events-search-results-filters/events-search-results-filters.component';
+import { EventsSearchComponent } from '../../shared/events-search/events-search.component';
+import { HeaderCarouselComponent } from '../../shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../../shared/header-image/header-image.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-events',
@@ -49,15 +46,17 @@ export class EventsComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCategories: EventCategory[] = [];
   filteredCategories: string[] = ['-1'];
   categories: EventCategory[] = [];
-  dataSource: EventDataSource;
-  @ViewChild('input') input: ElementRef;
+  dataSource!: EventDataSource;
+  @ViewChild('input')
+  input!: ElementRef;
 
 
 
 
 @ViewChild('sidenav', { static: true }) sidenav: any;
 public sidenavOpen = true;
-@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
 public psConfig = {
   wheelPropagation: true
 };
@@ -67,34 +66,34 @@ public slides: PageImages[] = [];
 public viewType = 'list';
 public viewCol = 33.3;
 public count = 12;
-public sort: string;
-public categoriesBS : BehaviorSubject<EventCategory[]> = new BehaviorSubject([]);
+  public sort!: string;
+  public categoriesBS!: BehaviorSubject<EventCategory[]>;
 public searchFields: EventSearch = new EventSearch({
   searchId: 1,
   categories: [],
-  designers: [],
+  // designers: [],
   searchBox: '',
-  pageQuery: new Pagination(0, this.count, null, null)
+  pageQuery: new Pagination(0, this.count, 0, 0)
 });
-public removedSearchField: string;
+  public removedSearchField!: string;
 
 public message = 'هیچ';
-public watcher: Subscription;
-public totalEvents: Observable<number>;
+  public watcher!: Subscription;
+  public totalEvents!: Observable<number>;
 public isLoading = false;
 public settings: Settings;
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private responsive: BreakpointObserver,
-              private eventService: EventService,
-              private authService: AuthService,
-              public appSettings: AppSettings,
-              public appService: AppService,
-              public basicService: BasicDataService,
-              public initializeService: InitializeService,
-              public mediaObserver: MediaObserver,
-              private cdRef: ChangeDetectorRef) {
-                this.settings = this.appSettings.settings;
+public appSettings = inject(AppSettings);
+private responsive= inject(BreakpointObserver);
+public basicService= inject(BasicDataService);
+private authService= inject(AuthService);
+public mediaObserver= inject(MediaObserver);
+public initializeService= inject(InitializeService);
+private route= inject(ActivatedRoute);
+private router= inject(Router);
+private eventService= inject(EventService);
+private cdRef= inject(ChangeDetectorRef);
+  constructor() {
+                this.settings = this.appSettings.createNew();
 
                }
 
@@ -177,18 +176,18 @@ public getSlides() {
 }
 
 
-public getEvents(cats, currentPage, search, categories, hashtagObject) {
+public getEvents(cats: any[], currentPage: number, search: string, categories: { replace: (arg0: string, arg1: string) => { (): any; new(): any; split: { (arg0: string): { (): any; new(): any; length: number; includes: { (arg0: any): any; new(): any; }; join: { (arg0: string): any; new(): any; }; }; new(): any; }; }; }, hashtagObject: string) {
   
   this.searchFields = new EventSearch({
     searchId: 1,
     hashtagObject: JSON.parse(this.basicService.decode(hashtagObject)),
-    categories: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+    categories: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
     if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
       return x;
     }
   }) : [],
   
-  pageQuery: new Pagination(currentPage - 1, this.count, null, null)
+  pageQuery: new Pagination(currentPage - 1, this.count, 0, 0)
   })
   this.eventService.getEvents(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''} ${categories ? categories.replace('null', '').split('_').join(' ') : ''} ${hashtagObject !== 'null' ? JSON.parse(this.basicService.decode(hashtagObject)).searchField.replace('#', '') : ''}'}`).subscribe((x:any) => {
     this.searchFields.pageQuery.totalItems = x[0].count
@@ -204,7 +203,7 @@ public resetPagination() {
   }
   this.searchFields = new EventSearch({
     searchId: 1,
-    pageQuery: new Pagination(0, this.count, null, null)
+    pageQuery: new Pagination(0, this.count, 0, 0)
   });
 }
 
@@ -214,20 +213,20 @@ public searchClicked() {
   // this.getEvents();
   window.scrollTo(0, 0);
 }
-public searchChanged(event) {
+public searchChanged(event: { value: { categories: string | any[]; hashtagObject: any; searchBox: { replace: (arg0: string, arg1: string) => { (): any; new(): any; length: number; }; }; }; }) {
   this.resetPagination();
       this.searchFields = new EventSearch({
         searchId: 1,
         categories: event.value.categories &&
            event.value.categories.length > 0 ? event.value.categories : [],
-        pageQuery: new Pagination(0, this.count, null, null),
+        pageQuery: new Pagination(0, this.count, 0, 0),
         hashtagObject: event.value.hashtagObject ? event.value.hashtagObject : '',
         searchBox: event.value.searchBox && event.value.searchBox.replace(' ', '').length > 0 ? event.value.searchBox.replace(' ', '') : '',
       });
       // this.store.dispatch(new ResetBlogsRequest());
       // this.store.dispatch(new SaveBlogSearchForRequest(this.searchFields));
       setTimeout(() => {
-        this.removedSearchField = null;
+        this.removedSearchField = '';
       });
       if (!this.settings.searchOnBtnClick) {
         this.events.length = 0;
@@ -238,33 +237,33 @@ public searchChanged(event) {
 
       }
 }
-public removeSearchField(field) {
-  this.message = null;
+public removeSearchField(field: string) {
+  this.message = '';
   this.removedSearchField = field;
 }
 
 
-public changeCount(count) {
+public changeCount(count: number) {
   this.count = count;
   this.events.length = 0;
   this.resetPagination();
   // this.getEvents();
 }
-public changeSorting(sort) {
+public changeSorting(sort: string) {
   this.sort = sort;
   this.events.length = 0;
   // this.getEvents();
 }
-public changeViewType(obj) {
+public changeViewType(obj: { viewType: string; viewCol: number; }) {
   this.viewType = obj.viewType;
   this.viewCol = obj.viewCol;
 }
 
 
-public onPageChange(e) {
+public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
   this.searchFields = new EventSearch({
     searchId: 1,
-    pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+    pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
   });
   // this.store.dispatch(new SaveEventSearchForRequest(this.searchFields));
   window.scrollTo(0, 0);

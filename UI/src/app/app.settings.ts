@@ -3,30 +3,32 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Observable, Subscription, distinctUntilChanged, observable, of } from 'rxjs';
 
 export class Settings {
-    
-    constructor(public name: string,            
-                public theme: string,
-                public toolbar: number,
-                public stickyMenuToolbar: boolean,
-                public header: string,
-                public rtl: boolean,
-                public searchPanelVariant: number,
-                public searchOnBtnClick: boolean,
-                public currency: string,
+  
+  public name!: string;            
+  public theme!: string;
+  public toolbar!: number;
+  public stickyMenuToolbar!: boolean;
+  public header!: string;
+  public rtl!: boolean;
+  public searchPanelVariant!: number;
+  public searchOnBtnClick!: boolean;
+  public currency!: string;
 
-                // additional options
-                public mainToolbarFixed: boolean,
-                public contentOffsetToTop: boolean,
-                public headerBgImage: boolean,
-                public loadMore: {
-                    start: boolean,
-                    step: number,
-                    load: boolean,
-                    page: number,
-                    complete: boolean,
-                    result: number
-                }
+  // additional options
+  public mainToolbarFixed!: boolean;
+  public contentOffsetToTop!: boolean;
+  public headerBgImage!: boolean;
+  public loadMore!: {
+    start: boolean;
+    step: number;
+    load: boolean;
+    page: number;
+    complete: boolean;
+    result: number;
+  };
+    constructor(
                 ) { 
+
                     
                 }
 }
@@ -59,22 +61,24 @@ export class AppSettings implements OnDestroy {
     ngOnDestroy(): void {
         this.mediaSubscription.unsubscribe();
       }
-    public settings = new Settings(
-        'HouseKey',  // theme name
+      public createNew(): Settings {
+        var settings = new Settings();
+            settings.name = 'HouseKey';  // theme name
         
-        'custom-palette',      // blue, green, red, pink, purple, grey, orange-dark, orange-white
-        1,           // 1 or 2
-        true,        // true = sticky, false = not sticky
-        'carousel',   // default, image, carousel
-        true,       // true = rtl, false = ltr
-        1,           //  1, 2  or 3
-        false,       //  true = search on button click
-        'USD',       // USD, EUR
+        settings.theme = 'custom-palette';      // blue, green, red, pink, purple, grey, orange-dark, orange-white
+        settings.toolbar = 1;           // 1 or 2
+        settings.stickyMenuToolbar = true;        // true = sticky, false = not sticky
+        settings.header = 'carousel';   // default, image, carousel
+        settings.rtl = true;       // true = rtl, false = ltr
+        settings.searchPanelVariant = 1;           //  1, 2  or 3
+        settings.searchOnBtnClick = false;       //  true = search on button click
+        settings.currency = 'USD';       // USD, EUR
 
         // NOTE:  don't change additional options values, they used for theme performance
-        false,
-        false,
-        false,
+        settings.mainToolbarFixed = false;
+        settings.contentOffsetToTop = false;
+        settings.headerBgImage = false;
+        settings.loadMore = 
         {
             start: false,
             step: 1,
@@ -83,5 +87,11 @@ export class AppSettings implements OnDestroy {
             complete: false,
             result: 0
         }
-    );
+        return settings;
+      }
+    
+   
+    
+        
+   
 }

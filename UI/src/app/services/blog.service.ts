@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
@@ -25,10 +25,12 @@ import { environment } from '../../environments/environment.prod';
 export class BlogService {
   
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient,
-    private apollo: Apollo,
-    public basicService: BasicDataService,
-    private authService: AuthService) { }
+  private http = inject(HttpClient);
+  private apollo= inject(Apollo);
+    public basicService= inject(BasicDataService);
+    private authService= inject(AuthService);
+  constructor(
+    ) { }
   
 
   getAllBlogsAuth(userId: any): Observable<Blog[]> {

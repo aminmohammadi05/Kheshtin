@@ -64,7 +64,7 @@ export class MoodBoardDetailComponent implements OnInit, OnDestroy, AfterViewIni
               public infoReq: MatDialog,
               public moodBoardService: MoodBoardService,
               private meta: Meta) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
 }
 
   ngOnInit() {

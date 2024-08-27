@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { inject, Injectable } from '@angular/core';
+
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { BrandVideo } from '../models/brand-video';
@@ -10,16 +10,20 @@ import { map, pluck } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import { GET_ALL_BRAND_VIDEOS } from '../queries/get-all-brand-videos';
 import { BrandVideoSearch } from '../models/brand-video-search';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BrandVideoService {
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient, private authService: AuthService,private apollo: Apollo) { }
+  private http = inject(HttpClient);
+  private apollo= inject(Apollo);
+    private authService= inject(AuthService);
+  constructor() { }
 
 
-  getAllBrandVideos(searchFields: BrandVideoSearch, searchText): Observable<any[]> {
+  getAllBrandVideos(searchFields: BrandVideoSearch, searchText: any): Observable<any[]> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/getVideoByBrandId?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.brandId}'}`),
         this.apollo.query({
           query: GET_ALL_BRAND_VIDEOS,
@@ -29,7 +33,7 @@ export class BrandVideoService {
     ]);
   }
 
-  getAllBrandVideosAuth(userId, brandId: string): Observable<BrandVideo[]> {
+  getAllBrandVideosAuth(userId: any, brandId: string): Observable<BrandVideo[]> {
     return this.http.get<BrandVideo[]>(this.baseUrl + `users/${userId}/brandvideos/GetBrandVideos/${brandId}`);
   }
 
@@ -43,15 +47,15 @@ export class BrandVideoService {
     { observe: 'response', params})
     .pipe(
       map(response => {
-        paginatedResult.result = response.body;
+        paginatedResult.result = response.body!;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
         }
         return paginatedResult;
       }));
   }
 
-  getBrandVideosAuth(filter: string, userId, brandId: string, pageNumber = 0,
+  getBrandVideosAuth(filter: string, userId: any, brandId: string, pageNumber = 0,
     pageSize = 3):  Observable<PaginatedResult<BrandVideo[]>>  {
       const paginatedResult: PaginatedResult<BrandVideo[]> = new PaginatedResult<BrandVideo[]>();
     let params = new HttpParams();
@@ -61,15 +65,15 @@ export class BrandVideoService {
     { observe: 'response', params})
     .pipe(
       map(response => {
-        paginatedResult.result = response.body;
+        paginatedResult.result = response.body!;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
         }
         return paginatedResult;
       }));
   }
 
-  getProductsOfVideo(id, term = 'filter=', pageNumber = 0, pageSize = 3): Observable<PaginatedResult<Product[]>> {
+  getProductsOfVideo(id: { toString: () => string; }, term = 'filter=', pageNumber = 0, pageSize = 3): Observable<PaginatedResult<Product[]>> {
     const paginatedResult: PaginatedResult<Product[]> = new PaginatedResult<Product[]>();
     let params = new HttpParams();
     params = params.append('pageNumber', pageNumber.toString());
@@ -77,9 +81,9 @@ export class BrandVideoService {
     return this.http.get<Product[]>(this.baseUrl + '/publicbrandvideos/GetProductsOfVideoPublic/' + term + '/' + id.toString()
       , { observe: 'response', params}).pipe(
       map(response => {
-        paginatedResult.result = response.body;
+        paginatedResult.result = response.body!;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
         }
         return paginatedResult;
       }));

@@ -30,7 +30,7 @@ export class AboutComponent implements OnInit {
   constructor(public appSettings: AppSettings,
               public initializeService: InitializeService,
               private authService: AuthService) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

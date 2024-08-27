@@ -1,38 +1,36 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import {  } from 'ngx-scrollbar';
-import { Blog } from 'src/app/models/blog';
+
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
-import { Pagination } from 'src/app/models/pagination';
-import { Settings, AppSettings } from 'src/app/app.settings';
-import { AppService } from 'src/app/app.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { MediaObserver, MediaChange, FlexLayoutModule } from '@angular/flex-layout';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { BlogService } from 'src/app/services/blog.service';
-import { InitializeService } from 'src/app/services/initialize.service';
-import { PageImages } from 'src/app/models/page-images';
-import { BlogSearch } from 'src/app/models/blog-search';
-import { BlogsDataSource } from 'src/app/services/blogs-data-source';
-import { Search } from 'src/app/models/search';
-import { BrandSearch } from 'src/app/models/brand-search';
-import { Category } from 'src/app/models/category';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
-import { BlogsSearchResultsFiltersComponent } from 'src/app/shared/blogs-search-results-filters/blogs-search-results-filters.component';
-import { BlogsSearchComponent } from 'src/app/shared/blogs-search/blogs-search.component';
-import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
-import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
-import { BlogItemComponent } from 'src/app/shared/blog-item/blog-item.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
+
+import { AppSettings} from '../../app.settings';
+import { Blog } from '../../models/blog';
+import { BlogSearch } from '../../models/blog-search';
+import { Category } from '../../models/category';
+import { PageImages } from '../../models/page-images';
+import { Pagination } from '../../models/pagination';
+import { AuthService } from '../../services/auth.service';
+import { BasicDataService } from '../../services/basic-data.service';
+import { BlogService } from '../../services/blog.service';
+import { InitializeService } from '../../services/initialize.service';
+import { BlogItemComponent } from '../../shared/blog-item/blog-item.component';
+import { BlogsSearchResultsFiltersComponent } from '../../shared/blogs-search-results-filters/blogs-search-results-filters.component';
+import { BlogsSearchComponent } from '../../shared/blogs-search/blogs-search.component';
+import { HeaderCarouselComponent } from '../../shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../../shared/header-image/header-image.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 
 @Component({
@@ -45,48 +43,49 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 export class BlogsComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  public categoriesBS : BehaviorSubject<Category[]> = new BehaviorSubject([]);
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
+  public categoriesBS!: BehaviorSubject<Category[]>;
   public psConfig = {
     wheelPropagation: true
   };
   public allBlogs: Blog[] = [];
   public blogs: Blog[] = [];
   public slides: PageImages[] = [];
-  public totalBlogs: Observable<number>;
+  public totalBlogs!: Observable<number>;
   public viewType = 'list';
   public viewCol = 33.3;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public searchFields: BlogSearch = new BlogSearch({
     searchId: 1,
     categoriesBoxNested: [],
     categoriesBox: [],
     searchBox: '',
-    pageQuery: new Pagination(0, this.count, null, null)
+    pageQuery: new Pagination(0, this.count, 0, 0)
   });
-  public removedSearchField: string;
+  public removedSearchField!: string;
   public isLoading = false;
-  public pagination: Pagination = new Pagination(0, this.count, null, null);
-  public message: string;
-  public watcher: Subscription;
+  public pagination: Pagination = new Pagination(0, this.count, 0, 0);
+  public message!: string;
+  public watcher!: Subscription;
 
-  public settings: Settings;
+  public appSettings = inject(AppSettings);
+              private responsive= inject(BreakpointObserver);
+              public basicService= inject(BasicDataService);
+              private authService= inject(AuthService);
+              public mediaObserver= inject(MediaObserver);
+              public initializeService= inject(InitializeService);
+              private route= inject(ActivatedRoute);
+              private router= inject(Router);
+              private blogService= inject(BlogService);
+              private cdRef= inject(ChangeDetectorRef);
+  public settings= this.appSettings.createNew();
 
-  categoryId: number;
+  categoryId!: number;
   searchTerm = '';
-  constructor(public appSettings: AppSettings,
-              private responsive: BreakpointObserver,
-              public appService: AppService,
-              public basicService: BasicDataService,
-              private authService: AuthService,
-              public mediaObserver: MediaObserver,
-              public initializeService: InitializeService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private blogService: BlogService,
-              private cdRef: ChangeDetectorRef) {
-    this.settings = this.appSettings.settings;
+  constructor() {
+    
 
 
 }
@@ -154,23 +153,23 @@ export class BlogsComponent implements OnInit, AfterViewInit {
     }
     
   }
-  public getBlogs(cats, currentPage, search, categories, hashtagObject) {
+  public getBlogs(cats: any[], currentPage: number, search: string, categories: { replace: (arg0: string, arg1: string) => { (): any; new(): any; split: { (arg0: string): { (): any; new(): any; length: number; includes: { (arg0: any): any; new(): any; }; join: { (arg0: string): any; new(): any; }; }; new(): any; }; }; }, hashtagObject: string) {
    
     this.searchFields = new BlogSearch({
       searchId: 1,
-    categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+    categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
       if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
         return x;
       }
     }) : [],
-    categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+    categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
       if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
         return x;
       }
     }) : [],
     searchBox: search,
     hashtagObject: JSON.parse(this.basicService.decode(hashtagObject)),
-    pageQuery: new Pagination(currentPage - 1, this.count, null, null)
+    pageQuery: new Pagination(currentPage - 1, this.count, 0, 0)
     })
    
     this.blogService.getBlogs(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''} ${categories ? categories.replace('null', '').split('_').join(' ') : ''} ${hashtagObject !== 'null' ? JSON.parse(this.basicService.decode(hashtagObject)).searchField.replace('#', '') : ''}'}`).subscribe((x:any) => {
@@ -191,7 +190,7 @@ export class BlogsComponent implements OnInit, AfterViewInit {
     }
     this.searchFields = new BlogSearch({
       searchId: 1,
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
   }
 
@@ -203,20 +202,20 @@ export class BlogsComponent implements OnInit, AfterViewInit {
    
     window.scrollTo(0, 0);
   }
-  public searchChanged(event) {
+  public searchChanged(event: { value: { categoriesBoxNested: string | any[]; searchBox: { replace: (arg0: string, arg1: string) => { (): any; new(): any; length: number; }; }; hashtagObject: any; }; }) {
     this.resetPagination();
       this.searchFields = new BlogSearch({
         searchId: 1,
         categoriesBoxNested: event.value.categoriesBoxNested &&
            event.value.categoriesBoxNested.length > 0 ? event.value.categoriesBoxNested : [],
-        pageQuery: new Pagination(0, this.count, null, null),
+        pageQuery: new Pagination(0, this.count, 0, 0),
         searchBox: event.value.searchBox && event.value.searchBox.replace(' ', '').length > 0 ? event.value.searchBox.replace(' ', '') : '',
         hashtagObject: event.value.hashtagObject ? event.value.hashtagObject : ''
       });
       // this.store.dispatch(new ResetBlogsRequest());
       // this.store.dispatch(new SaveBlogSearchForRequest(this.searchFields));
       setTimeout(() => {
-        this.removedSearchField = null;
+        this.removedSearchField = '';
       });
       if (!this.settings.searchOnBtnClick) {
         this.blogs.length = 0;
@@ -226,34 +225,34 @@ export class BlogsComponent implements OnInit, AfterViewInit {
 
       }
   }
-  public removeSearchField(field) {
-    this.message = null;
+  public removeSearchField(field: string) {
+    this.message = '';
     this.removedSearchField = field;
   }
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.blogs.length = 0;
     this.resetPagination();
     // this.getBlogs();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     this.blogs.length = 0;
     // this.getBlogs();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.pagination.currentPage = e.pageIndex;
     this.searchFields = new BlogSearch({
       searchId: 1,
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     // this.store.dispatch(new SaveBlogSearchForRequest(this.searchFields));
     window.scrollTo(0, 0);

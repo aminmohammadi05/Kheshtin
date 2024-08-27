@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
   templateUrl: './lang.component.html',
   styleUrls: ['./lang.component.scss'],
   standalone: true,
-  imports: [MatMenuModule, MatIconModule, MatButtonModule]
+  imports: [CommonModule, MatMenuModule, MatIconModule, MatButtonModule]
 })
 export class LangComponent implements OnInit {
   public flags = [

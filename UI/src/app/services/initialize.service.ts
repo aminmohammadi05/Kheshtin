@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { PageImages } from '../models/page-images';
@@ -11,7 +11,9 @@ import { environment } from '../../environments/environment';
 })
 export class InitializeService {
   baseUrl = environment.apiUrl;
-constructor(private http: HttpClient, private authService: AuthService) { }
+  private http = inject(HttpClient);
+    private authService= inject(AuthService);
+constructor() { }
 getPageImages(pageNumber: number): Observable<PageImages[]> {
   return this.http.get<PageImages[]>(this.baseUrl + 'publicpage/GetPageImagesPublic/' + pageNumber);
 }

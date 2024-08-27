@@ -51,7 +51,7 @@ export class BlogItemHomeComponent implements OnInit, AfterViewInit, OnChanges {
               public authService: AuthService,
               public route: Router,
               public blogService: BlogService) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() { }

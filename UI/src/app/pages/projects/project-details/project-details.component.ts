@@ -51,7 +51,7 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy, AfterViewInit
               private route: ActivatedRoute,
               private authService: AuthService,
               private meta: Meta) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
 }
 
   ngOnInit() {

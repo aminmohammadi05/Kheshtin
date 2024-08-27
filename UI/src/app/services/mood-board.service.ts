@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
@@ -7,19 +6,22 @@ import { PaginatedResult } from '../models/pagination';
 import { map } from 'rxjs/operators';
 import { Statistics } from '../models/statistics';
 import { UserMoodBoard } from '../models/user-moodboard';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoodBoardService {
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  private http = inject(HttpClient);
+    private authService= inject(AuthService);
+  constructor() { }
   getAllMoodBoards(): Observable<UserMoodBoard[]> {
 
     return this.http.get<UserMoodBoard[]>(this.baseUrl + 'publicmoodboards/GetAllMoodBoardsPublic/');
   }
 
-  getAllMoodBoardsAuth(userId): Observable<UserMoodBoard[]> {
+  getAllMoodBoardsAuth(userId: any): Observable<UserMoodBoard[]> {
     return this.http.get<UserMoodBoard[]>(this.baseUrl + `users/${userId}/moodboards/GetAllMoodBoards/`);
   }
 
@@ -35,20 +37,20 @@ export class MoodBoardService {
     + '/' + true , { observe: 'response', params})
      .pipe(
        map(response => {
-         paginatedResult.result = response.body;
+         paginatedResult.result = response.body!;
          if (response.headers.get('Pagination') != null) {
-           paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+           paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
          }
          return paginatedResult;
        }));
   }
-  createMoodBoardAuth(userId, moodBoard: UserMoodBoard): Observable<UserMoodBoard> {
+  createMoodBoardAuth(userId: any, moodBoard: UserMoodBoard): Observable<UserMoodBoard> {
 
     return this.http.post<UserMoodBoard>(this.baseUrl + `users/${userId}/moodboards/CreateMoodBoard/`, moodBoard);
   }
 
   getMoodBoardsAuth(term = 'filter=', categories: string[]= [],
-               pageNumber = 0, pageSize = 3, userId): Observable<PaginatedResult<UserMoodBoard[]>> {
+               pageNumber = 0, pageSize = 3, userId: any): Observable<PaginatedResult<UserMoodBoard[]>> {
    const paginatedResult: PaginatedResult<UserMoodBoard[]> = new PaginatedResult<UserMoodBoard[]>();
    let params = new HttpParams();
    params = params.append('pageNumber', (pageNumber - 1).toString());
@@ -58,15 +60,15 @@ export class MoodBoardService {
      categories.join('_') + '/' + true, { observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
 }
 
-getUserMoodBoardsAuth(pageNumber = 0, pageSize = 3, userId): Observable<PaginatedResult<UserMoodBoard[]>> {
+getUserMoodBoardsAuth(pageNumber = 0, pageSize = 3, userId: string): Observable<PaginatedResult<UserMoodBoard[]>> {
     const paginatedResult: PaginatedResult<UserMoodBoard[]> = new PaginatedResult<UserMoodBoard[]>();
     let params = new HttpParams();
     params = params.append('pageNumber', (pageNumber - 1).toString());
@@ -74,22 +76,22 @@ getUserMoodBoardsAuth(pageNumber = 0, pageSize = 3, userId): Observable<Paginate
     return this.http.get<UserMoodBoard[]>(this.baseUrl
                                           + `users/${userId}/moodboards/GetUserMoodBoards/` + userId , { observe: 'response', params})
                                           .pipe(map(response => {
-                                                                    paginatedResult.result = response.body;
+                                                                    paginatedResult.result = response.body!;
                                                                     if (response.headers.get('Pagination') != null) {
-                                                                        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+                                                                        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
                                                                     }
                                                                     return paginatedResult;
                                                 }));
   }
-  getMoodBoardById(moodBoardId): Observable<UserMoodBoard> {
+  getMoodBoardById(moodBoardId: string): Observable<UserMoodBoard> {
     return this.http.get<UserMoodBoard>(this.baseUrl + 'publicmoodboards/GetMoodBoardPublic/' + moodBoardId);
   }
 
-  getMoodBoardByIdAuth(moodBoardId, userId): Observable<UserMoodBoard> {
+  getMoodBoardByIdAuth(moodBoardId: string, userId: any): Observable<UserMoodBoard> {
     return this.http.get<UserMoodBoard>(this.baseUrl + `users/${userId}/moodboards/GetMoodBoardByDisplayId/` + moodBoardId);
   }
 
-  getMoodBoardCategories(moodBoardId): Observable<UserMoodBoard> {
+  getMoodBoardCategories(moodBoardId: string): Observable<UserMoodBoard> {
     return this.http.get<UserMoodBoard>(this.baseUrl + 'publicmoodboards/GetMoodBoardCategoriesPublic/' + moodBoardId);
   }
 

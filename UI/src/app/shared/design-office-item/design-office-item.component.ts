@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
+
 import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { DesignOffice } from 'src/app/models/design-office';
+
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
-import { SafeHtmlPipe } from 'src/app/theme/pipes/safe-html.pipe';
+
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -32,8 +32,9 @@ export class DesignOfficeItemComponent implements OnInit, AfterViewInit, OnChang
   //   clickable: true
   // };
   public settings: Settings;
-  constructor(public appSettings: AppSettings, public appService: AppService) {
-    this.settings = this.appSettings.settings;
+  public appSettings = inject(AppSettings);
+  constructor() {
+    this.settings = this.appSettings.createNew();
   }
 
   ngOnInit() { }
@@ -47,8 +48,8 @@ export class DesignOfficeItemComponent implements OnInit, AfterViewInit, OnChang
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
       // if (!changes.viewColChanged.isFirstChange()) {
       //   if (this.designOffice..length > 1) {
       //      this.directiveRef.update();
@@ -68,7 +69,7 @@ export class DesignOfficeItemComponent implements OnInit, AfterViewInit, OnChang
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -80,7 +81,7 @@ export class DesignOfficeItemComponent implements OnInit, AfterViewInit, OnChang
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';

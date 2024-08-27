@@ -10,7 +10,7 @@ export class LoadMoreComponent implements OnInit {
   @Input() step = 1;
   public settings: Settings;
   constructor(public appSettings: AppSettings) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

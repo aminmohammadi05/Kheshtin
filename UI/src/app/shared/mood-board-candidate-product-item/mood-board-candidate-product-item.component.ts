@@ -36,7 +36,7 @@ export class MoodBoardCandidateProductItemComponent implements OnInit, AfterView
               public authService: AuthService,
               public route: Router,
               public productService: ProductsService) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

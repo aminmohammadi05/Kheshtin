@@ -1,4 +1,4 @@
-import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { mergeApplicationConfig, ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideServerRendering } from '@angular/platform-server';
 import { appConfig } from './app.config';
 import { AppSettings } from './app.settings';
@@ -12,6 +12,7 @@ import { AddCsrfHeaderInterceptorService } from './theme/utils/add-csrf-header-i
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/cache';
 import { Apollo, APOLLO_OPTIONS } from 'apollo-angular';
+import { provideClientHydration } from '@angular/platform-browser';
 
 const uri = 'https://orchard.kheshtin.ir/api/graphql';
 export function createApollo(httpLink: HttpLink) {
@@ -50,7 +51,9 @@ const serverConfig: ApplicationConfig = {
         useClass: AddCsrfHeaderInterceptorService,
         multi: true
     },
-    provideHttpClient(withInterceptorsFromDi()),   
+    provideExperimentalZonelessChangeDetection(),
+    provideHttpClient(withInterceptorsFromDi()),  
+    provideClientHydration(), 
     Apollo,
     provideServerRendering(),
     

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, HostListener, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, AfterViewInit, ChangeDetectorRef, Inject, inject } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { Settings, AppSettings } from '../app.settings';
-import { SlideInOutAnimation } from '../theme/components/animations/slide-in-out';
+// import { SlideInOutAnimation } from '../theme/components/animations/slide-in-out';
 import { BasicDataService } from '../services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -16,7 +16,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { FooterComponent } from '../theme/components/footer/footer.component';
 import { Toolbar1Component } from '../theme/components/toolbar1/toolbar1.component';
 import { VerticalMenuComponent } from '../theme/components/menu/vertical-menu/vertical-menu.component';
-import { AuthService } from '../services/auth.service';
+import { SlideInOutAnimation } from '../theme/components/animations/slide-in-out';
+import { HomeComponent } from './home/home.component';
+
 
 // import { GraphQLModule } from '../graphql.module';
 
@@ -27,7 +29,7 @@ import { AuthService } from '../services/auth.service';
   animations: [SlideInOutAnimation],
   standalone: true,
   imports : [CommonModule, MatIconModule, MatFormFieldModule, FlexLayoutModule, MatButtonModule, MatSidenavModule, FooterComponent, RouterModule, Toolbar1Component, VerticalMenuComponent],
-  providers:  [ AppSettings, BasicDataService ]
+ 
 })
 export class PagesComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav:any;  
@@ -40,22 +42,21 @@ export class PagesComponent implements OnInit, AfterViewInit {
   public headerFixed: boolean = false;
   public showBackToTop: boolean = false;
   public scrolledCount = 0;
-  public settings: Settings;
-  constructor(public appSettings:AppSettings, public cdRef: ChangeDetectorRef,
-     public router:Router,
-      public basicDataService: BasicDataService
-    ) {
-    this.settings = this.appSettings.settings;
-    
+ public settings!: Settings;
+  public appSettings = inject(AppSettings);
+  public cdRef = inject(ChangeDetectorRef);
+
+  public router = inject(Router);
+  public basicDataService = inject(BasicDataService);
+  constructor() {
+    this.settings = this.appSettings.createNew();
   }
 
   ngOnInit() {
     this.toolbarTypeOption = this.settings.toolbar;    
     this.headerTypeOption = this.settings.header; 
     this.searchPanelVariantOption = this.settings.searchPanelVariant;
-    this.basicDataService.getMenuList().subscribe(x => {
-     
-    });
+    
     this.cdRef.detectChanges();
   }
 
@@ -66,7 +67,7 @@ export class PagesComponent implements OnInit, AfterViewInit {
 
   public chooseToolbarType(){
     this.settings.toolbar = this.toolbarTypeOption;
-    window.scrollTo(0,0);
+    // window.scrollTo(0,0);
   }
 
   public chooseHeaderType(){

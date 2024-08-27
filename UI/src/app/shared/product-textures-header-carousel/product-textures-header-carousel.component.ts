@@ -24,7 +24,7 @@ export class ProductTexturesHeaderCarouselComponent implements OnInit, OnDestroy
               private cdRef: ChangeDetectorRef,
               public authService: AuthService,
               public route: Router) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

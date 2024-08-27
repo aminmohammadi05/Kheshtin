@@ -1,37 +1,32 @@
-import { Component, OnInit, ViewChild, HostListener, ViewChildren, QueryList, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ViewChildren, QueryList, OnDestroy, AfterViewInit, ChangeDetectorRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
-import { AppSettings, Settings } from 'src/app/app.settings';
-import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
-
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { Blog } from 'src/app/models/blog';
-import { BlogService } from 'src/app/services/blog.service';
-import { BlogKeyword } from 'src/app/models/blog-keyword';
-import * as uuid from 'uuid';
 import { DomSanitizer, Meta } from '@angular/platform-browser';
-import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getImagesWithAbsolutePath, myDomain} from 'src/app/services/helpers/urlHelper';
 import { Lightbox } from 'ngx-lightbox';
 import { orderBy } from 'lodash';
 import { NgxMasonryModule, NgxMasonryOptions } from 'ngx-masonry';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { SimilarBlogsCarouselComponent } from 'src/app/shared/similar-blogs-carousel/similar-blogs-carousel.component';
-import { BlogBagTypePipe } from 'src/app/theme/pipes/blog-bag.pipe';
 import { MatCardModule } from '@angular/material/card';
-import { OrderByPipe } from 'src/app/theme/pipes/order-by.pipe';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SimilarBlogsCarouselComponent } from '../../../shared/similar-blogs-carousel/similar-blogs-carousel.component';
+import { getImagesWithAbsolutePath, myDomain} from '../../../services/helpers/urlHelper';
+import { Settings } from 'http2';
+import { AppSettings } from '../../../app.settings';
+import { AuthService } from '../../../services/auth.service';
+import { BasicDataService } from '../../../services/basic-data.service';
+import { BlogService } from '../../../services/blog.service';
+import { BlogBagTypePipe } from '../../../theme/pipes/blog-bag.pipe';
+import { OrderByPipe } from '../../../theme/pipes/order-by.pipe';
+import { Album } from '../../../models/album';
 
 
 @Component({
@@ -52,42 +47,54 @@ export class BlogPostComponent implements OnInit, OnDestroy, AfterViewInit {
   // public config2: SwiperConfigInterface = {};
   private sub: any;
   public blog: any;
-  public settings: Settings;
 
-  public relatedBlogs: any[];
-  public featuredBlogs: any[];
+
+  public relatedBlogs!: any[];
+  public featuredBlogs!: any[];
   public agent: any;
-  public mortgageForm: FormGroup;
+  public mortgageForm!: FormGroup;
   public monthlyPayment: any;
-  public contactForm: FormGroup;
-  private _albums = [];
+  public contactForm!: FormGroup;
+  private _albums!: Album[];
   public myOptions: NgxMasonryOptions = {
     gutter: 10,
     // fitWidth: true
     columnWidth:2, 
     percentPosition: true
   };
-  constructor(public appSettings: AppSettings,
-              public blogService: BlogService,
-              public basicService: BasicDataService,
-              private activatedRoute: ActivatedRoute,
+
+  public appSettings = inject(AppSettings);
+
+  public basicService= inject(BasicDataService);
+  private authService= inject(AuthService);
+
+  private activatedRoute= inject(ActivatedRoute);
+  private router= inject(Router);
+  private blogService= inject(BlogService);
+  private cdRef= inject(ChangeDetectorRef);
+public settings= this.appSettings.createNew();
+ 
+             
+              
+            
           
-              private authService: AuthService,
-              private cdr: ChangeDetectorRef,
-              private router: Router,
-              public fb: FormBuilder,
-              private sanitized: DomSanitizer,
-              private _lightbox: Lightbox,
-              private meta: Meta) {
-    this.settings = this.appSettings.settings;
+             
+             
+             
+              public fb = inject(FormBuilder);
+              private sanitized = inject(DomSanitizer);
+              private _lightbox = inject(Lightbox);
+              private meta = inject(Meta);
+  constructor() {
+   
     
   }
 
   ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe(params => {
     
-      if (params.blogId) {
-        this.getBlogById(params.blogId);
+      if (params['blogId']) {
+        this.getBlogById(params['blogId']);
         // this.blog = this.store.pipe(select(getBlogById(params.blogId)));
         
       } else {
@@ -111,10 +118,10 @@ export class BlogPostComponent implements OnInit, OnDestroy, AfterViewInit {
     (window.innerWidth < 960) ? this.sidenavOpen = false : this.sidenavOpen = true;
   }
 
-  public getBlogById(id) {
+  public getBlogById(id: any) {
     this.blogService.getBlogById(id).subscribe(x => {
       this.blog = x.blog[0];
-      orderBy(this.blog?.bag.contentItems.filter(x => x.__typename === 'BlogImage'), ['priority'], ['asc']).map((x, i) => {
+      orderBy(this.blog?.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === 'BlogImage'), ['priority'], ['asc']).map((x, i) => {
         const src = "https://orchard.kheshtin.ir" +x.image.urls[0];
         const caption = x.userTitle;
         const thumb = "https://orchard.kheshtin.ir" +x.image.urls[0];
@@ -223,8 +230,8 @@ export class BlogPostComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   public getRelatedBlogs() {
-    this.blogService.getRelatedBlogs(`{ from:0, size: 10, fulltext:'${this.blog.hashtagList.contentItems.map(x => x.searchField).join(' ')}'}` ).subscribe(x => {
-      this.relatedBlogs = x.getRelatedBlogs.filter(y => y.contentItemId !== this.blog.contentItemId);
+    this.blogService.getRelatedBlogs(`{ from:0, size: 10, fulltext:'${this.blog.hashtagList.contentItems.map((x: { searchField: any; }) => x.searchField).join(' ')}'}` ).subscribe(x => {
+      this.relatedBlogs = x.getRelatedBlogs.filter((y: { contentItemId: any; }) => y.contentItemId !== this.blog.contentItemId);
     });
 
   }
@@ -240,7 +247,9 @@ export class BlogPostComponent implements OnInit, OnDestroy, AfterViewInit {
       this.router.navigate(['/blogs/1', {hashtag: tag.searchField ? this.basicService.encode(JSON.stringify(tag)) : null, categories: 'null', search: 'null'}]);
    
   }
-  getHtml(value) {
+  getHtml(value: any) {
     return getImagesWithAbsolutePath(value, myDomain);
   } 
 }
+
+

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import {map, tap, mapTo, catchError} from 'rxjs/operators';
@@ -26,7 +26,8 @@ export class AuthService {
   private loggedUser: string = '';
   baseUrl = environment.apiUrl + 'auth/';
   jwtHelper = new JwtHelperService();
-  constructor(private http: HttpClient) {
+  private http =  inject(HttpClient);
+  constructor() {
 
  }
 

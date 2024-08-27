@@ -1,25 +1,20 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
-
-import { AppService } from '../../app.service';
 import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
 import { map, tap, switchMap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import * as moment from 'jalali-moment'; // add this 1 of 4
+import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DesignOfficeVideo } from 'src/app/models/design-office-video';
-import { DesignOffice } from 'src/app/models/design-office';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { SafeHtmlPipe } from 'src/app/theme/pipes/safe-html.pipe';
+import { AuthService } from '../../services/auth.service';
+import { ProductsService } from '../../services/products.service';
+import { SafeHtmlPipe } from '../../theme/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-design-office-video-item',
@@ -34,7 +29,7 @@ export class DesignOfficeVideoItemComponent implements OnInit, AfterViewInit, On
   @Input() viewType = 'grid';
   @Input() viewColChanged = false;
   @Input() fullWidthPage = true;
-  liked: Observable<boolean>;
+  liked!: Observable<boolean>;
   public column = 4;
   // public address:string;
   // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
@@ -44,12 +39,12 @@ export class DesignOfficeVideoItemComponent implements OnInit, AfterViewInit, On
   //   clickable: true
   // };
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              public authService: AuthService,
-              public route: Router,
-              public productService: ProductsService) {
-    this.settings = this.appSettings.settings;
+  public appSettings= inject(AppSettings);
+              public authService= inject(AuthService);
+              public route= inject(Router);
+              public productService= inject(ProductsService);
+  constructor() {
+    this.settings = this.appSettings.createNew();
   }
 
   ngOnInit() { }
@@ -63,9 +58,9 @@ export class DesignOfficeVideoItemComponent implements OnInit, AfterViewInit, On
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         if (this.designOfficeVideo.videoUrl) {
           //  this.directiveRef.update();
         }
@@ -84,7 +79,7 @@ export class DesignOfficeVideoItemComponent implements OnInit, AfterViewInit, On
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -96,7 +91,7 @@ export class DesignOfficeVideoItemComponent implements OnInit, AfterViewInit, On
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -137,7 +132,7 @@ export class DesignOfficeVideoItemComponent implements OnInit, AfterViewInit, On
     // };
   }
 
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     return moment(date).locale('fa').format('YYYY/MM/DD');
   }
 

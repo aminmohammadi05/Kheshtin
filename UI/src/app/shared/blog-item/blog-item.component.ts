@@ -1,25 +1,19 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
-import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
-import { map, tap, switchMap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import * as moment from 'jalali-moment'; // add this 1 of 4
+import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Blog } from 'src/app/models/blog';
-import { BlogService } from 'src/app/services/blog.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { BlogBagTypePipe } from 'src/app/theme/pipes/blog-bag.pipe';
+import { AuthService } from '../../services/auth.service';
+import { BlogService } from '../../services/blog.service';
+import { BlogBagTypePipe } from '../../theme/pipes/blog-bag.pipe';
 @Component({
   selector: 'app-blog-item',
   templateUrl: './blog-item.component.html',
@@ -33,7 +27,7 @@ export class BlogItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() viewType = 'grid';
   @Input() viewColChanged = false;
   @Input() fullWidthPage = true;
-  liked: Observable<boolean>;
+  liked!: Observable<boolean>;
   public column = 4;
   // public address:string;
   // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
@@ -43,12 +37,12 @@ export class BlogItemComponent implements OnInit, AfterViewInit, OnChanges {
   //   clickable: true
   // };
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              public authService: AuthService,
-              public route: Router,
-              public blogService: BlogService) {
-    this.settings = this.appSettings.settings;
+  public appSettings = inject(AppSettings);
+              public authService = inject(AuthService);
+              public route= inject(Router);
+              public blogService = inject(BlogService);
+  constructor() {
+    this.settings = this.appSettings.createNew();
   }
 
   ngOnInit() { }
@@ -62,9 +56,9 @@ export class BlogItemComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         // if (this.blog..length > 1) {
         //    this.directiveRef.update();
         // }
@@ -83,7 +77,7 @@ export class BlogItemComponent implements OnInit, AfterViewInit, OnChanges {
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -95,7 +89,7 @@ export class BlogItemComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -139,7 +133,7 @@ export class BlogItemComponent implements OnInit, AfterViewInit, OnChanges {
 
 
 
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     return moment(date).locale('fa').format('YYYY/MM/DD');
   }
 

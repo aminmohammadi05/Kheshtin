@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ProjectComment } from '../models/project-comment';
@@ -14,10 +14,9 @@ export class SignalRService {
 baseUrl = environment.apiUrl;
 public projectsComment: ProjectComment[] = [];
 public projectsAdminReplies: ProjectAdminReply[] = [];
-
+private http = inject(HttpClient);
 constructor(
-    // private authService: AuthService, 
-    private http: HttpClient) {}
+    ) {}
 
 private commentsDataSource = new BehaviorSubject(this.projectsComment);
 commentsCurrentData = this.commentsDataSource.asObservable();

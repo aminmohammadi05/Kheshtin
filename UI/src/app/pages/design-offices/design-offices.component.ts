@@ -1,44 +1,38 @@
-import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
 import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
 import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
-import { ProductsDataSource } from 'src/app/services/products-data-source';
-import { CategoryService } from 'src/app/services/category.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { debounceTime, distinctUntilChanged, tap, skip, switchMap, map } from 'rxjs/operators';
-import { Pagination } from 'src/app/models/pagination';
-import { DesignOffice } from 'src/app/models/design-office';
-import { DesignOfficeService } from 'src/app/services/design-office.service';
-import { Category } from 'src/app/models/category';
-import { Settings, AppSettings } from 'src/app/app.settings';
-import { AppService } from 'src/app/app.service';
-import { Property } from 'src/app/app.models';
-import { AuthService } from 'src/app/services/auth.service';
-import { PageImages } from 'src/app/models/page-images';
-import { InitializeService } from 'src/app/services/initialize.service';
-import { DesignOfficeSearch } from 'src/app/models/design-office-search';
-import { DesignOfficeDataSource } from 'src/app/services/design-office-data-source';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
-import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
-import { DesignOfficesSearchComponent } from 'src/app/shared/design-offices-search/design-offices-search.component';
-import { DesignOfficesSearchResultsFiltersComponent } from 'src/app/shared/design-offices-search-results-filters/design-offices-search-results-filters.component';
-import { DesignOfficeItemComponent } from 'src/app/shared/design-office-item/design-office-item.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { Settings } from 'http2';
+import { AppSettings } from '../../app.settings';
+import { DesignOffice } from '../../models/design-office';
+import { DesignOfficeSearch } from '../../models/design-office-search';
+import { PageImages } from '../../models/page-images';
+import { Pagination } from '../../models/pagination';
+import { AuthService } from '../../services/auth.service';
+import { BasicDataService } from '../../services/basic-data.service';
+import { DesignOfficeService } from '../../services/design-office.service';
+import { InitializeService } from '../../services/initialize.service';
+import { ProductsService } from '../../services/products.service';
+import { DesignOfficeItemComponent } from '../../shared/design-office-item/design-office-item.component';
+import { DesignOfficesSearchResultsFiltersComponent } from '../../shared/design-offices-search-results-filters/design-offices-search-results-filters.component';
+import { DesignOfficesSearchComponent } from '../../shared/design-offices-search/design-offices-search.component';
+import { HeaderCarouselComponent } from '../../shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../../shared/header-image/header-image.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-design-offices',
@@ -50,48 +44,54 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 export class DesignOfficesComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
   public psConfig = {
     wheelPropagation: true
   };
   public allDesignOffices: DesignOffice[] = [];
   public designOffices: DesignOffice[] = [];
   public slides: PageImages[] = [];
-  public totalDesignOffices: Observable<number>;
+  public totalDesignOffices!: Observable<number>;
   public viewType = 'grid';
   public viewCol = 25;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public searchFields: DesignOfficeSearch = new DesignOfficeSearch({
     searchId: 1,
     categories: [],
     designers: [],
-    pageQuery: new Pagination(0, this.count, null, null),
+    pageQuery: new Pagination(0, this.count, 0, 0),
     searchBox: ''
   });
   
-  public removedSearchField: string;
+  public removedSearchField!: string;
   public isLoading = false;
-  public pagination: Pagination = new Pagination(0, this.count, null, null);
-  public message: string;
-  public watcher: Subscription;
+  public pagination: Pagination = new Pagination(0, this.count, 0, 0);
+  public message!: string;
+  public watcher!: Subscription;
 
-  public settings: Settings;
 
-  categoryId: number;
+
+
+
+
+
+  public appSettings = inject(AppSettings);
+              public basicService= inject(BasicDataService);
+              public designOfficeService= inject(DesignOfficeService);
+              private authService= inject(AuthService);
+              public mediaObserver= inject(MediaObserver);
+              public initializeService= inject(InitializeService);
+              private route= inject(ActivatedRoute);
+              private router= inject(Router);
+              private cdRef= inject(ChangeDetectorRef);
+  public settings= this.appSettings.createNew();
+
+  categoryId!: number;
   searchTerm = 'filter=';
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private authService: AuthService,
-              public mediaObserver: MediaObserver,
-              public initializeService: InitializeService,
-              private route: ActivatedRoute,
-              public basicService: BasicDataService,
-              private router: Router,
-              private productService: ProductsService,
-              private designOfficeService: DesignOfficeService,
-              private cdRef: ChangeDetectorRef) {
-    this.settings = this.appSettings.settings;
+  constructor() {
+  
 
 
 }
@@ -136,11 +136,11 @@ export class DesignOfficesComponent implements OnInit, OnDestroy, AfterViewInit 
       });
     }
   }
-  public getDesignOffices(cats, currentPage, search, hashtagObject) {
+  public getDesignOffices(cats: any, currentPage: number, search: string, hashtagObject: string) {
     this.searchFields = new DesignOfficeSearch({
       searchId: 1,  
       hashtagObject: JSON.parse(this.basicService.decode(hashtagObject)),  
-    pageQuery: new Pagination(currentPage - 1, this.count, null, null)
+    pageQuery: new Pagination(currentPage - 1, this.count, 0, 0)
     })
     this.designOfficeService.getDesignOffices(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''} ${hashtagObject !== 'null' ? JSON.parse(this.basicService.decode(hashtagObject)).searchField.replace('#', '') : ''}'}`).subscribe((x:any) => {
       this.searchFields.pageQuery.totalItems = x[0].count
@@ -159,7 +159,7 @@ export class DesignOfficesComponent implements OnInit, OnDestroy, AfterViewInit 
       this.paginator.pageIndex = 0;
       this.searchFields = new DesignOfficeSearch({
         searchId: 1,
-        pageQuery: new Pagination(0, this.count, null, null)
+        pageQuery: new Pagination(0, this.count, 0, 0)
       });
     }
   }
@@ -173,18 +173,18 @@ export class DesignOfficesComponent implements OnInit, OnDestroy, AfterViewInit 
    
     window.scrollTo(0, 0);
   }
-  public searchChanged(event) {
+  public searchChanged(event: { value: { hashtagObject: any; }; }) {
     this.resetPagination();
       this.searchFields = new DesignOfficeSearch({
         searchId: 1,
         hashtagObject: event.value.hashtagObject ? event.value.hashtagObject : '',
-        pageQuery: new Pagination(0, this.count, null, null),
+        pageQuery: new Pagination(0, this.count, 0, 0),
         searchBox: ''
       });
       // this.store.dispatch(new ResetBlogsRequest());
       // this.store.dispatch(new SaveBlogSearchForRequest(this.searchFields));
       setTimeout(() => {
-        this.removedSearchField = null;
+        this.removedSearchField = '';
       });
       if (!this.settings.searchOnBtnClick) {
         this.designOffices.length = 0;
@@ -195,34 +195,34 @@ export class DesignOfficesComponent implements OnInit, OnDestroy, AfterViewInit 
       }
 
   }
-  public removeSearchField(field) {
-    this.message = null;
+  public removeSearchField(field: string) {
+    this.message = '';
     this.removedSearchField = field;
   }
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.designOffices.length = 0;
     this.resetPagination();
     // this.getDesignOffices();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     this.designOffices.length = 0;
     // this.getDesignOffices();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.pagination.currentPage = e.pageIndex;
     this.searchFields = new DesignOfficeSearch({
       searchId: 1,
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     // this.store.dispatch(new SaveDesignOfficeSearchForRequest(this.searchFields));
     window.scrollTo(0, 0);

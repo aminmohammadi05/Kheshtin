@@ -1,27 +1,15 @@
 import { Component, OnInit, OnDestroy, ViewChild,
-  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, 
+  inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
-import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from 'src/app/app.service';
-
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { DesignOfficeService } from 'src/app/services/design-office.service';
-import { Observable, Subscription } from 'rxjs';
+import { MonoTypeOperatorFunction, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { Pagination } from 'src/app/models/pagination';
 import { MatPaginator } from '@angular/material/paginator';
-import { OfficeProjectService } from 'src/app/services/office-project.service';
-import { DesignOfficeProjectSearch } from 'src/app/models/design-office-project-search';
 import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
-import { getImagesWithAbsolutePath, myDomain} from 'src/app/services/helpers/urlHelper';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,10 +19,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { RatingComponent } from 'src/app/shared/rating/rating.component';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { DesignOfficeProjectsComponent } from '../design-office-projects/design-office-projects.component';
 import { DesignOfficeVideosComponent } from '../design-office-videos/design-office-videos.component';
+
+import { AppSettings, Settings } from '../../../app.settings';
+import { DesignOfficeProjectSearch } from '../../../models/design-office-project-search';
+import { Pagination } from '../../../models/pagination';
+import { Product } from '../../../models/product';
+import { AuthService } from '../../../services/auth.service';
+import { BasicDataService } from '../../../services/basic-data.service';
+import { DesignOfficeService } from '../../../services/design-office.service';
+import { getImagesWithAbsolutePath, myDomain } from '../../../services/helpers/urlHelper';
+import { OfficeProjectService } from '../../../services/office-project.service';
+import { ProductsService } from '../../../services/products.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { RatingComponent } from '../../../shared/rating/rating.component';
+import { emailValidator } from '../../../theme/utils/app-validators';
 
 @Component({
   selector: 'app-design-office-detail',
@@ -45,8 +45,10 @@ import { DesignOfficeVideosComponent } from '../design-office-videos/design-offi
 })
 export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   @ViewChild('sidenav', { static: true }) sidenav: any;
-  @ViewChild('tabGroup', { static: true }) tabGroup: MatTabGroup;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('tabGroup', { static: true })
+  tabGroup!: MatTabGroup;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public psConfig = {
     wheelPropagation: true
@@ -57,61 +59,58 @@ export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterView
   private sub: any;
   public designOffice: any; 
   public designOfficeProjects: any[] = [];
-  public totalProducts: Observable<number>;
+  public totalProducts!: Observable<number>;
   public viewType = 'grid';
   public viewCol = 33.3;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public selectedTab = 0;
 
   public searchFields: DesignOfficeProjectSearch = new DesignOfficeProjectSearch({
     searchId: 1,
     designerId: null,
     categories: [],
-    pageQuery: new Pagination(0, 12, null, null),
+    pageQuery: new Pagination(0, 12, 0, 0),
     searchBox: 'filter='
   });
-  public removedSearchField: string;
+  public removedSearchField!: string;
   public isLoading = false;
-  public pagination: Pagination = new Pagination(0, this.count, null, null);
-  public message: string;
-  public messageCollection: string;
-  public messageCatalog: string;
-  public messageVideo: string;
-  public messageReseller: string;
-  public watcher: Subscription;
+  public pagination: Pagination = new Pagination(0, this.count, 0, 0);
+  public message!: string;
+  public messageCollection!: string;
+  public messageCatalog!: string;
+  public messageVideo!: string;
+  public messageReseller!: string;
+  public watcher!: Subscription;
 
   public settings: Settings;
-  public relatedProducts: Product[];
-  public featuredProducts: Product[];
-  public contactForm: FormGroup;
-  designOfficeId: string;
-  designOfficeImage: string;
+  public relatedProducts!: Product[];
+  public featuredProducts!: Product[];
+  public contactForm!: FormGroup;
+  designOfficeId!: string;
+  designOfficeImage!: string;
 
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private route: ActivatedRoute,
-              public basicService: BasicDataService,
-              private router: Router,
-              
-              public fb: FormBuilder,
-             
-              private productService: ProductsService,
-              private projectService: OfficeProjectService,
-              private designOfficeService: DesignOfficeService,
-              private cdRef: ChangeDetectorRef,
-              private authService: AuthService,
-              private meta: Meta) {
-    this.settings = this.appSettings.settings;
+  public appSettings = inject(AppSettings);
+              public basicService= inject(BasicDataService);
+              public designOfficeService= inject(DesignOfficeService);
+              private authService= inject(AuthService);
+              public fb= inject(FormBuilder);
+              public meta= inject(Meta);
+              private route= inject(ActivatedRoute);
+              private router= inject(Router);
+              private cdRef= inject(ChangeDetectorRef);
+
+  constructor() {
+    this.settings = this.appSettings.createNew();
 }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
      
-      if (params.designOfficeId) {
-        this.designOfficeId = params.designOfficeId;
-        this.getDesignOfficeById(this.designOfficeId, params.tab);
-        this.tabGroup.selectedIndex = +params.tab;
+      if (params['designOfficeId']) {
+        this.designOfficeId = params['designOfficeId'];
+        this.getDesignOfficeById(this.designOfficeId, params['tab']);
+        this.tabGroup.selectedIndex = +params['tab'];
        
         
       } else {
@@ -143,7 +142,7 @@ export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterView
     (window.innerWidth < 960) ? this.sidenavOpen = false : this.sidenavOpen = true;
   }
 
-  public getDesignOfficeById(id, tab) {
+  public getDesignOfficeById(id: string, tab: any) {
     
     
     this.designOfficeService.getDesignOfficeById(id).subscribe((x: any) => {
@@ -235,7 +234,7 @@ export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterView
 
 
 
-  public getProjectsByDesignOfficeId(id) {
+  public getProjectsByDesignOfficeId(id: any) {
    
   }
 
@@ -245,7 +244,7 @@ export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterView
     }
     this.searchFields = new DesignOfficeProjectSearch({
       searchId: 1,
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
   }
 
@@ -258,10 +257,10 @@ export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterView
     // this.getDesignOfficeProjects();
     window.scrollTo(0, 0);
   }
-  public searchChanged(event) {
+  public searchChanged(event: { valueChanges: { subscribe: (arg0: () => void) => void; pipe: (arg0: MonoTypeOperatorFunction<unknown>, arg1: MonoTypeOperatorFunction<unknown>) => { (): any; new(): any; subscribe: { (arg0: () => void): void; new(): any; }; }; }; value: { categories: string | any[]; searchBox: string | any[]; }; }) {
     event.valueChanges.subscribe(() => {
       this.resetPagination();
-      this.designOffice.subscribe(d => {
+      this.designOffice.subscribe((d: { officeId: any; }) => {
         if (d) {
           this.searchFields = new DesignOfficeProjectSearch({
             searchId: 1,
@@ -272,7 +271,7 @@ export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterView
             event.value.searchBox.length > 0 ? event.value.searchBox : '',
           });
           setTimeout(() => {
-            this.removedSearchField = null;
+            this.removedSearchField = '';
           });
           if (!this.settings.searchOnBtnClick) {
             this.designOfficeProjects.length = 0;
@@ -287,33 +286,33 @@ export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterView
       }
     });
   }
-  public removeSearchField(field) {
-    this.message = null;
+  public removeSearchField(field: string) {
+    this.message = '';
     this.removedSearchField = field;
   }
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.designOfficeProjects.length = 0;
     this.resetPagination();
     // this.getDesignOfficeProjects();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     this.designOfficeProjects.length = 0;
     // this.getDesignOfficeProjects();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.searchFields = new DesignOfficeProjectSearch({
       searchId: 1,
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     // this.store.dispatch(new SaveDesignOfficeProjectSearchForRequest(this.searchFields));
     window.scrollTo(0, 0);
@@ -330,10 +329,10 @@ export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterView
     this.router.navigate(['/designoffices/1', {hashtag: tag.searchField ? this.basicService.encode(JSON.stringify(tag)) : null, categories: 'null', search: 'null'}]);
  
 }
-getHtml(value) {
+getHtml(value: string) {
   return getImagesWithAbsolutePath(value, myDomain);
 } 
-  public openTab(event) {
+  public openTab(event: number) {
    
     this.tabGroup.selectedIndex = event;
     this.router.navigate(['/designoffices', this.designOfficeId, this.tabGroup.selectedIndex, 1, this.designOffice.displayText]);

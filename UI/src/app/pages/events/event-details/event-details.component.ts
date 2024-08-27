@@ -2,31 +2,20 @@ import { Component,
   OnInit,
   ViewChild,
   ViewChildren,
-  QueryList, OnDestroy, AfterViewInit, HostListener, ChangeDetectorRef, Input, Inject, ElementRef, Renderer2 } from '@angular/core';
-import { Event } from 'src/app/models/event';
+  QueryList, OnDestroy, AfterViewInit, HostListener, ChangeDetectorRef, Input, Inject, ElementRef, Renderer2, 
+  inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
 import { Meta } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
-import { User } from 'src/app/models/user';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { AppSettings, Settings } from 'src/app/app.settings';
 import {  } from 'ngx-scrollbar';
 import { tap, map, mergeMap } from 'rxjs/operators';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { Product } from 'src/app/models/product';
-import { Event as LocalEvent } from 'src/app/models/event';
-import * as moment from 'jalali-moment'; // add this 1 of 4
-import { EventImage } from 'src/app/models/event-image';
-import * as uuid from 'uuid';
+import moment from 'jalali-moment'; // add this 1 of 4
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EventService } from 'src/app/services/event.service';
-import { getImagesWithAbsolutePath, myDomain} from 'src/app/services/helpers/urlHelper';
 import { NgxMasonryModule, NgxMasonryOptions } from 'ngx-masonry';
 import { Lightbox } from 'ngx-lightbox';
 import { log } from 'console';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,7 +25,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
-import { EventDetailTimelineBoxComponent } from 'src/app/shared/event-detail-timeline-box/event-detail-timeline-box.component';
+import { AppSettings, Settings } from '../../../app.settings';
+import { EventImage } from '../../../models/event-image';
+import { Product } from '../../../models/product';
+import { AuthService } from '../../../services/auth.service';
+import { BasicDataService } from '../../../services/basic-data.service';
+import { EventService } from '../../../services/event.service';
+import { getImagesWithAbsolutePath, myDomain } from '../../../services/helpers/urlHelper';
+import { EventDetailTimelineBoxComponent } from '../../../shared/event-detail-timeline-box/event-detail-timeline-box.component';
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
@@ -47,9 +43,12 @@ import { EventDetailTimelineBoxComponent } from 'src/app/shared/event-detail-tim
 export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  {
   viewType: string = 'grid';
   viewCol: number = 25;
-  @ViewChild('sidenav', { static: true }) sidenav: ElementRef;
-  @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
-  @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
+  @ViewChild('sidenav', { static: true })
+  sidenav!: ElementRef;
+  @ViewChild('stickyCard', { static: true })
+  stickyCard!: ElementRef;
+  @ViewChild('delimiter', { static: true })
+  delimiter!: ElementRef;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public psConfig = {
     wheelPropagation: true
@@ -61,46 +60,47 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  
   public event: any;
   public settings: Settings;
   public embedVideo: any;
-  public relatedEvents: any[];
-  public featuredEvents: any[];
-  public mortgageForm: FormGroup;
+  public relatedEvents!: any[];
+  public featuredEvents!: any[];
+  public mortgageForm!: FormGroup;
   public monthlyPayment: any;
-  public contactForm: FormGroup;
-  public productIdList: Observable<string[]>;
-  public productList: Observable<Product[]>;
-  public recentEvents: Observable<any[]>;
+  public contactForm!: FormGroup;
+  public productIdList!: Observable<string[]>;
+  public productList!: Observable<Product[]>;
+  public recentEvents!: Observable<any[]>;
 
   public myOptions: NgxMasonryOptions = {
     gutter: 10,
     fitWidth: true
   };
   private _albums = [];
-  eventId: string;
-  eventImage: string;
+  eventId!: string;
+  eventImage!: string;
   days = [];
   events = [];
   options = {format: 'days'};
-  constructor(public appSettings: AppSettings,
-              private activatedRoute: ActivatedRoute,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private authService: AuthService,
-              private renderer: Renderer2,
-              private cdr: ChangeDetectorRef,
-              public infoReq: MatDialog,
-              public eventService: EventService,
-              public basicService: BasicDataService,
-              private _lightbox: Lightbox,
-              private meta: Meta) {
-    this.settings = this.appSettings.settings;
+
+  public appSettings = inject(AppSettings);
+  private renderer= inject(Renderer2);
+  public basicService= inject(BasicDataService);
+  private authService= inject(AuthService);
+  public infoReq= inject(MatDialog);
+  public eventService= inject(EventService);
+  private activatedRoute= inject(ActivatedRoute);
+  private router= inject(Router);
+  private _lightbox= inject(Lightbox);
+  private cdr= inject(ChangeDetectorRef);
+  private fb= inject(FormBuilder);
+  private meta= inject(Meta);
+  constructor() {
+    this.settings = this.appSettings.createNew();
 }
 
   ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe(params => {
     
-      if (params.eventId) {
-        this.eventId = params.eventId;
+      if (params['eventId']) {
+        this.eventId = params['eventId'];
         this.getEvent(this.eventId);
       
         // this.getRelatedEvents();
@@ -134,7 +134,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  
   //     }
   //   }
   // }
-  public getEvent(id) {
+  public getEvent(id: string) {
     this.eventService.getEventById(id)
     .subscribe((e: any) => {
       if(!e.event[0]) {
@@ -142,7 +142,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  
       }
       this.event = e.event[0];
       
-      e.event[0].bag.contentItems.map((et, ind) => {
+      e.event[0].bag.contentItems.map((et: { __typename: string; stepDate: any; stepEndDate: any; userTitle: any; }, ind: number) => {
         
         if(et.__typename === 'EventStep') {
           var eventPart = {
@@ -155,7 +155,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  
             end: et.stepEndDate, 
             title: et.userTitle
           };      
-          this.events.push(eventPart);
+          // this.events.push(eventPart);
         }
        
       })
@@ -246,9 +246,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  
     });
 
   }
-  removeDuplicates(arr) {
-    return arr.filter((item,
-        index) => arr.indexOf(item) === index);
+  removeDuplicates(arr: any[]) {
+    return arr.filter((item: any,
+        index: any) => arr.indexOf(item) === index);
 }
 
   ngAfterViewInit() {
@@ -303,7 +303,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  
     //   }
     // });
   }
-  public getCategoriesNames(event) {
+  public getCategoriesNames(event: { eventType: { contentItems: { displayText: any; }[]; }; }) {
     
     return event?.eventType.contentItems[0].displayText;
 
@@ -369,7 +369,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  
     // });
   }
 
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     if (date) {
       const cdate = moment(date).locale('fa').format('YYYY/MM/DD');
       return of(cdate);
@@ -398,22 +398,22 @@ public getImages(EventImages: EventImage[]): Observable<EventImage[]> {
   }
 
 }
-public getEventImages(event){
-  return event?.bag.contentItems.filter(x => x.__typename === "EventImage");
+public getEventImages(event: { bag: { contentItems: any[]; }; }){
+  return event?.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === "EventImage");
 }
-public getEventSteps(event){
-  return event?.bag.contentItems.filter(x => x.__typename === "EventStep");
+public getEventSteps(event: { bag: { contentItems: any[]; }; }){
+  return event?.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === "EventStep");
 }
 
-public getSelectedImage(index): EventImage {
-  let image = null;
-  this.event.subscribe(x => {
+public getSelectedImage(index: string | number): EventImage {
+  let image = new EventImage();
+  this.event.subscribe((x: { eventImageList: { [x: string]: any; }; }) => {
 
     image = x ? x.eventImageList[index] : null;
   });
   return image;
 }
-getHtml(value) {
+getHtml(value: string) {
   return getImagesWithAbsolutePath(value, myDomain);
 }
 tagClick(tag: any) {

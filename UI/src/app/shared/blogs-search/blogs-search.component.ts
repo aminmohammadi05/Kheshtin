@@ -1,17 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service';
-import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { CategoriesComponent, CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { BlogSearch } from 'src/app/models/blog-search';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { BlogSearch } from '../../models/blog-search';
+import { Brand } from '../../models/brand';
+import { Category } from '../../models/category';
+import { CategoriesComponent } from '../../pages/categories/categories.component';
 
 @Component({
   selector: 'app-blogs-search',
@@ -24,10 +23,12 @@ export class BlogsSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
+  @Input()
+  removedSearchField!: string;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
-  @Input() categories: BehaviorSubject<Category[]> = new BehaviorSubject([]);
+  @Input()
+  categories!: BehaviorSubject<Category[]>;
   public searchInput: FormControl = new FormControl('');
   public selectedCategories: Category[] = [];
   public searchFields: BlogSearch = new BlogSearch({
@@ -36,9 +37,9 @@ export class BlogsSearchComponent implements OnInit, AfterViewInit {
     searchBox: ''
   });
   public showMore = false;
-  public verticalForm: FormGroup;
+  public verticalForm!: FormGroup;
   
-  public brands: Observable<Brand[]>;
+  public brands!: Observable<Brand[]>;
   public propertyTypes = [];
   public allFileTypes: any[] = [
     {label: 'تصاویر', id: 1},
@@ -52,11 +53,11 @@ export class BlogsSearchComponent implements OnInit, AfterViewInit {
   public neighborhoods = [];
   public streets = [];
   public features = [];
-
-  constructor(public appService: AppService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router) {
+  public fb= inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  constructor(
+              ) {
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                }
 
@@ -75,26 +76,26 @@ export class BlogsSearchComponent implements OnInit, AfterViewInit {
 
   public buildFeatures() {
     const arr = this.features.map(feature => {
-      return this.fb.group({
-        id: feature.id,
-        name: feature.name,
-        selected: feature.selected
-      });
+      // return this.fb.group({
+      //   id: feature.id,
+      //   name: feature.name,
+      //   selected: feature.selected
+      // });
     });
     return this.fb.array(arr);
   }
 
-  getCategories(event) {
+  getCategories(event: any[]) {
     const cats: Category[] = []
-    event.map(x => {
+    event.map((x: Category) => {
       cats.push(x);      
-      x.childrenCategories.map(x1 => {
+      x.childrenCategories.map((x1: Category) => {
         if(x1.childrenCategories && x1.childrenCategories.length > 0) {
           cats.push(x1);
-          x1.childrenCategories.map(x2 => {
+          x1.childrenCategories.map((x2: Category) => {
             if(x2.childrenCategories && x2.childrenCategories.length > 0) {
               cats.push(x2); 
-              x2.childrenCategories.map(x3 => {
+              x2.childrenCategories.map((x3: Category) => {
                 cats.push(x3);
               })             
             }else{
@@ -110,13 +111,13 @@ export class BlogsSearchComponent implements OnInit, AfterViewInit {
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
+       // this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
       } else if (this.removedSearchField.indexOf(',') > -1) {
         const arr = this.removedSearchField.split(',');
         this.selectedCategories = this.selectedCategories.filter(x => !x.categoryId.toString().startsWith(arr[1]));
         this.searchFields.categoriesBoxNested = this.selectedCategories;
         // this.store.dispatch(new SaveBlogSearchForRequest(this.searchFields));
-        this.verticalForm.get('categoriesBoxNested').setValue(this.selectedCategories);
+       // this.verticalForm.get('categoriesBoxNested').setValue(this.selectedCategories);
         this.SearchChange.emit(this.verticalForm);
       }
       else if(this.removedSearchField === "hashtagObject") {
@@ -173,12 +174,12 @@ export class BlogsSearchComponent implements OnInit, AfterViewInit {
 
   }
 
-  public categoryChanged(event) {
+  public categoryChanged(event: any) {
     if (event) {
       this.selectedCategories = [...event];
       this.searchFields.categoriesBoxNested = this.selectedCategories;
       // this.store.dispatch(new SaveBlogSearchForRequest(this.searchFields));
-      this.verticalForm.get('categoriesBoxNested').setValue(this.selectedCategories);
+      this.verticalForm.get('categoriesBoxNested')!.setValue(this.selectedCategories);
       this.SearchChange.emit(this.verticalForm);
     }
   }

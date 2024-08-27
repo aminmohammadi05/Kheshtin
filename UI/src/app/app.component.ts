@@ -7,6 +7,7 @@ import { NgProgressRef } from 'ngx-progressbar';
 import { PagesComponent } from './pages/pages.component';
 
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
               public router: Router,
               public authService: AuthService,
               private transferState: TransferState, @Inject(PLATFORM_ID) private platformId: Object) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
    
   }
 
@@ -33,14 +34,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // const payload = new UserLogin('admin', '1234567a');
     // this.store.dispatch(new LogIn(payload));
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-        });
-      }
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     setTimeout(() => {
+    //       window.scrollTo(0, 0);
+    //     });
+    //   }
       
-    });
+    // });
   }
 
 }

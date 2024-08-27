@@ -88,7 +88,7 @@ export class CatalogsComponent implements OnInit, OnDestroy, AfterViewInit  {
               private cdRef: ChangeDetectorRef,
               private authService: AuthService,
               private meta: Meta) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
 }
 
   ngOnInit() {

@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, ViewEncapsulation, OnDestroy, inject } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import moment from 'jalali-moment'; 
 
 import { Router } from '@angular/router';
-import { SlideInOutAnimation } from '../animations/slide-in-out';
+
 
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -50,6 +50,17 @@ export class Toolbar1Component implements OnInit {
   @ViewChild('searchIcon')
   filterIcon!: ElementRef;
   @ViewChild('searchMenu')
+
+  public productService = inject(ProductsService);
+  public signalRService = inject(SignalRService);
+  public appSettings= inject(AppSettings);
+  public authService= inject(AuthService);
+  public searchDialog= inject(MatDialog);
+  public mediaObserver= inject(MediaObserver);
+  private _router= inject(Router);
+  private http= inject(HttpClient);
+
+
   userMenu!: ElementRef;
   hide = false;
   userFavorites!: Observable<UserFavorites[]>;
@@ -76,15 +87,9 @@ export class Toolbar1Component implements OnInit {
   
   
   isMobile = false;
+
   
-  constructor(public productService: ProductsService,
-              public signalRService: SignalRService,
-              public appSettings: AppSettings,
-              public authService: AuthService,
-              public searchDialog: MatDialog,
-              public mediaObserver: MediaObserver,
-              private _router: Router,
-              private http: HttpClient) {
+  constructor() {
                // console.log(this.appSettings.settings.isMobile)
                
                }

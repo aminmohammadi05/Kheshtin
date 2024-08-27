@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
@@ -7,7 +7,7 @@ import { PaginatedResult } from '../models/pagination';
 import { map, mergeMap, pluck } from 'rxjs/operators';
 import { Province } from '../models/province';
 import { City } from '../models/city';
-import { AppSettings } from '../app.settings';
+import { AppSettings, Settings } from '../app.settings';
 import { User } from '../models/user';
 import { OfficeProject } from '../models/office-project';
 import { OfficeProjectCategory } from '../models/office-project-category';
@@ -28,10 +28,14 @@ import { environment } from '../../environments/environment';
 export class OfficeProjectService {
  
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient,
-              private authService: AuthService,
-              private apollo: Apollo,
-              public appSettings: AppSettings) { }
+  private settings!: Settings;
+  private http = inject(HttpClient);
+  private apollo= inject(Apollo);
+    public appSettings= inject(AppSettings);
+    private authService= inject(AuthService);
+  constructor() {
+    this.settings = this.appSettings.createNew();
+   }
   addOfficeProject(officeProject: any): Observable<OfficeProject> {
     return this.http.post<OfficeProject>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid +
      '/officeProjects/CreateOfficeProject',  officeProject);
@@ -319,7 +323,7 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
           });
           break;
         case 'Price (Low to High)':
-          if (this.appSettings.settings.currency === 'USD') {
+          if (this.settings.currency === 'USD') {
             data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
               if ((a.priceDollar.sale || a.priceDollar.rent) > (b.priceDollar.sale || b.priceDollar.rent)) {
                 return 1;
@@ -330,7 +334,7 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
               return 0;
             });
           }
-          if (this.appSettings.settings.currency === 'EUR') {
+          if (this.settings.currency === 'EUR') {
             data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
               if ((a.priceEuro.sale || a.priceEuro.rent) > (b.priceEuro.sale || b.v.rent)) {
                 return 1;
@@ -343,7 +347,7 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
           }
           break;
         case 'Price (High to Low)':
-          if (this.appSettings.settings.currency === 'USD') {
+          if (this.settings.currency === 'USD') {
             data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
               if ((a.priceDollar.sale || a.priceDollar.rent) < (b.priceDollar.sale || b.priceDollar.rent)) {
                 return 1;
@@ -354,7 +358,7 @@ getRelatedOfficeProjectsAuth(categories: number[]= [], userId: number): Observab
               return 0;
             });
           }
-          if (this.appSettings.settings.currency === 'EUR') {
+          if (this.settings.currency === 'EUR') {
             data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
               if ((a.priceEuro.sale || a.priceEuro.rent) < (b.priceEuro.sale || b.v.rent)) {
                 return 1;

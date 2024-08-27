@@ -2,8 +2,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FlexLayoutModule, MediaObserver } from '@angular/flex-layout';
 import { Observable } from 'rxjs';
-import { AppService } from 'src/app/app.service';
-import * as momentj from 'jalali-moment';
+
+import momentj from 'jalali-moment';
 import * as Moment from 'moment';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,11 +23,15 @@ import { NgxMasonryModule } from 'ngx-masonry';
   imports: [CommonModule]
 })
 export class EventDetailTimelineBoxComponent implements OnInit{
-  @Input() recentEvents: any[];
-  @ViewChild('widgetsContentBox', { read: ElementRef }) public widgetsContentBox: ElementRef<any>;
+  @Input()
+  recentEvents!: any[];
+  @ViewChild('widgetsContentBox', { read: ElementRef })
+  public widgetsContentBox!: ElementRef<any>;
   public events = [];
   public days = [];
-  constructor(public appService:AppService, public  mediaObserver: MediaObserver, private mediaMatcher: MediaMatcher,) {
+  public mediaObserver!: MediaObserver;
+   private mediaMatcher!: MediaMatcher;
+  constructor( ) {
     
   }
 
@@ -44,10 +48,10 @@ export class EventDetailTimelineBoxComponent implements OnInit{
     
     this.widgetsContentBox.nativeElement.scrollTo({ left: (this.widgetsContentBox.nativeElement.scrollLeft - 150), behavior: 'smooth' });
   }
-  getRemainingTime(event) {
+  getRemainingTime(event: { start: any; }) {
     return momentj(momentj(event.start).format('jYYYY-jM-jD')).diff(momentj(momentj(new Date()).format('jYYYY-jM-jD')), 'days')
   }
-  getPersianDate(event) {
+  getPersianDate(event: { start: any; }) {
     return momentj(event.start).format('jYYYY/jM/jD');
   }
 }

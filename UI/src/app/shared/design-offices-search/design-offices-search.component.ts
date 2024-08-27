@@ -1,20 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service';
-import { Category } from 'src/app/models/category';
 import { Observable } from 'rxjs';
-import { DesignOffice } from 'src/app/models/design-office';
-import { CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { DesignOfficeSearch } from 'src/app/models/design-office-search';
-import { OfficeProjectCategory } from 'src/app/models/office-project-category';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { DesignOfficeSearch } from '../../models/design-office-search';
+import { OfficeProjectCategory } from '../../models/office-project-category';
 
 @Component({
   selector: 'app-design-offices-search',
@@ -27,7 +23,8 @@ export class DesignOfficesSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
+  @Input()
+  removedSearchField!: string;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
   public searchInput: FormControl = new FormControl('');
@@ -38,13 +35,13 @@ export class DesignOfficesSearchComponent implements OnInit, AfterViewInit {
     searchBox: ''
   });
   public showMore = false;
-  public verticalForm: FormGroup;
-  public categories: Observable<OfficeProjectCategory[]>;
-
-  constructor(public appService: AppService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router) {
+  public verticalForm!: FormGroup;
+  public categories!: Observable<OfficeProjectCategory[]>;
+  public fb = inject(FormBuilder);
+  private route= inject(ActivatedRoute);
+  private router= inject( Router);
+  constructor(
+              ) {
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                }
 
@@ -53,11 +50,11 @@ export class DesignOfficesSearchComponent implements OnInit, AfterViewInit {
       this.route.queryParams
       .subscribe(params => {
         this.searchFields.categories = [];
-        if (params.categories) {
-          this.searchFields.categories.push(params.categories);
+        if (params['categories']) {
+          this.searchFields.categories.push(params['categories']);
         }
-        if (params.filter) {
-          this.searchFields.searchBox = params.filter;
+        if (params['filter']) {
+          this.searchFields.searchBox = params['filter'];
         }
       });
       // this.store.pipe(select(getAllDesignOfficeSearches),
@@ -80,7 +77,7 @@ export class DesignOfficesSearchComponent implements OnInit, AfterViewInit {
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
+        // this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
         this.SearchChange.emit(this.verticalForm);
       }
       else if(this.removedSearchField === "hashtagObject") {

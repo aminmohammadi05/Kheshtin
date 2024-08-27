@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
               public mediaObserver: MediaObserver,
               private cdRef: ChangeDetectorRef,
               private authService: AuthService) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

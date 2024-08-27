@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, combineLatest } from 'rxjs';
@@ -37,8 +37,10 @@ import { environment } from '../../environments/environment';
 })
 export class BrandService {
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient, private authService: AuthService,
-    private apollo: Apollo) { }
+  private http = inject(HttpClient);
+  private apollo= inject(Apollo);
+    private authService= inject(AuthService);
+  constructor() { }
 
   getBrands(searchFields: BrandSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/searchBrands?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categoriesBox ? searchFields.categoriesBox.map(x => 'ProductCategory-'+x.categoryId).join(' ') : ''}'}`),

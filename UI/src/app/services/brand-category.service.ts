@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BrandCategory } from '../models/brand-category';
@@ -7,18 +6,21 @@ import { Product } from '../models/product';
 import { AuthService } from './auth.service';
 import { PaginatedResult } from '../models/pagination';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BrandCategoryService {
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient, private authService: AuthService) { }
-  addBrandCategory(category, brandId): Observable<BrandCategory> {
+  private http = inject(HttpClient);
+    private authService= inject(AuthService);
+  constructor() { }
+  addBrandCategory(category: any, brandId: string): Observable<BrandCategory> {
     return this.http.post<BrandCategory>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid +
      '/categories/CreateCategory/' + brandId, category);
   }
-  getBrandCategories(brandId, term = 'filter=', pageNumber = 0, pageSize = 3): Observable<PaginatedResult<BrandCategory[]>> {
+  getBrandCategories(brandId: string, term = 'filter=', pageNumber = 0, pageSize = 3): Observable<PaginatedResult<BrandCategory[]>> {
     const paginatedResult: PaginatedResult<BrandCategory[]> = new PaginatedResult<BrandCategory[]>();
     let params = new HttpParams();
     params = params.append('pageNumber', pageNumber.toString());
@@ -26,18 +28,18 @@ export class BrandCategoryService {
     return this.http.get<BrandCategory[]>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
      + '/brandcategories/GetBrandCategories/' + term + '/' + brandId , { observe: 'response', params}).pipe(
       map(response => {
-        paginatedResult.result = response.body;
+        paginatedResult.result = response.body!;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
         }
         return paginatedResult;
       }));
   }
-  getSelectedCategories(selectedBrand): Observable<BrandCategory[]> {
+  getSelectedCategories(selectedBrand: string): Observable<BrandCategory[]> {
     return this.http.get<BrandCategory[]>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
      + '/brandcategories/GetAllBrandCategories/' + selectedBrand );
   }
-  getProductsOfCategory(id, brandId, term = 'filter=', pageNumber = 0, pageSize = 3): Observable<PaginatedResult<Product[]>> {
+  getProductsOfCategory(id: string, brandId: string, term = 'filter=', pageNumber = 0, pageSize = 3): Observable<PaginatedResult<Product[]>> {
     const paginatedResult: PaginatedResult<Product[]> = new PaginatedResult<Product[]>();
     let params = new HttpParams();
     params = params.append('pageNumber', pageNumber.toString());
@@ -46,9 +48,9 @@ export class BrandCategoryService {
      + '/brandcategories/GetProductsOfCategory/' + term + '/' + id + '/' + brandId
       , { observe: 'response', params}).pipe(
       map(response => {
-        paginatedResult.result = response.body;
+        paginatedResult.result = response.body!;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
         }
         return paginatedResult;
       }));
@@ -58,11 +60,11 @@ export class BrandCategoryService {
      + '/brandcategories/GetProductsOfCategorySearch/' + term +
      '/' + this.authService.getDecodedToken().groupsid + '/1/10');
   }
-  removeCategory(id) {
+  removeCategory(id: string) {
     return this.http.delete(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
      + '/brandcategories/DeleteCategory/' + id);
   }
-  updateCategory(category) {
+  updateCategory(category: any) {
     return this.http.put(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
      + '/brandcategories/UpdateCategory/' + this.authService.getDecodedToken().groupsid, category);
   }

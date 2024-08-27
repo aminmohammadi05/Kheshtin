@@ -41,7 +41,7 @@ export class HeaderCarouselComponent implements OnInit, OnDestroy, AfterViewInit
               public basicDataService: BasicDataService,
               private cdRef: ChangeDetectorRef,
               public route: Router) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

@@ -25,7 +25,7 @@ export class LandingComponent implements OnInit {
  
   public settings: Settings;
   constructor(public appSettings:AppSettings, public router:Router) {
-    this.settings = this.appSettings.settings;  
+    this.settings = this.appSettings.createNew()  
   }
 
   ngOnInit() {

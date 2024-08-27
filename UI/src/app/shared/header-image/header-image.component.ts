@@ -24,7 +24,7 @@ export class HeaderImageComponent implements OnInit {
   public bgImage;
   public settings: Settings;
   constructor(public appSettings:AppSettings, private cdRef: ChangeDetectorRef, private sanitizer:DomSanitizer) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
     this.settings.headerBgImage = true;
   }
 

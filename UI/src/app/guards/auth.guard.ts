@@ -15,7 +15,7 @@ export class AuthGuard  {
               private router: Router,
               private snackBar: MatSnackBar,
               public appSettings: AppSettings) {
-                this.settings = this.appSettings.settings;
+                this.settings = this.appSettings.createNew()
               }
   canActivate(): boolean {
        if (this.authService.loggedIn()) {

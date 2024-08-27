@@ -1,13 +1,11 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
-import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Event as LocalEvent } from 'src/app/models/event';
+
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
-import * as moment from 'jalali-moment';
+import moment from 'jalali-moment';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +13,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { PaginationComponent } from 'ngx-bootstrap/pagination';
 import { HeaderCarouselComponent } from '../header-carousel/header-carousel.component';
 import { HeaderImageComponent } from '../header-image/header-image.component';
 import { MatCardModule } from '@angular/material/card';
@@ -42,9 +39,9 @@ export class EventItemComponent implements OnInit, AfterViewInit, OnChanges {
   //   clickable: true
   // };
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService) {
-    this.settings = this.appSettings.settings;
+  public appSettings = inject(AppSettings);
+  constructor() {
+    this.settings = this.appSettings.createNew();
   }
 
   ngOnInit() { }
@@ -58,9 +55,9 @@ export class EventItemComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         if (this.event.eventImageList.contentItems.length > 1) {
           //  this.directiveRef.update();
         }
@@ -79,7 +76,7 @@ export class EventItemComponent implements OnInit, AfterViewInit, OnChanges {
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -91,7 +88,7 @@ export class EventItemComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -162,8 +159,8 @@ export class EventItemComponent implements OnInit, AfterViewInit, OnChanges {
     // }
 
   }
-  getEventImages(event){
-    return event.bag.contentItems.filter(x => x.__typename === "EventImage");
+  getEventImages(event: { bag: { contentItems: any[]; }; }){
+    return event.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === "EventImage");
   }
   public getRemainingTime(e: any) {
     
@@ -171,7 +168,7 @@ export class EventItemComponent implements OnInit, AfterViewInit, OnChanges {
     var current = moment().startOf('day');
     var remainingTime = '';  
    
-    for(let step of e.bag.contentItems.filter(x => x.__typename === 'EventStep')) {
+    for(let step of e.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === 'EventStep')) {
     
       var duration =  moment(step.stepDate).locale('fa').diff(moment(current).locale('fa'), 'days');
     
@@ -186,7 +183,7 @@ export class EventItemComponent implements OnInit, AfterViewInit, OnChanges {
     
   
   }
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     return moment(date).locale('fa').format('YYYY/MM/DD');
   }
 }

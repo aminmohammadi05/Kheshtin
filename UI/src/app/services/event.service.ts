@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
@@ -26,10 +26,11 @@ import { environment } from '../../environments/environment';
 export class EventService {
   
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient,
-              private authService: AuthService,
-              private apollo: Apollo,
-              public appSettings: AppSettings) { }
+  private http = inject(HttpClient);
+  private apollo= inject(Apollo);
+    private authService= inject(AuthService);
+    private appSettings = inject(AppSettings);
+  constructor() { }
   addEvent(event: any): Observable<Event> {
     return this.http.post<Event>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid +
      '/events/CreateEvent',  event);
@@ -187,77 +188,7 @@ getRelatedEventsAuth(categories: number[]= [], userId: number): Observable<Event
   }
 
   public sortData(sort: any, data: any[]) {
-    if (sort) {
-      switch (sort) {
-        case 'Newest':
-          data = data.sort((a: { published: string | number | Date; }, b: { published: string | number | Date; }) => <any>new Date(b.published) - <any>new Date(a.published));
-          break;
-        case 'Oldest':
-          data = data.sort((a: { published: string | number | Date; }, b: { published: string | number | Date; }) => <any>new Date(a.published) - <any>new Date(b.published));
-          break;
-        case 'Popular':
-          data = data.sort((a: { ratingsValue: number; ratingsCount: number; }, b: { ratingsValue: number; ratingsCount: number; }) => {
-            if (a.ratingsValue / a.ratingsCount < b.ratingsValue / b.ratingsCount) {
-              return 1;
-            }
-            if (a.ratingsValue / a.ratingsCount > b.ratingsValue / b.ratingsCount) {
-              return -1;
-            }
-            return 0;
-          });
-          break;
-        case 'Price (Low to High)':
-          if (this.appSettings.settings.currency === 'USD') {
-            data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
-              if ((a.priceDollar.sale || a.priceDollar.rent) > (b.priceDollar.sale || b.priceDollar.rent)) {
-                return 1;
-              }
-              if ((a.priceDollar.sale || a.priceDollar.rent) < (b.priceDollar.sale || b.priceDollar.rent)) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          if (this.appSettings.settings.currency === 'EUR') {
-            data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
-              if ((a.priceEuro.sale || a.priceEuro.rent) > (b.priceEuro.sale || b.v.rent)) {
-                return 1;
-              }
-              if ((a.priceEuro.sale || a.priceEuro.rent) < (b.priceEuro.sale || b.priceEuro.rent)) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'Price (High to Low)':
-          if (this.appSettings.settings.currency === 'USD') {
-            data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
-              if ((a.priceDollar.sale || a.priceDollar.rent) < (b.priceDollar.sale || b.priceDollar.rent)) {
-                return 1;
-              }
-              if ((a.priceDollar.sale || a.priceDollar.rent) > (b.priceDollar.sale || b.priceDollar.rent)) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          if (this.appSettings.settings.currency === 'EUR') {
-            data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
-              if ((a.priceEuro.sale || a.priceEuro.rent) < (b.priceEuro.sale || b.v.rent)) {
-                return 1;
-              }
-              if ((a.priceEuro.sale || a.priceEuro.rent) > (b.priceEuro.sale || b.priceEuro.rent)) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        default:
-          break;
-      }
-    }
+    
     return data;
   }
 }

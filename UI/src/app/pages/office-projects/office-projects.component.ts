@@ -8,37 +8,33 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
 import { debounceTime, distinctUntilChanged, tap, switchMap, map } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { AppSettings, Settings } from 'src/app/app.settings';
-import { AppService } from 'src/app/app.service';
-import { Pagination } from 'src/app/models/pagination';
-import { InitializeService } from 'src/app/services/initialize.service';
-import { PageImages } from 'src/app/models/page-images';
-import { OfficeProjectCategory } from 'src/app/models/office-project-category';
-import { OfficeProjectDataSource } from 'src/app/services/office-project-data-source';
-import { OfficeProject } from 'src/app/models/office-project';
-import { OfficeProjectSearch } from 'src/app/models/office-project-search';
-import { OfficeProjectService } from 'src/app/services/office-project.service';
-import { ProjectCategory } from 'src/app/models/project-category';
-import { DesignOffice } from 'src/app/models/design-office';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 // import { SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
-import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
-import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
-import { OfficeProjectsSearchComponent } from 'src/app/shared/office-projects-search/office-projects-search.component';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { OfficeProjectsSearchResultsFiltersComponent } from 'src/app/shared/office-projects-search-results-filters/office-projects-search-results-filters.component';
-import { OfficeProjectItemComponent } from 'src/app/shared/office-project-item/office-project-item.component';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AppSettings, Settings } from '../../app.settings';
+import { DesignOffice } from '../../models/design-office';
+import { OfficeProject } from '../../models/office-project';
+import { OfficeProjectCategory } from '../../models/office-project-category';
+import { OfficeProjectSearch } from '../../models/office-project-search';
+import { PageImages } from '../../models/page-images';
+import { Pagination } from '../../models/pagination';
+import { AuthService } from '../../services/auth.service';
+import { BasicDataService } from '../../services/basic-data.service';
+import { InitializeService } from '../../services/initialize.service';
+import { OfficeProjectService } from '../../services/office-project.service';
+import { HeaderCarouselComponent } from '../../shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../../shared/header-image/header-image.component';
+import { OfficeProjectItemComponent } from '../../shared/office-project-item/office-project-item.component';
+import { OfficeProjectsSearchResultsFiltersComponent } from '../../shared/office-projects-search-results-filters/office-projects-search-results-filters.component';
+import { OfficeProjectsSearchComponent } from '../../shared/office-projects-search/office-projects-search.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-office-projects',
@@ -52,15 +48,17 @@ export class OfficeProjectsComponent implements OnInit, OnDestroy, AfterViewInit
   filteredCategories: string[] = ['-1'];
   categories: OfficeProjectCategory[] = [];
  
-  @ViewChild('input') input: ElementRef;
-  public categoriesBS : BehaviorSubject<OfficeProjectCategory[]> = new BehaviorSubject([]);
-  public designersBS : BehaviorSubject<DesignOffice[]> = new BehaviorSubject([]);
+  @ViewChild('input')
+  input!: ElementRef;
+  public categoriesBS!: BehaviorSubject<OfficeProjectCategory[]>;
+  public designersBS!: BehaviorSubject<DesignOffice[]>;
 
 
 
 @ViewChild('sidenav', { static: true }) sidenav: any;
 public sidenavOpen = true;
-@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
 public psConfig = {
   wheelPropagation: true
 };
@@ -70,22 +68,22 @@ public slides: PageImages[] = [];
 public viewType = 'grid';
 public viewCol = 33.3;
 public count = 12;
-public sort: string;
+  public sort!: string;
 public searchFields: OfficeProjectSearch = new OfficeProjectSearch({
   searchId: 1,
   categories: [],
   designers: [],
   searchBox: '',
-  pageQuery: new Pagination(0, this.count, null, null)
+  pageQuery: new Pagination(0, this.count, 0, 0)
 });
 public categoriesParam = '';
 public designersParam = '';
 public searchParam = '';
-public removedSearchField: string;
+  public removedSearchField!: string;
 
 public message = 'هیچ';
-public watcher: Subscription;
-public totalOfficeProjects: Observable<number>;
+  public watcher!: Subscription;
+  public totalOfficeProjects!: Observable<number>;
 public isLoading = false;
 public settings: Settings;
 // public config: SwiperConfigInterface = {};
@@ -99,11 +97,10 @@ public settings: Settings;
               private authService: AuthService,
               public appSettings: AppSettings,
               public basicService: BasicDataService,
-              public appService: AppService,
               public initializeService: InitializeService,
               public mediaObserver: MediaObserver,
               private cdRef: ChangeDetectorRef) {
-                this.settings = this.appSettings.settings;
+                this.settings = this.appSettings.createNew();
                 
                }
 
@@ -182,23 +179,23 @@ public getSlides() {
 }
 
 
-public getOfficeProjects(cats, designerList, currentPage, search, categories, designers, hashtagObject) {
+public getOfficeProjects(cats: any[], designerList: any[], currentPage: number, search: string, categories: { replace: (arg0: string, arg1: string) => { (): any; new(): any; split: { (arg0: string): { (): any; new(): any; length: number; includes: { (arg0: any): any; new(): any; }; map: { (arg0: (x: any) => string): any[]; new(): any; }; }; new(): any; }; }; }, designers: { replace: (arg0: string, arg1: string) => { (): any; new(): any; split: { (arg0: string): { (): any; new(): any; length: number; includes: { (arg0: any): any; new(): any; }; join: { (arg0: string): any; new(): any; }; }; new(): any; }; }; }, hashtagObject: string) {
   this.searchFields = new OfficeProjectSearch({
     searchId: 1,
-  designers: designers && designers.replace('null', '').split('_').length > 0 ?  designerList.filter(x => {
+  designers: designers && designers.replace('null', '').split('_').length > 0 ?  designerList.filter((x: { id: { toString: () => any; }; }) => {
     if(designers.replace('null', '').split('_').includes(x.id.toString())){
       return x;
     }
   }) : [],
-  categories: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+  categories: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { id: { toString: () => any; }; }) => {
     if(categories.replace('null', '').split('_').includes(x.id.toString())){
       return x;
     }
   }) : [], 
   hashtagObject: JSON.parse(this.basicService.decode(hashtagObject)), 
-  pageQuery: new Pagination(currentPage - 1, this.count, null, null)
+  pageQuery: new Pagination(currentPage - 1, this.count, 0, 0)
   })
-  this.projectService.getOfficeProjects(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''}  ${categories ? categories.replace('null', '').split('_').map(x => 'ProjectType-'+x).join(' ') : ''} ${designers ? designers.replace('null', '').split('_').join(' ') : ''} ${hashtagObject !== 'null' ? JSON.parse(this.basicService.decode(hashtagObject)).searchField.replace('#', '') : ''}'}`).subscribe((y:any) => {
+  this.projectService.getOfficeProjects(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''}  ${categories ? categories.replace('null', '').split('_').map((x: string) => 'ProjectType-'+x).join(' ') : ''} ${designers ? designers.replace('null', '').split('_').join(' ') : ''} ${hashtagObject !== 'null' ? JSON.parse(this.basicService.decode(hashtagObject)).searchField.replace('#', '') : ''}'}`).subscribe((y:any) => {
     this.searchFields.pageQuery.totalItems = y[0].count
     this.message = y[0].count === 0 ? "موردی یافت نشد" : '';
     this.officeProjects = y[1].searchProjects;
@@ -212,7 +209,7 @@ public resetPagination() {
   }
   this.searchFields = new OfficeProjectSearch({
     searchId: 1,
-    pageQuery: new Pagination(0, this.count, null, null)
+    pageQuery: new Pagination(0, this.count, 0, 0)
   });
 }
 
@@ -222,7 +219,7 @@ public searchClicked() {
   
   window.scrollTo(0, 0);
 }
-public searchChanged(event) {
+public searchChanged(event: { value: { designers: string | any[]; categories: string | any[]; searchBox: string | any[]; hashtagObject: any; }; }) {
   
   if (event ) {
     this.isLoading = true;
@@ -236,10 +233,10 @@ public searchChanged(event) {
       searchBox: event.value.searchBox &&
       event.value.searchBox.length > 0 ? event.value.searchBox : '',
       hashtagObject: event.value.hashtagObject ? event.value.hashtagObject : '',
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
     setTimeout(() => {
-        this.removedSearchField = null;
+        this.removedSearchField = '';
       });
     if (!this.settings.searchOnBtnClick) {
         this.officeProjects.length = 0;
@@ -251,33 +248,33 @@ public searchChanged(event) {
   }
  
 }
-public removeSearchField(field) {
-  this.message = null;
+public removeSearchField(field: string) {
+  this.message = '';
   this.removedSearchField = field;
 }
 
 
-public changeCount(count) {
+public changeCount(count: number) {
   this.count = count;
   this.officeProjects.length = 0;
   this.resetPagination();
   // this.getOfficeProjects();
 }
-public changeSorting(sort) {
+public changeSorting(sort: string) {
   this.sort = sort;
   this.officeProjects.length = 0;
   // this.getOfficeProjects();
 }
-public changeViewType(obj) {
+public changeViewType(obj: { viewType: string; viewCol: number; }) {
   this.viewType = obj.viewType;
   this.viewCol = obj.viewCol;
 }
 
 
-public onPageChange(e) {
+public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
   this.searchFields = new OfficeProjectSearch({
     searchId: 1,
-    pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+    pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
   });
   // this.store.dispatch(new SaveOfficeProjectSearchForRequest(this.searchFields));
   window.scrollTo(0, 0);

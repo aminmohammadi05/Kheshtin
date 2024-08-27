@@ -1,16 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service';
-import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { EventCategory } from 'src/app/models/event-category';
-import { User } from 'src/app/models/user';
-import { EventSearch } from 'src/app/models/event-search';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { DesignOffice } from 'src/app/models/design-office';
-import { AuthService } from 'src/app/services/auth.service';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,6 +11,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { GetInTouchComponent } from '../get-in-touch/get-in-touch.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { EventCategory } from '../../models/event-category';
+import { EventSearch } from '../../models/event-search';
+import { AuthService } from '../../services/auth.service';
+import { BasicDataService } from '../../services/basic-data.service';
 
 @Component({
   selector: 'app-events-search',
@@ -32,15 +27,17 @@ export class EventsSearchComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() variant = 1;
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
+  @Input()
+  removedSearchField!: string;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
-  @Input() categories: BehaviorSubject<EventCategory[]> = new BehaviorSubject([]);
+  @Input()
+  categories!: BehaviorSubject<EventCategory[]>;
   public searchInput: FormControl = new FormControl('');
   public selectedCategories: any[] = [];
   public showMore = false;
-  public verticalForm: FormGroup;
-  public eventCategories: EventCategory[];
+  public verticalForm!: FormGroup;
+  public eventCategories!: EventCategory[];
   public searchFields = new EventSearch({
     searchId: 1,
     categories: [],
@@ -50,15 +47,14 @@ export class EventsSearchComponent implements OnInit, OnChanges, AfterViewInit {
 
 
 
-  constructor(public appService: AppService,
-              private authService: AuthService,
+  constructor(private authService: AuthService,
               private basicDataService: BasicDataService,
               public fb: FormBuilder,
               private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.basicDataService.getEventCategories().subscribe(x => {
-      this.eventCategories = x.eventType.map(x1 => ({
+      this.eventCategories = x.eventType.map((x1: { id: any; displayText: any; }) => ({
        categoryId: x1.id,
        name: x1.displayText,
       
@@ -87,14 +83,14 @@ export class EventsSearchComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
+        // this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
       } else if (this.removedSearchField.indexOf(',') > -1) {
         
         const arr = this.removedSearchField.split(',');
         this.selectedCategories = this.selectedCategories.filter(x => x.categoryId !== +arr[1]);
         this.searchFields.categories = this.selectedCategories;
         // this.store.dispatch(new SaveEventSearchForRequest(this.searchFields));
-        this.verticalForm.get('categories').setValue(this.selectedCategories);
+        // this.verticalForm.get('categories').setValue(this.selectedCategories);
         this.SearchChange.emit(this.verticalForm);
       }
       else if(this.removedSearchField === "hashtagObject") {
@@ -141,7 +137,7 @@ export class EventsSearchComponent implements OnInit, OnChanges, AfterViewInit {
     )
     .subscribe();
   }
-  public categoryChanged(event) {
+  public categoryChanged(event: { value: any; }) {
        
     if (event) {
       this.selectedCategories = [...event.value];

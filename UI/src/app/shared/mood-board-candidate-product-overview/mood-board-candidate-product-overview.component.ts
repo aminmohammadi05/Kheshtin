@@ -32,7 +32,7 @@ export class MoodBoardCandidateProductOverviewComponent implements OnInit {
               public authService: AuthService,
               public route: Router,
               private bottomSheetRef: MatBottomSheetRef<MoodBoardCandidateProductOverviewComponent>) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

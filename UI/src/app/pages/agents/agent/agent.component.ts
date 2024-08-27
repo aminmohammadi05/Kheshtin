@@ -60,7 +60,7 @@ export class AgentComponent implements OnInit {
               private activatedRoute: ActivatedRoute, 
               public mediaObserver: MediaObserver,
               public fb: FormBuilder) {
-    this.settings = this.appSettings.settings;    
+    this.settings = this.appSettings.createNew()    
     // this.watcher = mediaObserver.media$.subscribe((change: MediaChange) => { 
     //   if (change.mqAlias == 'xs') {
     //     this.sidenavOpen = false;

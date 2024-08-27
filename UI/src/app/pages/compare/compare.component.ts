@@ -22,7 +22,7 @@ export class CompareComponent implements OnInit, OnDestroy {
               // public appService: AppService,
               public productService: ProductsService,
               public mediaObserver: MediaObserver) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

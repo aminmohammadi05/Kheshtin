@@ -1,22 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ChangeDetectorRef, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service';
-import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
-
-import { DesignOfficeSearch } from 'src/app/models/design-office-search';
-import { OfficeProjectCategory } from 'src/app/models/office-project-category';
-import { Pagination } from 'src/app/models/pagination';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DesignOfficeSearch } from '../../models/design-office-search';
+import { OfficeProjectCategory } from '../../models/office-project-category';
+import { Pagination } from '../../models/pagination';
+import { BasicDataService } from '../../services/basic-data.service';
 
 @Component({
   selector: 'app-design-office-detail-search',
@@ -30,31 +25,31 @@ export class DesignOfficeDetailSearchComponent implements OnInit, AfterViewInit 
   @Input() variant = 1;
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
-  @Input() categories: BehaviorSubject<OfficeProjectCategory[]> = new BehaviorSubject([]);
+  @Input()
+  removedSearchField!: string;
+  @Input()
+  categories!: BehaviorSubject<OfficeProjectCategory[]>;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
   public searchInput: FormControl = new FormControl('');
   public selectedCategories: any[] = [];
-  public projectCategories: OfficeProjectCategory[];
+  public projectCategories!: OfficeProjectCategory[];
   public selectedoffices: any[] = [];
   public searchFields: DesignOfficeSearch = new DesignOfficeSearch({
     searchId: 1,
     categories: [],
     designers: [],
-    pageQuery: new Pagination(0, 12, null, null),
+    pageQuery: new Pagination(0, 12, 0, 0),
     searchBox: ''
   });
   public showMore = false;
-  public form: FormGroup;
-  
+  public form!: FormGroup;
+  public fb= inject(FormBuilder);
+  public basicDataService= inject(BasicDataService);
+  public route= inject(Router);
+  public cdr= inject(ChangeDetectorRef);
 
-  constructor(public appService: AppService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              public basicDataService: BasicDataService,
-              private cdr: ChangeDetectorRef,
-              private router: Router) {
+  constructor() {
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                }
 
@@ -84,13 +79,13 @@ export class DesignOfficeDetailSearchComponent implements OnInit, AfterViewInit 
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.form.controls[arr[0]]['controls'][arr[1]].reset();
+        // this.form.controls[arr[0]]['controls'][arr[1]].reset();
       } else if (this.removedSearchField.indexOf(',') > -1) {
         const arr = this.removedSearchField.split(',');
         this.selectedCategories = this.selectedCategories.filter(x => !x.id.toString().startsWith(arr[1]));
         this.searchFields.categories = this.selectedCategories;
         this.SearchChange.emit(this.form);
-        this.form.get('categories').setValue(this.selectedCategories);
+        // this.form.get('categories').setValue(this.selectedCategories);
       } else {
         this.form.controls[this.removedSearchField].reset();
       }
@@ -109,7 +104,7 @@ export class DesignOfficeDetailSearchComponent implements OnInit, AfterViewInit 
     this.SearchClick.emit();
   }
 
-  public categoryChanged(event) {
+  public categoryChanged(event: { value: any; }) {
     if (event) {
       this.selectedCategories = [...event.value];
       this.searchFields.categories = this.selectedCategories;
@@ -137,12 +132,12 @@ export class DesignOfficeDetailSearchComponent implements OnInit, AfterViewInit 
     .subscribe();
   }
 
-  public officeProjectCategoriesChanged(event) {
+  public officeProjectCategoriesChanged(event: any) {
     if (event) {
       this.selectedCategories = [...event];
       this.searchFields.categories = this.selectedCategories;
       // this.store.dispatch(new SaveDesignOfficeSearchForRequest(this.searchFields));
-      this.form.get('categories').setValue(this.selectedCategories);
+      // this.form.get('categories').setValue(this.selectedCategories);
       this.SearchChange.emit(this.form);
     }
   }

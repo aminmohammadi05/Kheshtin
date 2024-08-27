@@ -75,7 +75,7 @@ public settings: Settings;
               public initializeService: InitializeService,
               public mediaObserver: MediaObserver,
               private cdRef: ChangeDetectorRef) {
-                this.settings = this.appSettings.settings;
+                this.settings = this.appSettings.createNew()
                 
                }
 

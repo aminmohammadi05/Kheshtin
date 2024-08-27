@@ -1,17 +1,18 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { environment } from "src/environments/environment";
 import { Usage } from "../models/usage";
 import { AuthService } from "./auth.service";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
   })
   export class UsageService {
     baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient,
-              private authService: AuthService) { }
+    private http = inject(HttpClient);
+  private authService= inject(AuthService);
+  constructor() { }
               
     getUsages(): Observable<Usage[]> {
     return this.http.get<Usage[]>(this.baseUrl + 'publicproducts/GetAllUsagesPublic');

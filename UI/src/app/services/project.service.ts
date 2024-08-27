@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable, combineLatest } from 'rxjs';
@@ -19,17 +18,20 @@ import { Apollo } from 'apollo-angular';
 import { ProjectSearch } from '../models/project-search';
 import { DesignOfficeProjectSearch } from '../models/design-office-project-search';
 import { GET_DESIGNOFFICE_PROJECTS } from '../queries/get-design-office-projects';
+import { environment } from '../../environments/environment';
+import { ProjectCategorySet } from '../models/project-category-set';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient,
-              private authService: AuthService,
-              private apollo: Apollo,
-              public appSettings: AppSettings) { }
-  addProject(project): Observable<Project> {
+  private http = inject(HttpClient);
+  private apollo= inject(Apollo);
+    public appSettings= inject(AppSettings);
+    private authService= inject(AuthService);
+  constructor() { }
+  addProject(project: any): Observable<Project> {
     return this.http.post<Project>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid +
      '/projects/CreateProject',  project);
   }
@@ -39,7 +41,7 @@ export class ProjectService {
      '/projects/UpdateProject/' + project.projectId,  project);
   }
 
-  getProjects(searchFields: DesignOfficeProjectSearch, searchText): Observable<any> {
+  getProjects(searchFields: DesignOfficeProjectSearch, searchText: string[]): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/searchProjects?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categories ? searchFields.categories.map(x => 'ProjectCategory-'+x.id).join(' ') : ''} ${searchFields.designerId ? searchFields.designerId : ''} '}`),
     this.apollo.query({
       query: GET_PROJECTS_BY_CONDITION,
@@ -49,7 +51,7 @@ export class ProjectService {
    
   }
 
-  getDesignOfficeProjects(searchFields: DesignOfficeProjectSearch, searchText): Observable<any> {
+  getDesignOfficeProjects(searchFields: DesignOfficeProjectSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/getDesignOfficeProjects?parameters=' + `{from: 0, size: '${searchFields.pageQuery.itemsPerPage}', designoffice: '${searchFields.designerId}', fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categories ? searchFields.categories.map(x => 'ProjectCategory-'+x.id).join(' ') : ''}  '}`),
     this.apollo.query({
       query: GET_DESIGNOFFICE_PROJECTS,
@@ -66,7 +68,7 @@ export class ProjectService {
     }).pipe(pluck("data"))
   }
 
-  removeUserProject(projectId, userId): Observable<string> {
+  removeUserProject(projectId: string, userId: string): Observable<string> {
     return this.http.delete<string>(this.baseUrl + 'users/' + userId +
      '/projects/DeleteProject/' +  projectId);
   }
@@ -82,7 +84,7 @@ export class ProjectService {
     return this.http.get<Province[]>(this.baseUrl + 'publicprojects/GetAllProvincesPublic/');
   }
 
-  getProvincesAuth(userId): Observable<Province[]> {
+  getProvincesAuth(userId: any): Observable<Province[]> {
     return this.http.get<Province[]>(this.baseUrl + `users/${userId}/projects/GetAllProvinces/`);
   }
 
@@ -92,11 +94,11 @@ export class ProjectService {
   getDesignersAuth(userId: number): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl + `users/${userId}/projects/GetAllDesignersAuth/`);
   }
-  getProject(projectId): Observable<Project> {
+  getProject(projectId: string): Observable<Project> {
     return this.http.get<Project>(this.baseUrl + 'publicprojects/GetProjectPublic/' + projectId);
   }
 
-  getProjectAuth(projectId, userId: number): Observable<Project> {
+  getProjectAuth(projectId: string, userId: number): Observable<Project> {
     return this.http.get<Project>(this.baseUrl + `users/${userId}/projects/GetProject/` + projectId);
   }
 
@@ -111,9 +113,9 @@ return this.http.get<Project[]>(this.baseUrl + `users/${userId}/projects/GetProj
 + term + '/' + designers.join('_') + '/' + categories.join('_') , { observe: 'response', params})
 .pipe(
 map(response => {
-paginatedResult.result = response.body;
+paginatedResult.result = response.body!;
 if (response.headers.get('Pagination') != null) {
-paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
 }
 return paginatedResult;
 }));
@@ -127,18 +129,18 @@ getRelatedProjectsAuth(categories: number[]= [], userId: number): Observable<Pro
     categories.map(x => x.toString()).join('_'));
 }
 
-  getProjectComments(projectId): Observable<ProjectComment[]> {
+  getProjectComments(projectId: string): Observable<ProjectComment[]> {
     return this.http.get<ProjectComment[]>(this.baseUrl + 'projects/GetProjectComments/' + projectId);
   }
 
-  getProjectAdminReplies(projectId): Observable<ProjectAdminReply[]> {
+  getProjectAdminReplies(projectId: string): Observable<ProjectAdminReply[]> {
     return this.http.get<ProjectAdminReply[]>(this.baseUrl + 'projects/GetProjectAdminReplies/' + projectId);
   }
 
-  getCitiesOfProvince(province): Observable<City[]> {
+  getCitiesOfProvince(province: string): Observable<City[]> {
     return this.http.get<City[]>(this.baseUrl + 'publicprojects/GetCitiesOfProvincePublic/' + province);
   }
-  getCitiesOfProvinceAuth(province, userId): Observable<City[]> {
+  getCitiesOfProvinceAuth(province: string, userId: any): Observable<City[]> {
     return this.http.get<City[]>(this.baseUrl + `users/${userId}/projects/GetCitiesOfProvince/` + province);
   }
 
@@ -149,21 +151,21 @@ getRelatedProjectsAuth(categories: number[]= [], userId: number): Observable<Pro
   getProjectCategoriesAuth(userId: number): Observable<ProjectCategory[]> {
     return this.http.get<ProjectCategory[]>(this.baseUrl + `users/${userId}/projects/GetProjectCategoriesAuth/`);
   }
-  sendComment(comment): Observable<ProjectComment> {
+  sendComment(comment: any): Observable<ProjectComment> {
     return this.http.post<ProjectComment>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid +
      '/projects/CreateComment',  comment);
   }
 
-  filterData(data: Project[], params: any, sort?, page?, perPage?) {
+  filterData(data: Project[], params: any, sort?: any, page?: any, perPage?: any) {
     if (params) {
       if (params.searchBox) {
         data = data.filter(x => x.name.includes(params.searchBox.substring(7, params.searchBox.length - 1)));
       }
 
       if (params.designersBox && params.designersBox[0] !== 'empty') {
-        const designers = [];
-        params.designersBox.forEach(designer => { designers.push(designer.name); });
-        const projects = [];
+        const designers: any[] = [];
+        params.designersBox.forEach((designer: { name: any; }) => { designers.push(designer.name); });
+        const projects: any[] = [];
         designers.forEach(designer => {
           projects.concat(data.filter(project => project.createUserId === designer));
         });
@@ -171,9 +173,9 @@ getRelatedProjectsAuth(categories: number[]= [], userId: number): Observable<Pro
       }
 
       if (params.categoriesBox && params.categoriesBox[0] !== '-1') {
-        const categories = [];
-        params.categoriesBox.forEach(category => { categories.push(category.name); });
-        const projects = [];
+        const categories: ProjectCategorySet[] = [];
+        params.categoriesBox.forEach((category: { name: any; }) => { categories.push(category.name); });
+        const projects: Project[] = [];
         data.filter(project =>
           project.projectCategorySetList.forEach(f => {
             if (categories.indexOf(f) > -1) {
@@ -189,17 +191,17 @@ getRelatedProjectsAuth(categories: number[]= [], userId: number): Observable<Pro
     return data;
   }
 
-  public sortData(sort, data) {
+  public sortData(sort: any, data: any[]) {
     if (sort) {
       switch (sort) {
         case 'Newest':
-          data = data.sort((a, b) => <any>new Date(b.published) - <any>new Date(a.published));
+          data = data.sort((a: { published: string | number | Date; }, b: { published: string | number | Date; }) => <any>new Date(b.published) - <any>new Date(a.published));
           break;
         case 'Oldest':
-          data = data.sort((a, b) => <any>new Date(a.published) - <any>new Date(b.published));
+          data = data.sort((a: { published: string | number | Date; }, b: { published: string | number | Date; }) => <any>new Date(a.published) - <any>new Date(b.published));
           break;
         case 'Popular':
-          data = data.sort((a, b) => {
+          data = data.sort((a: { ratingsValue: number; ratingsCount: number; }, b: { ratingsValue: number; ratingsCount: number; }) => {
             if (a.ratingsValue / a.ratingsCount < b.ratingsValue / b.ratingsCount) {
               return 1;
             }
@@ -211,7 +213,7 @@ getRelatedProjectsAuth(categories: number[]= [], userId: number): Observable<Pro
           break;
         case 'Price (Low to High)':
           if (this.appSettings.settings.currency === 'USD') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
               if ((a.priceDollar.sale || a.priceDollar.rent) > (b.priceDollar.sale || b.priceDollar.rent)) {
                 return 1;
               }
@@ -222,7 +224,7 @@ getRelatedProjectsAuth(categories: number[]= [], userId: number): Observable<Pro
             });
           }
           if (this.appSettings.settings.currency === 'EUR') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
               if ((a.priceEuro.sale || a.priceEuro.rent) > (b.priceEuro.sale || b.v.rent)) {
                 return 1;
               }
@@ -235,7 +237,7 @@ getRelatedProjectsAuth(categories: number[]= [], userId: number): Observable<Pro
           break;
         case 'Price (High to Low)':
           if (this.appSettings.settings.currency === 'USD') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceDollar: { sale: any; rent: any; }; }, b: { priceDollar: { sale: any; rent: any; }; }) => {
               if ((a.priceDollar.sale || a.priceDollar.rent) < (b.priceDollar.sale || b.priceDollar.rent)) {
                 return 1;
               }
@@ -246,7 +248,7 @@ getRelatedProjectsAuth(categories: number[]= [], userId: number): Observable<Pro
             });
           }
           if (this.appSettings.settings.currency === 'EUR') {
-            data = data.sort((a, b) => {
+            data = data.sort((a: { priceEuro: { sale: any; rent: any; }; }, b: { priceEuro: { sale: any; rent: any; }; v: { rent: any; }; }) => {
               if ((a.priceEuro.sale || a.priceEuro.rent) < (b.priceEuro.sale || b.v.rent)) {
                 return 1;
               }

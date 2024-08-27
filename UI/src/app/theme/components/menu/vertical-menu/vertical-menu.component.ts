@@ -69,7 +69,7 @@ export class VerticalMenuComponent implements OnInit {
     routeSegments.push(+url.split('/')[1]);
   }
   if  (secondSegment) {
-    routeSegments.push(eval("(" + '{' + secondSegment + '}' + ")"));
+    routeSegments.push(JSON.parse(`{${secondSegment}}`));
   }
 
     this.router.navigate(routeSegments);

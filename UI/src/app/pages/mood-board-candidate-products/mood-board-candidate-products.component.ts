@@ -54,7 +54,7 @@ export class MoodBoardCandidateProductsComponent implements OnInit, OnDestroy {
               public authService: AuthService,
               public route: Router,
               public mediaObserver: MediaObserver) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

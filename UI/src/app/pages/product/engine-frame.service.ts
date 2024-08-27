@@ -23,14 +23,14 @@ import { Injectable, OnDestroy } from '@angular/core';
   providedIn: 'root'
 })
 export class EngineFrameService  {
-    aspect: number;
-    camera: PerspectiveCamera;
-    container: HTMLElement;
-    controls: OrbitControls;
-    hemisphere: HemisphereLight;
-    loader: GLTFLoader;
-    mainLight: DirectionalLight;
-    scene: Scene;
+    aspect!: number;
+    camera!: PerspectiveCamera;
+    container!: HTMLElement;
+    controls!: OrbitControls;
+    hemisphere!: HemisphereLight;
+    loader!: GLTFLoader;
+    mainLight!: DirectionalLight;
+    scene!: Scene;
   
     deltaX = 0.01;
     deltaY = 0.01;

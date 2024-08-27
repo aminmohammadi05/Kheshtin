@@ -1,18 +1,21 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginatedResult } from '../models/pagination';
 import { ProjectAdminReply } from '../models/project-admin-reply';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { environment } from 'src/environments/environment';
+
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminReplyService {
   baseUrl = environment.apiUrl;
-constructor(private http: HttpClient, private authService: AuthService) { }
+  private http = inject(HttpClient);
+  private authService = inject(AuthService);
+constructor() { }
 getAdminReplies(term = 'filter=', pageNumber = 0, pageSize = 3): Observable<PaginatedResult<ProjectAdminReply[]>> {
     const paginatedResult: PaginatedResult<ProjectAdminReply[]> = new PaginatedResult<ProjectAdminReply[]>();
       let params = new HttpParams();
@@ -24,9 +27,9 @@ getAdminReplies(term = 'filter=', pageNumber = 0, pageSize = 3): Observable<Pagi
     + term , { observe: 'response', params})
     .pipe(
       map(response => {
-        paginatedResult.result = response.body;
+        paginatedResult.result = response.body!;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
         }
         return paginatedResult;
       }));

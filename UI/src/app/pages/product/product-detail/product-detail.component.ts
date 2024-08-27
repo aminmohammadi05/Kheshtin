@@ -148,7 +148,7 @@ export class ProductImageViewDialogComponent implements OnInit {
               public dialogRef: MatDialogRef<ProductImageViewDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: ProductImageData,
               public fb: FormBuilder) {
-      this.settings = this.appSettings.settings;
+      this.settings = this.appSettings.createNew()
 }
 ngOnInit() {
   this.selectedImageId = 1;
@@ -195,7 +195,7 @@ export class ProductThreeDImageViewDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: ThreeDModelData,
               public fb: FormBuilder,
               public productService: ProductsService) {
-      this.settings = this.appSettings.settings;
+      this.settings = this.appSettings.createNew()
       const result = this.groupBy(this.data.productFiles, 'fileType')
         .filter(({ length }) => length > 0)
         .map(([v]) => v);
@@ -292,7 +292,7 @@ export class ProductTextureImageViewDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: ThreeDModelData,
               public fb: FormBuilder,
               public productService: ProductsService) {
-      this.settings = this.appSettings.settings;
+      this.settings = this.appSettings.createNew()
       let result = this.groupBy(this.data.productFiles, 'fileType')
         .filter(({ length }) => length > 0)
         .map(([v]) => v);
@@ -440,7 +440,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
               public authService: AuthService,
               public infoReq: MatDialog,
               private meta: Meta) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
 }
 
   ngOnInit() {

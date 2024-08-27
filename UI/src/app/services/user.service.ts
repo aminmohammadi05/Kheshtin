@@ -1,24 +1,26 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { environment } from 'src/environments/environment';
 import { PaginatedResult } from '../models/pagination';
 import { map } from 'rxjs/operators';
 import { ProfessionalArea } from '../models/professional-area';
 import { UserFavorites } from '../models/user-favorites';
 import { UserMoodBoardCandidateProduct } from '../models/user-mood-board-candidate-product';
+import { environment } from '../../environments/environment';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   baseUrl = environment.apiUrl;
-constructor(private http: HttpClient,
-            private authService: AuthService) { }
+  private http = inject(HttpClient);
+  private authService = inject(AuthService);
+constructor() { }
 
-  getLoggedInUserInfo(userId): Observable<User> {
+  getLoggedInUserInfo(userId: any): Observable<User> {
     return this.http.get<User>(this.baseUrl + `users/${userId}/users/GetUser/${userId}`);
   }
 
@@ -31,7 +33,7 @@ signupRegularUser(user: User): Observable<User> {
 }
 likeProduct(userId: number, productId: string): Observable<UserFavorites> {
   return this.http.post<UserFavorites>(this.baseUrl + `users/${userId}/products/LikeProduct/${true}`,
-    new UserFavorites(userId, productId, null, null));
+    new UserFavorites(userId, productId, new User(), new Product()));
 }
 addProductToMoodBoardCandidates(userId: number, productId: string): Observable<PaginatedResult<UserMoodBoardCandidateProduct[]>> {
   const paginatedResult: PaginatedResult<UserMoodBoardCandidateProduct[]> =
@@ -47,9 +49,9 @@ addProductToMoodBoardCandidates(userId: number, productId: string): Observable<P
     { headers: new HttpHeaders({'Content-Type': 'application/json'}), observe: 'response', params})
  .pipe(
    map(response => {
-     paginatedResult.result = response.body;
+     paginatedResult.result = response.body!;
      if (response.headers.get('Pagination') != null) {
-       paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+       paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
      }
      return paginatedResult;
    }));
@@ -64,9 +66,9 @@ removeProductFromMoodBoardCandidates(userId: number, productId: string): Observa
   { headers: new HttpHeaders({'Content-Type': 'application/json'}), observe: 'response', params})
 .pipe(
  map(response => {
-   paginatedResult.result = response.body;
+   paginatedResult.result = response.body!;
    if (response.headers.get('Pagination') != null) {
-     paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+     paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
    }
    return paginatedResult;
  }));
@@ -79,7 +81,7 @@ getUserMoodBoardCandidateProducts(term = 'filter=',
                                   categories: string[]= [],
                                   colors: string[]= [],
                                   materials: string[]= [],
-                                  pageNumber = 0, pageSize = 3, userId): Observable<PaginatedResult<UserMoodBoardCandidateProduct[]>> {
+                                  pageNumber = 0, pageSize = 3, userId: any): Observable<PaginatedResult<UserMoodBoardCandidateProduct[]>> {
                                     const paginatedResult: PaginatedResult<UserMoodBoardCandidateProduct[]> =
                                         new PaginatedResult<UserMoodBoardCandidateProduct[]>();
                                     let params = new HttpParams();
@@ -91,23 +93,23 @@ getUserMoodBoardCandidateProducts(term = 'filter=',
                        { headers: new HttpHeaders({'Content-Type': 'application/json'}), observe: 'response', params})
                     .pipe(
                       map(response => {
-                        paginatedResult.result = response.body;
+                        paginatedResult.result = response.body!;
                         if (response.headers.get('Pagination') != null) {
-                          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+                          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
                         }
                         return paginatedResult;
                       }));
 }
 removeLikeProduct(userId: number, productId: string): Observable<string> {
   return this.http.post<string>(this.baseUrl + `users/${userId}/products/RemoveLikeProduct/${false}`,
-    new UserFavorites(userId, productId, null, null));
+    new UserFavorites(userId, productId, new User(), new Product()));
 }
-updateUser(user): Observable<User> {
+updateUser(user: any): Observable<User> {
   return this.http.post<User>(this.baseUrl + 'users/' + this.authService.getDecodedToken().nameid
    + '/users/UpdateUser',  user);
 }
 
-getUserFavorites(userId): Observable<UserFavorites[]> {
+getUserFavorites(userId: any): Observable<UserFavorites[]> {
   return this.http.get<UserFavorites[]>(this.baseUrl + `users/${userId}/products/GetUserFavorites`);
 }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Renderer2, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
 import { MenuService } from '../menu.service';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,14 +37,14 @@ export class HorizontalMenuComponent implements OnInit  {
   roundImageTexture!: ElementRef;
   public colorMap = new Map<number, string[]>();
   public menuItemList!: MenuItem[];
- 
-  constructor(public router: Router,
-              private authService: AuthService,
-              private renderer2: Renderer2,
-              public basicDataService: BasicDataService,
-              public cdr: ChangeDetectorRef,
-              public appSettings: AppSettings) {
-                this.settings = this.appSettings.settings;
+  public router = inject( Router);
+  private authService = inject( AuthService);
+  private renderer2 = inject( Renderer2);
+  public basicDataService = inject( BasicDataService);
+  public cdr = inject( ChangeDetectorRef);
+  public appSettings = inject( AppSettings);
+  constructor() {
+                this.settings = this.appSettings.createNew();
                }
 
   ngOnInit() {
@@ -155,7 +155,7 @@ export class HorizontalMenuComponent implements OnInit  {
       routeSegments.push(+url.split('/')[1]);
     }
     if  (secondSegment) {
-      routeSegments.push(eval("(" + '{' + secondSegment + '}' + ")"));
+      routeSegments.push(JSON.parse(`{${secondSegment}}`));
     }
  
       this.router.navigate(routeSegments);

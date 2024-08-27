@@ -2,33 +2,21 @@ import { Component,
   OnInit,
   ViewChild,
   ViewChildren,
-  QueryList, OnDestroy, AfterViewInit, HostListener, ChangeDetectorRef, Input, Inject, ElementRef, Renderer2 } from '@angular/core';
-import { OfficeProject } from 'src/app/models/office-project';
+  QueryList, OnDestroy, AfterViewInit, HostListener, ChangeDetectorRef, Input, Inject, ElementRef, Renderer2, 
+  inject} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
 import { Meta } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
-import { User } from 'src/app/models/user';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { AppSettings, Settings } from 'src/app/app.settings';
 import {  } from 'ngx-scrollbar';
 import { tap, map, mergeMap } from 'rxjs/operators';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { Product } from 'src/app/models/product';
-import { DesignOffice } from 'src/app/models/design-office';
-import * as moment from 'jalali-moment'; // add this 1 of 4
-import { OfficeProjectImage } from 'src/app/models/office-project-image';
-import { OfficeProjectProduct } from 'src/app/models/office-project-product';
-import * as uuid from 'uuid';
+import moment from 'jalali-moment'; // add this 1 of 4
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OfficeProjectService } from 'src/app/services/office-project.service';
-import { getImagesWithAbsolutePath, myDomain} from 'src/app/services/helpers/urlHelper';
 import { NgxMasonryModule, NgxMasonryOptions } from 'ngx-masonry';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { Lightbox } from 'ngx-lightbox';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,10 +24,16 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 
-export interface OfficeProjectImageData {
-  officeProject: Observable<OfficeProject>;
-  index: number;
-}
+import { AppSettings, Settings } from '../../../app.settings';
+import { OfficeProject } from '../../../models/office-project';
+import { OfficeProjectImage } from '../../../models/office-project-image';
+import { OfficeProjectImageData } from '../../../models/office-project-image-data';
+import { AuthService } from '../../../services/auth.service';
+import { BasicDataService } from '../../../services/basic-data.service';
+import { getImagesWithAbsolutePath, myDomain } from '../../../services/helpers/urlHelper';
+import { OfficeProjectService } from '../../../services/office-project.service';
+
+
 @Component({
   selector: 'app-office-project-details',
   templateUrl: './office-project-details.component.html',
@@ -52,8 +46,10 @@ export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterVi
   viewCol: number = 25;
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
-  @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
+  @ViewChild('stickyCard', { static: true })
+  stickyCard!: ElementRef;
+  @ViewChild('delimiter', { static: true })
+  delimiter!: ElementRef;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public psConfig = {
     wheelPropagation: true
@@ -65,42 +61,43 @@ export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterVi
   public project: any;
   public settings: Settings;
   public embedVideo: any;
-  public relatedOfficeProjects: any[];
-  public featuredOfficeProjects: any[];
-  public mortgageForm: FormGroup;
+  public relatedOfficeProjects!: any[];
+  public featuredOfficeProjects!: any[];
+  public mortgageForm!: FormGroup;
   public monthlyPayment: any;
-  public contactForm: FormGroup;
-  public productIdList: Observable<string[]>;
-  public productList: any[];
+  public contactForm!: FormGroup;
+  public productIdList!: Observable<string[]>;
+  public productList!: any[];
   public myOptions: NgxMasonryOptions = {
     gutter: 10,
     fitWidth: true
   };
   private _albums = [];
 
-  projectId: string;
-  projectImage: string;
-  constructor(public appSettings: AppSettings,
-              private activatedRoute: ActivatedRoute,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private authService: AuthService,
-              private renderer: Renderer2,
-              private cdr: ChangeDetectorRef,
-              public infoReq: MatDialog,
-              public officeProjectService: OfficeProjectService,
-              private observer: BreakpointObserver,
-              public basicService: BasicDataService,
-              private _lightbox: Lightbox,
-              private meta: Meta) {
-    this.settings = this.appSettings.settings;
+  projectId!: string;
+  projectImage!: string;
+  public appSettings= inject( AppSettings);
+              private activatedRoute= inject( ActivatedRoute);
+              public fb= inject( FormBuilder);
+              private route= inject( ActivatedRoute);
+              private router= inject( Router);
+              private authService= inject( AuthService);
+              private renderer= inject( Renderer2);
+              private cdr= inject( ChangeDetectorRef);
+              public infoReq= inject( MatDialog);
+              public officeProjectService= inject( OfficeProjectService);
+              private observer= inject( BreakpointObserver);
+              public basicService= inject( BasicDataService);
+              private _lightbox= inject( Lightbox);
+              private meta= inject( Meta);
+  constructor() {
+    this.settings = this.appSettings.createNew();
 }
 
   ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe(params => {     
-      if (params.projectId) {
-        this.projectId = params.projectId;
+      if (params['projectId']) {
+        this.projectId = params['projectId'];
         this.getOfficeProject(this.projectId);       
         
       } else {
@@ -118,10 +115,10 @@ export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterVi
   }
 
  
-  public getOfficeProject(id) {
+  public getOfficeProject(id: string) {
     this.officeProjectService.getOfficeProjectById(id).subscribe(x => {
       this.project = x.project[0];
-      this.project?.bag.contentItems.filter(x => x.__typename === 'ProjectImage').map((x, i) => {
+      this.project?.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === 'ProjectImage').map((x: { image: { urls: string[]; }; userTitle: any; }, i: any) => {
         const src = "https://orchard.kheshtin.ir" +x.image.urls[0];
         const caption = x.userTitle;
         const thumb = "https://orchard.kheshtin.ir" +x.image.urls[0];
@@ -131,7 +128,7 @@ export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterVi
            thumb: thumb
         };
   
-        this._albums.push(album);
+        // this._albums.push(album);
       })
       this.getRelatedOfficeProjects();
         this.getFeaturedOfficeProjects();
@@ -196,19 +193,19 @@ export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterVi
     // });
   }
   public getCategoriesNames() {
-    return this.project ? this.project.projectType.contentItems.map(x => x.displayText).join(', ') : '';
+    return this.project ? this.project.projectType.contentItems.map((x: { displayText: any; }) => x.displayText).join(', ') : '';
 
   }
   public getImagesWithAbsPath(htmlText: string){
     return getImagesWithAbsolutePath(htmlText, myDomain);
   }
-  public getOfficeProjectImages(project){
-    return project?.bag.contentItems.filter(x => x.__typename === "ProjectImage");
+  public getOfficeProjectImages(project: { bag: { contentItems: any[]; }; }){
+    return project?.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === "ProjectImage");
   }
   open(index: number): void {
     this._lightbox.open(this._albums, index);
   }
-  public openProjectImageDialog(index) {
+  public openProjectImageDialog(index: any) {
     this.infoReq.open(OfficeProjectImageViewDialogComponent, {
       width: '90vw',
       height: '90vh',
@@ -238,8 +235,8 @@ export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterVi
   }
 
   public getRelatedOfficeProjects() {
-    this.officeProjectService.getRelatedOfficeProjects(`{from: 0, size: 10, fulltext:'${this.project.projectType.contentItems.map(x => x.id).join(' ')}  ${(this.project)?.hashtagList.contentItems ? (this.project)?.hashtagList.contentItems.map(x => x.searchField.replace('#', '')).join(' ') : ''}'}`).subscribe((y:any) => {
-      this.relatedOfficeProjects = y.searchProjects.filter(p => p.contentItemId !== this.project.contentItemId)
+    this.officeProjectService.getRelatedOfficeProjects(`{from: 0, size: 10, fulltext:'${this.project.projectType.contentItems.map((x: { id: any; }) => x.id).join(' ')}  ${(this.project)?.hashtagList.contentItems ? (this.project)?.hashtagList.contentItems.map((x: { searchField: string; }) => x.searchField.replace('#', '')).join(' ') : ''}'}`).subscribe((y:any) => {
+      this.relatedOfficeProjects = y.searchProjects.filter((p: { contentItemId: any; }) => p.contentItemId !== this.project.contentItemId)
     });
 
   }
@@ -251,7 +248,7 @@ export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterVi
     // });
   }
 
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     if (date) {
       return moment(date).locale('fa').format('YYYY/MM/DD');
     }
@@ -274,8 +271,8 @@ public getImages(officeProjectImages: OfficeProjectImage[]): Observable<OfficePr
 
 }
 
-public getSelectedImage(index): OfficeProjectImage {
-  let image = null;
+public getSelectedImage(index: any): OfficeProjectImage {
+  let image = new OfficeProjectImage();
   // this.project.subscribe(x => {
 
   //   image = x ? x.officeProjectImageList[index] : null;
@@ -298,29 +295,30 @@ tagClick(tag: any) {
 export class OfficeProjectImageViewDialogComponent implements OnInit {
   public settings: Settings;
   public selectedIndex = 1;
-  public selectedImageId: Observable<number>;
-  officeProject: Observable<OfficeProject>;
+  public selectedImageId!: Observable<number>;
+  officeProject!: Observable<OfficeProject>;
   @Input() variant = 1;
-  reqform: FormGroup;
-  constructor(public appSettings: AppSettings,
-              public dialogRef: MatDialogRef<OfficeProjectImageViewDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: OfficeProjectImageData,
-              public fb: FormBuilder) {
-      this.settings = this.appSettings.settings;
+  reqform!: FormGroup;
+  public appSettings= inject( AppSettings);
+              public dialogRef= inject( MatDialogRef<OfficeProjectImageViewDialogComponent>);
+              // @Inject(MAT_DIALOG_DATA) public data= inject(OfficeProjectImageData);
+              public fb= inject( FormBuilder);
+  constructor() {
+      this.settings = this.appSettings.createNew();
 }
 ngOnInit() {
   this.selectedImageId = of(1);
-  this.officeProject = this.data.officeProject;
-  this.selectedIndex = this.data.index;
+  // this.officeProject = this.data!.officeProject;
+  // this.selectedIndex = this.data!.index;
 
 }
-selectImage(index) {
+selectImage(index: number) {
   this.selectedIndex = index;
   let image = null;
   this.selectedImageId = this.officeProject.pipe(map(x => {
 
     image = x ? x.officeProjectImageList[index] : null;
-    return image.imageId;
+    return image!.imageId;
   }));
 }
 

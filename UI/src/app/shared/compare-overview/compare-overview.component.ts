@@ -28,7 +28,7 @@ export class CompareOverviewComponent implements OnInit {
   constructor(public productService: ProductsService,
               public appSettings: AppSettings,
               private bottomSheetRef: MatBottomSheetRef<CompareOverviewComponent>) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Brand } from '../models/brand';
 import { Category } from '../models/category';
 import { Product } from '../models/product';
@@ -27,7 +27,8 @@ export class BasicDataService {
   public allCategories: Category[] = [];
   public latestProducts: Product[] = [];
   baseUrl = environment.apiUrl;
-constructor(private apollo: Apollo) { }
+  private apollo = inject(Apollo);
+constructor() { }
 encode(data: any) {
   return encodeURIComponent(JSON.stringify(data));
 }

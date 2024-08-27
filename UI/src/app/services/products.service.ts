@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable, combineLatest, of } from 'rxjs';
@@ -44,12 +44,12 @@ export class ProductsService {
   );
   baseUrl = environment.apiUrl;
   hostUrl = environment.hostUrl;
-constructor(private http: HttpClient,
-            private apollo: Apollo,
-            // private authService: AuthService,
-            private bottomSheet: MatBottomSheet,
-            private snackBar: MatSnackBar,
-            public appSettings: AppSettings) { }
+  private http = inject(HttpClient);
+  private apollo= inject(Apollo);
+    public appSettings= inject(AppSettings);
+    private bottomSheet= inject(MatBottomSheet);
+    private snackBar= inject(MatSnackBar);
+constructor() { }
 
 getBrandProductsByCategoryAuth(brand: string, category: number, userId: string) {
   return this.http.get<Product[]>(this.baseUrl + 'users/' + userId +

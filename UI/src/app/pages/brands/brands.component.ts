@@ -91,7 +91,7 @@ export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
               private productService: ProductsService,
               private brandService: BrandService,
               private cdRef: ChangeDetectorRef) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
 //     this.watcher = mediaObserver.media$.subscribe((change: MediaChange) => {
 //     if (change.mqAlias === 'xs') {
 //       this.sidenavOpen = false;

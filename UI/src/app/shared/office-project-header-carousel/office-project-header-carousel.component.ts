@@ -21,7 +21,7 @@ export class OfficeProjectHeaderCarouselComponent implements OnInit, OnDestroy, 
   constructor(public appSettings: AppSettings,
               private cdr: ChangeDetectorRef,
               public route: Router) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {

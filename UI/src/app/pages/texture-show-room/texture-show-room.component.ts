@@ -109,7 +109,7 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
               public authService: AuthService,
               public infoReq: MatDialog,
               private meta: Meta) {
-    this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.createNew()
 }
 
   ngOnInit() {
@@ -362,7 +362,7 @@ export class TextureShowRoomDownloadDialogComponent implements OnInit {
               public dialogRef: MatDialogRef<TextureShowRoomDownloadDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: TextureShowRoomData,
               public fb: FormBuilder) {
-      this.settings = this.appSettings.settings;
+      this.settings = this.appSettings.createNew()
 }
 ngOnInit() {
   this.showRoom = this.data.showRoom;

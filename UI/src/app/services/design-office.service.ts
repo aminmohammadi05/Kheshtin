@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, combineLatest } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -14,6 +13,7 @@ import { GET_ALL_DESIGN_OFFICES } from '../queries/get-all-design-offices';
 import { GET_DESIGN_OFFICE_BY_ID } from '../queries/get-design-office-by-id';
 import { OneOfficeVideoSearch } from '../models/one-office-video-search';
 import { GET_VIDEOS_BY_OFFICE_ID } from '../queries/get-videos-by-office-id';
+import { environment } from '../../environments/environment';
 
 
 
@@ -23,15 +23,18 @@ import { GET_VIDEOS_BY_OFFICE_ID } from '../queries/get-videos-by-office-id';
 export class DesignOfficeService {
   
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient, private apollo: Apollo, private authService: AuthService) { }
+  private http = inject(HttpClient);
+  private apollo= inject(Apollo);
+    private authService= inject(AuthService);
+  constructor() { }
   
 
 
-  getAllDesignOfficesAuth(userId): Observable<DesignOffice[]> {
+  getAllDesignOfficesAuth(userId: any): Observable<DesignOffice[]> {
     return this.http.get<DesignOffice[]>(this.baseUrl + `users/${userId}/designOffices/GetAllDesignOffices/`);
   }
 
-  getDesignOffices(searchFields: DesignOfficeSearch, searchText): Observable<any> {
+  getDesignOffices(searchFields: DesignOfficeSearch, searchText: any): Observable<any> {
     return combineLatest([this.http.get<[]>(this.baseUrl + 'queries/searchDesignOffices?parameters=' + `{from: 0, size: 1, fulltext: '${searchFields.searchBox ? searchFields.searchBox.replace('null', '') : ''}  ${searchFields.categories ? searchFields.categories.map(x => 'ProjectType-'+x.id).join(' ') : ''} ${searchFields.hashtagObject ? searchFields.hashtagObject.searchField.replace("#", "") : ''}'}`),
     this.apollo.query({
       query: GET_DESIGN_OFFICES_BY_CONDITION,
@@ -65,7 +68,7 @@ export class DesignOfficeService {
   }
 
   getDesignOfficesAuth(term = 'filter=', categories: string[]= [],
-                       pageNumber = 0, pageSize = 3, userId): Observable<PaginatedResult<DesignOffice[]>> {
+                       pageNumber = 0, pageSize = 3, userId: any): Observable<PaginatedResult<DesignOffice[]>> {
    const paginatedResult: PaginatedResult<DesignOffice[]> = new PaginatedResult<DesignOffice[]>();
    let params = new HttpParams();
    params = params.append('pageNumber', pageNumber.toString());
@@ -75,29 +78,29 @@ export class DesignOfficeService {
      categories.join('_') , { observe: 'response', params})
   .pipe(
     map(response => {
-      paginatedResult.result = response.body;
+      paginatedResult.result = response.body!;
       if (response.headers.get('Pagination') != null) {
-        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
       }
       return paginatedResult;
     }));
 }
-  getDesignOfficeById(designOfficeId): Observable<any> {
+  getDesignOfficeById(designOfficeId: any): Observable<any> {
     return this.apollo.query({
       query: GET_DESIGN_OFFICE_BY_ID,
       variables: { contentItemId : designOfficeId}
     }).pipe(pluck("data"));
   }
-  getDesignOfficeTotalProjects(officeName): Observable<any> {
+  getDesignOfficeTotalProjects(officeName: any): Observable<any> {
     return this.http.get<any>(this.baseUrl +
        `queries/GetDesignOfficeProjectsCount?parameters={"from": 0, "size": 1,"fulltext" :  "${officeName}"}`);
   }
 
-  getDesignOfficeByIdAuth(designOfficeId, userId): Observable<DesignOffice> {
+  getDesignOfficeByIdAuth(designOfficeId: string, userId: any): Observable<DesignOffice> {
     return this.http.get<DesignOffice>(this.baseUrl + `users/${userId}/designOffices/GetDesignOfficeByDisplayId/` + designOfficeId);
   }
 
-  getDesignOfficeCategories(designOfficeId): Observable<DesignOffice> {
+  getDesignOfficeCategories(designOfficeId: string): Observable<DesignOffice> {
     return this.http.get<DesignOffice>(this.baseUrl + 'publicdesignOffices/GetDesignOfficeCategoriesPublic/' + designOfficeId);
   }
 
