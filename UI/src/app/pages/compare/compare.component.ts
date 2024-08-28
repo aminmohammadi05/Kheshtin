@@ -1,27 +1,37 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { AppService } from '../../app.service';
+import { Component, OnInit, ViewChild, OnDestroy, inject } from '@angular/core';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { Subscription } from 'rxjs';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { Property } from 'src/app/app.models';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
+import { Product } from '../../models/product';
+import { ProductsService } from '../../services/products.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { ProductItemComponent } from '../../shared/product-item/product-item.component';
 
 @Component({
   selector: 'app-compare',
+  standalone: true,
   templateUrl: './compare.component.html',
-  styleUrls: ['./compare.component.scss']
+  styleUrls: ['./compare.component.scss'],
+  imports: [CommonModule, MatChipsModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, ProductItemComponent],
 })
 export class CompareComponent implements OnInit, OnDestroy {
   // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
   // public config: SwiperConfigInterface = {};
-  public watcher: Subscription;
+  public watcher!: Subscription;
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
+  public appSettings = inject (AppSettings);
               // public appService: AppService,
-              public productService: ProductsService,
-              public mediaObserver: MediaObserver) {
+              public productService= inject ( ProductsService);
+              public mediaObserver= inject ( MediaObserver);
+  constructor() {
     this.settings = this.appSettings.createNew()
   }
 

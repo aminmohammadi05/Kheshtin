@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { GetInTouchComponent } from 'src/app/shared/get-in-touch/get-in-touch.component';
+import { GetInTouchComponent } from '../../shared/get-in-touch/get-in-touch.component';
 
 @Component({
   selector: 'app-faq',

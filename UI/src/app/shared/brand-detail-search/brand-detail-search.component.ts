@@ -1,19 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service';
-import { Category } from 'src/app/models/category';
 import { Observable } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { CategoriesComponent, CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { BrandSearch } from 'src/app/models/brand-search';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { BrandCollectionsComponent } from '../brand-collections/brand-collections.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrandSearch } from '../../models/brand-search';
+import { Category } from '../../models/category';
+import { CategoriesComponent } from '../../pages/categories/categories.component';
 
 @Component({
   selector: 'app-brand-detail-search',
@@ -27,7 +25,8 @@ export class BrandDetailSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
+  @Input()
+  removedSearchField!: string;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
   public selectedCategories: any[] = [];
@@ -41,13 +40,13 @@ export class BrandDetailSearchComponent implements OnInit, AfterViewInit {
     searchBox: ''
   });
   public showMore = false;
-  public form: FormGroup;
-  public categories: Observable<Category[]>;
-
-  constructor(public appService: AppService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router) {
+  public form!: FormGroup;
+  public categories!: Observable<Category[]>;
+  public fb= inject( FormBuilder);
+  private route= inject( ActivatedRoute);
+  private router= inject( Router);
+  constructor(
+              ) {
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                }
 
@@ -56,11 +55,11 @@ export class BrandDetailSearchComponent implements OnInit, AfterViewInit {
       this.route.queryParams
       .subscribe(params => {
         this.searchFields.categoriesBoxNested = [];
-        if (params.categories) {
-          this.searchFields.categoriesBoxNested.push(params.categories);
+        if (params['categories']) {
+          this.searchFields.categoriesBoxNested.push(params['categories']);
         }
-        if (params.filter) {
-          this.searchFields.searchBox = params.filter;
+        if (params['filter']) {
+          this.searchFields.searchBox = params['filter'];
         }
       });
       // this.store.pipe(select(getAllBrandSearches),
@@ -85,13 +84,13 @@ export class BrandDetailSearchComponent implements OnInit, AfterViewInit {
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.form.controls[arr[0]]['controls'][arr[1]].reset();
+        // this.form.controls[arr[0]]['controls'][arr[1]].reset();
       } else if (this.removedSearchField.indexOf(',') > -1) {
         const arr = this.removedSearchField.split(',');
         this.selectedCategories = this.selectedCategories.filter(x => !x.categoryId.toString().startsWith(arr[1]));
         this.searchFields.categoriesBoxNested = this.selectedCategories;
         // this.store.dispatch(new SaveBrandSearchForRequest(this.searchFields));
-        this.form.get('categoriesBoxNested').setValue(this.selectedCategories);
+        this.form.get('categoriesBoxNested')!.setValue(this.selectedCategories);
       } else {
         this.form.controls[this.removedSearchField].reset();
       }
@@ -138,21 +137,21 @@ export class BrandDetailSearchComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public categoryChanged(event) {
+  public categoryChanged(event: any) {
     if (event) {
       this.selectedCategories = [...event];
       this.searchFields.categoriesBoxNested = this.selectedCategories;
       // this.store.dispatch(new SaveBrandSearchForRequest(this.searchFields));
-      this.form.get('categoriesBoxNested').setValue(this.selectedCategories);
+      this.form.get('categoriesBoxNested')!.setValue(this.selectedCategories);
       this.SearchChange.emit(this.form);
     }
   }
-  public brandCollectionsChanged(event) {
+  public brandCollectionsChanged(event: any) {
     if (event) {
       this.selectedBrandCollections = [...event];
       this.searchFields.brandCollectionBox = this.selectedBrandCollections;
       // this.store.dispatch(new SaveBrandSearchForRequest(this.searchFields));
-      this.form.get('brandCollectionBox').setValue(this.selectedBrandCollections);
+      this.form.get('brandCollectionBox')!.setValue(this.selectedBrandCollections);
       this.SearchChange.emit(this.form);
     }
   }

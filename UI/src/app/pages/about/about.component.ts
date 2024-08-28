@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Settings, AppSettings } from 'src/app/app.settings';
 import { Observable } from 'rxjs';
-import { PageImages } from 'src/app/models/page-images';
-import { AuthService } from 'src/app/services/auth.service';
-import { InitializeService } from 'src/app/services/initialize.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -12,10 +8,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
-import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
-import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
-import { OurServicesComponent } from 'src/app/shared/our-services/our-services.component';
-import { BrandsCarouselComponent } from 'src/app/shared/brands-carousel/brands-carousel.component';
+
+import { AppSettings, Settings } from '../../app.settings';
+import { PageImages } from '../../models/page-images';
+import { AuthService } from '../../services/auth.service';
+import { InitializeService } from '../../services/initialize.service';
+import { BrandsCarouselComponent } from '../../shared/brands-carousel/brands-carousel.component';
+import { HeaderCarouselComponent } from '../../shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../../shared/header-image/header-image.component';
+import { OurServicesComponent } from '../../shared/our-services/our-services.component';
 
 @Component({
   selector: 'app-about',

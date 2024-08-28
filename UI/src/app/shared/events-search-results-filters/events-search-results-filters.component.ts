@@ -7,7 +7,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { EventSearch } from 'src/app/models/event-search';
+import { EventSearch } from '../../models/event-search';
+
 
 @Component({
   selector: 'app-events-search-results-filters',
@@ -18,14 +19,14 @@ import { EventSearch } from 'src/app/models/event-search';
 })
 export class EventsSearchResultsFiltersComponent implements OnInit {
 
-  @Input() searchFields: EventSearch;
+  @Input() searchFields: EventSearch | undefined;
   @Output() RemoveSearchField: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
   ngOnInit() {   
   }
 
-  public remove(field) {
+  public remove(field: any) {
     this.RemoveSearchField.emit(field);
   }
 

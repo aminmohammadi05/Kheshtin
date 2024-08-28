@@ -1,27 +1,12 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, ElementRef, Inject } from '@angular/core';
-import { Project } from 'src/app/models/project';
 import { ChooseProductsDialogComponent } from '../insert-project/step-three/step-three.component';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectService } from 'src/app/services/project.service';
-import { City } from 'src/app/models/city';
-import { ProjectCategory } from 'src/app/models/project-category';
-import { Province } from 'src/app/models/province';
-import { ProjectImage } from 'src/app/models/project-image';
-import { Product } from 'src/app/models/product';
-import { Brand } from 'src/app/models/brand';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FileValidatorDirective } from 'src/app/theme/directives/file-validator.directive';
 import { BehaviorSubject, of, Observable, Subject } from 'rxjs';
-import { BrandService } from 'src/app/services/brand.service';
 import { map, tap } from 'rxjs/operators';
-import { ProjectProduct } from 'src/app/models/project-product';
-import { Pagination } from 'src/app/models/pagination';
-import { Search } from 'src/app/models/search';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { Category } from 'src/app/models/category';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
@@ -34,6 +19,20 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
+import { Brand } from '../../../models/brand';
+import { Category } from '../../../models/category';
+import { City } from '../../../models/city';
+import { Pagination } from '../../../models/pagination';
+import { Product } from '../../../models/product';
+import { Project } from '../../../models/project';
+import { ProjectCategory } from '../../../models/project-category';
+import { ProjectImage } from '../../../models/project-image';
+import { Province } from '../../../models/province';
+import { Search } from '../../../models/search';
+import { AuthService } from '../../../services/auth.service';
+import { BrandService } from '../../../services/brand.service';
+import { ProjectService } from '../../../services/project.service';
+import { FileValidatorDirective } from '../../../theme/directives/file-validator.directive';
 export interface EditProductDialogData {
   brandList: Observable<Brand[]>;
   selectedProducts: Product[];
@@ -47,25 +46,26 @@ export interface EditProductDialogData {
 })
 export class EditProjectComponent implements OnInit, AfterViewInit {
   projectId = '';
-  project: Project;
-  statusList: any[];
+  project!: Project;
+  statusList: any[] = [];
   selectedStatus: any;
-  selectedCity: City;
-  projectName: string;
-  projectDescription: string;
+  selectedCity: City = new City;
+  projectName!: string;
+  projectDescription!: string;
   selectedProjectCategories: number[] = [];
-  provinceList: Observable<Province[]>;
-  cityList: Observable<City[]>;
-  projectCategories: Observable<ProjectCategory[]>;
+  provinceList!: Observable<Province[]>;
+  cityList!: Observable<City[]>;
+  projectCategories!: Observable<ProjectCategory[]>;
   visible = true;
   selectable = true;
   removable = true;
   editForm: FormGroup;
-  selectedProducts: Product[];
+  selectedProducts: Product[] = [];
   listOfProducts = '';
-  brandList: Observable<Brand[]>;
+  brandList!: Observable<Brand[]>;
   currentImages = new Array<FileInput>();
-  @ViewChild('imageInput') imageInput: ElementRef;
+  @ViewChild('imageInput')
+  imageInput!: ElementRef;
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private route: ActivatedRoute,
@@ -157,7 +157,7 @@ export class EditProjectComponent implements OnInit, AfterViewInit {
   // });
   }
 
-  toDataURL(url, callback) {
+  toDataURL(url: string | URL, callback: (arg0: string | ArrayBuffer | null) => void) {
     const xhr = new XMLHttpRequest();
     xhr.onload = () => {
         const reader = new FileReader();
@@ -170,7 +170,7 @@ export class EditProjectComponent implements OnInit, AfterViewInit {
     xhr.responseType = 'blob';
     xhr.send();
 }
-toArrayBufferURL(url, callback) {
+toArrayBufferURL(url: string | URL, callback: (arg0: string | ArrayBuffer | null) => void) {
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
       const reader = new FileReader();
@@ -198,39 +198,39 @@ toArrayBufferURL(url, callback) {
     // })).subscribe();
   }
 
-onFileSelected(event) {
+onFileSelected(event: { target: { files: Blob[]; }; }) {
     if (event.target.files &&
       event.target.files[0].size < 5 * 1024 * 1024 ) {
       const fileToAdd = new ProjectImage();
-      fileToAdd.name = event.target.files[0].name;
-      fileToAdd.fileExtension = event.target.files[0].name.substring(event.target.files[0].name.lastIndexOf('.') + 1);
+      // fileToAdd.name = event.target.files[0].name;
+      // fileToAdd.fileExtension = event.target.files[0].name.substring(event.target.files[0].name.lastIndexOf('.') + 1);
       fileToAdd.size = event.target.files[0].size;
       fileToAdd.imageId = this.project.projectImageList.length + 1;
       fileToAdd.projectId = this.project.projectId;
       const reader = new FileReader();
 
-      reader.onload = ((file: File) => {
-          return (evt) => {
-            fileToAdd.imageUrl = btoa(evt.target.result as string);
-            fileToAdd.createUserId = this.authService.getDecodedToken().nameid;
-          };
-        })(event.target.files[0]);
+      // reader.onload = ((file: File) => {
+      //     return (evt) => {
+      //       fileToAdd.imageUrl = btoa(evt.target.result as string);
+      //       fileToAdd.createUserId = this.authService.getDecodedToken().nameid;
+      //     };
+      //   })(event.target.files[0]);
 
       reader.readAsBinaryString(event.target.files[0]);
       this.project.projectImageList.push(fileToAdd);
     }
   }
 
-onThumbnailSelected(event, fileToUpload: ProjectImage) {
+onThumbnailSelected(event: { target: { files: Blob[]; }; }, fileToUpload: ProjectImage) {
     if (event.target.files &&
       event.target.files[0].size < 5 * 1024 * 1024 ) {
         const reader = new FileReader();
 
-        reader.onload = ((file: File) => {
-          return (evt) => {
-            fileToUpload.thumbnail = 'data:' + event.target.files[0].type + ';base64,' + btoa(evt.target.result as string);
-          };
-        })(event.target.files[0]);
+        // reader.onload = ((file: File) => {
+        //   return (evt) => {
+        //     fileToUpload.thumbnail = 'data:' + event.target.files[0].type + ';base64,' + btoa(evt.target.result as string);
+        //   };
+        // })(event.target.files[0]);
 
         reader.readAsBinaryString(event.target.files[0]);
     }
@@ -268,38 +268,38 @@ openDialog(): void {
   }
 
 saveChanges() {
-    this.project.name = this.editForm.get('projectName').value;
-    this.project.projectDevelopmentStatus = this.editForm.get('projectDevStatus').value;
+    this.project.name = this.editForm.get('projectName')!.value;
+    this.project.projectDevelopmentStatus = this.editForm.get('projectDevStatus')!.value;
     this.project.projectCategorySetList = [];
-    this.editForm.get('projectCategory').value.map((category, index) => {
+    this.editForm.get('projectCategory')!.value.map((category: any, index: any) => {
       this.project.projectCategorySetList.push({
         createUserId: this.authService.getDecodedToken().nameid,
         projectCategoryId: category,
         projectId: this.project.projectId,
-        project: null,
-        projectCategory: null
+        project: new Project(),
+        projectCategory: new ProjectCategory()
       });
     });
     this.project.projectImageList = [];
-    this.editForm.get('projectMainPicture').value.map((image, index) => {
+    this.editForm.get('projectMainPicture')!.value.map((image: { file: { type: any; size: any; }; preview: any; }, index: number) => {
       this.project.projectImageList.push({
         createUserId: this.authService.getDecodedToken().nameid,
         fileExtension: image.file.type,
         imageId: index + 1,
         imageUrl: '',
         name: this.project.projectId + '_' + index.toString(),
-        project: null,
+        project: new Project(),
         projectId: this.project.projectId,
         size: image.file.size,
         thumbnail: image.preview
       });
     });
-    this.project.description = this.editForm.get('projectDescription').value;
+    this.project.description = this.editForm.get('projectDescription')!.value;
     this.project.projectProductList = [];
     this.selectedProducts.map(c => {
       this.project.projectProductList.push({
           projectId: this.project.projectId,
-          project: null,
+          project: new Project(),
           product: c,
           productId: c.productId,
           createUserId: this.authService.getDecodedToken().nameid
@@ -319,15 +319,15 @@ saveChanges() {
     imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  FlexLayoutModule, ReactiveFormsModule, MatDividerModule, MatSelectModule],
 })
 export class EditProductsDialogComponent implements OnInit {
-  productForm: FormGroup;
-  productItems: FormArray;
-  selectedBrand: Brand;
-  selectedCategoryList: Observable<Category[]>;
+  productForm!: FormGroup;
+  productItems!: FormArray;
+  selectedBrand: Brand = new Brand;
+  selectedCategoryList!: Observable<Category[]>;
   brandProducts: Product[] = [];
   public allProducts: Product[] = [];
-  public totalProducts: Observable<number>;
+  public totalProducts!: Observable<number>;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public viewType = 'grid';
   public viewCol = 33.3;
   public searchFields: Search = new Search({
@@ -340,9 +340,9 @@ export class EditProductsDialogComponent implements OnInit {
     searchBox: '',
     vertical: false
   });
-  public pagination: Pagination = new Pagination(0, this.count, null, null);
+  public pagination: Pagination = new Pagination(0, this.count, 0, 0);
   public isLoading = false;
-  public message: string;
+  public message!: string;
   constructor(
     public dialogRef: MatDialogRef<EditProductsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditProductDialogData,   
@@ -356,7 +356,7 @@ export class EditProductsDialogComponent implements OnInit {
         productItems: this.formBuilder.array([])
       });
     }
-    selectBrand(event) {
+    selectBrand(event: any) {
       // this.store.pipe(select(getBrandById(this.productForm.get('brandList').value.displayId)),
       // tap((brand) => {
       //   if (brand) {
@@ -368,9 +368,9 @@ export class EditProductsDialogComponent implements OnInit {
       //   }
       // })).subscribe();
     }
-    selectCategory(event) {
+    selectCategory(event: any) {
       this.searchFields.categoriesBoxNested = [];
-      this.searchFields.categoriesBoxNested.push(this.productForm.get('categoryList').value);
+      this.searchFields.categoriesBoxNested.push(this.productForm.get('categoryList')!.value);
       this.getBrandProducts();
     }
     getBrandProducts() {
@@ -413,13 +413,13 @@ export class EditProductsDialogComponent implements OnInit {
       productItem: false
     });
   }
-  productDeleted(event) {
-    const index = this.productForm.get('productVRayFiles').value.indexOf(event);
+  productDeleted(event: any) {
+    const index = this.productForm.get('productVRayFiles')!.value.indexOf(event);
     this.productItems.removeAt(index);
   }
 
-  productSelected(event) {
-    this.productForm.get('productItems').value.map((product, i) => {
+  productSelected(event: any) {
+    this.productForm.get('productItems')!.value.map((product: Product, i: any) => {
     this.data.selectedProducts.push(product);
   });
   }
@@ -430,15 +430,15 @@ export class EditProductsDialogComponent implements OnInit {
     this.dialogRef.close();
   }
   save() {
-    this.data.selectedProducts = this.productForm.get('productItems').value
-      .map((v, i) => {
+    this.data.selectedProducts = this.productForm.get('productItems')!.value
+      .map((v: { productItem: any; }, i: number) => {
         return v.productItem ? this.brandProducts[i] : null;
       })
-      .filter(v => v !== null);
+      .filter((v: null) => v !== null);
     this.dialogRef.close({action: 'save', product: this.data.selectedProducts});
   }
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; }) {
     this.pagination.currentPage = e.pageIndex ;
     this.getBrandProducts();
     window.scrollTo(0, 0);

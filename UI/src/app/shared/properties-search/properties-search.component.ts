@@ -1,18 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ViewEncapsulation, ChangeDetectorRef, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service';
-import { Category } from 'src/app/models/category';
 import { BehaviorSubject, forkJoin, fromEvent, Observable, of, zip } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Search } from 'src/app/models/search';
 import { FileInput, MaterialFileInputModule  } from 'ngx-material-file-input';
-import { BrandProductCollection } from 'src/app/models/brand-product-collection';
-import { BrandCollection } from 'src/app/models/brand-collection';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,6 +12,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { Brand } from '../../models/brand';
+import { BrandCollection } from '../../models/brand-collection';
+import { Category } from '../../models/category';
+import { Search } from '../../models/search';
+import { BasicDataService } from '../../services/basic-data.service';
 
 @Component({
   selector: 'app-properties-search',
@@ -34,8 +31,10 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
   @Input() searchOnBtnClick = false;
   @Input() selectedBrand: any;
   
-  @Input() categories: BehaviorSubject<Category[]> = new BehaviorSubject([]);
-  @Input() removedSearchField: string;
+  @Input()
+  categories!: BehaviorSubject<Category[]>;
+  @Input()
+  removedSearchField!: string;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
  
@@ -58,9 +57,9 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     vertical: this.vertical,
   });
   public showMore = false;
-  public form: FormGroup;
-  public imageSearchForm: FormGroup;
-  public verticalForm: FormGroup;
+  public form!: FormGroup;
+  public imageSearchForm!: FormGroup;
+  public verticalForm!: FormGroup;
   //public categories: Observable<Category[]>;
   public brands: Brand[] = [];
   public propertyTypes = [];
@@ -80,7 +79,7 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
 
   file: any;
   url = '';
-  detectFiles(event) {
+  detectFiles(event: { target: { files: any[]; }; }) {
 
     this.file = event.target.files[0];
     let reader = new FileReader();
@@ -89,12 +88,13 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     };
     reader.readAsDataURL(this.file);
   }
-  constructor(public appService: AppService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              public basicDataService: BasicDataService, 
-              private cdr: ChangeDetectorRef,
-              private router: Router) {
+  public fb = inject( FormBuilder);
+              private route = inject( ActivatedRoute);
+              public basicDataService = inject( BasicDataService); 
+              private cdr = inject( ChangeDetectorRef);
+              private router = inject( Router);
+  constructor(
+              ) {
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                 
                }
@@ -104,14 +104,14 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     if(this.selectedBrand) {
       this.disableSelect = new FormControl(true);
       this.basicDataService.getBrandCollectionByBrandId(`{from: 0, size: 500, fulltext: '${this.selectedBrand.contentItemId}'}`).subscribe(x => {
-        this.brandCollections = x.getBrandCollectionByBrandId.map(x2 => ({
+        this.brandCollections = x.getBrandCollectionByBrandId.map((x2: { userTitle: any; contentItemId: any; }) => ({
             title: x2.userTitle,
             brandCollectionId: x2.contentItemId
           } as BrandCollection))
       })
     }
     this.basicDataService.getBrands().subscribe(x => {
-     this.brands = x.brand.map(x1 => ({
+     this.brands = x.brand.map((x1: { contentItemId: any; displayText: any; }) => ({
       brandId: x1.contentItemId,
       name: x1.displayText,
      
@@ -147,17 +147,17 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
       });
     }
   }
-  getCategories(event) {
+  getCategories(event: any[]) {
     const cats: Category[] = []
-    event.map(x => {
+    event.map((x: Category) => {
       cats.push(x);      
-      x.childrenCategories.map(x1 => {
+      x.childrenCategories.map((x1: Category) => {
         if(x1.childrenCategories && x1.childrenCategories.length > 0) {
           cats.push(x1);
-          x1.childrenCategories.map(x2 => {
+          x1.childrenCategories.map((x2: Category) => {
             if(x2.childrenCategories && x2.childrenCategories.length > 0) {
               cats.push(x2); 
-              x2.childrenCategories.map(x3 => {
+              x2.childrenCategories.map((x3: Category) => {
                 cats.push(x3);
               })             
             }else{
@@ -173,9 +173,9 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
   public buildFeatures() {
     const arr = this.features.map(feature => {
       return this.fb.group({
-        id: feature.id,
-        name: feature.name,
-        selected: feature.selected
+        // id: feature.id,
+        // name: feature.name,
+        // selected: feature.selected
       });
     });
     return this.fb.array(arr);
@@ -186,7 +186,7 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
+        // this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
       } else if (this.removedSearchField.indexOf(',') > -1) {
         const arr = this.removedSearchField.split(',');
         if (arr[0] === 'categoriesBoxNested') {
@@ -207,9 +207,9 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
           this.searchFields.brandCollectionBox = this.selectedBrandCollections;
         }
         // this.store.dispatch(new SaveSearchForRequest(this.searchFields));
-        this.verticalForm.get('categoriesBoxNested').setValue(this.selectedCategories);
-        this.verticalForm.get('brandsBox').setValue(this.selectedBrands);
-        this.verticalForm.get('brandCollectionBox').setValue(this.selectedBrandCollections);
+        this.verticalForm.get('categoriesBoxNested')!.setValue(this.selectedCategories);
+        this.verticalForm.get('brandsBox')!.setValue(this.selectedBrands);
+        this.verticalForm.get('brandCollectionBox')!.setValue(this.selectedBrandCollections);
         this.SearchChange.emit(this.verticalForm);
       } else {
         this.verticalForm.controls[this.removedSearchField].reset();
@@ -297,7 +297,7 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     }
 
     if (this.searchFields.imageUploaded && this.searchFields.imageUploaded.length > 0 && this.vertical) {
-        this.verticalForm.get('imageToSearch').setValue([{ id: 1,
+        this.verticalForm.get('imageToSearch')!.setValue([{ id: 1,
           preview: this.searchFields.imageUploaded,
           file: new File([this.searchFields.imageUploaded], 'searchImage', {
           type: '' // dataUrl.split(';')[0].split(':')[1]
@@ -315,12 +315,12 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     )
     .subscribe();
     }
-    public searchByText(event) {
+    public searchByText(event: any) {
       
     }
 
 
-  public categoryChanged(event) {
+  public categoryChanged(event: any) {
     this.selectedCategories = [];
     if (event) {
       this.selectedCategories = [...event];
@@ -329,13 +329,13 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     this.SearchChange.emit(this.verticalForm);
   }
 
-  public brandsChanged(event) {
+  public brandsChanged(event: { value: any[]; }) {
     this.selectedBrands = [];
     this.brandCollections = [];
     if (event.value && event.value[0]) {      
       this.selectedBrands = [...event.value];
       this.basicDataService.getBrandCollectionByBrandId(`{fulltext: '${this.selectedBrands.map(x => x.brandId).join(' ')}'}`).subscribe(x => {
-        this.brandCollections = x.getBrandCollectionByBrandId.map(x2 => ({
+        this.brandCollections = x.getBrandCollectionByBrandId.map((x2: { userTitle: any; contentItemId: any; }) => ({
             title: x2.userTitle,
             brandCollectionId: x2.contentItemId
           } as BrandCollection))
@@ -345,7 +345,7 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     this.searchFields.brandsBox = this.selectedBrands;
     this.SearchChange.emit(this.verticalForm);
   }
-  public brandCollectionsChanged(event) {
+  public brandCollectionsChanged(event: { value: any[]; }) {
     this.selectedBrandCollections = [];
     if (event.value && event.value[0]) {
       this.selectedBrandCollections = [...event.value];
@@ -358,8 +358,8 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     if (image && image.files) {
       this.getBase64(image.files).then(
         data => {
-          this.searchFields.imageUploaded = data.toString();
-          this.verticalForm.get('imageToSearch').setValue([{ id: 1,
+         // this.searchFields.imageUploaded = data.toString();
+          this.verticalForm.get('imageToSearch')!.setValue([{ id: 1,
             preview: this.searchFields.imageUploaded,
             file: new File([this.searchFields.imageUploaded], 'searchImage', {
             type: '' // dataUrl.split(';')[0].split(':')[1]
@@ -379,10 +379,10 @@ export class PropertiesSearchComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getBase64(file) {
+  getBase64(file: Blob | File[]) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
+     // reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
       reader.onerror = error => reject(error);
     });

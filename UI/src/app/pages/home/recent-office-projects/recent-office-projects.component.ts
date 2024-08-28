@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { OfficeProjectsCarouselComponent } from 'src/app/shared/office-projects-carousel/office-projects-carousel.component';
+import { OfficeProjectsCarouselComponent } from '../../../shared/office-projects-carousel/office-projects-carousel.component';
 
 @Component({
   selector: 'app-recent-office-projects',
@@ -17,7 +17,7 @@ import { OfficeProjectsCarouselComponent } from 'src/app/shared/office-projects-
   imports: [CommonModule,  FlexLayoutModule, MatFormFieldModule,  OfficeProjectsCarouselComponent ]
 })
 export class RecentOfficeProjectsComponent implements OnInit {
-  @Input() recentOfficeProjects;
+  @Input() recentOfficeProjects: any;
   @Input() viewType: string = 'grid';
   @Input() viewCol: number = 25;
   constructor() { }

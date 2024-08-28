@@ -1,14 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, ViewEncapsulation, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service';
-import { Category } from 'src/app/models/category';
 import { Observable } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { ProductMoodBoardSearch } from 'src/app/models/product-mood-board-search';
-import { DesignMoodBoardProductSearch } from 'src/app/models/design-mood-board-product-search';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -18,6 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MoodBoardProductItemComponent } from '../mood-board-product-item/mood-board-product-item.component';
+import { Brand } from '../../models/brand';
+import { Category } from '../../models/category';
+import { DesignMoodBoardProductSearch } from '../../models/design-mood-board-product-search';
 
 @Component({
   selector: 'app-product-mood-board-search',
@@ -30,10 +27,12 @@ export class ProductMoodBoardSearchComponent implements OnInit, AfterViewInit {
   public color1 = '#c8c8c8';
   public selectedColor: any = {'background-color' : '#c8c8c8' };
   @Input() variant = 1;
-  @Input() selectedCategories: Category[] = [];
+  @Input()
+  selectedCategories!: Category[];
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
+  @Input()
+  removedSearchField!: string;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
   
@@ -44,12 +43,12 @@ export class ProductMoodBoardSearchComponent implements OnInit, AfterViewInit {
     searchId: 1,
     brandsBox: [],
     categoriesBox: [],
-    colorBox: [],
+    //colorBox: [],
     materialsBox: []
   });
   public showMore = false;
-  public categories: Observable<Category[]>;
-  public brands: Observable<Brand[]>;
+  public categories!: Observable<Category[]>;
+  public brands!: Observable<Brand[]>;
   public propertyTypes = [];
   public showCategoriesDialog = false;
     public showProducersDialog = false;
@@ -83,11 +82,10 @@ public allColors: any[] = [
   {label: 'FFF9AE', value: 'FFF9AE'}
 ];
 
-
-  constructor(public appService: AppService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router) {
+public fb= inject( FormBuilder);
+              private route= inject( ActivatedRoute);
+              private router= inject( Router);
+  constructor() {
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
                }
@@ -178,7 +176,7 @@ public allColors: any[] = [
     }
 
 
-  public categoryChanged(event) {
+  public categoryChanged(event: Category) {
     if (event) {
       this.searchFields.categoriesBox = [event];
       // this.brands = this.store.pipe(select(getRelatedBrandsMoodBoard(event.categoryId)));
@@ -190,7 +188,7 @@ public allColors: any[] = [
       this.SearchChange.emit(this.searchFields);
     }
   }
-  public brandChanged(event) {
+  public brandChanged(event: Brand) {
     if (event) {
       this.searchFields.brandsBox = [event];
       this.SearchChange.emit(this.searchFields);
@@ -200,7 +198,7 @@ public allColors: any[] = [
       this.SearchChange.emit(this.searchFields);
     }
   }
-  public materialChanged(event) {
+  public materialChanged(event: string) {
     if (event) {
       this.searchFields.materialsBox = [event];
       this.SearchChange.emit(this.searchFields);
@@ -210,7 +208,7 @@ public allColors: any[] = [
       this.SearchChange.emit(this.searchFields);
     }
   }
-  public colorChanged(event) {
+  public colorChanged(event: string) {
     if (event) {
       this.searchFields.colorsBox = [event];
       this.SearchChange.emit(this.searchFields);

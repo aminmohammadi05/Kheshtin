@@ -3,7 +3,6 @@ import { Component, OnInit, Inject, ViewChild, AfterViewInit, ChangeDetectorRef 
 
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { UserMoodBoard } from 'src/app/models/user-moodboard';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +10,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { UserMoodBoard } from '../../models/user-moodboard';
 interface UserMoodBoardDialogData {
   userMoodBoard: UserMoodBoard;
   action?: string;
@@ -30,9 +30,9 @@ export class MoodBoardExtraInfoComponent implements OnInit, AfterViewInit {
   keywordList = '';
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   userMoodBoard: UserMoodBoard;
-  dialogTitle: string;
-  moodBoardExtraInfoForm: FormGroup;
-  action: string;
+  dialogTitle!: string;
+  moodBoardExtraInfoForm!: FormGroup;
+  action!: string;
   constructor(
     public dialogRef: MatDialogRef<MoodBoardExtraInfoComponent>,
     @Inject(MAT_DIALOG_DATA) private data: UserMoodBoardDialogData,
@@ -40,7 +40,7 @@ export class MoodBoardExtraInfoComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef
   ) {
     this.userMoodBoard = data.userMoodBoard;
-    this.action = data.action;
+   //this.action = data.action;
   }
   
   ngOnInit() {
@@ -53,8 +53,8 @@ export class MoodBoardExtraInfoComponent implements OnInit, AfterViewInit {
    
   }
 save() {
-  this.userMoodBoard.moodBoardName = this.moodBoardExtraInfoForm.get('moodBoardName').value;
-  this.userMoodBoard.moodBoardDescription = this.moodBoardExtraInfoForm.get('moodBoardDescription').value;
+  this.userMoodBoard.moodBoardName = this.moodBoardExtraInfoForm.get('moodBoardName')!.value;
+  this.userMoodBoard.moodBoardDescription = this.moodBoardExtraInfoForm.get('moodBoardDescription')!.value;
   this.dialogRef.close({action: 'save', userMoodBoard: this.userMoodBoard});
 }
 

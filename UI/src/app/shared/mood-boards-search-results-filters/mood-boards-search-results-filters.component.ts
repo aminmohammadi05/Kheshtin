@@ -8,8 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { MoodBoardSearch } from 'src/app/models/mood-board-search';
-import { CategoriesComponent } from 'src/app/pages/categories/categories.component';
+import { MoodBoardSearch } from '../../models/mood-board-search';
 
 @Component({
   selector: 'app-mood-boards-search-results-filters',
@@ -19,7 +18,8 @@ import { CategoriesComponent } from 'src/app/pages/categories/categories.compone
   imports: [CommonModule, MatIconModule,MatListModule ]
 })
 export class MoodBoardsSearchResultsFiltersComponent implements OnInit {
-  @Input() searchFields: MoodBoardSearch;
+  @Input()
+  searchFields!: MoodBoardSearch;
   @Output() RemoveSearchField: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
@@ -27,7 +27,7 @@ export class MoodBoardsSearchResultsFiltersComponent implements OnInit {
   
    }
 
-  public remove(field) {
+  public remove(field: any) {
     this.RemoveSearchField.emit(field);
   }
   public getCategoryName(categoryId: number) {

@@ -1,14 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service'; 
-import { Category } from 'src/app/models/category';
 import { Observable } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { CategoriesComponent, CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { BlogSearch } from 'src/app/models/blog-search';
-import { MoodBoardSearch } from 'src/app/models/mood-board-search';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,6 +10,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { Category } from '../../models/category';
+import { MoodBoardSearch } from '../../models/mood-board-search';
+import { CategoriesComponent } from '../../pages/categories/categories.component';
 
 @Component({
   selector: 'app-mood-boards-search',
@@ -28,7 +25,8 @@ export class MoodBoardsSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
+  @Input()
+  removedSearchField!: string;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
   public searchInput: FormControl = new FormControl('');
@@ -39,13 +37,12 @@ export class MoodBoardsSearchComponent implements OnInit, AfterViewInit {
     searchBox: ''
   });
   public showMore = false;
-  public form: FormGroup;
-  public categories: Observable<Category[]>;
-
-  constructor(public appService: AppService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router) {
+  public form!: FormGroup;
+  public categories!: Observable<Category[]>;
+  public fb= inject( FormBuilder);
+  private route= inject( ActivatedRoute);
+  private router= inject( Router);
+  constructor() {
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                }
 
@@ -100,13 +97,13 @@ export class MoodBoardsSearchComponent implements OnInit, AfterViewInit {
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.form.controls[arr[0]]['controls'][arr[1]].reset();
+        // this.form.controls[arr[0]]['controls'][arr[1]].reset();
       } else if (this.removedSearchField.indexOf(',') > -1) {
         const arr = this.removedSearchField.split(',');
         this.selectedCategories = this.selectedCategories.filter(x => !x.categoryId.toString().startsWith(arr[1]));
         this.searchFields.categoriesBoxNested = this.selectedCategories;
         // this.store.dispatch(new SaveMoodBoardSearchForRequest(this.searchFields));
-        this.form.get('categoriesBoxNested').setValue(this.selectedCategories);
+        this.form.get('categoriesBoxNested')!.setValue(this.selectedCategories);
       } else {
         this.form.controls[this.removedSearchField].reset();
       }
@@ -157,12 +154,12 @@ export class MoodBoardsSearchComponent implements OnInit, AfterViewInit {
 
   }
 
-  public categoryChanged(event) {
+  public categoryChanged(event: any) {
     if (event) {
       this.selectedCategories = [...event];
       this.searchFields.categoriesBoxNested = this.selectedCategories;
       // this.store.dispatch(new SaveMoodBoardSearchForRequest(this.searchFields));
-      this.form.get('categoriesBoxNested').setValue(this.selectedCategories);
+      this.form.get('categoriesBoxNested')!.setValue(this.selectedCategories);
       this.SearchChange.emit(this.form);
     }
   }

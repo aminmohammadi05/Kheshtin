@@ -1,32 +1,42 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, OnChanges, ChangeDetectorRef } from '@angular/core';
 // import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
-import { PageImages } from 'src/app/models/page-images';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
-import { OfficeProjectImage } from 'src/app/models/office-project-image';
-import { ProductFile } from 'src/app/models/product-file';
-import { AuthService } from 'src/app/services/auth.service';
-import { Product } from 'src/app/models/product';
-import { MoodBoardProduct } from 'src/app/models/moodboard-product';
-import { UserMoodBoardCandidateProduct } from 'src/app/models/user-mood-board-candidate-product';
-import * as uuid from 'uuid';
 import { map } from 'rxjs/operators';
+import { MoodBoardProduct } from '../../models/moodboard-product';
+import { Product } from '../../models/product';
+import { UserMoodBoardCandidateProduct } from '../../models/user-mood-board-candidate-product';
+import { AuthService } from '../../services/auth.service';
+import { ProductFile } from '../../models/product-file';
+import { UserMoodBoard } from '../../models/user-moodboard';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-mood-board-products-carousel',
   templateUrl: './mood-board-products-carousel.component.html',
-  styleUrls: ['./mood-board-products-carousel.component.scss']
+  styleUrls: ['./mood-board-products-carousel.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule]
 })
 export class MoodBoardProductsCarouselComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
-  @Input() slides: Observable<Product[]>;
-  @Input() candidateSlides: Observable<UserMoodBoardCandidateProduct[]>;
-  @Input() isCandidateProducts: boolean;
-  @Input() moodBoardId: string;
-  @Input() currentProducts: Array<Product>;
-  @Input() pageNumber: number;
+  @Input()
+  slides!: Observable<Product[]>;
+  @Input()
+  candidateSlides!: Observable<UserMoodBoardCandidateProduct[]>;
+  @Input()
+  isCandidateProducts!: boolean;
+  @Input()
+  moodBoardId!: string;
+  @Input()
+  currentProducts!: Array<Product>;
+  @Input()
+  pageNumber!: number;
   // public config: SwiperConfigInterface = {};
-  public currentSlide: Product;
+  public currentSlide!: Product;
   @Input() selectedProducts: MoodBoardProduct[] = [];
   public settings: Settings;
   constructor(public appSettings: AppSettings,
@@ -75,9 +85,9 @@ export class MoodBoardProductsCarouselComponent implements OnInit, OnDestroy, Af
 
   }
 
-  public onIndexChange(event) {
+  public onIndexChange(event: string | number) {
     this.slides.subscribe(x => {
-      this.currentSlide =  x[event];
+      // this.currentSlide =  x[event];
     });
   }
 
@@ -94,12 +104,12 @@ export class MoodBoardProductsCarouselComponent implements OnInit, OnDestroy, Af
       productFileId: 1,
       moodBoardId: this.moodBoardId,
       createUserId: this.authService.getDecodedToken().nameid,
-      product: null,
-      moodBoardProduct: null
+      product: new ProductFile(),
+      moodBoardProduct: new UserMoodBoard()
     });
   }
 
-  public chooseColor(file) {
+  public chooseColor(file: any) {
 
   }
   getProductFilesColors(product: Product) {

@@ -1,10 +1,10 @@
 import { Component, OnInit, forwardRef, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormBuilder, Form, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { BrandCollectionListDatabase } from 'src/app/services/brand-collection-list-database';
-import { BrandCollection } from 'src/app/models/brand-collection';
-import { BrandCollectionService } from 'src/app/services/brand-collection.service';
-import { AuthService } from 'src/app/services/auth.service';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { BrandCollection } from '../../models/brand-collection';
+import { AuthService } from '../../services/auth.service';
+import { BrandCollectionListDatabase } from '../../services/brand-collection-list-database';
+import { BrandCollectionService } from '../../services/brand-collection.service';
 
 @Component({
   selector: 'app-brand-collections',
@@ -20,7 +20,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     }]
 })
 export class BrandCollectionsComponent implements OnInit, AfterViewInit {
-  brandCollectionsForm: FormGroup;
+  brandCollectionsForm!: FormGroup;
   brandCollectionList: BrandCollection[] = [];
   @Input() brandId = '';
   @Input() selectedIdList: BrandCollection[] = [];
@@ -91,7 +91,7 @@ export class BrandCollectionsComponent implements OnInit, AfterViewInit {
   setDisabledState?(isDisabled: boolean): void {
   }
 
-  selectNodes(event, id: BrandCollection) {
+  selectNodes(event: { checked: any; }, id: BrandCollection) {
     if (event.checked) {
       this.selectedIdList.push(id);
     } else {

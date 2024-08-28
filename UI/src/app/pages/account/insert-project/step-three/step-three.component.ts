@@ -1,18 +1,8 @@
-import { Component, OnInit, Input, Inject, Output, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, Inject, Output, forwardRef, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { Product } from 'src/app/models/product';
-import { Brand } from 'src/app/models/brand';
-import { BrandService } from 'src/app/services/brand.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { ProductsService } from 'src/app/services/products.service';
-import { Project } from 'src/app/models/project';
-import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, mergeMap } from 'rxjs/operators';
-import { Pagination } from 'src/app/models/pagination';
-import { FileValidatorDirective } from 'src/app/theme/directives/file-validator.directive';
-import { Search } from 'src/app/models/search';
-import { Category } from 'src/app/models/category';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -23,6 +13,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
+import { Brand } from '../../../../models/brand';
+import { Category } from '../../../../models/category';
+import { Pagination } from '../../../../models/pagination';
+import { Product } from '../../../../models/product';
+import { Project } from '../../../../models/project';
+import { Search } from '../../../../models/search';
+import { AuthService } from '../../../../services/auth.service';
+import { BrandService } from '../../../../services/brand.service';
 
 const noop = () => {
 };
@@ -54,12 +52,12 @@ export class StepThreeComponent implements OnInit, ControlValueAccessor {
   thirdFormGroup: FormGroup;
   selectedProducts: Product[] = [];
   listOfProducts = '';
-  brandList: Observable<Brand[]>;
-
-  constructor(private brandService: BrandService,
-              private fb: FormBuilder,
-              public dialog: MatDialog,
-              private authService: AuthService) {
+  brandList!: Observable<Brand[]>;
+  private brandService = inject( BrandService);
+  private fb = inject( FormBuilder);
+  public dialog = inject( MatDialog);
+  private authService = inject( AuthService);
+  constructor() {
       this.thirdFormGroup = this.fb.group({
         productList: ['', Validators.required]
       });
@@ -97,7 +95,7 @@ export class StepThreeComponent implements OnInit, ControlValueAccessor {
     this.selectedProducts.map(c => {
       this.innerProject.projectProductList.push({
           projectId: this.innerProject.projectId,
-          project: null,
+          project: new Project(),
           product: c,
           productId: c.productId,
           createUserId: this.authService.getDecodedToken().nameid
@@ -132,14 +130,14 @@ export class StepThreeComponent implements OnInit, ControlValueAccessor {
   imports: [CommonModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatSelectModule, MatProgressSpinnerModule, MatDialogModule],
 })
 export class ChooseProductsDialogComponent implements OnInit {
-  productForm: FormGroup;
-  productItems: FormArray;
-  selectedBrand: Brand;
-  selectedCategoryList: Observable<Category[]>;
+  productForm!: FormGroup;
+  productItems!: FormArray;
+  selectedBrand!: Brand;
+  selectedCategoryList!: Observable<Category[]>;
   brandProducts: Product[] = [];
   public allProducts: Product[] = [];
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public viewType = 'grid';
   public viewCol = 33.3;
   public searchFields: Search = new Search({
@@ -152,9 +150,9 @@ export class ChooseProductsDialogComponent implements OnInit {
     searchBox: '',
     vertical: false
   });
-  public pagination: Pagination = new Pagination(0, this.count, null, null);
+  public pagination: Pagination = new Pagination(0, this.count, 0, 0);
   public isLoading = false;
-  public message: string;
+  public message!: string;
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ChooseProductsDialogComponent>,
@@ -168,7 +166,7 @@ export class ChooseProductsDialogComponent implements OnInit {
         productItems: this.formBuilder.array([])
       });
     }
-    selectBrand(event) {
+    selectBrand(event: any) {
       // this.store.pipe(select(getBrandById(this.productForm.get('brandList').value.displayId)),
       // tap((brand) => {
       //   if (brand) {
@@ -180,9 +178,9 @@ export class ChooseProductsDialogComponent implements OnInit {
       //   }
       // })).subscribe();
     }
-    selectCategory(event) {
+    selectCategory(event: any) {
       this.searchFields.categoriesBoxNested = [];
-      this.searchFields.categoriesBoxNested.push(this.productForm.get('categoryList').value);
+      this.searchFields.categoriesBoxNested.push(this.productForm.get('categoryList')!.value);
       this.getBrandProducts();
     }
     getBrandProducts() {
@@ -210,11 +208,11 @@ export class ChooseProductsDialogComponent implements OnInit {
     //             }
     // })).subscribe();
     }
-    selectProduct(event, product) {
+    selectProduct(event: { checked: any; }, product: Product) {
       if (event.checked) {
         this.data.selectedProducts.push(product);
       } else {
-        this.data.selectedProducts.splice(this.data.selectedProducts.indexOf(product)[0], 1);
+       // this.data.selectedProducts.splice(this.data.selectedProducts.indexOf(product)[0], 1);
       }
     }
 
@@ -225,13 +223,13 @@ export class ChooseProductsDialogComponent implements OnInit {
       productItem: false
     });
   }
-  productDeleted(event) {
-    const index = this.productForm.get('productVRayFiles').value.indexOf(event);
+  productDeleted(event: any) {
+    const index = this.productForm.get('productVRayFiles')!.value.indexOf(event);
     this.productItems.removeAt(index);
   }
 
-  productSelected(event) {
-    this.productForm.get('productItems').value.map((product, i) => {
+  productSelected(event: any) {
+    this.productForm.get('productItems')!.value.map((product: Product, i: any) => {
     this.data.selectedProducts.push(product);
   });
   }
@@ -242,15 +240,15 @@ export class ChooseProductsDialogComponent implements OnInit {
     this.dialogRef.close();
   }
   save() {
-    this.data.selectedProducts = this.productForm.get('productItems').value
-      .map((v, i) => {
+    this.data.selectedProducts = this.productForm.get('productItems')!.value
+      .map((v: { productItem: any; }, i: number) => {
         return v.productItem ? this.brandProducts[i] : null;
       })
-      .filter(v => v !== null);
+      .filter((v: null) => v !== null);
     this.dialogRef.close({action: 'save', product: this.data.selectedProducts});
   }
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; }) {
     this.pagination.currentPage = e.pageIndex ;
     this.getBrandProducts();
     window.scrollTo(0, 0);

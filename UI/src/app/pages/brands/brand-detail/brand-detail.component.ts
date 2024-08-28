@@ -1,50 +1,16 @@
 import { Component, OnInit, OnDestroy, ViewChild,
   ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, 
-  CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
-import { Property } from 'src/app/app.models';
-import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from 'src/app/app.service';
-
-import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { BrandService } from 'src/app/services/brand.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
 import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { PaginatedResult, Pagination } from 'src/app/models/pagination';
 import { MatPaginator } from '@angular/material/paginator';
-import { Category } from 'src/app/models/category';
-import { Search } from 'src/app/models/search';
-import { BrandSearch } from 'src/app/models/brand-search';
-import { BrandCollection } from 'src/app/models/brand-collection';
-import { BrandCatalog } from 'src/app/models/brand-catalog';
-import { BrandVideo } from 'src/app/models/brand-video';
-import { BrandReseller } from 'src/app/models/brand-reseller';
-import { NIL } from 'uuid';
-import * as uuid from 'uuid';
-import { OfficeProject } from 'src/app/models/office-project';
-import { BrandCatalogDataSource } from 'src/app/services/brand-catalog-data-source';
-import { BrandResellerDataSource } from 'src/app/services/brand-reseller-data-source';
-import { BrandCollectionDataSource } from 'src/app/services/brand-collection-data-source';
-import { BrandOfficeProjectsDataSource } from 'src/app/services/brand-office-project-data-source';
-import { BrandVideoDataSource } from 'src/app/services/brand-video-data-source';
-import { BrandProductDataSource } from 'src/app/services/brand-product-data-source';
-import { BrandCatalogService } from 'src/app/services/brand-catalog.service';
-import { BrandCollectionService } from 'src/app/services/brand-collection.service';
-import { BrandVideoService } from 'src/app/services/brand-video.service';
-import { BrandResellerService } from 'src/app/services/brand-reseller.service';
-import { OfficeProjectService } from 'src/app/services/office-project.service';
 import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
-import { BrandCollectionSearch } from 'src/app/models/brand-collection-search';
-import { getImagesWithAbsolutePath, myDomain } from 'src/app/services/helpers/urlHelper';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
@@ -53,18 +19,32 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
-import { BrandCatalogItemComponent } from 'src/app/shared/brand-catalog-item/brand-catalog-item.component';
-import { BrandCollectionItemComponent } from 'src/app/shared/brand-collection-item/brand-collection-item.component';
-import { BrandResellerItemComponent } from 'src/app/shared/brand-reseller-item/brand-reseller-item.component';
-import { BrandVideoItemComponent } from 'src/app/shared/brand-video-item/brand-video-item.component';
-import { OfficeProjectItemComponent } from 'src/app/shared/office-project-item/office-project-item.component';
-import { BrandProductsComponent } from '../brand-products/brand-products.component';
-import { BrandCollectionsComponent } from 'src/app/shared/brand-collections/brand-collections.component';
 import { VideosComponent } from '../videos/videos.component';
 import { ResellersComponent } from '../resellers/resellers.component';
 import { CatalogsComponent } from '../catalogs/catalogs.component';
 import { BrandProjectsComponent } from '../brand-projects/brand-projects.component';
+
+import { AppSettings, Settings } from '../../../app.settings';
+import { Pagination } from '../../../models/pagination';
+import { Search } from '../../../models/search';
+import { AuthService } from '../../../services/auth.service';
+import { BrandCatalogService } from '../../../services/brand-catalog.service';
+import { BrandCollectionService } from '../../../services/brand-collection.service';
+import { BrandResellerService } from '../../../services/brand-reseller.service';
+import { BrandVideoService } from '../../../services/brand-video.service';
+import { BrandService } from '../../../services/brand.service';
+import { getImagesWithAbsolutePath, myDomain } from '../../../services/helpers/urlHelper';
+import { OfficeProjectService } from '../../../services/office-project.service';
+import { ProductsService } from '../../../services/products.service';
+import { BrandCatalogItemComponent } from '../../../shared/brand-catalog-item/brand-catalog-item.component';
+import { BrandCollectionItemComponent } from '../../../shared/brand-collection-item/brand-collection-item.component';
+import { BrandCollectionsComponent } from '../../../shared/brand-collections/brand-collections.component';
+import { BrandResellerItemComponent } from '../../../shared/brand-reseller-item/brand-reseller-item.component';
+import { BrandVideoItemComponent } from '../../../shared/brand-video-item/brand-video-item.component';
+import { OfficeProjectItemComponent } from '../../../shared/office-project-item/office-project-item.component';
+import { ProductItemComponent } from '../../../shared/product-item/product-item.component';
+import { emailValidator } from '../../../theme/utils/app-validators';
+import { BrandProductsComponent } from '../brand-products/brand-products.component';
 
 @Component({
   selector: 'app-brand-detail',
@@ -76,8 +56,10 @@ import { BrandProjectsComponent } from '../brand-projects/brand-projects.compone
 })
 export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   @ViewChild('sidenav', { static: true }) sidenav: any;
-  @ViewChild('tabGroup', { static: true }) tabGroup: MatTabGroup;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('tabGroup', { static: true })
+  tabGroup!: MatTabGroup;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   viewType = 'grid';
   viewCol = 25;
@@ -89,15 +71,15 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   // public config2: SwiperConfigInterface = {};
   private sub: any;
   public brand: any;
-  public officeProjectsOverview: any[];
-  public productsOverview: any[];
-  public brandCollectionsOverview: any[];
-  public videosOverview: any[];
-  public resellersOverview: any[];
-  public catalogsOverview: any[];
-  public totalProducts: Observable<number>;
+  public officeProjectsOverview!: any[];
+  public productsOverview!: any[];
+  public brandCollectionsOverview!: any[];
+  public videosOverview!: any[];
+  public resellersOverview!: any[];
+  public catalogsOverview!: any[];
+  public totalProducts!: Observable<number>;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public selectedTab = new FormControl(0);
   public searchFields: Search = new Search({
     brandsBox: [],
@@ -107,40 +89,39 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
     searchBox: ''
   });
   
-  public removedSearchField: string;
+  public removedSearchField!: string;
   public isLoading = false;
-  public pagination: Pagination = new Pagination(0, this.count, null, null);
-  public brandCollectionPagination: Pagination = new Pagination(0, this.count, null, null);
-  public message: string;
-  public messageCollection: string;
-  public messageCatalog: string;
-  public messageVideo: string;
-  public messageReseller: string;
-  public watcher: Subscription;
+  public pagination: Pagination = new Pagination(0, this.count, 0, 0);
+  public brandCollectionPagination: Pagination = new Pagination(0, this.count, 0, 0);
+  public message!: string;
+  public messageCollection!: string;
+  public messageCatalog!: string;
+  public messageVideo!: string;
+  public messageReseller!: string;
+  public watcher!: Subscription;
 
   public settings: Settings;
-  public relatedProducts: any[];
-  public featuredProducts: any[];
-  public contactForm: FormGroup;
-  brandId: string;
-  brandImage: string;
- 
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private brandService: BrandService,
+  public relatedProducts!: any[];
+  public featuredProducts!: any[];
+  public contactForm!: FormGroup;
+  brandId!: string;
+  brandImage!: string;
+  public appSettings= inject( AppSettings);
+  private brandService= inject( BrandService);
 
-              private brandCatalogService: BrandCatalogService,
-              private brandCollectionService: BrandCollectionService,
-              private brandOfficeProjectService: OfficeProjectService,
-              private brandVideoService: BrandVideoService,
-              private brandResellerService: BrandResellerService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private productService: ProductsService,
-              private cdRef: ChangeDetectorRef,
-              private authService: AuthService,
-              private meta: Meta) {
+  private brandCatalogService= inject( BrandCatalogService);
+  private brandCollectionService= inject( BrandCollectionService);
+  private brandOfficeProjectService= inject( OfficeProjectService);
+  private brandVideoService= inject( BrandVideoService);
+  private brandResellerService= inject( BrandResellerService);
+  public fb= inject( FormBuilder);
+  private route= inject( ActivatedRoute);
+  private router= inject( Router);
+  private productService= inject( ProductsService);
+  private cdRef= inject( ChangeDetectorRef);
+  private authService= inject( AuthService);
+  private meta = inject(Meta);
+  constructor() {
     this.settings = this.appSettings.createNew()
 }
 
@@ -148,10 +129,10 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
 
     this.sub = this.route.params.subscribe(params => {
      
-      if (params.brandId) {
-        this.brandId = params.brandId;
-        this.getBrandById(this.brandId, params.tab);
-        this.tabGroup.selectedIndex = +params.tab;
+      if (params['brandId']) {
+        this.brandId = params['brandId'];
+        this.getBrandById(this.brandId, params['tab']);
+        this.tabGroup.selectedIndex = +params['tab'];
        
         
       } else {
@@ -184,7 +165,7 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
     (window.innerWidth < 960) ? this.sidenavOpen = false : this.sidenavOpen = true;
   }
 
-  public getBrandById(id, tab) {
+  public getBrandById(id: string, tab: string | number) {
     if(+tab === 0) {
       this.getSelectedBrandCollectionsByBrandId(id);
       this.getSelectedVideosByBrandId(id);
@@ -203,21 +184,21 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
     });
   }
 
-  public getSelectedBrandCollectionsByBrandId(id) {
+  public getSelectedBrandCollectionsByBrandId(id: any) {
     this.brandService.getSelectedBrandCollectionsByBrandId(`{from: 0, size: 10, fulltext:'${id}'}`).subscribe((x: any) => {
      
       this.brandCollectionsOverview = x.getSelectedBrandCollectionByBrandId;
       
     });
   }
-  public getSelectedProductsByBrandId(id) {
+  public getSelectedProductsByBrandId(id: any) {
     this.brandService.getSelectedProductsByBrandId(`{from: 0, size: 10, fulltext:'${id}'}`).subscribe((x: any) => {
     
       this.productsOverview = x.getSelectedProductsByBrandId;
       
     });
   }
-  public getSelectedVideosByBrandId(id) {
+  public getSelectedVideosByBrandId(id: any) {
     this.brandService.getSelectedVideosByBrandId(`{from: 0, size: 10, fulltext:'${id}'}`).subscribe((x: any) => {
     
       this.videosOverview = x.getSelectedVideoByBrandId;
@@ -225,13 +206,13 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
     });
   }
 
-  public getSelectedCatalogsByBrandId(id) {
+  public getSelectedCatalogsByBrandId(id: any) {
     this.brandService.getSelectedCatalogsByBrandId(`{from: 0, size: 10, fulltext:'${id}'}`).subscribe((x: any) => {
       this.catalogsOverview = x.getSelectedBrandCatalogByBrandId;
       
     });
   }
-  public getSelectedProjectsByBrandId(id) {
+  public getSelectedProjectsByBrandId(id: any) {
     this.brandService.getSelectedProjectsByBrandId(`{from: 0, size: 10, fulltext:'${id}'}`).subscribe((x: any) => {
      
       this.officeProjectsOverview = x.getSelectedProjectsByBrandIdEls;
@@ -334,7 +315,7 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
     if (this.paginator) {
       this.paginator.pageIndex = 0;
     }
-    this.pagination = new Pagination(0, this.count, null, null);
+    this.pagination = new Pagination(0, this.count, 0, 0);
   }
 
   // public filterData(data) {
@@ -344,7 +325,7 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   public searchClicked() {
     window.scrollTo(0, 0);
   }
-  public searchChanged(event) {
+  public searchChanged(event: { valueChanges: { subscribe: (arg0: () => void) => void; }; value: { categoriesBoxNested: string | any[]; brandCollectionBox: string | any[]; searchBox: string | any[]; }; }) {
     event.valueChanges.subscribe(() => {
       this.resetPagination();
       this.searchFields = new Search({
@@ -357,7 +338,7 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
         event.value.searchBox.length > 0 ? event.value.searchBox : '',
       });
       setTimeout(() => {
-        this.removedSearchField = null;
+        this.removedSearchField = '';
       });
       if (!this.settings.searchOnBtnClick) {
         
@@ -365,26 +346,26 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
     });
     
   }
-  public removeSearchField(field) {
-    this.message = null;
+  public removeSearchField(field: string) {
+    this.message = '';
     this.removedSearchField = field;
   }
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.resetPagination();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: any) {
     window.scrollTo(0, 0);
   }
 
@@ -394,14 +375,14 @@ export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
     }
   }
 
-  public openTab(event) {
+  public openTab(event: number) {
 
     this.tabGroup.selectedIndex = event;
     this.router.navigate(['/brands', this.brandId, this.tabGroup.selectedIndex, 1, this.brand.displayText]);
     // this.tabChanged.next(clickedIndex);
   }
 
-  getHtml(value) {
+  getHtml(value: string) {
     return getImagesWithAbsolutePath(value, myDomain);
   } 
 

@@ -6,7 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { BlogSearch } from 'src/app/models/blog-search';
+import { BlogSearch } from '../../models/blog-search';
 
 @Component({
   selector: 'app-blogs-search-results-filters',
@@ -16,7 +16,8 @@ import { BlogSearch } from 'src/app/models/blog-search';
   imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule],
 })
 export class BlogsSearchResultsFiltersComponent implements OnInit {
-  @Input() searchFields: BlogSearch;
+  @Input()
+  searchFields!: BlogSearch;
   @Output() RemoveSearchField: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
@@ -24,7 +25,7 @@ export class BlogsSearchResultsFiltersComponent implements OnInit {
    
    }
 
-  public remove(field) {
+  public remove(field: any) {
     this.RemoveSearchField.emit(field);
   }
   public getCategoryName(categoryId: number) {

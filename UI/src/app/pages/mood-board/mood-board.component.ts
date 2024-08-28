@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef, inject} from '@angular/core';
 import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -12,24 +12,23 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import {  } from 'ngx-scrollbar';
-import { Observable, Subscription } from 'rxjs';
+import { MonoTypeOperatorFunction, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
-import { AppSettings, Settings } from 'src/app/app.settings';
-import { MoodBoardSearch } from 'src/app/models/mood-board-search';
-import { PageImages } from 'src/app/models/page-images';
-import { Pagination } from 'src/app/models/pagination';
-import { UserMoodBoard } from 'src/app/models/user-moodboard';
-import { AuthService } from 'src/app/services/auth.service';
-import { InitializeService } from 'src/app/services/initialize.service';
-import { MoodBoardDataSource } from 'src/app/services/mood-board-data-source';
-import { MoodBoardService } from 'src/app/services/mood-board.service';
-import { BrandsCarouselComponent } from 'src/app/shared/brands-carousel/brands-carousel.component';
-import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
-import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
-import { MoodBoardItemComponent } from 'src/app/shared/mood-board-item/mood-board-item.component';
-import { MoodBoardsSearchResultsFiltersComponent } from 'src/app/shared/mood-boards-search-results-filters/mood-boards-search-results-filters.component';
-import { MoodBoardsSearchComponent } from 'src/app/shared/mood-boards-search/mood-boards-search.component';
+import { AppSettings, Settings } from '../../app.settings';
+import { MoodBoardSearch } from '../../models/mood-board-search';
+import { PageImages } from '../../models/page-images';
+import { Pagination } from '../../models/pagination';
+import { UserMoodBoard } from '../../models/user-moodboard';
+import { AuthService } from '../../services/auth.service';
+import { InitializeService } from '../../services/initialize.service';
+import { MoodBoardDataSource } from '../../services/mood-board-data-source';
+import { MoodBoardService } from '../../services/mood-board.service';
+import { BrandsCarouselComponent } from '../../shared/brands-carousel/brands-carousel.component';
+import { HeaderCarouselComponent } from '../../shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../../shared/header-image/header-image.component';
+import { MoodBoardItemComponent } from '../../shared/mood-board-item/mood-board-item.component';
+import { MoodBoardsSearchResultsFiltersComponent } from '../../shared/mood-boards-search-results-filters/mood-boards-search-results-filters.component';
+import { MoodBoardsSearchComponent } from '../../shared/mood-boards-search/mood-boards-search.component';
 
 
 @Component({
@@ -42,42 +41,43 @@ import { MoodBoardsSearchComponent } from 'src/app/shared/mood-boards-search/moo
 export class MoodBoardComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
   public psConfig = {
     wheelPropagation: true
   };
   public allMoodBoards: UserMoodBoard[] = [];
   public moodBoards: UserMoodBoard[] = [];
   public slides: PageImages[] = [];
-  public totalMoodBoards: Observable<number>;
+  public totalMoodBoards!: Observable<number>;
   public viewType = 'grid';
   public viewCol = 33.3;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public searchFields: MoodBoardSearch = new MoodBoardSearch({
     categoriesBoxNested: [],
     categoriesBox: [],
     searchBox: 'filter=',
-    pageQuery: new Pagination(0, 12, null, null)
+    pageQuery: new Pagination(0, 12, 0, 0)
   });
-  public removedSearchField: string;
+  public removedSearchField!: string;
   public isLoading = false;
   public message = 'موردی یافت نشد';
-  public watcher: Subscription;
+  public watcher!: Subscription;
 
   public settings: Settings;
 
-  categoryId: number;
-  dataSource: MoodBoardDataSource;
+  categoryId!: number;
+  dataSource!: MoodBoardDataSource;
   searchTerm = 'filter=';
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private authService: AuthService,
-              public mediaObserver: MediaObserver,
-              public initializeService: InitializeService,
-              private route: ActivatedRoute,
-              private moodBoardService: MoodBoardService,
-              private cdRef: ChangeDetectorRef) {
+  public appSettings= inject( AppSettings);
+              private authService= inject( AuthService);
+              public mediaObserver= inject( MediaObserver);
+              public initializeService= inject( InitializeService);
+              private route= inject( ActivatedRoute);
+              private moodBoardService= inject( MoodBoardService);
+              private cdRef= inject( ChangeDetectorRef);
+  constructor() {
     this.settings = this.appSettings.createNew()
 //     this.watcher = mediaObserver.media$.subscribe((change: MediaChange) => {
 //     if (change.mqAlias === 'xs') {
@@ -136,7 +136,7 @@ export class MoodBoardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.searchFields = new MoodBoardSearch({
       searchId: 1,
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
   }
 
@@ -149,7 +149,7 @@ export class MoodBoardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getMoodBoards();
     window.scrollTo(0, 0);
   }
-  public searchChanged(event) {
+  public searchChanged(event: { valueChanges: { subscribe: (arg0: () => void) => void; pipe: (arg0: MonoTypeOperatorFunction<unknown>, arg1: MonoTypeOperatorFunction<unknown>) => { (): any; new(): any; subscribe: { (arg0: () => void): void; new(): any; }; }; }; value: { categoriesBoxNested: string | any[]; }; }) {
     event.valueChanges.subscribe(() => {
       this.resetPagination();
       this.searchFields = new MoodBoardSearch({
@@ -159,7 +159,7 @@ export class MoodBoardComponent implements OnInit, OnDestroy, AfterViewInit {
         searchBox: ''
       });
       setTimeout(() => {
-        this.removedSearchField = null;
+        this.removedSearchField = '';
       });
       if (!this.settings.searchOnBtnClick) {
         this.moodBoards.length = 0;
@@ -173,33 +173,33 @@ export class MoodBoardComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-  public removeSearchField(field) {
-    this.message = null;
+  public removeSearchField(field: string) {
+    this.message = '';
     this.removedSearchField = field;
   }
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.moodBoards.length = 0;
     this.resetPagination();
     this.getMoodBoards();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     this.moodBoards.length = 0;
     this.getMoodBoards();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.searchFields = new MoodBoardSearch({
       searchId: 1,
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     // this.store.dispatch(new SaveMoodBoardSearchForRequest(this.searchFields));
     window.scrollTo(0, 0);

@@ -1,24 +1,17 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
 import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
 import { map, tap, switchMap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import * as moment from 'jalali-moment'; // add this 1 of 4
+import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { BrandCatalog } from 'src/app/models/brand-catalog';
-import { BrandVideo } from 'src/app/models/brand-video';
-import { BrandReseller } from 'src/app/models/brand-reseller';
-import { Brand } from 'src/app/models/brand';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
-import { SafeHtmlPipe } from 'src/app/theme/pipes/safe-html.pipe';
+import { AuthService } from '../../services/auth.service';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-brand-reseller-item',
@@ -33,7 +26,7 @@ export class BrandResellerItemComponent implements OnInit, AfterViewInit, OnChan
   @Input() viewType = 'grid';
   @Input() viewColChanged = false;
   @Input() fullWidthPage = true;
-  liked: Observable<boolean>;
+  liked!: Observable<boolean>;
   public column = 4;
   // public address:string;
   // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
@@ -43,11 +36,11 @@ export class BrandResellerItemComponent implements OnInit, AfterViewInit, OnChan
   //   clickable: true
   // };
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              public authService: AuthService,
-              public route: Router,
-              public productService: ProductsService) {
+  public appSettings= inject( AppSettings);
+              public authService= inject( AuthService);
+              public route= inject( Router);
+              public productService= inject( ProductsService);
+  constructor() {
     this.settings = this.appSettings.createNew()
   }
 
@@ -62,9 +55,9 @@ export class BrandResellerItemComponent implements OnInit, AfterViewInit, OnChan
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         if (this.brandReseller.resellerId) {
           //  this.directiveRef.update();
         }
@@ -83,7 +76,7 @@ export class BrandResellerItemComponent implements OnInit, AfterViewInit, OnChan
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -95,7 +88,7 @@ export class BrandResellerItemComponent implements OnInit, AfterViewInit, OnChan
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -136,7 +129,7 @@ export class BrandResellerItemComponent implements OnInit, AfterViewInit, OnChan
     // };
   }
 
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     return moment(date).locale('fa').format('YYYY/MM/DD');
   }
 

@@ -1,44 +1,31 @@
 import { Component, OnInit, OnDestroy, ViewChild,
-  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, Input } from '@angular/core';
+  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, Input, 
+  inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
-import { Property } from 'src/app/app.models';
-import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from 'src/app/app.service';
-
-import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { BrandService } from 'src/app/services/brand.service';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
 import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { Pagination } from 'src/app/models/pagination';
 import { MatPaginator } from '@angular/material/paginator';
-import { Category } from 'src/app/models/category';
-import { Search } from 'src/app/models/search';
-import { BrandSearch } from 'src/app/models/brand-search';
-import { BrandCollection } from 'src/app/models/brand-collection';
-import { BrandVideo } from 'src/app/models/brand-video';
-import { BrandReseller } from 'src/app/models/brand-reseller';
-import { BrandVideoSearch } from 'src/app/models/brand-video-search';
-import { BrandVideoDataSource } from 'src/app/services/brand-video-data-source';
-import { BrandVideoService } from 'src/app/services/brand-video.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
-import { BrandVideoItemComponent } from 'src/app/shared/brand-video-item/brand-video-item.component';
+import { AppSettings, Settings } from '../../../app.settings';
+import { BrandVideoSearch } from '../../../models/brand-video-search';
+import { Pagination } from '../../../models/pagination';
+import { AuthService } from '../../../services/auth.service';
+import { BrandVideoDataSource } from '../../../services/brand-video-data-source';
+import { BrandService } from '../../../services/brand.service';
+import { ProductsService } from '../../../services/products.service';
+import { BrandVideoItemComponent } from '../../../shared/brand-video-item/brand-video-item.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-videos',
@@ -49,8 +36,10 @@ import { BrandVideoItemComponent } from 'src/app/shared/brand-video-item/brand-v
 })
 export class VideosComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;
-  @Input() tabChanged: Subject<number>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @Input()
+  tabChanged!: Subject<number>;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public psConfig = {
     wheelPropagation: true
@@ -60,35 +49,34 @@ export class VideosComponent implements OnInit, OnDestroy, AfterViewInit  {
   // public config2: SwiperConfigInterface = {};
   public brandVideos: any[] = [];
   public brandAllVideos: any[] = [];
-  public totalVideos: Observable<number>;
+  public totalVideos!: Observable<number>;
   public viewType = 'grid';
   public viewCol = 33.3;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public isLoading = false;
-  public message: string;
-  public watcher: Subscription;
+  public message!: string;
+  public watcher!: Subscription;
 
   public settings: Settings;
   public searchFields = new BrandVideoSearch({
     searchId: 1,
     searchBox: 'filter=',
-    pageQuery: new Pagination(0, 12, null, null)
+    pageQuery: new Pagination(0, 12, 0, 0)
   });
-  dataSource: BrandVideoDataSource;
-
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private activatedRoute: ActivatedRoute,
-              
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private productService: ProductsService,
-              private brandService: BrandService,
-              private cdRef: ChangeDetectorRef,
-              private authService: AuthService,
-              private meta: Meta) {
+  dataSource!: BrandVideoDataSource;
+  public appSettings= inject( AppSettings);
+  private activatedRoute= inject( ActivatedRoute);
+  
+  public fb= inject( FormBuilder);
+  private route= inject( ActivatedRoute);
+  private router= inject( Router);
+  private productService= inject( ProductsService);
+  private brandService= inject( BrandService);
+  private cdRef= inject( ChangeDetectorRef);
+  private authService= inject( AuthService);
+  private meta= inject( Meta);
+  constructor() {
     this.settings = this.appSettings.createNew()
 }
 
@@ -103,7 +91,7 @@ export class VideosComponent implements OnInit, OnDestroy, AfterViewInit  {
           searchId: 1,
           brandId: this.brand.contentItemId,
           searchBox: 'filter=',
-          pageQuery: new Pagination(+x["page"], 12, null, null)
+          pageQuery: new Pagination(+x["page"], 12, 0, 0)
         });
         
         this.brandService.getVideosByBrandId(this.searchFields, `{from: ${(+x["page"] - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${this.brand.contentItemId}'}`).subscribe((y:any) => {
@@ -225,34 +213,34 @@ export class VideosComponent implements OnInit, OnDestroy, AfterViewInit  {
     this.searchFields = new BrandVideoSearch({
       searchId: 1,
       searchBox: 'filter=',
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
   }
 
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.brandVideos.length = 0;
     this.resetPagination();
     this.getBrandVideos();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     this.brandVideos.length = 0;
     this.getBrandVideos();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.searchFields = new BrandVideoSearch({
       searchId: 1,
       searchBox: 'filter=',
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     this.router.navigate(['/brands',  this.brand.contentItemId, 2, e.pageIndex + 1, this.brand.displayText]);
     window.scrollTo(0, 0);

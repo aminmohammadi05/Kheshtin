@@ -1,40 +1,33 @@
-import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
 import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
  import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, of, combineLatest, zip, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
-import { ProductsDataSource } from 'src/app/services/products-data-source';
-import { CategoryService } from 'src/app/services/category.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { debounceTime, distinctUntilChanged, tap, skip, switchMap, map, filter, withLatestFrom, flatMap, first, take, mergeMap } from 'rxjs/operators';
-import { PaginatedResult, Pagination } from 'src/app/models/pagination';
-
-import { Brand } from 'src/app/models/brand';
-import { BrandService } from 'src/app/services/brand.service';
-import { Category } from 'src/app/models/category';
-import { Settings, AppSettings } from 'src/app/app.settings';
-import { AppService } from 'src/app/app.service';
-import { Property } from 'src/app/app.models';
-import { AuthService } from 'src/app/services/auth.service';
-import { PageImages } from 'src/app/models/page-images';
-import { InitializeService } from 'src/app/services/initialize.service';
-import { Search } from 'src/app/models/search';
-import { BasicDataService } from 'src/app/services/basic-data.service';
-import { BrandProductCollection } from 'src/app/models/brand-product-collection';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { BrandsCarouselComponent } from 'src/app/shared/brands-carousel/brands-carousel.component';
-import { PropertiesSearchResultsFiltersComponent } from 'src/app/shared/properties-search-results-filters/properties-search-results-filters.component';
 
 import { MatChipsModule } from '@angular/material/chips';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
-import { PropertiesSearchComponent } from 'src/app/shared/properties-search/properties-search.component';
-import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AppSettings, Settings } from '../../app.settings';
+import { Category } from '../../models/category';
+import { PageImages } from '../../models/page-images';
+import { Pagination } from '../../models/pagination';
+import { Search } from '../../models/search';
+import { AuthService } from '../../services/auth.service';
+import { BasicDataService } from '../../services/basic-data.service';
+import { BrandService } from '../../services/brand.service';
+import { InitializeService } from '../../services/initialize.service';
+import { ProductsDataSource } from '../../services/products-data-source';
+import { ProductsService } from '../../services/products.service';
+import { BrandsCarouselComponent } from '../../shared/brands-carousel/brands-carousel.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { ProductItemComponent } from '../../shared/product-item/product-item.component';
+import { PropertiesSearchResultsFiltersComponent } from '../../shared/properties-search-results-filters/properties-search-results-filters.component';
+import { PropertiesSearchComponent } from '../../shared/properties-search/properties-search.component';
 
 @Component({
   selector: 'app-product',
@@ -46,20 +39,21 @@ import { MatIconModule } from '@angular/material/icon';
 export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  public categoriesBS : BehaviorSubject<Category[]> = new BehaviorSubject([]);
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
+  public categoriesBS!: BehaviorSubject<Category[]>;
   public psConfig = {
     wheelPropagation: true
   };
   public allProducts: any[] = [];
   public products: any[] = [];
  
-  public slides: PageImages[];
-  public totalProducts: Observable<number>;
+  public slides!: PageImages[];
+  public totalProducts!: Observable<number>;
   public viewType = 'grid';
   public viewCol = 33.3;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public searchFields = new Search({
     searchId: 1,
     brandsBox: [],
@@ -69,31 +63,31 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
     fileTypes: [],
     searchBox: '',
     vertical: true,
-    pageQuery: new Pagination(0, 12, null, null)
+    pageQuery: new Pagination(0, 12, 0, 0)
   });
-  public removedSearchField: string;
+  public removedSearchField!: string;
   public isLoading = false;
-  public message: string;
-  public watcher: Subscription;
+  public message!: string;
+  public watcher!: Subscription;
 
 
   public settings: Settings;
   private sub: any;
-  categoryId: number;
-  dataSource: ProductsDataSource;
+  categoryId!: number;
+  dataSource!: ProductsDataSource;
   searchTerm = 'filter=';
   displayedColumns = ['blogId', 'blogTitle'];
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              public initializeService: InitializeService,
-              private authService: AuthService,
-              public mediaObserver: MediaObserver,
-              private route: ActivatedRoute,
-              private router: Router,
-              public basicDataService: BasicDataService, 
-              private productService: ProductsService,
-              private brandService: BrandService,
-              private cdRef: ChangeDetectorRef) {
+  public appSettings= inject( AppSettings);
+              public initializeService= inject( InitializeService);
+              private authService= inject( AuthService);
+              public mediaObserver= inject( MediaObserver);
+              private route= inject( ActivatedRoute);
+              private router= inject( Router);
+              public basicDataService= inject( BasicDataService); 
+              private productService= inject( ProductsService);
+              private brandService= inject( BrandService);
+              private cdRef= inject( ChangeDetectorRef);
+  constructor() {
     this.settings = this.appSettings.createNew()
 
 
@@ -147,25 +141,25 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  public getProducts(cats, currentPage, search, brands, collections, categories) {
+  public getProducts(cats: any[], currentPage: number, search: string, brands: string, collections: string, categories: { replace: (arg0: string, arg1: string) => { (): any; new(): any; split: { (arg0: string): { (): any; new(): any; length: number; includes: { (arg0: any): any; new(): any; }; map: { (arg0: (x: any) => string): any[]; new(): any; }; }; new(): any; }; }; }) {
     
     this.searchFields = new Search({
       searchId: 1,
     brandsBox: [],
-    categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+    categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
       if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
         return x;
       }
     }) : [],
-    categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+    categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
       if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
         return x;
       }
     }) : [],
     brandCollectionBox: [],
-    pageQuery: new Pagination(currentPage - 1, this.count, null, null)
+    pageQuery: new Pagination(currentPage - 1, this.count, 0, 0)
     })
-    this.productService.getProducts(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''} ${brands ? brands.replace('null', '').split('_').join(' ') : ''} ${ collections ? collections.replace('null', '').split('_').join(' ') : ''} ${categories ? categories.replace('null', '').split('_').map(x => 'ProductCategory_'+x).join(' ') : ''}'}`).subscribe((x:any) => {
+    this.productService.getProducts(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''} ${brands ? brands.replace('null', '').split('_').join(' ') : ''} ${ collections ? collections.replace('null', '').split('_').join(' ') : ''} ${categories ? categories.replace('null', '').split('_').map((x: string) => 'ProductCategory_'+x).join(' ') : ''}'}`).subscribe((x:any) => {
       this.searchFields.pageQuery.totalItems = x[0].count
       this.message = x[0].count === 0 ? "موردی یافت نشد" : '';
       this.products = x[1].searchProducts;
@@ -182,7 +176,7 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
       this.paginator.pageIndex = 0;
       this.searchFields = new Search({
         searchId: 1,
-        pageQuery: new Pagination(0, this.count, null, null)
+        pageQuery: new Pagination(0, this.count, 0, 0)
       });
     }
   }
@@ -192,7 +186,7 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   public searchClicked() {
     window.scrollTo(0, 0);
   }
-  public ReadyForDispatch(value) {
+  public ReadyForDispatch(value: { brandsBox: string | any[]; brandCollectionBox: string | any[]; categoriesBoxNested: string | any[]; categoriesBox: string | any[]; imageToSearch: string | any[]; fileTypes: string | any[]; searchBox: string | any[]; }) {
     this.searchFields = new Search({
       searchId: 1,
       brandsBox: value.brandsBox &&
@@ -209,18 +203,18 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
       value.fileTypes.length > 0 ? value.fileTypes : [],
       searchBox: value.searchBox &&
       value.searchBox.length > 0 ? value.searchBox : '',
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
     // this.store.dispatch(new ResetProductsRequest());
     // this.store.dispatch(new SaveSearchForRequest(this.searchFields));
   }
-  public searchChanged(event) {
+  public searchChanged(event: { value: any; }) {
     
     if (event ) {
       this.resetPagination();
       this.ReadyForDispatch(event.value);
       setTimeout(() => {
-          this.removedSearchField = null;
+          this.removedSearchField = '';
         });
       if (!this.settings.searchOnBtnClick) {
           this.products.length = 0;
@@ -231,31 +225,31 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
   }
-  public removeSearchField(field) {
-    this.message = null;
+  public removeSearchField(field: string) {
+    this.message = '';
     this.removedSearchField = field;
   }
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.resetPagination();
     // this.getProducts();
 
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     // this.getProducts();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
-  public PageChange(event) {
+  public PageChange(event: { pageIndex: number; pageSize: number; length: number; }) {
     this.searchFields = new Search({
       searchId: 1,
-      pageQuery: new Pagination(event.pageIndex, event.pageSize, event.length, null)
+      pageQuery: new Pagination(event.pageIndex, event.pageSize, event.length, 0)
     });
     // this.store.dispatch(new SaveSearchForRequest(this.searchFields));
   }

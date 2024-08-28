@@ -1,15 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AppService } from 'src/app/app.service';
-import { Property } from 'src/app/app.models';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ProductsService } from 'src/app/services/products.service';
-import { UserFavorites } from 'src/app/models/user-favorites';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/models/product';
 import { tap, map } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +12,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Product } from '../../../models/product';
+import { AuthService } from '../../../services/auth.service';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-favorites',
@@ -29,10 +26,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class FavoritesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'image', 'title', 'actions' ];
   favoriteProducts: Product[] = [];
-  dataSource: MatTableDataSource<Product>;
+  dataSource!: MatTableDataSource<Product>;
   initializeDataSource = true;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true })
+  sort!: MatSort;
   constructor(public productService: ProductsService,
               public authService: AuthService) { }
 

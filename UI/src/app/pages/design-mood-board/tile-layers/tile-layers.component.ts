@@ -5,10 +5,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MoodBoardProduct } from 'src/app/models/moodboard-product';
-import { Product } from 'src/app/models/product';
-import { ProductMoodBoardSearch } from 'src/app/models/product-mood-board-search';
 import {DragDropModule} from '@angular/cdk/drag-drop'
+import { MoodBoardProduct } from '../../../models/moodboard-product';
+import { Product } from '../../../models/product';
+import { ProductMoodBoardSearch } from '../../../models/product-mood-board-search';
 
 @Component({
     selector: 'app-tile-layers',
@@ -18,9 +18,12 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
     imports: [CommonModule, MatIconModule, MatFormFieldModule, FlexLayoutModule, DragDropModule]
   })
 export class TileLayersComponent implements OnInit {
-    @Input() products: MoodBoardProduct[];
-    @Input() currentProducts: Product[];
-    @Input() searchFields: ProductMoodBoardSearch;
+    @Input()
+  products!: MoodBoardProduct[];
+    @Input()
+  currentProducts!: Product[];
+    @Input()
+  searchFields!: ProductMoodBoardSearch;
     @Output() LayerChange: EventEmitter<any> = new EventEmitter<any>();
     constructor(private cdr: ChangeDetectorRef) {
 
@@ -35,7 +38,7 @@ export class TileLayersComponent implements OnInit {
           this.setProductLayerIndex(product, i);
         });
       }
-      setProductLayerIndex(product, index) {
+      setProductLayerIndex(product: MoodBoardProduct, index: number) {
           if (index !== product.layerIndex) {
             product.layerIndex = index;
             this.LayerChange.emit(product);

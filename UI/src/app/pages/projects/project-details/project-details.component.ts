@@ -1,18 +1,14 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList, OnDestroy, AfterViewInit, HostListener } from '@angular/core';
-import { Project } from 'src/app/models/project';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, OnDestroy, AfterViewInit, HostListener, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectService } from 'src/app/services/project.service';
-import { ProjectComment } from 'src/app/models/project-comment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
 import { Meta } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/models/user';
-import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { AppSettings, Settings } from 'src/app/app.settings';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
 import { tap, map } from 'rxjs/operators';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
+import { AppSettings, Settings } from '../../../app.settings';
+import { Project } from '../../../models/project';
+import { User } from '../../../models/user';
+import { AuthService } from '../../../services/auth.service';
+import { emailValidator } from '../../../theme/utils/app-validators';
 
 @Component({
   selector: 'app-project-details',
@@ -21,44 +17,45 @@ import { emailValidator } from 'src/app/theme/utils/app-validators';
 })
 export class ProjectDetailsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @ViewChild('sidenav', { static: true }) sidenav: any;
-  @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public psConfig: PerfectScrollbarConfigInterface = {
-    wheelPropagation: true
-  };
+  // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
+  // public psConfig: PerfectScrollbarConfigInterface = {
+  //   wheelPropagation: true
+  // };
   public sidenavOpen = true;
-  public config: SwiperConfigInterface = {};
-  public config2: SwiperConfigInterface = {};
+  // public config: SwiperConfigInterface = {};
+  // public config2: SwiperConfigInterface = {};
   private sub: any;
-  public project: Project;
+  public project!: Project;
   public settings: Settings;
   public embedVideo: any;
-  public relatedProjects: Project[];
-  public featuredProjects: Project[];
-  public designer: Observable<User>;
-  public mortgageForm: FormGroup;
+  public relatedProjects!: Project[];
+  public featuredProjects!: Project[];
+  public designer!: Observable<User>;
+  public mortgageForm!: FormGroup;
   public monthlyPayment: any;
-  public contactForm: FormGroup;
+  public contactForm!: FormGroup;
 
 
 
 
-  projectId: string;
-  projectImage: string;
-  constructor(public appSettings: AppSettings,
-              private activatedRoute: ActivatedRoute,
-              public fb: FormBuilder,
-              private router: Router,
-              private route: ActivatedRoute,
-              private authService: AuthService,
-              private meta: Meta) {
+  projectId!: string;
+  projectImage!: string;
+  public appSettings= inject( AppSettings);
+              private activatedRoute= inject( ActivatedRoute);
+              public fb= inject( FormBuilder);
+              private router= inject( Router);
+              private route= inject( ActivatedRoute);
+              private authService= inject( AuthService);
+              private meta= inject( Meta);
+  constructor() {
     this.settings = this.appSettings.createNew()
 }
 
   ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe(params => {
       var pattern=/^PRJ-\d{6}$/;
-      if (pattern.test(params.projectId)) {
-      this.projectId = params.projectId;
+      if (pattern.test(params['projectId'])) {
+      this.projectId = params['projectId'];
       this.getProjectById(this.projectId);
       } else {
         this.router.navigate(['/**']);
@@ -96,7 +93,7 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy, AfterViewInit
     (window.innerWidth < 960) ? this.sidenavOpen = false : this.sidenavOpen = true;
   }
 
-  public getProjectById(id) {
+  public getProjectById(id: string) {
     // this.store.pipe(select(getProjectById(id)),
     // tap(project => {
     //   if (project) {
@@ -125,78 +122,78 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngAfterViewInit() {
-    this.config = {
-      observer: false,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: true,
-      navigation: true,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false
-      }
-    };
+    // this.config = {
+    //   observer: false,
+    //   slidesPerView: 1,
+    //   spaceBetween: 0,
+    //   keyboard: true,
+    //   navigation: true,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   autoplay: {
+    //     delay: 5000,
+    //     disableOnInteraction: false
+    //   }
+    // };
 
-    this.config2 = {
-      observer: false,
-      slidesPerView: 4,
-      spaceBetween: 16,
-      keyboard: true,
-      navigation: false,
-      pagination: false,
-      grabCursor: true,
-      loop: false,
-      preloadImages: false,
-      lazy: true,
-      breakpoints: {
-        480: {
-          slidesPerView: 2
-        },
-        600: {
-          slidesPerView: 3,
-        }
-      }
-    };
+    // this.config2 = {
+    //   observer: false,
+    //   slidesPerView: 4,
+    //   spaceBetween: 16,
+    //   keyboard: true,
+    //   navigation: false,
+    //   pagination: false,
+    //   grabCursor: true,
+    //   loop: false,
+    //   preloadImages: false,
+    //   lazy: true,
+    //   breakpoints: {
+    //     480: {
+    //       slidesPerView: 2
+    //     },
+    //     600: {
+    //       slidesPerView: 3,
+    //     }
+    //   }
+    // };
 
   }
 
 
   public onOpenedChange() {
-    this.swipers.forEach(swiper => {
-      if (swiper) {
-        swiper.update();
-      }
-    });
+    // this.swipers.forEach((swiper: { update: () => void; }) => {
+    //   if (swiper) {
+    //     swiper.update();
+    //   }
+    // });
   }
 
   public selectImage(index: number) {
-    this.swipers.forEach(swiper => {
-      if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
-        swiper.setIndex(index);
-      }
-    });
+    // this.swipers.forEach((swiper: { [x: string]: { nativeElement: { id: string; }; }; setIndex: (arg0: number) => void; }) => {
+    //   if (swiper['elementRef'].nativeElement.id === 'main-carousel') {
+    //     swiper.setIndex(index);
+    //   }
+    // });
   }
 
   public onIndexChange(index: number) {
-    this.swipers.forEach(swiper => {
-      const elem = swiper['elementRef'].nativeElement;
-      if (elem.id === 'small-carousel') {
-        swiper.setIndex(index);
-        for(let i = 0; i < elem.children[0].children.length; i++) {
-          const element = elem.children[0].children[i];
-          if (element.classList.contains('thumb-' + index)) {
-            element.classList.add('active-thumb');
-          } else {
-            element.classList.remove('active-thumb');
-          }
-        }
-      }
-    });
+    // this.swipers.forEach((swiper: { [x: string]: { nativeElement: any; }; setIndex: (arg0: number) => void; }) => {
+    //   const elem = swiper['elementRef'].nativeElement;
+    //   if (elem.id === 'small-carousel') {
+    //     swiper.setIndex(index);
+    //     for(let i = 0; i < elem.children[0].children.length; i++) {
+    //       const element = elem.children[0].children[i];
+    //       if (element.classList.contains('thumb-' + index)) {
+    //         element.classList.add('active-thumb');
+    //       } else {
+    //         element.classList.remove('active-thumb');
+    //       }
+    //     }
+    //   }
+    // });
   }
 
   public getRelatedProjects() {
@@ -228,7 +225,7 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy, AfterViewInit
     // });
   }
 
-  public getDesigner(designerId) {
+  public getDesigner(designerId: any) {
     // this.designer = this.store.select(getDesignerById(designerId));
   }
 
@@ -240,11 +237,11 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy, AfterViewInit
 
   public onMortgageFormSubmit(values: Object) {
     if (this.mortgageForm.valid) {
-      const principalAmount = values['principalAmount'];
-      const down = values['downPayment'];
-      const interest = values['interestRate'];
-      const term = values['period'];
-      this.monthlyPayment = this.calculateMortgage(principalAmount, down, interest / 100 / 12, term * 12).toFixed(2);
+      // const principalAmount = values['principalAmount'];
+      // const down = values['downPayment'];
+      // const interest = values['interestRate'];
+      // const term = values['period'];
+      // this.monthlyPayment = this.calculateMortgage(principalAmount, down, interest / 100 / 12, term * 12).toFixed(2);
     }
   }
   public calculateMortgage(principalAmount: any, downPayment: any, interestRate: any, period: any) {

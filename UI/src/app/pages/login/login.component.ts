@@ -1,17 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
-import { Router } from '@angular/router'; 
-import { AuthService } from 'src/app/services/auth.service';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { UserLogin } from 'src/app/models/user-login';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -22,11 +19,12 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class LoginComponent implements OnInit {
   model: any = {};
-  public loginForm: FormGroup;
+  public loginForm!: FormGroup;
   public hide = true;
-  constructor(public fb: FormBuilder,
-              public router: Router,
-              public authService: AuthService) { }
+  public fb= inject( FormBuilder);
+              public router= inject( Router);
+              public authService= inject( AuthService);
+  constructor() { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({

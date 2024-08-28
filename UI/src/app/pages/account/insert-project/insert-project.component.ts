@@ -4,15 +4,14 @@ import { StepOneComponent } from './step-one/step-one.component';
 import { StepTwoComponent } from './step-two/step-two.component';
 import { StepThreeComponent } from './step-three/step-three.component';
 import { PreviewComponent } from './preview/preview.component';
-import { Project } from 'src/app/models/project';
-import * as uuid from 'uuid';
-import { AuthService } from 'src/app/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
+import { Project } from '../../../models/project';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-insert-project',
@@ -24,22 +23,26 @@ import {MatStepperModule} from '@angular/material/stepper';
 export class InsertProjectComponent implements OnInit, AfterViewInit {
   project: Project = new Project();
   isLinear = true;
-  @ViewChild(StepOneComponent) stepOne: StepOneComponent;
-  @ViewChild(StepTwoComponent) stepTwo: StepTwoComponent;
-  @ViewChild(StepThreeComponent) stepThree: StepThreeComponent;
-  @ViewChild(PreviewComponent) preview: PreviewComponent;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
-  previewFormGroup: FormGroup;
-  insertProjectForm: FormGroup;
+  @ViewChild(StepOneComponent)
+  stepOne!: StepOneComponent;
+  @ViewChild(StepTwoComponent)
+  stepTwo!: StepTwoComponent;
+  @ViewChild(StepThreeComponent)
+  stepThree!: StepThreeComponent;
+  @ViewChild(PreviewComponent)
+  preview!: PreviewComponent;
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
+  thirdFormGroup!: FormGroup;
+  previewFormGroup!: FormGroup;
+  insertProjectForm!: FormGroup;
 
   constructor(private fb: FormBuilder,
               private cdRef: ChangeDetectorRef,
               private authService: AuthService) {
 
                 this.project.name = '';
-                this.project.projectId = uuid.v4();
+                this.project.projectId = ''; // uuid.v4();
       // this.project.createUserId = this.authService.getDecodedToken().nameid;
     }
 

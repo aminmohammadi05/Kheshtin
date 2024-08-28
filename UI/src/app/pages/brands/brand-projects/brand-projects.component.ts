@@ -1,43 +1,28 @@
 import { Component, OnInit, OnDestroy, ViewChild,
-  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, Input } from '@angular/core';
+  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, Input, 
+  inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
-import { Property } from 'src/app/app.models';
-import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AppService } from 'src/app/app.service';
-
-import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { BrandService } from 'src/app/services/brand.service';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
 import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { Pagination } from 'src/app/models/pagination';
 import { MatPaginator } from '@angular/material/paginator';
-import { Category } from 'src/app/models/category';
-import { Search } from 'src/app/models/search';
-import { BrandSearch } from 'src/app/models/brand-search';
-import { BrandCollection } from 'src/app/models/brand-collection';
-import { BrandCatalog } from 'src/app/models/brand-catalog';
-import { BrandVideo } from 'src/app/models/brand-video';
-import { BrandReseller } from 'src/app/models/brand-reseller';
-import { BrandOfficeProjectSearch } from 'src/app/models/brand-office-project-search';
-import { BrandOfficeProjectsDataSource } from 'src/app/services/brand-office-project-data-source';
-import { OfficeProjectService } from 'src/app/services/office-project.service';
-import { BrandOfficeProject } from 'src/app/models/brand-office-project';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { AppSettings, Settings } from '../../../app.settings';
+import { BrandOfficeProjectSearch } from '../../../models/brand-office-project-search';
+import { Pagination } from '../../../models/pagination';
+import { AuthService } from '../../../services/auth.service';
+import { BrandOfficeProjectsDataSource } from '../../../services/brand-office-project-data-source';
+import { BrandService } from '../../../services/brand.service';
+import { OfficeProjectService } from '../../../services/office-project.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-brand-projects',
@@ -48,8 +33,10 @@ import { PaginationComponent } from 'src/app/shared/pagination/pagination.compon
 })
 export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;
-  @Input() tabChanged: Subject<number>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @Input()
+  tabChanged!: Subject<number>;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public psConfig = {
     wheelPropagation: true
@@ -59,15 +46,15 @@ export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit 
   // public config2: SwiperConfigInterface = {};
   public officeProjects: any[] = [];
   public allOfficeProjects: any[] = [];
-  public totalOfficeProjects: Observable<number>;
+  public totalOfficeProjects!: Observable<number>;
   public viewType = 'grid';
   public viewCol = 33.3;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public isLoading = false;
-  public pagination: Pagination = new Pagination(0, this.count, null, null);
-  public message: string;
-  public watcher: Subscription;
+  public pagination: Pagination = new Pagination(0, this.count, 0, 0);
+  public message!: string;
+  public watcher!: Subscription;
 
   public settings: Settings;
   public searchFields: BrandOfficeProjectSearch = new BrandOfficeProjectSearch({
@@ -75,20 +62,21 @@ export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit 
     categories: [],
     searchBox: 'filter=',
     designers: [],
-    pageQuery: new Pagination(0, 12, null, null)
+    pageQuery: new Pagination(0, 12, 0, 0)
   });
-  public dataSource: BrandOfficeProjectsDataSource;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private brandService: BrandService,
+  public dataSource!: BrandOfficeProjectsDataSource;
+  public appSettings= inject( AppSettings);
+              private route= inject( ActivatedRoute);
+              private router= inject( Router);
+              private brandService= inject( BrandService);
    
-              public fb: FormBuilder,
-              private officeProjectService: OfficeProjectService,
-              private cdRef: ChangeDetectorRef,
-              private authService: AuthService,
-              private meta: Meta) {
+              public fb= inject( FormBuilder);
+              private officeProjectService= inject( OfficeProjectService);
+              private cdRef= inject( ChangeDetectorRef);
+              private authService= inject( AuthService);
+              private meta= inject( Meta);
+  constructor(
+    ) {
     this.settings = this.appSettings.createNew()
 }
 
@@ -103,7 +91,7 @@ export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit 
           searchId: 1,
           brandId: this.brand.contentItemId,
           searchBox: 'filter=',
-          pageQuery: new Pagination(+x["page"], 12, null, null)
+          pageQuery: new Pagination(+x["page"], 12, 0, 0)
         });
         
         this.brandService.getProjectsByBrandId(this.searchFields, `{from: ${(+x["page"] - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${this.brand.contentItemId}'}`).subscribe((y:any) => {
@@ -205,36 +193,36 @@ export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit 
     }
     this.searchFields = new BrandOfficeProjectSearch({
       searchId: 1,
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
     
   }
 
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     // this.officeProjects.length = 0;
     this.resetPagination();
     // this.getBrandProjects();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     // this.officeProjects.length = 0;
     // this.getBrandProjects();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.pagination.currentPage = e.pageIndex ;
     this.searchFields = new BrandOfficeProjectSearch({
       searchId: 1,
       searchBox: 'filter=',
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     this.router.navigate(['/brands',  this.brand.contentItemId, 6, e.pageIndex + 1, this.brand.displayText]);
     window.scrollTo(0, 0);

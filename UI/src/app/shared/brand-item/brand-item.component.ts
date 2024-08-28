@@ -1,17 +1,13 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
-import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Brand } from 'src/app/models/brand';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { BlogBagTypePipe } from 'src/app/theme/pipes/blog-bag.pipe';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 
@@ -36,7 +32,8 @@ export class BrandItemComponent implements OnInit, AfterViewInit, OnChanges {
   //   clickable: true
   // };
   public settings: Settings;
-  constructor(public appSettings: AppSettings, public appService: AppService) {
+  public appSettings =inject(AppSettings);
+  constructor() {
     this.settings = this.appSettings.createNew()
   }
 
@@ -51,8 +48,8 @@ export class BrandItemComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
       // if (!changes.viewColChanged.isFirstChange()) {
       //   if (this.brand..length > 1) {
       //      this.directiveRef.update();
@@ -72,7 +69,7 @@ export class BrandItemComponent implements OnInit, AfterViewInit, OnChanges {
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -84,7 +81,7 @@ export class BrandItemComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';

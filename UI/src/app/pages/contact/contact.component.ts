@@ -5,9 +5,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
-import { FileTypePipe } from 'src/app/theme/pipes/file-type.pipe';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
+import { HeaderImageComponent } from '../../shared/header-image/header-image.component';
+import { emailValidator } from '../../theme/utils/app-validators';
 
 @Component({
   selector: 'app-contact',
@@ -17,7 +16,7 @@ import { emailValidator } from 'src/app/theme/utils/app-validators';
   imports: [CommonModule, MatIconModule, MatFormFieldModule, MatCardModule, ReactiveFormsModule, FlexLayoutModule, HeaderImageComponent]
 })
 export class ContactComponent implements OnInit {
-  public contactForm: FormGroup;
+  public contactForm!: FormGroup;
   public lat: number = 40.678178;
   public lng: number = -73.944158;
   public zoom: number = 12; 

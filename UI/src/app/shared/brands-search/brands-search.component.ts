@@ -1,17 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service'; 
-import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { CategoriesComponent, CategoryFlatNode } from 'src/app/pages/categories/categories.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { BrandSearch } from 'src/app/models/brand-search';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { BrandSearch } from '../../models/brand-search';
+import { Category } from '../../models/category';
+import { CategoriesComponent } from '../../pages/categories/categories.component';
 
 @Component({
   selector: 'app-brands-search',
@@ -24,8 +22,10 @@ export class BrandsSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
-  @Input() categories: BehaviorSubject<Category[]> = new BehaviorSubject([]);
+  @Input()
+  removedSearchField!: string;
+  @Input()
+  categories!: BehaviorSubject<Category[]>;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
   public searchInput: FormControl = new FormControl('');
@@ -41,12 +41,11 @@ export class BrandsSearchComponent implements OnInit, AfterViewInit {
   });
   public showMore = false;
   
-  public verticalForm: FormGroup;
-
-  constructor(public appService: AppService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router) {
+  public verticalForm!: FormGroup;
+  public fb= inject( FormBuilder);
+  private route= inject( ActivatedRoute);
+  private router= inject( Router);
+  constructor() {
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                }
 
@@ -68,7 +67,7 @@ export class BrandsSearchComponent implements OnInit, AfterViewInit {
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
+       // this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
       } else if (this.removedSearchField.indexOf(',') > -1) {
         const arr = this.removedSearchField.split(',');
         if (arr[0] === 'categoriesBoxNested') {
@@ -80,7 +79,7 @@ export class BrandsSearchComponent implements OnInit, AfterViewInit {
         }
         
         // this.store.dispatch(new SaveSearchForRequest(this.searchFields));
-        this.verticalForm.get('categoriesBoxNested').setValue(this.selectedCategories);        
+        this.verticalForm.get('categoriesBoxNested')!.setValue(this.selectedCategories);        
         this.SearchChange.emit(this.verticalForm);
       } else {
         this.verticalForm.controls[this.removedSearchField].reset();
@@ -131,17 +130,17 @@ export class BrandsSearchComponent implements OnInit, AfterViewInit {
     .subscribe();
   }
 
-  getCategories(event) {
+  getCategories(event: any[]) {
     const cats: Category[] = []
-    event.map(x => {
+    event.map((x: Category) => {
       cats.push(x);      
-      x.childrenCategories.map(x1 => {
+      x.childrenCategories.map((x1: Category) => {
         if(x1.childrenCategories && x1.childrenCategories.length > 0) {
           cats.push(x1);
-          x1.childrenCategories.map(x2 => {
+          x1.childrenCategories.map((x2: Category) => {
             if(x2.childrenCategories && x2.childrenCategories.length > 0) {
               cats.push(x2); 
-              x2.childrenCategories.map(x3 => {
+              x2.childrenCategories.map((x3: Category) => {
                 cats.push(x3);
               })             
             }else{
@@ -154,13 +153,13 @@ export class BrandsSearchComponent implements OnInit, AfterViewInit {
     this.categories.next(cats)
   }
 
-  public categoryChanged(event) {
+  public categoryChanged(event: any) {
    
     if (event) {
       this.selectedCategories = [...event];
       this.searchFields.categoriesBoxNested = this.selectedCategories;
       // this.store.dispatch(new SaveBrandSearchForRequest(this.searchFields));
-      this.verticalForm.get('categoriesBoxNested').setValue(this.selectedCategories);
+      this.verticalForm.get('categoriesBoxNested')!.setValue(this.selectedCategories);
       this.SearchChange.emit(this.verticalForm);
     }
   }

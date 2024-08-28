@@ -1,35 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild,
-  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, Input } from '@angular/core';
+  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, Input, 
+  inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
-import { Property } from 'src/app/app.models';
-import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from 'src/app/app.service';
-
-import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { BrandService } from 'src/app/services/brand.service';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
 import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { Pagination } from 'src/app/models/pagination';
 import { MatPaginator } from '@angular/material/paginator';
-import { Category } from 'src/app/models/category';
-import { Search } from 'src/app/models/search';
-import { BrandSearch } from 'src/app/models/brand-search';
-import { BrandCollection } from 'src/app/models/brand-collection';
-import { BrandCatalog } from 'src/app/models/brand-catalog';
-import { BrandVideo } from 'src/app/models/brand-video';
-import { BrandReseller } from 'src/app/models/brand-reseller';
-import { BrandCatalogSearch } from 'src/app/models/brand-catalog-search';
-import { BrandCatalogDataSource } from 'src/app/services/brand-catalog-data-source';
-import { BrandCatalogService } from 'src/app/services/brand-catalog.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
@@ -38,8 +17,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
-import { BrandCatalogItemComponent } from 'src/app/shared/brand-catalog-item/brand-catalog-item.component';
+import { AppSettings, Settings } from '../../../app.settings';
+import { BrandCatalogSearch } from '../../../models/brand-catalog-search';
+import { Pagination } from '../../../models/pagination';
+import { AuthService } from '../../../services/auth.service';
+import { BrandCatalogDataSource } from '../../../services/brand-catalog-data-source';
+import { BrandService } from '../../../services/brand.service';
+import { ProductsService } from '../../../services/products.service';
+import { BrandCatalogItemComponent } from '../../../shared/brand-catalog-item/brand-catalog-item.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-catalogs',
@@ -50,8 +36,10 @@ import { BrandCatalogItemComponent } from 'src/app/shared/brand-catalog-item/bra
 })
 export class CatalogsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;
-  @Input() tabChanged: Subject<number>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @Input()
+  tabChanged!: Subject<number>;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public psConfig = {
     wheelPropagation: true
@@ -61,33 +49,33 @@ export class CatalogsComponent implements OnInit, OnDestroy, AfterViewInit  {
   // public config2: SwiperConfigInterface = {};
   public brandCatalogs: any[] = [];
   public brandAllCatalogs: any[] = [];
-  public totalCatalogs: Observable<number>;
+  public totalCatalogs!: Observable<number>;
   public viewType = 'grid';
   public viewCol = 33.3;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public isLoading = false;
-  public message: string;
-  public watcher: Subscription;
+  public message!: string;
+  public watcher!: Subscription;
 
   public settings: Settings;
   public searchFields = new BrandCatalogSearch({
     searchId: 1,
     searchBox: 'filter=',
-    pageQuery: new Pagination(0, 12, null, null)
+    pageQuery: new Pagination(0, 12, 0, 0)
   });
-  dataSource: BrandCatalogDataSource;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private brandService: BrandService,
+  dataSource!: BrandCatalogDataSource;
+  public appSettings = inject( AppSettings);
+              private route = inject( ActivatedRoute);
+              private router = inject( Router);
+              private brandService = inject( BrandService);
               
-              public fb: FormBuilder,
-              private productService: ProductsService,
-              private cdRef: ChangeDetectorRef,
-              private authService: AuthService,
-              private meta: Meta) {
+              public fb = inject( FormBuilder);
+              private productService = inject( ProductsService);
+              private cdRef = inject( ChangeDetectorRef);
+              private authService = inject( AuthService);
+              private meta = inject( Meta);
+  constructor() {
     this.settings = this.appSettings.createNew()
 }
 
@@ -102,7 +90,7 @@ export class CatalogsComponent implements OnInit, OnDestroy, AfterViewInit  {
           searchId: 1,
           brandId: this.brand.contentItemId,
           searchBox: 'filter=',
-          pageQuery: new Pagination(+x["page"], 12, null, null)
+          pageQuery: new Pagination(+x["page"], 12, 0, 0)
         });
         
         this.brandService.getBrandCatalogsByBrandId(this.searchFields, `{from: ${(+x["page"] - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${this.brand.contentItemId}'}`).subscribe((y:any) => {
@@ -205,34 +193,34 @@ export class CatalogsComponent implements OnInit, OnDestroy, AfterViewInit  {
     this.searchFields = new BrandCatalogSearch({
       searchId: 1,
       searchBox: 'filter=',
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
   }
 
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.brandCatalogs.length = 0;
     this.resetPagination();
     this.getBrandCatalogs();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     this.brandCatalogs.length = 0;
     this.getBrandCatalogs();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.searchFields = new BrandCatalogSearch({
       searchId: 1,
       searchBox: 'filter=',
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     this.router.navigate(['/brands',  this.brand.contentItemId, 5, e.pageIndex + 1, this.brand.displayText]);
     window.scrollTo(0, 0);

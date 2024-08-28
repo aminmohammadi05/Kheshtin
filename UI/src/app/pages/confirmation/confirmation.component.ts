@@ -1,13 +1,13 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppSettings } from 'src/app/app.settings';
-import { AuthService } from 'src/app/services/auth.service';
+import { AppSettings } from '../../app.settings';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -19,17 +19,18 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ConfirmationComponent implements OnInit {
   token = '';
   email = '';
-  constructor(public appSettings: AppSettings,
-              private activatedRoute: ActivatedRoute,
-              private authService: AuthService,
-              private cdr: ChangeDetectorRef,
-              private router: Router) { }
+  public appSettings= inject( AppSettings);
+              private activatedRoute= inject( ActivatedRoute);
+              private authService= inject( AuthService);
+              private cdr= inject( ChangeDetectorRef);
+              private router= inject( Router);
+  constructor() { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      if (params.token && params.email) {
-        this.token = params.token;
-        this.email = params.email;
+      if (params['token'] && params['email']) {
+        this.token = params['token'];
+        this.email = params['email'];
 
       } else {
          this.router.navigate(['/**']);

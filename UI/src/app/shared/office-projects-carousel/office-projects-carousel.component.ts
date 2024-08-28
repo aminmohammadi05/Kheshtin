@@ -8,8 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { OfficeProject } from 'src/app/models/office-project';
+
 import { OfficeProjectItemComponent } from '../office-project-item/office-project-item.component';
+import { OfficeProject } from '../../models/office-project';
 
 
 @Component({

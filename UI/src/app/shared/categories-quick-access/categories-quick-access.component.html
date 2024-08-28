@@ -2,9 +2,9 @@
   <div class="px-3">
       <div class="theme-container">
            <div class="clients-carousel"> 
-              <div  class="swiper-container h-100" *ngIf="categoryList.length > 0" [swiper]="config"> 
+              <!-- <swiper-container  class=" h-100" *ngIf="categoryList.length > 0"> 
                   <div class="swiper-wrapper h-100">      
-                      <div  *ngFor="let category of categoryList" class="swiper-slide" >
+                      <swiper-slide  *ngFor="let category of categoryList" >
                           <div #fb class="client-item" (click)="openProductPage(category)"  (mouseenter)="fire($event, category)"  >
                               
                             <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" ngClass.xs="pt-5" > 
@@ -25,9 +25,9 @@
                                 </p>                               
                             </div>
                           </div>
-                      </div>
+                      </swiper-slide>
                   </div> 
-              </div>
+              </swiper-container> -->
           </div>
               
       </div>

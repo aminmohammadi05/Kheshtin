@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2, ChangeDetectorRef, inject} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Meta } from '@angular/platform-browser';
@@ -6,13 +6,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {  } from 'ngx-scrollbar';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable, of } from 'rxjs';
-import { AppSettings, Settings } from 'src/app/app.settings';
-import { Product } from 'src/app/models/product';
-import { UserMoodBoard } from 'src/app/models/user-moodboard';
-import { AuthService } from 'src/app/services/auth.service';
-import { MoodBoardService } from 'src/app/services/mood-board.service';
-import * as uuid from 'uuid';
-import * as moment from 'jalali-moment'; // add this 1 of 4
+import moment from 'jalali-moment'; // add this 1 of 4
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +14,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { SmallProductItemComponent } from 'src/app/shared/small-product-item/small-product-item.component';
+import { AppSettings, Settings } from '../../../app.settings';
+import { Product } from '../../../models/product';
+import { UserMoodBoard } from '../../../models/user-moodboard';
+import { AuthService } from '../../../services/auth.service';
+import { MoodBoardService } from '../../../services/mood-board.service';
+import { SmallProductItemComponent } from '../../../shared/small-product-item/small-product-item.component';
 
 @Component({
   selector: 'app-mood-board-detail',
@@ -32,9 +31,12 @@ import { SmallProductItemComponent } from 'src/app/shared/small-product-item/sma
 export class MoodBoardDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   viewType: string = 'grid';
   viewCol: number = 25;
-  @ViewChild('sidenav', { static: true }) sidenav: ElementRef;
-  @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
-  @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
+  @ViewChild('sidenav', { static: true })
+  sidenav!: ElementRef;
+  @ViewChild('stickyCard', { static: true })
+  stickyCard!: ElementRef;
+  @ViewChild('delimiter', { static: true })
+  delimiter!: ElementRef;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   public psConfig = {
     wheelPropagation: true
@@ -43,35 +45,36 @@ export class MoodBoardDetailComponent implements OnInit, OnDestroy, AfterViewIni
   // public config: SwiperConfigInterface = {};
   // public config2: SwiperConfigInterface = {};
   private sub: any;
-  public moodBoard: Observable<UserMoodBoard>;
+  public moodBoard!: Observable<UserMoodBoard>;
   public settings: Settings;
   public embedVideo: any;
  
-  public productIdList: Observable<string[]>;
-  public productList: Observable<Product[]>;
+  public productIdList!: Observable<string[]>;
+  public productList!: Observable<Product[]>;
 
 
-  moodBoardId: string;
-  projectImage: string;
-  constructor(public appSettings: AppSettings,
-              private activatedRoute: ActivatedRoute,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private authService: AuthService,
-              private renderer: Renderer2,
-              private cdr: ChangeDetectorRef,
-              public infoReq: MatDialog,
-              public moodBoardService: MoodBoardService,
-              private meta: Meta) {
+  moodBoardId!: string;
+  projectImage!: string;
+  public appSettings= inject( AppSettings);
+              private activatedRoute= inject( ActivatedRoute);
+              public fb= inject( FormBuilder);
+              private route= inject( ActivatedRoute);
+              private router= inject( Router);
+              private authService= inject( AuthService);
+              private renderer= inject( Renderer2);
+              private cdr= inject( ChangeDetectorRef);
+              public infoReq= inject( MatDialog);
+              public moodBoardService= inject( MoodBoardService);
+              private meta= inject( Meta);
+  constructor() {
     this.settings = this.appSettings.createNew()
 }
 
   ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe(params => {
       var pattern=/^MBR-\d{6}$/;
-      if (pattern.test(params.moodBoardId)) {
-        this.moodBoardId = params.moodBoardId;
+      if (pattern.test(params['moodBoardId'])) {
+        this.moodBoardId = params['moodBoardId'];
         this.getMoodBoard(this.moodBoardId);
         // this.moodBoard = this.store.pipe(select(getMoodBoardByDisplayId(this.moodBoardId)));
       } else {
@@ -103,7 +106,7 @@ export class MoodBoardDetailComponent implements OnInit, OnDestroy, AfterViewIni
   //     }
   //   }
   // }
-  public getMoodBoard(id) {
+  public getMoodBoard(id: string) {
     // if (this.authService.loggedIn()) {
     //   this.store.dispatch(new OneMoodBoardAuthRequest(id, this.authService.getDecodedToken().nameid));
     // } else {
@@ -217,7 +220,7 @@ export class MoodBoardDetailComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
 
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     if (date) {
       const cdate = moment(date).locale('fa').format('YYYY/MM/DD');
       return of(cdate);

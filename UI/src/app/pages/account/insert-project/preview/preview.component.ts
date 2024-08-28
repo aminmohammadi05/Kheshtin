@@ -1,9 +1,6 @@
-import { Component, OnInit, Input, Output, ChangeDetectorRef, AfterViewInit, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, Output, ChangeDetectorRef, AfterViewInit, forwardRef, inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Project } from 'src/app/models/project';
-import { ProjectService } from 'src/app/services/project.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { MaterialFileInputModule  } from 'ngx-material-file-input';
 import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
@@ -12,6 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { fn } from 'jalali-moment';
+import { Project } from '../../../../models/project';
+import { AuthService } from '../../../../services/auth.service';
+import { ProjectService } from '../../../../services/project.service';
 
 const noop = () => {
 };
@@ -43,14 +44,15 @@ export class PreviewComponent implements OnInit, AfterViewInit, ControlValueAcce
       this.onChangeCallback(v);
     }
   }
-  previewFormGroup: FormGroup;
-  constructor(private fb: FormBuilder,
-              private projectService: ProjectService,
-              private routeService: Router,
-              private authService: AuthService) {
-    this.previewFormGroup = this.fb.group({
-      projectName: ['', Validators.required]
-    });
+  previewFormGroup!: FormGroup;
+  private fb = inject( FormBuilder);
+              private projectService = inject( ProjectService);
+              private routeService = inject( Router);
+              private authService = inject( AuthService);
+  constructor() {
+    // this.previewFormGroup = this.fb.group({
+    //   projectName: [''], Validators.required
+    // });
   }
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;

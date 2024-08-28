@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Input, Output, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, Output, forwardRef, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { Project } from 'src/app/models/project';
+import { Project } from '../../../../models/project';
 
 const noop = () => {
 };
@@ -27,10 +27,11 @@ export const STEP_TWO_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class StepTwoComponent implements OnInit, ControlValueAccessor {
   private innerProject = new Project();
-  projectDesc: string;
+  projectDesc!: string;
 
   secondFormGroup: FormGroup;
-  constructor(private fb: FormBuilder) {
+  private fb = inject(FormBuilder);
+  constructor() {
     this.secondFormGroup = this.fb.group({
       projectDescription: ['', Validators.required]
     });
@@ -41,7 +42,7 @@ export class StepTwoComponent implements OnInit, ControlValueAccessor {
   }
 
   addDataToProject() {
-    this.innerProject.description = this.secondFormGroup.get('projectDescription').value;
+    this.innerProject.description = this.secondFormGroup.get('projectDescription')!.value;
     this.onChangeCallback(this.innerProject);
   }
   writeValue(value: any) {

@@ -1,21 +1,9 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
-
-import { AppService } from '../../app.service';
-import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
-import { map, tap, switchMap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import * as moment from 'jalali-moment'; // add this 1 of 4
+import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { BrandCatalog } from 'src/app/models/brand-catalog';
-import { BrandCollection } from 'src/app/models/brand-collection';
-import { Brand } from 'src/app/models/brand';
-import { Search } from 'src/app/models/search';
-import { Pagination } from 'src/app/models/pagination';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -23,6 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { Pagination } from '../../models/pagination';
+import { Search } from '../../models/search';
+import { AuthService } from '../../services/auth.service';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-brand-collection-item',
@@ -37,7 +29,7 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
   @Input() viewType = 'grid';
   @Input() viewColChanged = false;
   @Input() fullWidthPage = false;
-  liked: Observable<boolean>;
+  liked!: Observable<boolean>;
   public column = 4;
   // public address:string;
   // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
@@ -50,13 +42,13 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
   public searchFields = new Search({
     searchId: 1,
     searchBox: 'filter=',
-    pageQuery: new Pagination(0, 12, null, null)
+    pageQuery: new Pagination(0, 12, 0, 0)
   });
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              public authService: AuthService,
-              public route: Router,
-              public productService: ProductsService) {
+  public appSettings= inject( AppSettings);
+              public authService= inject( AuthService);
+              public route= inject( Router);
+              public productService= inject( ProductsService);
+  constructor() {
     this.settings = this.appSettings.createNew()
   }
 
@@ -72,9 +64,9 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
    
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         if (this.brandCollection.collectionImage) {
           //  this.directiveRef.update();
         }
@@ -93,7 +85,7 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -105,7 +97,7 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -146,7 +138,7 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
     // };
   }
 
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     return moment(date).locale('fa').format('YYYY/MM/DD');
   }
 
@@ -160,7 +152,7 @@ export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnCh
       imageUploaded: '',
       fileTypes: [],
       searchBox: 'filter=',
-      pageQuery: new Pagination(0, 12, null, null)
+      pageQuery: new Pagination(0, 12, 0, 0)
     });
     // this.store.dispatch(new SaveSearchForRequest(this.searchFields));
     this.route.navigate(['/products']);

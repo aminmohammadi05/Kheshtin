@@ -19,18 +19,18 @@
         <button mat-raised-button color="warn" class="uppercase" fxShow="false" fxShow.gt-xs (click)="clear()">حذف همه</button>
       </mat-card>
       
-      <div class="swiper-container h-100 carousel-outer mt-3" [swiper]="config"> 
+      <swiper-container class=" h-100 carousel-outer mt-3" > 
         <div class="swiper-wrapper h-100">      
-          <div *ngFor="let product of productService.Data.compareList" class="swiper-slide">
+          <swiper-slide *ngFor="let product of productService.Data.compareList" >
 
             <button mat-icon-button class="remove" (click)="remove(product)">
               <mat-icon color="warn" class="mat-icon-lg">highlight_off</mat-icon>
             </button>              
             <app-product-item [product]="product"></app-product-item>
 
-          </div>
+          </swiper-slide>
         </div>   
-      </div>
+      </swiper-container>
 
     </div>
 

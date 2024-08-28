@@ -3,7 +3,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { OfficeProjectSearch } from 'src/app/models/office-project-search';
+import { OfficeProjectSearch } from '../../models/office-project-search';
+
 
 @Component({
   selector: 'app-office-projects-search-results-filters',
@@ -14,7 +15,8 @@ import { OfficeProjectSearch } from 'src/app/models/office-project-search';
 })
 export class OfficeProjectsSearchResultsFiltersComponent implements OnInit {
 
-  @Input() searchFields: OfficeProjectSearch;
+  @Input()
+  searchFields!: OfficeProjectSearch;
   @Output() RemoveSearchField: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
@@ -22,7 +24,7 @@ export class OfficeProjectsSearchResultsFiltersComponent implements OnInit {
 
   }
 
-  public remove(field) {
+  public remove(field: any) {
     this.RemoveSearchField.emit(field);
   }
 

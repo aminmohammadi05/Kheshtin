@@ -1,11 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AppService } from 'src/app/app.service';
-import { Property } from 'src/app/app.models';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Project } from 'src/app/models/project';
-import { AuthService } from 'src/app/services/auth.service';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -16,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { Project } from '../../../models/project';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-my-projects',
@@ -28,11 +26,13 @@ export class MyProjectsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'image', 'title', 'published', 'actions' ];
   dataSource = new MatTableDataSource<Project>();
   userProjects: Project[] = [];
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-  constructor(public appService: AppService,
-              public authService: AuthService) { }
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true })
+  sort: MatSort = new MatSort;
+  public authService = inject(AuthService);
+  constructor(
+              ) { }
 
   ngOnInit() {
     // this.store.pipe(select(getAllMyProjects(+this.authService.getDecodedToken().nameid)),

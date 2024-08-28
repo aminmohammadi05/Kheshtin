@@ -11,7 +11,8 @@ import { MatCardModule } from '@angular/material/card';
   imports: [CommonModule, MatCardModule, FlexLayoutModule],
 })
 export class OurServicesComponent implements OnInit {
-  @Input() services: any[]
+  @Input()
+  services!: any[];
   constructor() { }
 
   ngOnInit() {

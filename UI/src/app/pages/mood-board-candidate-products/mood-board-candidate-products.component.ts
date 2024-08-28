@@ -1,27 +1,22 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { AppService } from '../../app.service';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { Subscription } from 'rxjs';
 import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
-import { Property } from 'src/app/app.models';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
-import { AuthService } from 'src/app/services/auth.service';
-import { map, tap } from 'rxjs/operators';
-import { Pagination } from 'src/app/models/pagination';
-import { ProductMoodBoardSearch } from 'src/app/models/product-mood-board-search';
 import { Router } from '@angular/router';
-import { UserMoodBoardCandidateProduct } from 'src/app/models/user-mood-board-candidate-product';
-import { MoodBoardCandidateProductDataSource } from 'src/app/services/mood-board-candidate-product-data-source';
-import { UserService } from 'src/app/services/user.service';
-import { UserMoodBoardCandidateProductSearch } from 'src/app/models/user-mood-board-candidate-product-search';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
-import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { Pagination } from '../../models/pagination';
+import { Product } from '../../models/product';
+import { UserMoodBoardCandidateProductSearch } from '../../models/user-mood-board-candidate-product-search';
+import { AuthService } from '../../services/auth.service';
+import { MoodBoardCandidateProductDataSource } from '../../services/mood-board-candidate-product-data-source';
+import { ProductsService } from '../../services/products.service';
+import { UserService } from '../../services/user.service';
+import { ProductItemComponent } from '../../shared/product-item/product-item.component';
 
 @Component({
   selector: 'app-mood-board-candidate-products',
@@ -33,14 +28,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 export class MoodBoardCandidateProductsComponent implements OnInit, OnDestroy {
   // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
   // public config: SwiperConfigInterface = {};
-  public pagination: Pagination = new Pagination(0, 12, null, null);
-  public message: string;
+  public pagination: Pagination = new Pagination(0, 12, 0, 0);
+  public message!: string;
   public settings: Settings;
   public viewType = 'grid';
   public viewCol = 33.3;
   allProducts: Product[] = [];
   products: Product[] = [];
-  dataSource: MoodBoardCandidateProductDataSource;
+  dataSource!: MoodBoardCandidateProductDataSource;
   public searchFields = new UserMoodBoardCandidateProductSearch({
     searchId: 1,
     brandsBox: [],
@@ -153,10 +148,10 @@ export class MoodBoardCandidateProductsComponent implements OnInit, OnDestroy {
     
   }
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.searchFields = new UserMoodBoardCandidateProductSearch({
       searchId: 1,
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     // this.store.dispatch(new SaveCandidateProductSearchForRequest(this.searchFields));
     window.scrollTo(0, 0);

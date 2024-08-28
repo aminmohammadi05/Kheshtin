@@ -1,15 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, forwardRef, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, forwardRef, AfterViewInit, OnChanges, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, ControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
-import { Province } from 'src/app/models/province';
-import { ProjectService } from 'src/app/services/project.service';
-import { City } from 'src/app/models/city';
-import { ProjectCategory } from 'src/app/models/project-category';
-import { ProjectImage } from 'src/app/models/project-image';
-import { FileValidatorDirective } from 'src/app/theme/directives/file-validator.directive';
-import { Project } from 'src/app/models/project';
-import { AuthService } from 'src/app/services/auth.service';
 import { Observable, of } from 'rxjs';
-import { Login } from 'src/app/models/login';
 import { tap, map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -18,6 +9,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { City } from '../../../../models/city';
+import { Login } from '../../../../models/login';
+import { Project } from '../../../../models/project';
+import { ProjectCategory } from '../../../../models/project-category';
+import { ProjectImage } from '../../../../models/project-image';
+import { Province } from '../../../../models/province';
+import { AuthService } from '../../../../services/auth.service';
+import { ProjectService } from '../../../../services/project.service';
+import { FileValidatorDirective } from '../../../../theme/directives/file-validator.directive';
 
 const noop = () => {
 };
@@ -37,10 +37,10 @@ export const STEP_ONE_CONTROL_VALUE_ACCESSOR: any = {
   imports: [CommonModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatSelectModule],
 })
 export class StepOneComponent implements OnInit, OnChanges, AfterViewInit,  ControlValueAccessor {
-  loginList: Observable<Login[]>;
+  loginList!: Observable<Login[]>;
   innerProject = new Project();
-  innerProjectName: string;
-  statusList: any[];
+  innerProjectName!: string;
+  statusList!: any[];
   selectedStatus: any;
   get projectName(): string {
     return this.innerProject.name;
@@ -53,17 +53,19 @@ export class StepOneComponent implements OnInit, OnChanges, AfterViewInit,  Cont
         this.onChangeCallback(v);
     }
   }
-  selectedCity: City;
+  selectedCity!: City;
   selectedProjectCategories: ProjectCategory[] = [];
-  provinceList: Observable<Province[]>;
-  cityList: Observable<City[]>;
-  projectCategories: Observable<ProjectCategory[]>;
+  provinceList!: Observable<Province[]>;
+  cityList!: Observable<City[]>;
+  projectCategories!: Observable<ProjectCategory[]>;
   isLinear = false;
   firstFormGroup: FormGroup;
-  @ViewChild('imageInput') imageInput: ElementRef;
-  constructor(private fb: FormBuilder,
-              private projectService: ProjectService,
-              private authService: AuthService
+  @ViewChild('imageInput')
+  imageInput!: ElementRef;
+  private fb = inject( FormBuilder);
+              private projectService = inject( ProjectService);
+              private authService = inject( AuthService);
+  constructor(
     ) {
     this.firstFormGroup = this.fb.group({
       province: [''],
@@ -96,7 +98,7 @@ export class StepOneComponent implements OnInit, OnChanges, AfterViewInit,  Cont
   }
 
   provinceSelected() {
-    const province = this.firstFormGroup.get('province').value;
+    const province = this.firstFormGroup.get('province')!.value;
     // this.store.pipe(select(getProvinceCities(province.provinceId)),
     // map(cities => {
     //   if (cities.length > 0) {
@@ -106,7 +108,7 @@ export class StepOneComponent implements OnInit, OnChanges, AfterViewInit,  Cont
     //   }
     // })).subscribe();
   }
-  onFileSelected(event) {
+  onFileSelected(event: any) {
     // this.loginList = this.store.pipe(
     //   select(getAllLogins),
     //   tap(login => {
@@ -176,7 +178,7 @@ export class StepOneComponent implements OnInit, OnChanges, AfterViewInit,  Cont
   }
 
   public onSelectProvince() {
-    this.firstFormGroup.get('cities').setValue(null, {emitEvent: false});
+    this.firstFormGroup.get('cities')!.setValue(null, {emitEvent: false});
   }
 
 

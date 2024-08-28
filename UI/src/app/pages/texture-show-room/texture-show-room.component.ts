@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 
 import { tap } from 'rxjs/operators';
 
-import * as uuid from 'uuid';
+
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -116,20 +116,20 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
     this.selectedColor = this.textureColor.filter(x => x.colorId === 1)[0];
     // this.brands = this.store.pipe(select(getBrandsForAppId(1)));
     this.activatedRoute.params.subscribe(params => {
-      if (params['brandId'] && uuid.validate(params['brandId'])) {
-        if (params['productId'] && uuid.validate(params['productId'])) {
-          this.productId = params['productId'];
-        }
-        this.brandId = params['brandId'];
-        this.getBrandTextureProductsById(this.brandId);
-      } else {
-        this.brands.subscribe(b => {
-          if (b && b.length > 0) {
-            this.brandId = b[0].brandId;
-            this.getBrandTextureProductsById(this.brandId);
-          }
-        });
-      }
+      // if (params['brandId'] && uuid.validate(params['brandId'])) {
+      //   if (params['productId'] && uuid.validate(params['productId'])) {
+      //     this.productId = params['productId'];
+      //   }
+      //   this.brandId = params['brandId'];
+      //   this.getBrandTextureProductsById(this.brandId);
+      // } else {
+      //   this.brands.subscribe(b => {
+      //     if (b && b.length > 0) {
+      //       this.brandId = b[0].brandId;
+      //       this.getBrandTextureProductsById(this.brandId);
+      //     }
+      //   });
+      // }
 
       
     });

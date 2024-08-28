@@ -1,27 +1,23 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { ProjectCategory } from 'src/app/models/project-category';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, fromEvent, merge, Subscription, combineLatest, BehaviorSubject } from 'rxjs';
-import { PerfectScrollbarConfigInterface } from 'ngx-scrollbar';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
-import { ProjectDataSource } from 'src/app/services/project-data-source';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
-import { ProjectService } from 'src/app/services/project.service';
 import { debounceTime, distinctUntilChanged, tap, switchMap, map } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { MultiSelect } from 'primeng/multiselect';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { AppSettings, Settings } from 'src/app/app.settings';
-import { AppService } from 'src/app/app.service';
-import { Pagination } from 'src/app/models/pagination';
-import { Project } from 'src/app/models/project';
-import { InitializeService } from 'src/app/services/initialize.service';
-import { PageImages } from 'src/app/models/page-images';
-import { ProjectSearch } from 'src/app/models/project-search';
+import { AppSettings, Settings } from '../../app.settings';
+import { PageImages } from '../../models/page-images';
+import { Pagination } from '../../models/pagination';
+import { Project } from '../../models/project';
+import { ProjectCategory } from '../../models/project-category';
+import { ProjectSearch } from '../../models/project-search';
+import { AuthService } from '../../services/auth.service';
+import { InitializeService } from '../../services/initialize.service';
+import { ProjectDataSource } from '../../services/project-data-source';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-projects',
@@ -32,49 +28,49 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCategories: ProjectCategory[] = [];
   filteredCategories: string[] = ['-1'];
   categories: ProjectCategory[] = [];
-  dataSource: ProjectDataSource;
-  @ViewChild('input') input: ElementRef;
-  @ViewChild('categoryList') categoryList: MultiSelect;
+  dataSource!: ProjectDataSource;
+  @ViewChild('input')
+  input!: ElementRef;
+  // @ViewChild('categoryList') categoryList: MultiSelect;
 
 
 
 
 @ViewChild('sidenav', { static: true }) sidenav: any;
 public sidenavOpen = true;
-@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-public categoriesBS : BehaviorSubject<ProjectCategory[]> = new BehaviorSubject([]);
-public psConfig: PerfectScrollbarConfigInterface = {
-  wheelPropagation: true
-};
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
+  public categoriesBS!: BehaviorSubject<ProjectCategory[]>;
+
 public allProjects: Project[] = [];
 public projects: Project[] = [];
-public slides: Observable<PageImages[]>;
+  public slides!: Observable<PageImages[]>;
 public viewType = 'grid';
 public viewCol = 33.3;
 public count = 12;
-public sort: string;
+  public sort!: string;
 public searchFields: ProjectSearch = new ProjectSearch({
   searchId: 1,
   designersBox: [],
   categoriesBox: [],
   searchBox: ''
 });
-public removedSearchField: string;
-public pagination: Pagination = new Pagination(0, this.count, null, null);
-public message: string;
-public watcher: Subscription;
-public totalProjects: Observable<number>;
+  public removedSearchField!: string;
+public pagination: Pagination = new Pagination(0, this.count, 0, 0);
+  public message!: string;
+  public watcher!: Subscription;
+  public totalProjects!: Observable<number>;
 public isLoading = false;
 public settings: Settings;
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private projectService: ProjectService,
-              private authService: AuthService,
-              public appSettings: AppSettings,
-              public appService: AppService,
-              public initializeService: InitializeService,
-              public mediaObserver: MediaObserver,
-              private cdRef: ChangeDetectorRef) {
+private route= inject( ActivatedRoute);
+              private router= inject( Router);
+              private projectService= inject( ProjectService);
+              private authService= inject( AuthService);
+              public appSettings= inject( AppSettings);
+              public initializeService= inject( InitializeService);
+              public mediaObserver= inject( MediaObserver);
+              private cdRef= inject( ChangeDetectorRef);
+  constructor() {
                 this.settings = this.appSettings.createNew()
                 
                }
@@ -116,24 +112,24 @@ public getSlides() {
 }
 
 
-public getProjects(cats, currentPage, search, categories) {
-  this.searchFields = new ProjectSearch({
-    searchId: 1,
-  categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
-    if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
-      return x;
-    }
-  }) : [],
-  categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
-    if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
-      return x;
-    }
-  }) : [],
-  pageQuery: new Pagination(currentPage - 1, this.count, null, null)
-  })
-  this.projectService.getProjects(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''} ${categories ? categories.replace('null', '').split('_').join(' ') : ''}'}`).subscribe((x:any) => {
-    this.projects = x.searchProjects
-  });
+public getProjects(cats: any[], currentPage: number, search: string, categories: { replace: (arg0: string, arg1: string) => { (): any; new(): any; split: { (arg0: string): { (): any; new(): any; length: number; includes: { (arg0: any): any; new(): any; }; join: { (arg0: string): any; new(): any; }; }; new(): any; }; }; }) {
+  // this.searchFields = new ProjectSearch({
+  //   searchId: 1,
+  // categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
+  //   if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
+  //     return x;
+  //   }
+  // }) : [],
+  // categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
+  //   if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
+  //     return x;
+  //   }
+  // }) : [],
+  // pageQuery: new Pagination(currentPage - 1, this.count, 0, 0)
+  // })
+  // this.projectService.getProjects(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''} ${categories ? categories.replace('null', '').split('_').join(' ') : ''}'}`).subscribe((x:any) => {
+  //   this.projects = x.searchProjects
+  // });
   
 }
 
@@ -144,7 +140,7 @@ public resetPagination() {
   this.pagination = new Pagination(1, this.count, this.pagination.totalItems, this.pagination.totalPages);
 }
 
-public filterData(data) {
+public filterData(data: Project[]) {
   return this.projectService.filterData(data, this.searchFields, this.sort, this.pagination.currentPage, this.pagination.itemsPerPage);
 }
 
@@ -153,19 +149,19 @@ public searchClicked() {
   // this.getProjects();
   window.scrollTo(0, 0);
 }
-public searchChanged(event) {
+public searchChanged(event: { value: { categoriesBox: string | any[]; }; }) {
   this.resetPagination();
       this.searchFields = new ProjectSearch({
         searchId: 1,
         categoriesBox: event.value.categoriesBox &&
            event.value.categoriesBox.length > 0 ? event.value.categoriesBox : [],
-        pageQuery: new Pagination(0, this.count, null, null),
+        pageQuery: new Pagination(0, this.count, 0, 0),
         searchBox: ''
       });
       // this.store.dispatch(new ResetBlogsRequest());
       // this.store.dispatch(new SaveBlogSearchForRequest(this.searchFields));
       setTimeout(() => {
-        this.removedSearchField = null;
+        this.removedSearchField = '';
       });
       if (!this.settings.searchOnBtnClick) {
         this.projects.length = 0;
@@ -175,30 +171,30 @@ public searchChanged(event) {
 
       }
 }
-public removeSearchField(field) {
-  this.message = null;
+public removeSearchField(field: string) {
+  this.message = '';
   this.removedSearchField = field;
 }
 
 
-public changeCount(count) {
+public changeCount(count: number) {
   this.count = count;
   this.projects.length = 0;
   this.resetPagination();
   // this.getProjects();
 }
-public changeSorting(sort) {
+public changeSorting(sort: string) {
   this.sort = sort;
   this.projects.length = 0;
   // this.getProjects();
 }
-public changeViewType(obj) {
+public changeViewType(obj: { viewType: string; viewCol: number; }) {
   this.viewType = obj.viewType;
   this.viewCol = obj.viewCol;
 }
 
 
-public onPageChange(e) {
+public onPageChange(e: { pageIndex: number; }) {
   this.pagination.currentPage = e.pageIndex ;
   // this.getProjects();
   window.scrollTo(0, 0);

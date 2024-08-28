@@ -109,17 +109,17 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   onThumbnailSelected(event: { target: { files: Blob[]; }; }) {
-    if (event.target.files &&
-      event.target.files[0].size < 5 * 1024 * 1024 ) {
-        const reader = new FileReader();
+    // if (event.target.files &&
+    //   event.target.files[0].size < 5 * 1024 * 1024 ) {
+    //     const reader = new FileReader();
 
-        reader.onload = ((file: File) => {
-          return (evt) => {
-            this.user.profilePicture = 'data:' + event.target.files[0].type + ';base64,' + btoa(evt.target!.result as string);
-          };
-        })(event.target.files[0]);
+    //     reader.onload = ((file: File) => {
+    //       return (evt) => {
+    //         this.user.profilePicture = 'data:' + event.target.files[0].type + ';base64,' + btoa(evt.target!.result as string);
+    //       };
+    //     })(event.target.files[0]);
 
-        reader.readAsBinaryString(event.target.files[0]);
-    }
+    //     reader.readAsBinaryString(event.target.files[0]);
+    // }
   }
 }

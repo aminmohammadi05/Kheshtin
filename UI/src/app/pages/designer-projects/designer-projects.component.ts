@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { Project } from 'src/app/models/project';
-import { ProjectService } from 'src/app/services/project.service';
-import { ProjectDataSource } from 'src/app/services/project-data-source';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { fromEvent, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
+import { Project } from '../../models/project';
+import { AuthService } from '../../services/auth.service';
+import { ProjectDataSource } from '../../services/project-data-source';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-designer-projects',
@@ -15,10 +16,12 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class DesignerProjectsComponent implements OnInit, AfterViewInit {
   projectList: Project[] = [];
-  dataSource: ProjectDataSource;
-  designerId: number;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild('input') input: ElementRef;
+  dataSource!: ProjectDataSource;
+  designerId!: number;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+  @ViewChild('input')
+  input!: ElementRef;
   constructor(private route: ActivatedRoute,
               private routeService: Router,
               public authService: AuthService,
@@ -26,7 +29,7 @@ export class DesignerProjectsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.designerId = params.userId;
+      this.designerId = params['userId'];
       this.dataSource = new ProjectDataSource(this.projectService, this.authService);
       this.dataSource.loadProjects('filter=', [this.designerId.toString()], ['empty'] , 0, 3);
   });

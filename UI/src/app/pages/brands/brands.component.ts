@@ -1,28 +1,11 @@
-import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
 import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
 import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, combineLatest, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
-import { ProductsDataSource } from 'src/app/services/products-data-source';
-import { CategoryService } from 'src/app/services/category.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { debounceTime, distinctUntilChanged, tap, skip, switchMap, map } from 'rxjs/operators';
-import { Pagination } from 'src/app/models/pagination';
-
-import { Brand } from 'src/app/models/brand';
-import { BrandService } from 'src/app/services/brand.service';
-import { Category } from 'src/app/models/category';
-import { Settings, AppSettings } from 'src/app/app.settings';
-import { AppService } from 'src/app/app.service';
-import { Property } from 'src/app/app.models';
-import { AuthService } from 'src/app/services/auth.service';
-import { PageImages } from 'src/app/models/page-images';
-import { InitializeService } from 'src/app/services/initialize.service';
-import { BrandSearch } from 'src/app/models/brand-search';
-import { BrandsDataSource } from 'src/app/services/brands-data-source';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -31,15 +14,24 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-import { HeaderCarouselComponent } from 'src/app/shared/header-carousel/header-carousel.component';
-import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
-import { BrandsSearchComponent } from 'src/app/shared/brands-search/brands-search.component';
-import { BrandsSearchResultsFiltersComponent } from 'src/app/shared/brands-search-results-filters/brands-search-results-filters.component';
-import { BrandItemComponent } from 'src/app/shared/brand-item/brand-item.component';
-import { BrandsCarouselComponent } from 'src/app/shared/brands-carousel/brands-carousel.component';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { AppSettings, Settings } from '../../app.settings';
+import { Brand } from '../../models/brand';
+import { BrandSearch } from '../../models/brand-search';
+import { Category } from '../../models/category';
+import { PageImages } from '../../models/page-images';
+import { Pagination } from '../../models/pagination';
+import { AuthService } from '../../services/auth.service';
+import { BrandService } from '../../services/brand.service';
+import { InitializeService } from '../../services/initialize.service';
+import { ProductsService } from '../../services/products.service';
+import { BrandItemComponent } from '../../shared/brand-item/brand-item.component';
+import { BrandsCarouselComponent } from '../../shared/brands-carousel/brands-carousel.component';
+import { BrandsSearchResultsFiltersComponent } from '../../shared/brands-search-results-filters/brands-search-results-filters.component';
+import { BrandsSearchComponent } from '../../shared/brands-search/brands-search.component';
+import { HeaderCarouselComponent } from '../../shared/header-carousel/header-carousel.component';
+import { HeaderImageComponent } from '../../shared/header-image/header-image.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-brands',
@@ -51,46 +43,47 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  public categoriesBS : BehaviorSubject<Category[]> = new BehaviorSubject([]);
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
+  public categoriesBS!: BehaviorSubject<Category[]>;
   public psConfig = {
     wheelPropagation: true
   };
   public allBrands: Brand[] = [];
   public brands: Brand[] = [];
   public slides: PageImages[] = [];
-  public totalBrands: Observable<number>;
+  public totalBrands!: Observable<number>;
   public viewType = 'grid';
   public viewCol = 25;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public searchFields: BrandSearch = new BrandSearch({
     searchId: 1,
     categoriesBoxNested: [],
     categoriesBox: [],
-    brandCollectionsBox: [],
+   // brandCollectionsBox: [],
     searchBox: '',
-    pageQuery: new Pagination(0, this.count, null, null)
+    pageQuery: new Pagination(0, this.count, 0, 0)
   });
-  public removedSearchField: string;
+  public removedSearchField!: string;
   public isLoading = false;
-  public message: string;
-  public watcher: Subscription;
+  public message!: string;
+  public watcher!: Subscription;
 
   public settings: Settings;
 
-  categoryId: number;
+  categoryId!: number;
   searchTerm = '';
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private authService: AuthService,
-              public mediaObserver: MediaObserver,
-              public initializeService: InitializeService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private productService: ProductsService,
-              private brandService: BrandService,
-              private cdRef: ChangeDetectorRef) {
+  public appSettings= inject( AppSettings);
+              private authService= inject( AuthService);
+              public mediaObserver= inject( MediaObserver);
+              public initializeService= inject( InitializeService);
+              private route= inject( ActivatedRoute);
+              private router= inject( Router);
+              private productService= inject( ProductsService);
+              private brandService= inject( BrandService);
+              private cdRef= inject( ChangeDetectorRef);
+  constructor() {
     this.settings = this.appSettings.createNew()
 //     this.watcher = mediaObserver.media$.subscribe((change: MediaChange) => {
 //     if (change.mqAlias === 'xs') {
@@ -158,21 +151,21 @@ export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
   }
-  public getBrands(cats, currentPage, search, categories) {
+  public getBrands(cats: any[], currentPage: number, search: string, categories: { replace: (arg0: string, arg1: string) => { (): any; new(): any; split: { (arg0: string): { (): any; new(): any; length: number; includes: { (arg0: any): any; new(): any; }; join: { (arg0: string): any; new(): any; }; }; new(): any; }; }; }) {
     
     this.searchFields = new BrandSearch({
       searchId: 1,
-    categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+    categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
       if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
         return x;
       }
     }) : [],
-    categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+    categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
       if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
         return x;
       }
     }) : [],
-    pageQuery: new Pagination(currentPage - 1, this.count, null, null)
+    pageQuery: new Pagination(currentPage - 1, this.count, 0, 0)
     })
     this.brandService.getBrands(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''}  ${categories ? categories.replace('null', '').split('_').join(' ') : ''}'}`).subscribe((x:any) => {
       this.searchFields.pageQuery.totalItems = x[0].count
@@ -192,7 +185,7 @@ export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.searchFields = new BrandSearch({
       searchId: 1,
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
   }
 
@@ -205,7 +198,7 @@ export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
   
     window.scrollTo(0, 0);
   }
-  public searchChanged(event) {
+  public searchChanged(event: { value: { categoriesBoxNested: string | any[]; }; }) {
     if(event) {
       this.resetPagination();
       this.searchFields = new BrandSearch({
@@ -213,10 +206,10 @@ export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
         categoriesBoxNested: event.value.categoriesBoxNested &&
            event.value.categoriesBoxNested.length > 0 ? event.value.categoriesBoxNested : [],
            searchBox: '',
-        pageQuery: new Pagination(0, this.count, null, null)
+        pageQuery: new Pagination(0, this.count, 0, 0)
       });
       setTimeout(() => {
-        this.removedSearchField = null;
+        this.removedSearchField = '';
       });
       if (!this.settings.searchOnBtnClick) {
         this.brands.length = 0;
@@ -225,35 +218,35 @@ export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     
   }
-  public removeSearchField(field) {
+  public removeSearchField(field: string) {
    
-    this.message = null;
+    this.message = '';
     this.removedSearchField = field;
   }
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.brands.length = 0;
     this.resetPagination();
     // this.getBrands();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     this.brands.length = 0;
     // this.getBrands();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.searchFields = new BrandSearch({
       searchId: 1,
       searchBox: '',
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     // this.store.dispatch(new SaveBrandSearchForRequest(this.searchFields));
     window.scrollTo(0, 0);

@@ -1,9 +1,6 @@
-import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, AfterViewInit, inject } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart, RouterModule } from '@angular/router';
 import {  } from 'ngx-scrollbar';
-import { AuthService } from 'src/app/services/auth.service';
-import { Login } from 'src/app/models/login';
-import { User } from 'src/app/models/user';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,6 +9,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { User } from '../../models/user';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -21,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [CommonModule, MatIconModule, MatStepperModule,  MatFormFieldModule, MatSidenavModule, MatCardModule, MatButtonModule, RouterModule ],
 })
 export class AccountComponent implements OnInit, AfterViewInit {
-  loggedInUser: Observable<User>;
+  loggedInUser!: Observable<User>;
   public psConfig = {
     wheelPropagation: true
   };
@@ -36,8 +35,9 @@ export class AccountComponent implements OnInit, AfterViewInit {
     { name: 'ایجاد مودبرد ', href: '/designmoodboard', icon: 'add_circle' },
     { name: 'خروج', href: '/login', icon: 'power_settings_new' },
   ];
-  constructor(public router: Router,
-              public authService: AuthService) { }
+  public router = inject(Router);
+  public authService =inject(AuthService);
+  constructor() { }
 
   ngOnInit() {
     // this.loggedInUser = this.store.select(getUserById(this.authService.getDecodedToken().nameid));

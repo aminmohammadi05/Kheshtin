@@ -1,50 +1,35 @@
 import { Component, OnInit, OnDestroy, ViewChild,
-  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, Input } from '@angular/core';
+  ViewChildren, QueryList, HostListener, AfterViewInit, ChangeDetectorRef, ElementRef, Renderer2, Input, 
+  inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
-import { Property } from 'src/app/app.models';
-import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AppService } from 'src/app/app.service';
-
-import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { BrandService } from 'src/app/services/brand.service';
 import { BehaviorSubject, Observable, Subject, Subscription, combineLatest } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
 import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { Pagination } from 'src/app/models/pagination';
 import { MatPaginator } from '@angular/material/paginator';
-import { Category } from 'src/app/models/category';
-import { Search } from 'src/app/models/search';
-import { BrandSearch } from 'src/app/models/brand-search';
-import { BrandCollection } from 'src/app/models/brand-collection';
-import { BrandCatalog } from 'src/app/models/brand-catalog';
-import { BrandVideo } from 'src/app/models/brand-video';
-import { BrandReseller } from 'src/app/models/brand-reseller';
-import { OfficeProject } from 'src/app/models/office-project';
-import { BrandOfficeProjectSearch } from 'src/app/models/brand-office-project-search';
-import { BrandOfficeProjectsDataSource } from 'src/app/services/brand-office-project-data-source';
-import { OfficeProjectService } from 'src/app/services/office-project.service';
-import { BrandProductDataSource } from 'src/app/services/brand-product-data-source';
-import { BrandProductSearch } from 'src/app/models/brand-product-search';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
-import { PropertiesSearchResultsFiltersComponent } from 'src/app/shared/properties-search-results-filters/properties-search-results-filters.component';
-import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
-import { PropertiesSearchComponent } from 'src/app/shared/properties-search/properties-search.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
+
+import { AppSettings, Settings } from '../../../app.settings';
+import { Brand } from '../../../models/brand';
+import { BrandProductSearch } from '../../../models/brand-product-search';
+import { Category } from '../../../models/category';
+import { Pagination } from '../../../models/pagination';
+import { Search } from '../../../models/search';
+import { AuthService } from '../../../services/auth.service';
+import { ProductsService } from '../../../services/products.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { ProductItemComponent } from '../../../shared/product-item/product-item.component';
+import { PropertiesSearchResultsFiltersComponent } from '../../../shared/properties-search-results-filters/properties-search-results-filters.component';
+import { PropertiesSearchComponent } from '../../../shared/properties-search/properties-search.component';
 
 
 @Component({
@@ -58,10 +43,12 @@ export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit 
   @Input() brand: any;
   @ViewChild('sidenav', { static: true }) sidenav: any;
   public sidenavOpen = true;
-  @Input() tabChanged: Subject<number>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @Input()
+  tabChanged!: Subject<number>;
+  @ViewChild(MatPaginator, { static: true })
+  paginator!: MatPaginator;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public categoriesBS : BehaviorSubject<Category[]> = new BehaviorSubject([]);
+  public categoriesBS!: BehaviorSubject<Category[]>;
   public psConfig = {
     wheelPropagation: true
   };
@@ -69,35 +56,34 @@ export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit 
   // public config: SwiperConfigInterface = {};
   // public config2: SwiperConfigInterface = {};
   public viewType = 'grid';
-  public removedSearchField: string;
+  public removedSearchField!: string;
   public viewCol = 33.3;
   public count = 12;
-  public sort: string;
+  public sort!: string;
   public isLoading = false;
-  public pagination: Pagination = new Pagination(0, this.count, null, null);
-  public message: string;
-  public watcher: Subscription;
+  public pagination: Pagination = new Pagination(0, this.count, 0, 0);
+  public message!: string;
+  public watcher!: Subscription;
 
   public settings: Settings;
   public searchFields: BrandProductSearch = new BrandProductSearch({
     searchId: 1,
     brandsBox: [],
-    categories: [],
+    // categories: [],
     searchBox: '',
-    pageQuery: new Pagination(0, 12, null, null)
+    pageQuery: new Pagination(0, 12, 0, 0)
   });
- 
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private activatedRoute: ActivatedRoute,
-     
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private productService: ProductsService,
-              private cdRef: ChangeDetectorRef,
-              private authService: AuthService,
-              private meta: Meta) {
+  public appSettings= inject( AppSettings);              
+  private activatedRoute= inject( ActivatedRoute);
+
+  public fb= inject( FormBuilder);
+  private route= inject( ActivatedRoute);
+  private router= inject( Router);
+  private productService= inject( ProductsService);
+  private cdRef= inject( ChangeDetectorRef);
+  private authService= inject( AuthService);
+  private meta= inject( Meta);
+  constructor() {
     this.settings = this.appSettings.createNew()
 }
 
@@ -143,14 +129,14 @@ export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit 
   ngOnDestroy() {
   }
 
-  public removeSearchField(field) {
-    this.message = null;
+  public removeSearchField(field: string) {
+    this.message = '';
     this.removedSearchField = field;
   }
-  public PageChange(event) {
+  public PageChange(event: { pageIndex: number; pageSize: number; length: number; }) {
     this.searchFields = new BrandProductSearch({
       searchId: 1,
-      pageQuery: new Pagination(event.pageIndex, event.pageSize, event.length, null)
+      pageQuery: new Pagination(event.pageIndex, event.pageSize, event.length, 0)
     });
     // this.store.dispatch(new SaveSearchForRequest(this.searchFields));
   }
@@ -235,37 +221,37 @@ export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit 
     }
     this.searchFields = new BrandProductSearch({
       searchId: 1,
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
   }
 
 
 
-  public changeCount(count) {
+  public changeCount(count: number) {
     this.count = count;
     this.resetPagination();
     // this.getBrandProducts();
   }
-  public changeSorting(sort) {
+  public changeSorting(sort: string) {
     this.sort = sort;
     // this.getBrandProducts();
   }
-  public changeViewType(obj) {
+  public changeViewType(obj: { viewType: string; viewCol: number; }) {
     this.viewType = obj.viewType;
     this.viewCol = obj.viewCol;
   }
 
 
-  public onPageChange(e) {
+  public onPageChange(e: { pageIndex: number; pageSize: number; length: number; }) {
     this.pagination.currentPage = e.pageIndex ;
     this.searchFields = new BrandProductSearch({
       searchId: 1,
-      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, null)
+      pageQuery: new Pagination(e.pageIndex, e.pageSize, e.length, 0)
     });
     this.router.navigate(['/brands',  this.brand.contentItemId, 1, e.pageIndex + 1, this.brand.displayText, {search: this.searchFields.searchBox ? this.searchFields.searchBox : 'null', brands: this.searchFields.brandsBox.length > 0 ? this.searchFields.brandsBox.map(x => x.name).join('_'): 'null', collections:this.searchFields.brandCollectionBox.length > 0 ? this.searchFields.brandCollectionBox.map(x => x.brandCollectionId).join('_') : 'null', categories: this.searchFields.categoriesBoxNested.length > 0 ? this.searchFields.categoriesBoxNested.map(x => x.categoryId).join('_') : 'null'}]);
     window.scrollTo(0, 0);
   }
-  public ReadyForDispatch(value) {
+  public ReadyForDispatch(value: { brandsBox: string | any[]; brandCollectionBox: string | any[]; categoriesBoxNested: string | any[]; categoriesBox: string | any[]; imageToSearch: string | any[]; fileTypes: string | any[]; searchBox: string | any[]; }) {
     this.searchFields = new BrandProductSearch({
       searchId: 1,
       brandsBox: value.brandsBox &&
@@ -282,19 +268,19 @@ export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit 
       value.fileTypes.length > 0 ? value.fileTypes : [],
       searchBox: value.searchBox &&
       value.searchBox.length > 0 ? value.searchBox : '',
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
     // this.store.dispatch(new ResetProductsRequest());
     // this.store.dispatch(new SaveSearchForRequest(this.searchFields));
   }
 
-  public searchChanged(event) {
+  public searchChanged(event: { value: any; }) {
     
     if (event ) {
       this.resetPagination();
       this.ReadyForDispatch(event.value);
       setTimeout(() => {
-          this.removedSearchField = null;
+          this.removedSearchField = '';
         });
       if (!this.settings.searchOnBtnClick) {
           this.products.length = 0;
@@ -306,25 +292,25 @@ export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit 
     }
   }
 
-  public getProducts(cats, currentPage, search, brands, collections, categories) {
+  public getProducts(cats: any[], currentPage: number, search: string, brands: string, collections: string, categories: { replace: (arg0: string, arg1: string) => { (): any; new(): any; split: { (arg0: string): { (): any; new(): any; length: number; includes: { (arg0: any): any; new(): any; }; map: { (arg0: (x: any) => string): any[]; new(): any; }; }; new(): any; }; }; }) {
     
     this.searchFields = new Search({
       searchId: 1,
     brandsBox: [],
-    categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+    categoriesBoxNested: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
       if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
         return x;
       }
     }) : [],
-    categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter(x => {
+    categoriesBox: categories && categories.replace('null', '').split('_').length > 0 ?  cats.filter((x: { categoryId: { toString: () => any; }; }) => {
       if(categories.replace('null', '').split('_').includes(x.categoryId.toString())){
         return x;
       }
     }) : [],
     brandCollectionBox: [],
-    pageQuery: new Pagination(currentPage - 1, this.count, null, null)
+    pageQuery: new Pagination(currentPage - 1, this.count, 0, 0)
     })
-    this.productService.getProducts(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''} ${brands ? brands.replace('null', '').split('_').join(' ') : ''} ${ collections ? collections.replace('null', '').split('_').join(' ') : ''} ${categories ? categories.replace('null', '').split('_').map(x => 'ProductCategory-'+x).join(' ') : ''}'}`).subscribe((x:any) => {
+    this.productService.getProducts(this.searchFields, `{from: ${(currentPage - 1) * this.searchFields.pageQuery.itemsPerPage}, size: ${this.searchFields.pageQuery.itemsPerPage}, fulltext: '${search ? search.replace('null', '') : ''} ${brands ? brands.replace('null', '').split('_').join(' ') : ''} ${ collections ? collections.replace('null', '').split('_').join(' ') : ''} ${categories ? categories.replace('null', '').split('_').map((x: string) => 'ProductCategory-'+x).join(' ') : ''}'}`).subscribe((x:any) => {
       this.searchFields.pageQuery.totalItems = x[0].count
       this.message = x[0].count === 0 ? "موردی یافت نشد" : '';
       this.products = x[1].searchProducts;

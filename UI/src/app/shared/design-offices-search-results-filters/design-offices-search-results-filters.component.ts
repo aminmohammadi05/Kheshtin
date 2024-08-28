@@ -7,7 +7,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { DesignOfficeSearch } from 'src/app/models/design-office-search';
+import { DesignOfficeSearch } from '../../models/design-office-search';
 
 @Component({
   selector: 'app-design-offices-search-results-filters',
@@ -17,7 +17,8 @@ import { DesignOfficeSearch } from 'src/app/models/design-office-search';
   imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule],
 })
 export class DesignOfficesSearchResultsFiltersComponent implements OnInit {
-  @Input() searchFields: DesignOfficeSearch;
+  @Input()
+  searchFields!: DesignOfficeSearch;
   @Output() RemoveSearchField: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
@@ -25,7 +26,7 @@ export class DesignOfficesSearchResultsFiltersComponent implements OnInit {
 
    }
 
-  public remove(field) {
+  public remove(field: any) {
     this.RemoveSearchField.emit(field);
   }
   public trimSearchTerm(searchTerm: string) : string {

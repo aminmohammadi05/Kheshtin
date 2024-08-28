@@ -1,41 +1,38 @@
-import { AfterViewInit, OnInit, Component, Input, Inject, ChangeDetectorRef, ElementRef, ViewChild, Renderer2, OnDestroy } from '@angular/core';
+import { AfterViewInit, OnInit, Component, Input, Inject, ChangeDetectorRef, ElementRef, ViewChild, Renderer2, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CompactType, DisplayGrid, GridsterConfig, GridsterItem, GridsterModule, GridType } from 'angular-gridster2';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, take, tap } from 'rxjs/operators';
-import { AppSettings, Settings } from 'src/app/app.settings';
-import { Category } from 'src/app/models/category';
-import { MoodBoardProduct } from 'src/app/models/moodboard-product';
-import { Pagination } from 'src/app/models/pagination';
-import { ProductMoodBoardSearch } from 'src/app/models/product-mood-board-search';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserMoodBoard } from 'src/app/models/user-moodboard';
-import * as uuid from 'uuid';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoodBoardExtraInfoComponent } from './mood-board-extra-info-dialog.component';
-import { MoodBoardDataSource } from 'src/app/services/mood-board-data-source';
-import { MoodBoardProductDataSource } from 'src/app/services/mood-board-product-data-source';
-import { MoodBoardCandidateProductDataSource } from 'src/app/services/mood-board-candidate-product-data-source';
-import { ProductsService } from 'src/app/services/products.service';
-import { UserService } from 'src/app/services/user.service';
-import { UserMoodBoardCandidateProductSearch } from 'src/app/models/user-mood-board-candidate-product-search';
-import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
-import { UserMoodBoardCandidateProduct } from 'src/app/models/user-mood-board-candidate-product';
-import { DesignMoodBoardProduct } from 'src/app/models/design-mood-board-product';
-import { DesignMoodBoardProductSearch } from 'src/app/models/design-mood-board-product-search';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { ProductMoodBoardSearchComponent } from 'src/app/shared/product-mood-board-search/product-mood-board-search.component';
-import { MoodBoardProductItemComponent } from 'src/app/shared/mood-board-product-item/mood-board-product-item.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TileLayersComponent } from './tile-layers/tile-layers.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTabsModule, MatTabGroup } from '@angular/material/tabs';
+import { AppSettings, Settings } from '../../app.settings';
+import { Category } from '../../models/category';
+import { DesignMoodBoardProduct } from '../../models/design-mood-board-product';
+import { DesignMoodBoardProductSearch } from '../../models/design-mood-board-product-search';
+import { MoodBoardProduct } from '../../models/moodboard-product';
+import { Pagination } from '../../models/pagination';
+import { UserMoodBoardCandidateProduct } from '../../models/user-mood-board-candidate-product';
+import { UserMoodBoardCandidateProductSearch } from '../../models/user-mood-board-candidate-product-search';
+import { UserMoodBoard } from '../../models/user-moodboard';
+import { AuthService } from '../../services/auth.service';
+import { MoodBoardCandidateProductDataSource } from '../../services/mood-board-candidate-product-data-source';
+import { MoodBoardProductDataSource } from '../../services/mood-board-product-data-source';
+import { ProductsService } from '../../services/products.service';
+import { UserService } from '../../services/user.service';
+import { MoodBoardProductItemComponent } from '../../shared/mood-board-product-item/mood-board-product-item.component';
+import { ProductMoodBoardSearchComponent } from '../../shared/product-mood-board-search/product-mood-board-search.component';
 
 export interface ProductMoodBoardData {
   isCandidateProducts: boolean;
@@ -60,10 +57,10 @@ export interface Tile {
   imports: [CommonModule, MatIconModule, MatChipsModule, MatTabsModule, MatFormFieldModule, MatCardModule, FlexLayoutModule, MatDividerModule, MatProgressSpinnerModule, MatPaginatorModule, GridsterModule, ReactiveFormsModule, ProductMoodBoardSearchComponent, MoodBoardProductItemComponent, TileLayersComponent]
 })
 export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestroy {
-    options: GridsterConfig;
-    tiles: Array<GridsterItem>;
+    options!: GridsterConfig;
+    tiles!: Array<GridsterItem>;
     public settings: Settings;
-    public moodBoard: UserMoodBoard;
+    public moodBoard!: UserMoodBoard;
     public viewType = 'grid';
     public viewCol = 15;
     public allProducts: DesignMoodBoardProduct[] = [];
@@ -72,11 +69,11 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
     public selectedProducts: MoodBoardProduct[] = [];
     public selectedCategories: Category[] = [];
     public isLoading = false;
-    public totalProducts: Observable<number>;
-    public removedSearchField: string;
+    public totalProducts!: Observable<number>;
+    public removedSearchField!: string;
     public count = 9;
-    public sort: string;
-    public message: string;
+    public sort!: string;
+    public message!: string;
     @ViewChild('screen', { static: true }) screen: any;
     @ViewChild('gridster', { static: true }) gridster: any;
     public color1 = '#c8c8c8';
@@ -84,15 +81,16 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
     isCandidateProducts = false;
     isCapturing = false;
     counter = 0;
-    public categoryList$: Observable<Category[]>;
-    @ViewChild(MatTabGroup, { static: true }) tabGroup: MatTabGroup;
+    public categoryList$!: Observable<Category[]>;
+    @ViewChild(MatTabGroup, { static: true })
+  tabGroup!: MatTabGroup;
     public searchFields = new DesignMoodBoardProductSearch({
       searchId: 1,
       brandsBox: [],
       categoriesBox: [],
       colorsBox: [],
       materialsBox: [],
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
     public candidateSearchFields = new UserMoodBoardCandidateProductSearch({
       searchId: 1,
@@ -100,21 +98,22 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
       categoriesBox: [],
       colorsBox: [],
       materialsBox: [],
-      pageQuery: new Pagination(0, this.count, null, null)
+      pageQuery: new Pagination(0, this.count, 0, 0)
     });
-    public dataSource: MoodBoardProductDataSource;
-    public candidateDataSource: MoodBoardCandidateProductDataSource;
-    moodBoardId: string;
-    private dialogRef: MatDialogRef<MoodBoardExtraInfoComponent>;
-    constructor(public appSettings: AppSettings,
-                private authService: AuthService,
-                public dialog: MatDialog,
-                private activatedRoute: ActivatedRoute,
-                private cdr: ChangeDetectorRef,
-                private productService: ProductsService,
-                private candidateProductService: UserService,
-                private router: Router,
-                public productsDialog: MatDialog) {
+    public dataSource!: MoodBoardProductDataSource;
+    public candidateDataSource!: MoodBoardCandidateProductDataSource;
+    moodBoardId!: string;
+    private dialogRef!: MatDialogRef<MoodBoardExtraInfoComponent>;
+    public appSettings= inject( AppSettings);
+                private authService= inject( AuthService);
+                public dialog= inject( MatDialog);
+                private activatedRoute= inject( ActivatedRoute);
+                private cdr= inject( ChangeDetectorRef);
+                private productService= inject( ProductsService);
+                private candidateProductService= inject( UserService);
+                private router= inject( Router);
+                public productsDialog= inject( MatDialog);
+    constructor() {
       this.settings = this.appSettings.createNew()
     }
     ngOnDestroy(): void {
@@ -154,7 +153,7 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
     }
     newMoodBoard() {
       this.moodBoard = new UserMoodBoard({
-        moodBoardId: uuid.v4(),
+        moodBoardId: '', //uuid.v4(),
         moodBoardName: '',
         moodBoardDescription: '',
         backgroundColor: '',
@@ -170,8 +169,8 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
         this.dataSource = new MoodBoardProductDataSource(this.productService, this.authService);
         this.candidateDataSource = new MoodBoardCandidateProductDataSource(this.candidateProductService, this.authService);
         this.activatedRoute.params.subscribe(params => {
-          if (params && params.moodBoardId && uuid.validate(params.moodBoardId)) {
-            this.moodBoardId = params.moodBoardId;
+          if (params && params['moodBoardId']){ // && uuid.validate(params['moodBoardId'])) {
+            this.moodBoardId = params['moodBoardId'];
             // this.store.pipe(select(getMoodBoardByDisplayId(this.moodBoardId)),
             // map((moodBoard) => {
             //   if (moodBoard) {
@@ -251,10 +250,10 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
       }
 
       changedOptions() {
-        this.options.api.optionsChanged();
+        // this.options.api.optionsChanged();
       }
 
-      removeItem($event, item) {
+      removeItem($event: { preventDefault: () => void; stopPropagation: () => void; }, item: MoodBoardProduct) {
       $event.preventDefault();
       $event.stopPropagation();
       this.selectedProducts.splice(this.selectedProducts.indexOf(item), 1);
@@ -274,35 +273,35 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
       this.getProducts();
       window.scrollTo(0, 0);
     }
-    public getChildCategories(categories: Category[]): Promise<Category[]>{
-      // return this.store.pipe(select(getAllCategoriesFlat),    
-      // map(cats => {
-      //   let children: Category[] = [];
-      //   categories.map(y => {
-      //     const c = cats.filter(x => x.categoryId.toString().startsWith(y.categoryId.toString()));
-      //     children = [...children, ...c];
-      //   });
-      //   cats = children;
-      //   return cats;
-      // }), take(1)).toPromise();
-      return of([]).toPromise();
-    }
-    public async searchChanged(event) {
+    // public getChildCategories(categories: Category[]): Promise<Category[]>{
+    //   // return this.store.pipe(select(getAllCategoriesFlat),    
+    //   // map(cats => {
+    //   //   let children: Category[] = [];
+    //   //   categories.map(y => {
+    //   //     const c = cats.filter(x => x.categoryId.toString().startsWith(y.categoryId.toString()));
+    //   //     children = [...children, ...c];
+    //   //   });
+    //   //   cats = children;
+    //   //   return cats;
+    //   // }), take(1)).toPromise();
+    //   return of([]).toPromise();
+    // }
+    public async searchChanged(event: { brandsBox: string | any[]; categoriesBox: string | any[]; colorsBox: string | any[]; materialsBox: string | any[]; searchBox: string | any[]; value: { categoriesBox: Category[]; }; }) {
       if (event) {
         if (!this.isCandidateProducts) {
           this.searchFields = new DesignMoodBoardProductSearch({
             searchId: 1,
             brandsBox: event.brandsBox &&
             event.brandsBox.length > 0 ? event.brandsBox : [],
-            categoriesBox: event.categoriesBox &&
-               event.categoriesBox.length > 0 ? await this.getChildCategories(event.categoriesBox) : [],
+            // categoriesBox: event.categoriesBox &&
+            //    event.categoriesBox.length > 0 ? await this.getChildCategories(event.categoriesBox) : [],
             colorsBox: event.colorsBox &&
             event.colorsBox.length > 0 ? event.colorsBox : [],
             materialsBox: event.materialsBox &&
             event.materialsBox.length > 0 ? event.materialsBox : [],
-            searchBox: event.searchBox &&
-            event.searchBox.length > 0 ? event.searchBox : 'filter=',
-            pageQuery: new Pagination(0, this.count, null, null)
+            // searchBox: event.searchBox &&
+            // event.searchBox.length > 0 ? event.searchBox : 'filter=',
+            pageQuery: new Pagination(0, this.count, 0, 0)
           });
           // this.store.dispatch(new ResetDesignMoodBoardProductsRequest());
           // this.store.dispatch(new SaveDesignMoodBoardProductSearchForRequest(this.searchFields));
@@ -311,20 +310,20 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
             searchId: 1,
             brandsBox: event.brandsBox &&
             event.brandsBox.length > 0 ? event.brandsBox : [],
-            categoriesBox: event.categoriesBox &&
-               event.categoriesBox.length > 0 ? await this.getChildCategories(event.value.categoriesBox) : [],
+            // categoriesBox: event.categoriesBox &&
+            //    event.categoriesBox.length > 0 ? await this.getChildCategories(event.value.categoriesBox) : [],
             colorsBox: event.colorsBox &&
             event.colorsBox.length > 0 ? event.colorsBox : [],
             materialsBox: event.materialsBox &&
             event.materialsBox.length > 0 ? event.materialsBox : [],
             searchBox: event.searchBox &&
             event.searchBox.length > 0 ? event.searchBox : 'filter=',
-            pageQuery: new Pagination(0, this.count, null, null)
+            pageQuery: new Pagination(0, this.count, 0, 0)
           });
           // this.store.dispatch(new SaveCandidateProductSearchForRequest(this.candidateSearchFields));
         }
         setTimeout(() => {
-            this.removedSearchField = null;
+            this.removedSearchField = '';
           });
         if (!this.settings.searchOnBtnClick) {
             this.products.length = 0;
@@ -335,17 +334,17 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
       }
 
     }
-    onPageChange(event) {
+    onPageChange(event: { pageIndex: number; pageSize: number; length: number; }) {
       this.searchFields = new DesignMoodBoardProductSearch({
         searchId: 1,
-        pageQuery: new Pagination(event.pageIndex, event.pageSize, event.length, null)
+        pageQuery: new Pagination(event.pageIndex, event.pageSize, event.length, 0)
       });
       // this.store.dispatch(new SaveDesignMoodBoardProductSearchForRequest(this.searchFields));
     }
-    onCandidatePageChange(event) {
+    onCandidatePageChange(event: { pageIndex: number; pageSize: number; length: number; }) {
       this.candidateSearchFields = new UserMoodBoardCandidateProductSearch({
         searchId: 1,
-        pageQuery: new Pagination(event.pageIndex, event.pageSize, event.length, null)
+        pageQuery: new Pagination(event.pageIndex, event.pageSize, event.length, 0)
       });
       // this.store.dispatch(new SaveCandidateProductSearchForRequest(this.candidateSearchFields));
     }
@@ -360,14 +359,14 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
       }
     }
 
-    public getMyProducts(event) {
+    public getMyProducts(event: { target: { checked: boolean; }; }) {
      
       this.isCandidateProducts = event.target.checked;
       this.tabGroup.selectedIndex = event.target.checked ? 1 : 0;
       this.getProducts();
     }
 
-    public openPopUpDialog(index) {
+    public openPopUpDialog(index: any) {
       this.productsDialog.open(MoodBoardProductDetailDialogComponent, {
         width: '900px',
         data: {
@@ -391,7 +390,7 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
       // ).subscribe();
     }
 
-    layerChange(event) {
+    layerChange(event: any) {
       this.cdr.detectChanges();
     }
     public getFileIdByColor(product: MoodBoardProduct)  {
@@ -401,7 +400,7 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
       : {"background-image" : "url('../../assets/products/big/"+ product.productId + "_12_-1_1_0.png');"};
     }
 
-    public getMoodBoard(id) {
+    public getMoodBoard(id: any) {
       // if (this.authService.loggedIn()) {
       //   this.store.dispatch(new OneMoodBoardAuthRequest(id, this.authService.getDecodedToken().nameid));
       // } else {
@@ -419,7 +418,7 @@ export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestro
 export class MoodBoardProductDetailDialogComponent implements OnInit {
   public settings: Settings;
   public selectedIndex = 1;
-  public selectedImageId: number;
+  public selectedImageId!: number;
   products: Observable<DesignMoodBoardProduct[]>;
   isCandidateProducts: boolean;
   candidateProducts: Observable<UserMoodBoardCandidateProduct[]>;
@@ -427,7 +426,7 @@ export class MoodBoardProductDetailDialogComponent implements OnInit {
   currentProducts: DesignMoodBoardProduct[] = [];
   selectedProducts: DesignMoodBoardProduct[] = [];
   @Input() variant = 1;
-  reqform: FormGroup;
+  reqform!: FormGroup;
   constructor(public appSettings: AppSettings,
               public dialogRef: MatDialogRef<MoodBoardProductDetailDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: ProductMoodBoardData,

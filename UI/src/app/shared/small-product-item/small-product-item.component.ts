@@ -1,14 +1,10 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
 import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
 import { map, tap, switchMap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import * as moment from 'jalali-moment'; // add this 1 of 4
+import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -18,6 +14,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { AuthService } from '../../services/auth.service';
+import { ProductsService } from '../../services/products.service';
 @Component({
   selector: 'app-small-product-item',
   templateUrl: './small-product-item.component.html',
@@ -31,7 +29,7 @@ export class SmallProductItemComponent implements OnInit, AfterViewInit, OnChang
   @Input() viewType = 'grid';
   @Input() viewColChanged = false;
   @Input() fullWidthPage = true;
-  liked: Observable<boolean>;
+  liked!: Observable<boolean>;
   categoryList = '';
   brandName = '';
   public column = 4;
@@ -43,17 +41,17 @@ export class SmallProductItemComponent implements OnInit, AfterViewInit, OnChang
   //   clickable: true
   // };
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              public authService: AuthService,
-              public route: Router,
-              public productService: ProductsService) {
+  public appSettings= inject( AppSettings);
+  public authService= inject( AuthService);
+  public route= inject( Router);
+  public productService= inject( ProductsService);
+  constructor() {
     this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {
     if (this.product && this.product.productFiles && this.product.productFiles[0]) {
-      this.product.productFiles.sort((a, b) => {
+      this.product.productFiles.sort((a: { productFileId: any; }, b: { productFileId: any; }) => {
         const fileIda = a.productFileId;
         const fileIdb = b.productFileId;
         if (fileIda < fileIdb) {
@@ -80,9 +78,9 @@ export class SmallProductItemComponent implements OnInit, AfterViewInit, OnChang
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         if (this.product.productFiles.length > 1) {
           //  this.directiveRef.update();
         }
@@ -101,7 +99,7 @@ export class SmallProductItemComponent implements OnInit, AfterViewInit, OnChang
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -113,7 +111,7 @@ export class SmallProductItemComponent implements OnInit, AfterViewInit, OnChang
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -187,14 +185,14 @@ export class SmallProductItemComponent implements OnInit, AfterViewInit, OnChang
     // }));
   }
 
-  public changeDateToFa(date) {
+  public changeDateToFa(date: any) {
     const cdate = moment(date).locale('fa').format('YYYY/MM/DD');
     return of(cdate);
   }
 
   public getCategoriesNames() {
     if (this.product) {
-      return this.product.productCategory.contentItems.map(x => x.displayText).join(', ');
+      return this.product.productCategory.contentItems.map((x: { displayText: any; }) => x.displayText).join(', ');
     } 
     return '';
 

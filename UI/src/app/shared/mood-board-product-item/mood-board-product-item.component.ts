@@ -1,20 +1,18 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, inject } from '@angular/core';
 // import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserMoodBoardCandidateProduct } from 'src/app/models/user-mood-board-candidate-product';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { FileTypePipe } from 'src/app/theme/pipes/file-type.pipe';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { Product } from '../../models/product';
+import { AuthService } from '../../services/auth.service';
+import { ProductsService } from '../../services/products.service';
+import { FileTypePipe } from '../../theme/pipes/file-type.pipe';
 @Component({
   selector: 'app-mood-board-product-item',
   templateUrl: './mood-board-product-item.component.html',
@@ -23,11 +21,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   imports: [CommonModule, MatIconModule, MatFormFieldModule, MatCardModule, FileTypePipe, FlexLayoutModule]
 })
 export class MoodBoardProductItemComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() product: Product;
+  @Input()
+  product!: Product;
   @Input() viewType = 'grid';
   @Input() viewColChanged = false;
   @Input() fullWidthPage = true;
-  liked: Observable<boolean>;
+  liked!: Observable<boolean>;
   categoryList = '';
   brandName = '';
   public column = 4;
@@ -39,11 +38,11 @@ export class MoodBoardProductItemComponent implements OnInit, AfterViewInit, OnC
   //   clickable: true
   // };
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              public authService: AuthService,
-              public route: Router,
-              public productService: ProductsService) {
+  public appSettings= inject( AppSettings);
+              public authService= inject( AuthService);
+              public route= inject( Router);
+              public productService= inject( ProductsService);
+  constructor() {
     this.settings = this.appSettings.createNew()
   }
 
@@ -72,9 +71,9 @@ export class MoodBoardProductItemComponent implements OnInit, AfterViewInit, OnC
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         if (this.product.productFiles.length > 1) {
           //  this.directiveRef.update();
         }
@@ -93,7 +92,7 @@ export class MoodBoardProductItemComponent implements OnInit, AfterViewInit, OnC
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -105,7 +104,7 @@ export class MoodBoardProductItemComponent implements OnInit, AfterViewInit, OnC
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';

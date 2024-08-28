@@ -1,36 +1,15 @@
 import { Component,
   OnInit,
   OnDestroy, ViewChild, ViewChildren, QueryList, HostListener, AfterViewInit, Inject, Input, ElementRef, Renderer2, ChangeDetectorRef, 
-  CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/services/products.service';
-import { Product } from 'src/app/models/product';
 import { Meta } from '@angular/platform-browser';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import {  } from 'ngx-scrollbar';
-import { Property } from 'src/app/app.models';
-import { Settings, AppSettings } from 'src/app/app.settings';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from 'src/app/app.service';
-
-import { CompareOverviewComponent } from 'src/app/shared/compare-overview/compare-overview.component';
-import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { BrandService } from 'src/app/services/brand.service';
-import { Observable, of } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
 import { tap, map } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { ProductKeyword } from 'src/app/models/product-keyword';
-import * as uuid from 'uuid';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { BrandRequest } from 'src/app/models/request';
-import { Search } from 'src/app/models/search';
-import { OfficeProjectSearch } from 'src/app/models/office-project-search';
-import { ProductFile } from 'src/app/models/product-file';
-import { Usage } from 'src/app/models/usage';
-import { ProductUsage } from 'src/app/models/product-usage';
-import { OfficeProject } from 'src/app/models/office-project';
-import { OfficeProjectService } from 'src/app/services/office-project.service';
 import { EngineFrameService } from '../engine-frame.service';
 import '@google/model-viewer/dist/model-viewer';
 import { CommonModule } from '@angular/common';
@@ -39,17 +18,27 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChip, MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { PaginationComponent } from 'ngx-bootstrap/pagination';
-import { BrandsCarouselComponent } from 'src/app/shared/brands-carousel/brands-carousel.component';
-import { ProductItemComponent } from 'src/app/shared/product-item/product-item.component';
-import { PropertiesSearchResultsFiltersComponent } from 'src/app/shared/properties-search-results-filters/properties-search-results-filters.component';
-import { PropertiesSearchComponent } from 'src/app/shared/properties-search/properties-search.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
-import { FileTypePipe } from 'src/app/theme/pipes/file-type.pipe';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Observable, of } from 'rxjs';
+import { Usage } from 'three';
+import { AppSettings, Settings } from '../../../app.settings';
+import { Brand } from '../../../models/brand';
+import { OfficeProjectSearch } from '../../../models/office-project-search';
+import { Product } from '../../../models/product';
+import { ProductFile } from '../../../models/product-file';
+import { ProductKeyword } from '../../../models/product-keyword';
+import { BrandRequest } from '../../../models/request';
+import { Search } from '../../../models/search';
+import { AuthService } from '../../../services/auth.service';
+import { BrandService } from '../../../services/brand.service';
+import { OfficeProjectService } from '../../../services/office-project.service';
+import { ProductsService } from '../../../services/products.service';
+import { CompareOverviewComponent } from '../../../shared/compare-overview/compare-overview.component';
+import { FileTypePipe } from '../../../theme/pipes/file-type.pipe';
 export interface ProductImageData {
   product: Product;
   index: number;
@@ -69,16 +58,16 @@ export interface BrandDialogData {
   imports : [CommonModule, MatIconModule, ReactiveFormsModule, MatListModule, MatFormFieldModule, FlexLayoutModule, MatCardModule, MatDialogModule]
 })
 export class BrandInfoRequestDialogComponent implements OnInit {
-  request: BrandRequest;
+  request!: BrandRequest;
   @Input() variant = 1;
-  reqform: FormGroup;
+  reqform!: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<BrandInfoRequestDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BrandDialogData,
     public fb: FormBuilder) {
 }
 ngOnInit() {
-  this.request = new BrandRequest({name: '' , email: '' , options: '' , request: ''});
+  this.request = new BrandRequest({name: '' , email: '' , options: '' }); //, request: ''});
   this.reqform = this.fb.group({
     categories: '',
     name: '',
@@ -94,10 +83,10 @@ public getFloatLabel() {
   return (this.variant === 1) ? 'always' : '';
 }
 sendRequest() {
-  this.request.name = this.reqform.get('name').value;
-  this.request.email = this.reqform.get('email').value;
-  this.request.requestText = this.reqform.get('request').value;
-  this.request.options = this.reqform.get('categories').value.map(x => x).join(' ,');
+  this.request.name = this.reqform.get('name')!.value;
+  this.request.email = this.reqform.get('email')!.value;
+  this.request.requestText = this.reqform.get('request')!.value;
+  this.request.options = this.reqform.get('categories')!.value.map((x: any) => x).join(' ,');
   this.dialogRef.close({request: this.request});
 }
 }
@@ -111,7 +100,7 @@ sendRequest() {
 export class BrandContactInfoRequestDialogComponent implements OnInit {
   brand: Observable<Brand>;
   @Input() variant = 1;
-  reqform: FormGroup;
+  reqform!: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<BrandContactInfoRequestDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BrandDialogData,
@@ -140,10 +129,10 @@ public getFloatLabel() {
 export class ProductImageViewDialogComponent implements OnInit {
   public settings: Settings;
   public selectedIndex = 1;
-  public selectedImageId: number;
+  public selectedImageId!: number;
   product: any;
   @Input() variant = 1;
-  reqform: FormGroup;
+  reqform!: FormGroup;
   constructor(public appSettings: AppSettings,
               public dialogRef: MatDialogRef<ProductImageViewDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: ProductImageData,
@@ -156,7 +145,7 @@ ngOnInit() {
   this.selectedIndex = this.data.index;
 
 }
-selectImage(index) {
+selectImage(index: number) {
   this.selectedIndex = index;
   let image = null;
   this.selectedImageId = this.product.productFile.contentItems[index].contentItemId;
@@ -184,11 +173,11 @@ export class ProductThreeDImageViewDialogComponent implements OnInit {
   public settings: Settings;
   public selectedProductFile: any;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public selectedImageId: number;
-  carouselProductFiles: any[];
+  public selectedImageId!: number;
+  carouselProductFiles!: any[];
   productFiles: any[];
   @Input() variant = 1;
-  reqform: FormGroup;
+  reqform!: FormGroup;
   constructor(public appSettings: AppSettings,
               public authService: AuthService,
               public dialogRef: MatDialogRef<ProductThreeDImageViewDialogComponent>,
@@ -196,11 +185,11 @@ export class ProductThreeDImageViewDialogComponent implements OnInit {
               public fb: FormBuilder,
               public productService: ProductsService) {
       this.settings = this.appSettings.createNew()
-      const result = this.groupBy(this.data.productFiles, 'fileType')
-        .filter(({ length }) => length > 0)
-        .map(([v]) => v);
+      // const result = this.groupBy(this.data.productFiles, 'fileType')
+      //   .filter(({ length }) => length > 0)
+      //   .map(([v]) => v);
        
-      this.carouselProductFiles = this.data.productFiles.filter(x => x.fileType.contentItems[0].id.split('-')[1] === result[0].fileType.contentItems[0].id.split('-')[1]);
+      // this.carouselProductFiles = this.data.productFiles.filter(x => x.fileType.contentItems[0].id.split('-')[1] === result[0].fileType.contentItems[0].id.split('-')[1]);
       this.productFiles = this.data.productFiles;
 }
 ngOnInit() {
@@ -256,9 +245,9 @@ save() {
 close() {
   this.dialogRef.close({action: 'delete'});
 }
-public groupBy(array, key) {
-  return array.reduce((accumulator, object) => {
-      var temp = accumulator.find(array => array[0][key] === object[key]);
+public groupBy(array: any[], key: string) {
+  return array.reduce((accumulator: any[][], object: { [x: string]: any; }) => {
+      var temp = accumulator.find((array: { [x: string]: any; }[]) => array[0][key] === object[key]);
       if (temp) {
           temp.push(object);
       } else {
@@ -279,13 +268,13 @@ public groupBy(array, key) {
 export class ProductTextureImageViewDialogComponent implements OnInit {
   // public config: SwiperConfigInterface = {};
   public settings: Settings;
-  public selectedProductFile;
+  public selectedProductFile: any;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
-  public selectedImageId: number;
-  carouselProductFiles: any[];
+  public selectedImageId!: number;
+  carouselProductFiles!: any[];
   productFiles: any[];
   @Input() variant = 1;
-  reqform: FormGroup;
+  reqform!: FormGroup;
   constructor(public appSettings: AppSettings,
               public authService: AuthService,
               public dialogRef: MatDialogRef<ProductTextureImageViewDialogComponent>,
@@ -293,11 +282,11 @@ export class ProductTextureImageViewDialogComponent implements OnInit {
               public fb: FormBuilder,
               public productService: ProductsService) {
       this.settings = this.appSettings.createNew()
-      let result = this.groupBy(this.data.productFiles, 'fileType')
-        .filter(({ length }) => length > 0)
-        .map(([v]) => v);
+      // let result = this.groupBy(this.data.productFiles, 'fileType')
+      //   .filter(({ length }) => length > 0)
+      //   .map(([v]) => v);
       
-      this.carouselProductFiles = this.data.productFiles.filter(x => x.fileType === result[0].fileType);
+      // this.carouselProductFiles = this.data.productFiles.filter(x => x.fileType === result[0].fileType);
       this.productFiles = this.data.productFiles;
 }
 ngOnInit() {
@@ -316,9 +305,9 @@ ngOnInit() {
 
 }
 
-public groupBy(array, key) {
-  return array.reduce((accumulator, object) => {
-      var temp = accumulator.find(array => array[0][key] === object[key]);
+public groupBy(array: any[], key: string) {
+  return array.reduce((accumulator: any[][], object: { [x: string]: any; }) => {
+      var temp = accumulator.find((array: { [x: string]: any; }[]) => array[0][key] === object[key]);
       if (temp) {
           temp.push(object);
       } else {
@@ -378,9 +367,12 @@ close() {
 })
 
 export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
-  @ViewChild('sidenav', { static: true }) sidenav: ElementRef;
-  @ViewChild('stickyCard', { static: true }) stickyCard: ElementRef;
-  @ViewChild('delimiter', { static: true }) delimiter: ElementRef;
+  @ViewChild('sidenav', { static: true })
+  sidenav!: ElementRef;
+  @ViewChild('stickyCard', { static: true })
+  stickyCard!: ElementRef;
+  @ViewChild('delimiter', { static: true })
+  delimiter!: ElementRef;
   // @ViewChildren(SwiperDirective) swipers: QueryList<SwiperDirective>;
   // @ViewChild('container', { static: true }) container: ElementRef;
   public sidenavOpen = true;
@@ -390,12 +382,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   public product: any;
   public settings: Settings;
   public embedVideo: any;
-  public relatedProducts: any[];
-  public relatedOfficeProjects: any[];
-  public featuredProducts: Product[];
-  public brand: Observable<Brand>;
+  public relatedProducts!: any[];
+  public relatedOfficeProjects!: any[];
+  public featuredProducts!: Product[];
+  public brand!: Observable<Brand>;
   public usages: Observable<Usage[]> = of([]);  
-  public contactForm: FormGroup;
+  public contactForm!: FormGroup;
   public bottom = 0;
   public stlModelPath = '../../assets/Parrot.glb';
   public productSearchFields = new Search({
@@ -410,44 +402,45 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   });
   public projectSearchFields = new OfficeProjectSearch({
     searchId: 1,
-    brandsBox: [],
-    categoriesBoxNested: [],
-    categoriesBox: [],
-    fileTypes: [],
+   // brandsBox: [],
+   // categoriesBoxNested: [],
+  //  categoriesBox: [],
+   // fileTypes: [],
     searchBox: '',
-    imageUploaded: '',
-    vertical: true,
+   // imageUploaded: '',
+   // vertical: true,
   });
 
 
-  productId: string;
-  productImage: string;
+  productId!: string;
+  productImage!: string;
   threeDProductsFiles: any[] = [];
   textureProductsFiles: ProductFile[] = [];
   textureExists: Observable<boolean> = of(false);
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              private activatedRoute: ActivatedRoute,
-              private projectService: OfficeProjectService,
+  public appSettings= inject( AppSettings);
+             
+              private activatedRoute= inject( ActivatedRoute);
+              private projectService= inject( OfficeProjectService);
               
-              private scene: EngineFrameService,
-              public fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private cdr: ChangeDetectorRef,
-              public productService: ProductsService,
-              private brandService: BrandService,
-              public authService: AuthService,
-              public infoReq: MatDialog,
-              private meta: Meta) {
+              private scene= inject( EngineFrameService);
+              public fb= inject( FormBuilder);
+              private route= inject( ActivatedRoute);
+              private router= inject( Router);
+              private cdr= inject( ChangeDetectorRef);
+              public productService= inject( ProductsService);
+              private brandService= inject( BrandService);
+              public authService= inject( AuthService);
+              public infoReq= inject( MatDialog);
+              private meta= inject( Meta);
+  constructor() {
     this.settings = this.appSettings.createNew()
 }
 
   ngOnInit() {
     
     this.sub = this.activatedRoute.params.subscribe(params => {     
-      if (params.productId) {
-        this.productId = params.productId;
+      if (params['productId']) {
+        this.productId = params['productId'];
         this.getProductById(this.productId);
       } else {
         this.router.navigate(['/**']);
@@ -475,7 +468,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
 
   
 
-  public getProductById(id) {
+  public getProductById(id: string) {
    this.productService.getProductById(id).subscribe(x => {
     this.product = x.product[0]
     this.getRelatedProducts()
@@ -592,12 +585,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   public checkTextureExists() {
-    return this.product.productFiles.filter(x => x.fileType === 11).length > 0;
+    return this.product.productFiles.filter((x: { fileType: number; }) => x.fileType === 11).length > 0;
   }
 
   public getRelatedProducts() {
     
-      this.productService.getRelatedProducts(`{from: 0, size: 10, fulltext:'${this.product.productCategory.contentItems.map(x => 'ProductCategory-' + x.id).join(' ')}'}`).subscribe(x => {
+      this.productService.getRelatedProducts(`{from: 0, size: 10, fulltext:'${this.product.productCategory.contentItems.map((x: { id: string; }) => 'ProductCategory-' + x.id).join(' ')}'}`).subscribe(x => {
         
         this.relatedProducts = x.getProductsByCategoryIdProductDetail
       });
@@ -605,7 +598,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   }
   public getRelatedOfficeProjects() {
     
-    this.projectService.getRelatedOfficeProjects(`{from: 0, size: 10, fulltext:'${this.product.productCategory.contentItems.map(x => 'ProductCategory-' + x.id).join(' ')}'}`).subscribe(x => {
+    this.projectService.getRelatedOfficeProjects(`{from: 0, size: 10, fulltext:'${this.product.productCategory.contentItems.map((x: { id: string; }) => 'ProductCategory-' + x.id).join(' ')}'}`).subscribe(x => {
         
       this.relatedOfficeProjects = x.getProductsByCategoryIdProductDetail
     });
@@ -624,12 +617,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
     }
   }
 
-  public getBrand(brandId) {
+  public getBrand(brandId: any) {
     // this.brand = this.store.select(getBrandById(brandId));
   }
   public getProductUsage(): string{
     if (this.product) {
-      return this.product.productUsage.contentItems.map(x => x.displayText).join(', ');
+      return this.product.productUsage.contentItems.map((x: { displayText: any; }) => x.displayText).join(', ');
     } 
     return '';
   }
@@ -654,7 +647,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
 
   public getCategoriesNames() {
     if (this.product) {
-      return this.product.productCategory.contentItems.map(x => x.displayText).join(', ')
+      return this.product.productCategory.contentItems.map((x: { displayText: any; }) => x.displayText).join(', ')
     } 
     return '';
   }
@@ -689,7 +682,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   public openProductImageDialog(productFile: ProductFile, index: number) {
-    const prodFiles = this.product.productFile.contentItems.filter(x => [2, 3].includes(+x.fileType.contentItems[0].id.split('-')[1]));
+    const prodFiles = this.product.productFile.contentItems.filter((x: { fileType: { contentItems: { id: string; }[]; }; }) => [2, 3].includes(+x.fileType.contentItems[0].id.split('-')[1]));
     this.infoReq.open(ProductTextureImageViewDialogComponent, {
       width: '900px',
       data: {
@@ -701,7 +694,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   public openThreeDModelObjectDialog(productFile: ProductFile, index: number) {
-    const prodFiles = this.product.productFile.contentItems.filter(x => [4, 5, 6, 13].includes(+x.fileType.contentItems[0].id.split('-')[1]));
+    const prodFiles = this.product.productFile.contentItems.filter((x: { fileType: { contentItems: { id: string; }[]; }; }) => [4, 5, 6, 13].includes(+x.fileType.contentItems[0].id.split('-')[1]));
     this.infoReq.open(ProductThreeDImageViewDialogComponent, {
       width: '900px',
       data: {
@@ -711,9 +704,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, AfterViewInit 
     });
 
   }
-  public groupBy(array, key) {
-    return array.reduce((accumulator, object) => {
-        var temp = accumulator.find(array => array[0][key] === object[key]);
+  public groupBy(array: any[], key: string | number) {
+    return array.reduce((accumulator: any[][], object: { [x: string]: any; }) => {
+        var temp = accumulator.find((array: { [x: string]: any; }[]) => array[0][key] === object[key]);
         if (temp) {
             temp.push(object);
         } else {

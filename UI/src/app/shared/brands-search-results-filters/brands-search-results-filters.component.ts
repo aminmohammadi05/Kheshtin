@@ -6,8 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
-import { BrandSearch } from 'src/app/models/brand-search';
-import { BlogBagTypePipe } from 'src/app/theme/pipes/blog-bag.pipe';
+import { BrandSearch } from '../../models/brand-search';
 
 @Component({
   selector: 'app-brands-search-results-filters',
@@ -17,7 +16,8 @@ import { BlogBagTypePipe } from 'src/app/theme/pipes/blog-bag.pipe';
   imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule],
 })
 export class BrandsSearchResultsFiltersComponent implements OnInit {
-  @Input() searchFields: BrandSearch;
+  @Input()
+  searchFields!: BrandSearch;
   @Output() RemoveSearchField: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
@@ -25,7 +25,7 @@ export class BrandsSearchResultsFiltersComponent implements OnInit {
 
    }
 
-  public remove(field) {
+  public remove(field: any) {
     this.RemoveSearchField.emit(field);
   }
   public getCategoryName(categoryId: number) {

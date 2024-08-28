@@ -6,9 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
-import { AppService } from 'src/app/app.service';
-import { HeaderImageComponent } from 'src/app/shared/header-image/header-image.component';
-import { BlogBagTypePipe } from 'src/app/theme/pipes/blog-bag.pipe';
+import { HeaderImageComponent } from '../../shared/header-image/header-image.component';
 
 @Component({
   selector: 'app-agents',
@@ -18,11 +16,11 @@ import { BlogBagTypePipe } from 'src/app/theme/pipes/blog-bag.pipe';
   imports: [CommonModule, MatIconModule, MatFormFieldModule,  FlexLayoutModule, RouterModule, HeaderImageComponent],
 })
 export class AgentsComponent implements OnInit {
-  public agents;
-  constructor(public appService:AppService) { }
+  public agents: any;
+  constructor() { }
 
   ngOnInit() {
-    this.agents = this.appService.getAgents();
+  
   }
 
 }

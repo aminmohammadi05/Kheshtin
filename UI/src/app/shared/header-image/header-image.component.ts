@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { DomSanitizer} from '@angular/platform-browser'
+import { DomSanitizer, SafeStyle} from '@angular/platform-browser'
 import { Settings, AppSettings } from '../../app.settings';
 import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
@@ -14,14 +14,16 @@ import { MatListModule } from '@angular/material/list';
   imports: [CommonModule]
 })
 export class HeaderImageComponent implements OnInit {
-  @Input('backgroundImage') backgroundImage;
-  @Input('bgImageAnimate') bgImageAnimate;
-  @Input('contentOffsetToTop') contentOffsetToTop;
-  @Input('contentMinHeight') contentMinHeight;
-  @Input('title') title;
-  @Input('desc') desc;
+  @Input('backgroundImage')
+  backgroundImage!: string;
+  @Input('bgImageAnimate') bgImageAnimate: any;
+  @Input('contentOffsetToTop')
+  contentOffsetToTop!: boolean;
+  @Input('contentMinHeight') contentMinHeight: any;
+  @Input('title') title: any;
+  @Input('desc') desc: any;
   @Input('isHomePage') isHomePage:boolean = false;
-  public bgImage;
+  public bgImage!: SafeStyle;
   public settings: Settings;
   constructor(public appSettings:AppSettings, private cdRef: ChangeDetectorRef, private sanitizer:DomSanitizer) {
     this.settings = this.appSettings.createNew()
