@@ -1,51 +1,47 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
-import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, inject } from '@angular/core';
 import { Settings, AppSettings } from '../../app.settings';
 
-import { AppService } from '../../app.service';
-import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
-import { map, tap, switchMap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
 import * as moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { OfficeProject } from 'src/app/models/office-project';
+import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { AuthService } from '../../services/auth.service';
+import { ProductsService } from '../../services/products.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @Component({
   selector: 'app-small-office-project-item',
   templateUrl: './small-office-project-item.component.html',
-  styleUrls: ['./small-office-project-item.component.scss']
+  styleUrls: ['./small-office-project-item.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatListModule, MatChipsModule, FlexLayoutModule]
 })
 export class SmallOfficeProjectItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() officeProject: any;
   @Input() viewType = 'grid';
   @Input() viewColChanged = false;
   @Input() fullWidthPage = true;
-  liked: Observable<boolean>;
+  liked!: Observable<boolean>;
   categoryList = '';
   brandName = '';
   public column = 4;
   // public address:string;
-  @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
-  public config: SwiperConfigInterface = {};
-  private pagination: SwiperPaginationInterface = {
-    el: '.swiper-pagination',
-    clickable: true
-  };
+ 
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
-              public appService: AppService,
-              public authService: AuthService,
-              public route: Router,
-              public productService: ProductsService) {
+  public appSettings= inject( AppSettings);
+  public authService= inject( AuthService);
+  public route= inject( Router);
+  public productService= inject( ProductsService);
+  constructor() {
     this.settings = this.appSettings.createNew()
   }
 
   ngOnInit() {
     
     if (this.officeProject && this.officeProject.imageList && this.officeProject.imageList.contentItems && this.officeProject.imageList.contentItems[0]) {
-      this.officeProject.imageList.contentItems.sort((a, b) => {
+      this.officeProject.imageList.contentItems.sort((a: { contentItemId: any; }, b: { contentItemId: any; }) => {
         const fileIda = a.contentItemId;
         const fileIdb = b.contentItemId;
         if (fileIda < fileIdb) {
@@ -70,11 +66,11 @@ export class SmallOfficeProjectItemComponent implements OnInit, AfterViewInit, O
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         if (this.officeProject.imageList.contentItems.length > 1) {
-           this.directiveRef.update();
+          //  this.directiveRef.update();
         }
       }
     }
@@ -91,7 +87,7 @@ export class SmallOfficeProjectItemComponent implements OnInit, AfterViewInit, O
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -103,7 +99,7 @@ export class SmallOfficeProjectItemComponent implements OnInit, AfterViewInit, O
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -122,36 +118,19 @@ export class SmallOfficeProjectItemComponent implements OnInit, AfterViewInit, O
     }
   }
 
-  getOfficeProjectImages(project){
+  getOfficeProjectImages(project: { bag: { contentItems: any[]; }; }){
    
-    return project.bag.contentItems.filter(x => x.__typename === "ProjectImage");
+    return project.bag.contentItems.filter((x: { __typename: string; }) => x.__typename === "ProjectImage");
   }
   public initCarousel() {
-    this.config = {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: false,
-      navigation: true,
-      pagination: this.pagination,
-      grabCursor: true,
-      loop: true,
-      preloadImages: false,
-      lazy: true,
-      nested: true,
-      // autoplay: {
-      //   delay: 5000,
-      //   disableOnInteraction: false
-      // },
-      speed: 500,
-      effect: 'slide'
-    };
+    
   }
 
 
 
   public getCategoriesNames() {
     if (this.officeProject) {
-      return this.officeProject.projectType.contentItems.map(x => x.displayText).join(', ')
+      return this.officeProject.projectType.contentItems.map((x: { displayText: any; }) => x.displayText).join(', ')
     } else {
       return '';
     }
@@ -159,7 +138,7 @@ export class SmallOfficeProjectItemComponent implements OnInit, AfterViewInit, O
   }
   public getDesignOfficeName() {
     if (this.officeProject) {
-      return this.officeProject.designOffice.contentItems.map(x => x.displayText).join(', ')
+      return this.officeProject.designOffice.contentItems.map((x: { displayText: any; }) => x.displayText).join(', ')
     } else {
       return '';
     }

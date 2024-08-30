@@ -1,13 +1,13 @@
 
 <div>
-<!-- <button mat-button 
+<button mat-button 
         *ngFor="let item of menuItemList"
         fxLayout="row" 
         fxLayoutAlign="start center"
-        (click)="navigateToPage(item.linkMenuItem.url, item.urlParameterList)"
-        [disabled]="item.isDisabled"
+        (click)="navigateToPage(item!.linkMenuItem!.url, item!.urlParameterList)"
+        [disabled]="item!.isDisabled"
         >
-        <span class="menu-title"> {{item.displayText}}</span>
-        </button> -->
+        <span class="menu-title"> {{item!.displayText}}</span>
+        </button>
         
     </div>

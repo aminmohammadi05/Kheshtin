@@ -11,9 +11,10 @@ import { Component, Input, ElementRef, OnChanges} from '@angular/core';
 })
 
 export class ReadMoreComponent implements OnChanges {
-    @Input() text: string;
+    @Input()
+    text!: string;
     @Input() maxLength: number = 100;
-    currentText: string;
+    currentText!: string;
     hideToggle: boolean = true;
 
     public isCollapsed: boolean = true;

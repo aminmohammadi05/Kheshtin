@@ -10,10 +10,10 @@
       
      
       <div *ngIf="getOfficeProjectImages(officeProject).length == 1" class="mat-card-image w-100 m-0">
-          <img [src]="getOfficeProjectImages(project)[0].image.urls[0]">
+          <!-- <img [src]="getOfficeProjectImages(project)[0].image.urls[0]"> -->
       </div>
       <div *ngIf="getOfficeProjectImages(officeProject).length > 1" class="mat-card-image w-100 m-0">
-          <div class="swiper-container" [swiper]="config">
+          <div class="swiper-container" >
               <div class="swiper-wrapper"> 
                   <div *ngFor="let image of getOfficeProjectImages(officeProject)" class="swiper-slide">
                       <img src="https://orchard.kheshtin.ir{{image.image.urls[0]}}" class="swiper-lazy">

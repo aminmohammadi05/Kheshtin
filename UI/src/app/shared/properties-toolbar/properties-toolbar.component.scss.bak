@@ -1,7 +1,0 @@
-::ng-deep .mat-menu-panel.styled 
-  {
-      min-width: 100px !important;
-      margin-top: -20px !important;
-      justify-content: space-between;
-      background: none;
-  }

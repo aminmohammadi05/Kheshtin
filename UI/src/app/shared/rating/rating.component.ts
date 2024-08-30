@@ -11,10 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [CommonModule, MatIconModule, FlexLayoutModule]
 })
 export class RatingComponent {
-  @Input() ratingsCount:number;
-  @Input() ratingsValue:number; 
-  avg:number;
-  stars:Array<string>;
+  @Input()
+  ratingsCount!: number;
+  @Input()
+  ratingsValue!: number; 
+  avg!: number;
+  stars!: Array<string>;
   constructor() { }
 
   ngDoCheck() {

@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { BasicDataService } from '../../../../services/basic-data.service';
+import { MenuItemsList } from '../../../../models/query-menu/menu-item-list';
+import { LinkMenuItem } from '../../../../models/query-menu/link-menu-item';
 
 @Component({
   selector: 'app-vertical-menu',
@@ -24,7 +26,7 @@ import { BasicDataService } from '../../../../services/basic-data.service';
   imports: [CommonModule, MatIconModule, MatButtonModule]
 })
 export class VerticalMenuComponent implements OnInit {
-  public menuItemList: [] = [];
+  public menuItemList!: LinkMenuItem[];
   public selectedId = 0;
   public colorMap = new Map<number, string[]>();
   constructor(public menuService: MenuService,
@@ -33,11 +35,12 @@ export class VerticalMenuComponent implements OnInit {
 
   ngOnInit() {
     this.basicDataService.getMenuList().subscribe(x => {
-      this.menuItemList = x.menu[0].menuItemsList.menuItems;
       
+      this.menuItemList = x.menu[0].menuItemsList.menuItems;
+     
       this.menuItemList.map((x1:any) => {
         if(x1.megaMenu) {
-          
+          console.log(x.menu[0].menuItemsList);
           x1.bag.contentItems.map((x2:any) => {
             if(this.selectedId === 0) {
               this.selectedId = x2.id

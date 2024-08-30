@@ -1,5 +1,5 @@
 <div *ngIf="projects" class="properties-carousel">   
-  <div class="swiper-container h-100 carousel-outer" [swiper]="config"> 
+  <div class="swiper-container h-100 carousel-outer" > 
       <div class="swiper-wrapper h-100">      
           <div *ngFor="let project of projects" class="swiper-slide">
               <app-project-item [project]="project" [viewType]="'grid'"></app-project-item>                 

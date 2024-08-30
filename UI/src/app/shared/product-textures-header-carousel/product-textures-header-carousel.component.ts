@@ -1,29 +1,36 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, OnChanges, ChangeDetectorRef, inject } from '@angular/core';
 // import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
-import { PageImages } from 'src/app/models/page-images';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { OfficeProjectImage } from 'src/app/models/office-project-image';
-import { ProductFile } from 'src/app/models/product-file';
-import { AuthService } from 'src/app/services/auth.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { ProductFile } from '../../models/product-file';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-product-textures-header-carousel',
   templateUrl: './product-textures-header-carousel.component.html',
-  styleUrls: ['./product-textures-header-carousel.component.scss']
+  styleUrls: ['./product-textures-header-carousel.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule]
 })
 export class ProductTexturesHeaderCarouselComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
-  @Input() slides: Array<ProductFile>;
-  @Input() pageNumber: number;
-  @Input() contentOffsetToTop;
+  @Input()
+  slides!: Array<ProductFile>;
+  @Input()
+  pageNumber!: number;
+  @Input()
+  contentOffsetToTop!: boolean;
   // public config: SwiperConfigInterface = {};
-  public currentSlide: ProductFile;
+  public currentSlide!: ProductFile;
   public settings: Settings;
-  constructor(public appSettings: AppSettings,
-              private cdRef: ChangeDetectorRef,
-              public authService: AuthService,
-              public route: Router) {
+  public appSettings= inject( AppSettings);
+              private cdRef= inject( ChangeDetectorRef);
+              public authService= inject( AuthService);
+              public route= inject( Router);
+  constructor() {
     this.settings = this.appSettings.createNew()
   }
 

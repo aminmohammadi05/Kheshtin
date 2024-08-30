@@ -1,14 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AppService } from '../../app.service';
-import { Category } from 'src/app/models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Brand } from 'src/app/models/brand';
-import { ProjectCategory } from 'src/app/models/project-category';
-import { User } from 'src/app/models/user';
-import { ProjectSearch } from 'src/app/models/project-search';
 import { map } from 'rxjs/operators';
-import { BasicDataService } from 'src/app/services/basic-data.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,6 +10,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ProjectCategory } from '../../models/project-category';
+import { ProjectSearch } from '../../models/project-search';
+import { User } from '../../models/user';
+import { BasicDataService } from '../../services/basic-data.service';
 
 @Component({
   selector: 'app-projects-search',
@@ -29,14 +26,16 @@ export class ProjectsSearchComponent implements OnInit, OnChanges, AfterViewInit
   @Input() variant = 1;
   @Input() vertical = false;
   @Input() searchOnBtnClick = false;
-  @Input() removedSearchField: string;
+  @Input()
+  removedSearchField!: string;
   @Output() SearchChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() SearchClick: EventEmitter<any> = new EventEmitter<any>();
   public selectedCategories: any[] = [];
   public showMore = false;
-  public verticalForm: FormGroup;
-  @Input() categories: BehaviorSubject<ProjectCategory[]> = new BehaviorSubject([]);
-  public designers: Observable<User[]>;
+  public verticalForm!: FormGroup;
+  @Input()
+  categories!: BehaviorSubject<ProjectCategory[]>;
+  public designers!: Observable<User[]>;
   public propertyTypes = [];
   public searchFields = new ProjectSearch({
     searchId: 1,
@@ -56,10 +55,9 @@ export class ProjectsSearchComponent implements OnInit, OnChanges, AfterViewInit
   public neighborhoods = [];
   public streets = [];
   public features = [];
-
-  constructor(public appService: AppService,
-    public basicDataService: BasicDataService,
-              public fb: FormBuilder) { }
+  public basicDataService = inject(BasicDataService);
+  public fb = inject(FormBuilder);
+  constructor() { }
 
   ngOnInit() {
     if (this.vertical) {
@@ -84,11 +82,11 @@ export class ProjectsSearchComponent implements OnInit, OnChanges, AfterViewInit
 
   public buildFeatures() {
     const arr = this.features.map(feature => {
-      return this.fb.group({
-        id: feature.id,
-        name: feature.name,
-        selected: feature.selected
-      });
+      // return this.fb.group({
+      //   id: feature.id,
+      //   name: feature.name,
+      //   selected: feature.selected
+      // });
     });
     return this.fb.array(arr);
   }
@@ -98,13 +96,13 @@ export class ProjectsSearchComponent implements OnInit, OnChanges, AfterViewInit
     if (this.removedSearchField) {
       if (this.removedSearchField.indexOf('.') > -1) {
         const arr = this.removedSearchField.split('.');
-        this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
+        // this.verticalForm.controls[arr[0]]['controls'][arr[1]].reset();
       } else if (this.removedSearchField.indexOf(',') > -1) {
         const arr = this.removedSearchField.split(',');
         this.selectedCategories = this.selectedCategories.filter(x => x.id !== +arr[1]);
         this.searchFields.categoriesBox = this.selectedCategories;
         this.SearchChange.emit(this.verticalForm);
-        this.verticalForm.get('categoriesBox').setValue(this.selectedCategories);
+        this.verticalForm.get('categoriesBox')!.setValue(this.selectedCategories);
       } else {
         this.verticalForm.controls[this.removedSearchField].reset();
       }
@@ -136,7 +134,7 @@ export class ProjectsSearchComponent implements OnInit, OnChanges, AfterViewInit
     // this.designers = this.store.select(getAllDesigners);
     // this.projectCategories = this.store.select(getAllProjectCategories);
   }
-  public categoryChanged(event) {
+  public categoryChanged(event: any) {
     if (event) {
       this.selectedCategories = [...event];
       this.searchFields.categoriesBox = this.selectedCategories;

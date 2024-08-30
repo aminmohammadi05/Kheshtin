@@ -1,31 +1,31 @@
-import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges } from '@angular/core';
-import { SwiperDirective, SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnChanges, inject } from '@angular/core';
 import { Settings, AppSettings } from '../../app.settings';
-
-import { AppService } from '../../app.service';
-import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
-import { Project } from 'src/app/models/project';
+import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { Project } from '../../models/project';
+import { ProductItemComponent } from '../product-item/product-item.component';
 
 @Component({
   selector: 'app-project-item',
   templateUrl: './project-item.component.html',
-  styleUrls: ['./project-item.component.css']
+  styleUrls: ['./project-item.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatListModule, MatChipsModule]
 })
 export class ProjectItemComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() project: Project;
+  @Input()
+  project!: Project;
   @Input() viewType = 'grid';
   @Input() viewColChanged = false;
   @Input() fullWidthPage = true;
   public column = 4;
   // public address:string;
-  @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
-  public config: SwiperConfigInterface = {};
-  private pagination: SwiperPaginationInterface = {
-    el: '.swiper-pagination',
-    clickable: true
-  };
+  
   public settings: Settings;
-  constructor(public appSettings: AppSettings, public appService: AppService) {
+  public appSettings = inject(AppSettings);
+  constructor() {
     this.settings = this.appSettings.createNew()
   }
 
@@ -40,11 +40,11 @@ export class ProjectItemComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    if (changes.viewColChanged) {
-      this.getColumnCount(changes.viewColChanged.currentValue);
-      if (!changes.viewColChanged.isFirstChange()) {
+    if (changes['viewColChanged']) {
+      this.getColumnCount(changes['viewColChanged'].currentValue);
+      if (!changes['viewColChanged'].isFirstChange()) {
         if (this.project.projectImageList.length > 1) {
-           this.directiveRef.update();
+          //  this.directiveRef.update();
         }
       }
     }
@@ -61,7 +61,7 @@ export class ProjectItemComponent implements OnInit, AfterViewInit, OnChanges {
     // }
   }
 
-  public getColumnCount(value) {
+  public getColumnCount(value: number) {
     if (value === 25) {
       this.column = 4;
     } else if (value === 33.3) {
@@ -73,7 +73,7 @@ export class ProjectItemComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  public getStatusBgColor(status) {
+  public getStatusBgColor(status: any) {
     switch (status) {
       case 'For Sale':
         return '#558B2F';
@@ -94,24 +94,7 @@ export class ProjectItemComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   public initCarousel() {
-    this.config = {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      keyboard: false,
-      navigation: true,
-      pagination: this.pagination,
-      grabCursor: true,
-      loop: true,
-      preloadImages: false,
-      lazy: true,
-      nested: true,
-      // autoplay: {
-      //   delay: 5000,
-      //   disableOnInteraction: false
-      // },
-      speed: 500,
-      effect: 'slide'
-    };
+    
   }
 
 
