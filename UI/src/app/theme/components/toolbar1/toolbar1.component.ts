@@ -34,13 +34,14 @@ import { AuthService } from '../../../services/auth.service';
 import { HttpClient } from '@aspnet/signalr';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-toolbar1',
   styleUrls: ['./toolbar1.component.scss'],
   templateUrl: './toolbar1.component.html',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatIconModule, MatToolbarModule, HorizontalMenuComponent, SocialIconsComponent, ContactsComponent, LogoComponent, UserMenuComponent, LangComponent, CurrencyComponent],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatToolbarModule, HorizontalMenuComponent, SocialIconsComponent, ContactsComponent, LogoComponent, UserMenuComponent, LangComponent, CurrencyComponent],
   encapsulation: ViewEncapsulation.None
 })
 export class Toolbar1Component implements OnInit {
@@ -58,7 +59,7 @@ export class Toolbar1Component implements OnInit {
   public searchDialog= inject(MatDialog);
   public mediaObserver= inject(MediaObserver);
   private _router= inject(Router);
-  private http= inject(HttpClient);
+  // private http= inject(HttpClient);
 
 
   userMenu!: ElementRef;
@@ -106,7 +107,7 @@ export class Toolbar1Component implements OnInit {
    }
 
   public sidenavToggle() {
-    this.MenuIconClick.emit();
+    // this.MenuIconClick.emit();
   }
  
   runSignalRInitMethods() {

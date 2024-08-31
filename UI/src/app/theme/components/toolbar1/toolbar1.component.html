@@ -35,7 +35,7 @@
     <div *ngIf="!(appSettings.isMobile | async)" fxLayout="row" fxLayoutAlign="center"  style="width: 100%">
       <mat-form-field *ngIf="!(appSettings.isMobile | async)" matRipple matRippleColor="#CFD8DC" appearance="fill" class="search "   [floatLabel]="'always'">
         
-        <!-- <input #searchField matInput type="text" style="font-size: 12px; font-weight: 400; line-height: 1.125; font-family: 'Vazir FD';" placeholder="جستجو در محصولات، برندها، پروژه‌ها و ..." autocomplete="off"> -->
+     
         <input #searchField matInput type="text" style="font-size: 12px; font-weight: 400; line-height: 1.125; font-family: 'Vazir FD';" placeholder="جستجو در خشتین ..." autocomplete="off">
         <button mat-icon-button matSuffix (click)="search()" [disabled]="!searchField.value">
           <mat-icon>search</mat-icon>

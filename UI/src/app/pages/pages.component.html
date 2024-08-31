@@ -18,18 +18,18 @@
        
         <header [ngClass]="'toolbar-'+settings.toolbar" [class.has-bg-image]="settings.headerBgImage" [class.main-toolbar-fixed]="settings.mainToolbarFixed"  >
 
-            <!-- <app-toolbar1 (MenuIconClick)="sidenav.toggle()"></app-toolbar1> -->
+            <app-toolbar1 (MenuIconClick)="sidenav.toggle()"></app-toolbar1>
           
         
         </header>
           
         <main [class.content-offset-to-top]="settings.contentOffsetToTop">
-            <!-- <router-outlet></router-outlet>               -->
+            <router-outlet></router-outlet>              
         </main>
 
         <div class="sticky-footer-helper" fxFlex="grow"></div>
 
-        <!-- <app-footer></app-footer> -->
+        <app-footer></app-footer>
        
         
         

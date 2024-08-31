@@ -39,8 +39,7 @@ export class VerticalMenuComponent implements OnInit {
       this.menuItemList = x.menu[0].menuItemsList.menuItems;
      
       this.menuItemList.map((x1:any) => {
-        if(x1.megaMenu) {
-          console.log(x.menu[0].menuItemsList);
+        if(x1.megaMenu) {         
           x1.bag.contentItems.map((x2:any) => {
             if(this.selectedId === 0) {
               this.selectedId = x2.id
