@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, Input, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import {CompactType, DirTypes, GridType, GridsterComponent, GridsterConfig, GridsterItem, GridsterItemComponent, GridsterModule, GridsterPush} from 'angular-gridster2';
 import { max } from 'lodash';
 import momentj from 'jalali-moment';
@@ -53,6 +53,7 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
     11 : {id: 11, name: 'بهمن'},
     12 : {id: 12, name: 'اسفند'}
     };
+    cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
     constructor(private renderer: Renderer2){
 
@@ -69,8 +70,8 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
     this.events.map(s => {
       const minEvent = s.steps.map((x: { start: any; }) => x.start).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[0];
       const maxEvent = s.steps.map((x: { end: any; }) => x.end).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[s.steps.length - 1];
-      const minDate = moment(new Date(minEvent));
-      const maxDate = moment(new Date(maxEvent));
+      const minDate = momentj(new Date(minEvent));
+      const maxDate = momentj(new Date(maxEvent));
 
 
 
@@ -114,7 +115,7 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
     }
 
 
-    const range = moment.range(new Date(minTotalEvent), moment(new Date(maxTotalEvent)));
+    const range =  moment.range(new Date(minTotalEvent), new Date(maxTotalEvent));
     const startDate = new Date(minTotalEvent);
 
 
@@ -271,7 +272,7 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
      ngAfterViewInit() {
       
       this.topVar = (this.widgetsContent.nativeElement.offsetHeight / (this.events.length + 2)) + 20;
-      
+      this.cdr.detectChanges();
      
      }
      
@@ -300,12 +301,12 @@ export class EventTimelineGridComponent implements OnInit, AfterViewInit{
     if (eventItem.y > 1) {
       const minEvent = eventItem.steps.map((x: { start: any; }) => x.start).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[0];
       const maxEvent = eventItem.steps.map((x: { end: any; }) => x.end).sort(function(a: any, b: any) { return new Date(a).valueOf() - new Date(b).valueOf(); })[eventItem.steps.length - 1];
-      const minDate = moment(new Date(minEvent));
-      const maxDate = moment(new Date(maxEvent));
+      const minDate = momentj(new Date(minEvent));
+      const maxDate = momentj(new Date(maxEvent));
       const duration = maxDate.diff(minDate, 'days');
       const steps = [];
       for (let i = 0; i <= duration; i++) {
-        const item = eventItem.steps.map((x: any) => x).filter((x: { start: string | number | Date; }) => moment(new Date(x.start)).diff(minDate, 'days') === i );
+        const item = eventItem.steps.map((x: any) => x).filter((x: { start: string | number | Date; }) => momentj(new Date(x.start)).diff(minDate, 'days') === i );
         if (item.length > 0) {
           steps.push(item);
         } else {

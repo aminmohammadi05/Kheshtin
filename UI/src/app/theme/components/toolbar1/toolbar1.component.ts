@@ -31,7 +31,7 @@ import { ProductsService } from '../../../services/products.service';
 import { SignalRService } from '../../../services/signal-r.service';
 import { AppSettings } from '../../../app.settings';
 import { AuthService } from '../../../services/auth.service';
-import { HttpClient } from '@aspnet/signalr';
+// import { HttpClient } from '@aspnet/signalr';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
