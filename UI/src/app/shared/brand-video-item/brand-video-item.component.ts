@@ -8,7 +8,7 @@ import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -24,7 +24,7 @@ import { SafeHtmlPipe } from '../../theme/pipes/safe-html.pipe';
   templateUrl: './brand-video-item.component.html',
   styleUrls: ['./brand-video-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule,  FlexLayoutModule, SafeHtmlPipe],
+  imports: [CommonModule, MatCardModule,  , SafeHtmlPipe],
 })
 export class BrandVideoItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brandVideo: any;

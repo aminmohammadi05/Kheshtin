@@ -7,7 +7,7 @@ import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +21,7 @@ import { SafeHtmlPipe } from '../../theme/pipes/safe-html.pipe';
   templateUrl: './design-office-video-item.component.html',
   styleUrls: ['./design-office-video-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule,  FlexLayoutModule, SafeHtmlPipe],
+  imports: [CommonModule, MatCardModule,  , SafeHtmlPipe],
 })
 export class DesignOfficeVideoItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() designOfficeVideo: any;

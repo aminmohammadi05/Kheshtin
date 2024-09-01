@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
-import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -32,7 +32,7 @@ import { MoodBoardItemComponent } from '../../../shared/mood-board-item/mood-boa
     templateUrl: './my-moodboards.component.html',
     styleUrls: ['./my-moodboards.component.css'],
     standalone: true,
-    imports: [CommonModule, MatIconModule, MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  FlexLayoutModule, MatPaginatorModule, MoodBoardItemComponent],
+    imports: [CommonModule, MatIconModule, MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  , MatPaginatorModule, MoodBoardItemComponent],
   })
 export class MyMoodBoardsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;

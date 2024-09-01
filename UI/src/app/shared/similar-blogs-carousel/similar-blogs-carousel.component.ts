@@ -3,7 +3,7 @@ import { Product } from 'src/app/models/product';
 // import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Blog } from 'src/app/models/blog';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +15,7 @@ import { SmallBlogItemComponent } from '../small-blog-item/small-blog-item.compo
   templateUrl: './similar-blogs-carousel.component.html',
   styleUrls: ['./similar-blogs-carousel.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule,  FlexLayoutModule, SmallBlogItemComponent],
+  imports: [CommonModule, MatIconModule, MatFormFieldModule,  , SmallBlogItemComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SimilarBlogsCarouselComponent implements OnInit, AfterViewInit {

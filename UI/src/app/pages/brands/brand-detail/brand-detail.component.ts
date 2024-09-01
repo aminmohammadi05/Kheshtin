@@ -12,7 +12,7 @@ import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -51,7 +51,7 @@ import { BrandProductsComponent } from '../brand-products/brand-products.compone
   templateUrl: './brand-detail.component.html',
   styleUrls: ['./brand-detail.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatTabsModule, MatListModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, FlexLayoutModule, ProductItemComponent, BrandCatalogItemComponent, BrandCollectionItemComponent, BrandResellerItemComponent, BrandVideoItemComponent, OfficeProjectItemComponent, BrandProductsComponent, BrandCollectionsComponent, VideosComponent, ResellersComponent, CatalogsComponent, BrandProjectsComponent],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatTabsModule, MatListModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, ProductItemComponent, BrandCatalogItemComponent, BrandCollectionItemComponent, BrandResellerItemComponent, BrandVideoItemComponent, OfficeProjectItemComponent, BrandProductsComponent, BrandCollectionsComponent, VideosComponent, ResellersComponent, CatalogsComponent, BrandProjectsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BrandDetailComponent implements OnInit, OnDestroy, AfterViewInit  {

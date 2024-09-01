@@ -13,7 +13,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angu
 import { EngineFrameService } from '../engine-frame.service';
 import '@google/model-viewer/dist/model-viewer';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatChip, MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -55,7 +55,7 @@ export interface BrandDialogData {
   templateUrl: 'brand-info-request.html',
   styleUrls: ['./brand-info-request.css'],
   standalone: true,
-  imports : [CommonModule, MatIconModule, ReactiveFormsModule, MatListModule, MatFormFieldModule, FlexLayoutModule, MatCardModule, MatDialogModule]
+  imports : [CommonModule, MatIconModule, ReactiveFormsModule, MatListModule, MatFormFieldModule, MatCardModule, MatDialogModule]
 })
 export class BrandInfoRequestDialogComponent implements OnInit {
   request!: BrandRequest;
@@ -95,7 +95,7 @@ sendRequest() {
   selector: 'app-brand-contact-info-request-dialog',
   templateUrl: 'brand-contact-info-request.html',
   standalone: true,
-  imports : [CommonModule, MatIconModule, FlexLayoutModule, MatCardModule, MatDialogModule]
+  imports : [CommonModule, MatIconModule, MatCardModule, MatDialogModule]
 })
 export class BrandContactInfoRequestDialogComponent implements OnInit {
   brand: Observable<Brand>;
@@ -124,7 +124,7 @@ public getFloatLabel() {
   templateUrl: 'product-image-view-dialog.html',
   styleUrls: ['./product-detail.component.scss'],
   standalone: true,
-  imports : [CommonModule, MatIconModule, FlexLayoutModule, MatCardModule, MatDialogModule]
+  imports : [CommonModule, MatIconModule, MatCardModule, MatDialogModule]
 })
 export class ProductImageViewDialogComponent implements OnInit {
   public settings: Settings;
@@ -165,7 +165,7 @@ public getFloatLabel() {
   templateUrl: 'product-threed-image-view-dialog.html',
   styleUrls: ['./product-detail.component.scss'],
   standalone: true,
-  imports : [CommonModule,MatButtonModule, MatIconModule, FlexLayoutModule, MatCardModule, MatDialogModule],
+  imports : [CommonModule,MatButtonModule, MatIconModule, MatCardModule, MatDialogModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductThreeDImageViewDialogComponent implements OnInit {
@@ -262,7 +262,7 @@ public groupBy(array: any[], key: string) {
   selector: 'app-product-texture-image-view-dialog',
   templateUrl: 'product-texture-image-view-dialog.html',
   standalone: true,
-  imports : [CommonModule, MatButtonModule, MatIconModule, FlexLayoutModule, MatCardModule, MatDialogModule],
+  imports : [CommonModule, MatButtonModule, MatIconModule, MatCardModule, MatDialogModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductTextureImageViewDialogComponent implements OnInit {
@@ -362,7 +362,7 @@ close() {
   styleUrls: ['./product-detail.component.scss'],
   providers: [EngineFrameService],
   standalone: true,
-  imports : [CommonModule, MatIconModule, FlexLayoutModule, MatChipsModule, MatDividerModule, MatCardModule, MatSidenavModule,MatExpansionModule, BrandInfoRequestDialogComponent, BrandContactInfoRequestDialogComponent, ProductImageViewDialogComponent, ProductThreeDImageViewDialogComponent, ProductTextureImageViewDialogComponent, FileTypePipe],
+  imports : [CommonModule, MatIconModule, MatChipsModule, MatDividerModule, MatCardModule, MatSidenavModule,MatExpansionModule, BrandInfoRequestDialogComponent, BrandContactInfoRequestDialogComponent, ProductImageViewDialogComponent, ProductThreeDImageViewDialogComponent, ProductTextureImageViewDialogComponent, FileTypePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 

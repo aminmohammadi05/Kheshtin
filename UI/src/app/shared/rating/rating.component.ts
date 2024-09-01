@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, FlexLayoutModule]
+  imports: [CommonModule, MatIconModule, ]
 })
 export class RatingComponent {
   @Input()

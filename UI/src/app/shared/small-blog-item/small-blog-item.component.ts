@@ -13,7 +13,7 @@ import { Route, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Blog } from 'src/app/models/blog';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,7 @@ import { MatListModule } from '@angular/material/list';
   templateUrl: './small-blog-item.component.html',
   styleUrls: ['./small-blog-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SmallBlogItemComponent implements OnInit, AfterViewInit, OnChanges {

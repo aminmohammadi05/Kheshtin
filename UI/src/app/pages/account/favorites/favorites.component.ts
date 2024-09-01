@@ -5,7 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,7 +21,7 @@ import { ProductsService } from '../../../services/products.service';
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss'],
   standalone: true,
-    imports: [CommonModule, MatIconModule,MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  FlexLayoutModule, ReactiveFormsModule, MatPaginatorModule],
+    imports: [CommonModule, MatIconModule,MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  , ReactiveFormsModule, MatPaginatorModule],
 })
 export class FavoritesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'image', 'title', 'actions' ];

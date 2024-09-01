@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 import { ProductFile } from '../../models/product-file';
 import { UserMoodBoard } from '../../models/user-moodboard';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -20,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './mood-board-products-carousel.component.html',
   styleUrls: ['./mood-board-products-carousel.component.scss'],
   standalone: true,
-  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule]
+  imports: [CommonModule, MatCardModule, MatButtonModule]
 })
 export class MoodBoardProductsCarouselComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input()

@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -24,7 +24,7 @@ import { emailValidator, matchingPasswords } from '../../theme/utils/app-validat
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [CommonModule,MatIconModule, MatCardModule, MatExpansionModule,  FlexLayoutModule, MatDividerModule, ReactiveFormsModule, MatFormFieldModule, FontAwesomeModule],
+  imports: [CommonModule,MatIconModule, MatCardModule, MatExpansionModule,  , MatDividerModule, ReactiveFormsModule, MatFormFieldModule, FontAwesomeModule],
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
 

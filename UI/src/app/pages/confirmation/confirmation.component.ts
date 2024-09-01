@@ -1,7 +1,7 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatFormFieldModule, FlexLayoutModule]
+  imports: [CommonModule, MatCardModule, MatFormFieldModule, ]
 })
 export class ConfirmationComponent implements OnInit {
   token = '';

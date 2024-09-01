@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -13,7 +13,7 @@ import { BlogItemHomeComponent } from '../../../shared/blog-item-home/blog-item-
   templateUrl: './recent-blogs.component.html',
   styleUrls: ['./recent-blogs.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, BlogItemHomeComponent]
+  imports: [CommonModule, MatIconModule, MatButtonModule, BlogItemHomeComponent]
 })
 export class RecentBlogsComponent implements OnInit {
   @Input()

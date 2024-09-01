@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef, inject} from '@angular/core';
-import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -36,7 +36,7 @@ import { MoodBoardsSearchComponent } from '../../shared/mood-boards-search/mood-
   templateUrl: './mood-board.component.html',
   styleUrls: ['./mood-board.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, FlexLayoutModule, MatChipsModule, MatListModule, MatFormFieldModule, MatSidenavModule, MatProgressSpinnerModule, MatPaginatorModule, RouterModule, HeaderCarouselComponent, HeaderImageComponent, MoodBoardsSearchComponent, MoodBoardsSearchResultsFiltersComponent, MoodBoardItemComponent, BrandsCarouselComponent ]
+  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, MatChipsModule, MatListModule, MatFormFieldModule, MatSidenavModule, MatProgressSpinnerModule, MatPaginatorModule, RouterModule, HeaderCarouselComponent, HeaderImageComponent, MoodBoardsSearchComponent, MoodBoardsSearchResultsFiltersComponent, MoodBoardItemComponent, BrandsCarouselComponent ]
 })
 export class MoodBoardComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;

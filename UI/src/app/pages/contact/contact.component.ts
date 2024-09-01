@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,7 +13,7 @@ import { emailValidator } from '../../theme/utils/app-validators';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatCardModule, ReactiveFormsModule, FlexLayoutModule, HeaderImageComponent]
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatCardModule, ReactiveFormsModule, HeaderImageComponent]
 })
 export class ContactComponent implements OnInit {
   public contactForm!: FormGroup;

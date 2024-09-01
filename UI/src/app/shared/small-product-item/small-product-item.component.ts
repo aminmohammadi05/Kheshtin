@@ -8,7 +8,7 @@ import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,7 +21,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './small-product-item.component.html',
   styleUrls: ['./small-product-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, FlexLayoutModule, MatFormFieldModule, MatSidenavModule ],
+  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, MatFormFieldModule, MatSidenavModule ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SmallProductItemComponent implements OnInit, AfterViewInit, OnChanges {

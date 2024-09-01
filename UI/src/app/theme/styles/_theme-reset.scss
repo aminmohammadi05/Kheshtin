@@ -17,20 +17,20 @@
 
 
     .bg-primary {
-        background-color: mat.get-color-from-palette($primary);
-        color: mat.get-color-from-palette($primary, default-contrast);
+        background-color: mat.m2-get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
 
     }
 
     .bg-accent {
-        background-color: mat.get-color-from-palette($accent);
-        color: mat.get-color-from-palette($accent, default-contrast);
+        background-color: mat.m2-get-color-from-palette($accent);
+        color: mat.m2-get-color-from-palette($accent, default-contrast);
 
     }
 
     .bg-warn {
-        background-color: mat.get-color-from-palette($warn);
-        color: mat.get-color-from-palette($warn, default-contrast);
+        background-color: mat.m2-get-color-from-palette($warn);
+        color: mat.m2-get-color-from-palette($warn, default-contrast);
 
     }
 
@@ -38,31 +38,31 @@
 
     .text-muted {
 
-        color: mat.get-color-from-palette($foreground, secondary-text) !important;
+        color: mat.m2-get-color-from-palette($foreground, secondary-text) !important;
 
     }
 
     .primary-color{
 
-        color: mat.get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary);
 
     }
 
     .secondary-color{
 
-        color: mat.get-color-from-palette($primary, 100);
+        color: mat.m2-get-color-from-palette($primary, 100);
 
     }
 
     .v-divider{
 
-        background-color: mat.get-color-from-palette($foreground, divider);
+        background-color: mat.m2-get-color-from-palette($foreground, divider);
 
     }
 
     .divider{
 
-        border-top: 0.062rem solid mat.get-color-from-palette($foreground, divider);
+        border-top: 0.062rem solid mat.m2-get-color-from-palette($foreground, divider);
 
     }
 
@@ -70,41 +70,41 @@
 
     .top-toolbar.mat-toolbar .v-divider{
 
-        background-color: mat.get-color-from-palette($primary, lighter, 0.2);
+        background-color: mat.m2-get-color-from-palette($primary, lighter, 0.2);
 
     }
 
     .border-bottom-lighter{
 
-        border-bottom: 0.062rem solid mat.get-color-from-palette($primary, lighter, 0.2);
+        border-bottom: 0.062rem solid mat.m2-get-color-from-palette($primary, lighter, 0.2);
 
     }
 
     .border-lighter{
 
-        border-color: mat.get-color-from-palette($primary, lighter, 0.2);
+        border-color: mat.m2-get-color-from-palette($primary, lighter, 0.2);
 
     }
 
     .border-accent{
 
-        border-color: mat.get-color-from-palette($accent);        
+        border-color: mat.m2-get-color-from-palette($accent);        
 
     }
 
 
 
     #top-toolbar{
-        background-color: mat.get-color-from-palette($primary);
-        color: mat.get-color-from-palette($primary, default-contrast);
+        background-color: mat.m2-get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
 
     }
 
     .toolbar-2 #top-toolbar{
 
-        background-color: mat.get-color-from-palette($background, card);
+        background-color: mat.m2-get-color-from-palette($background, card);
 
-        color: mat.get-color-from-palette($foreground, text);
+        color: mat.m2-get-color-from-palette($foreground, text);
 
     }
 
@@ -116,13 +116,13 @@
 
     #main-toolbar{
 
-        background: mat.get-color-from-palette($background, card);
+        background: mat.m2-get-color-from-palette($background, card);
 
     }
 
     .toolbar-2 #main-toolbar{
-        background-color: mat.get-color-from-palette($primary);
-        color: mat.get-color-from-palette($primary, default-contrast);
+        background-color: mat.m2-get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
 
     }
 
@@ -130,7 +130,7 @@
 
         .logo svg{
 
-            fill: mat.get-color-from-palette($primary);
+            fill: mat.m2-get-color-from-palette($primary);
 
         } 
 
@@ -152,7 +152,7 @@
 
                         &.horizontal-active-link{
 
-                            background: rgba(mat.get-color-from-palette($primary), 0.38);
+                            background: rgba(mat.m2-get-color-from-palette($primary), 0.38);
 
                         }                       
 
@@ -196,7 +196,7 @@
 
                         &.horizontal-active-link{
 
-                            background: rgba(mat.get-color-from-palette($primary), 0.38);
+                            background: rgba(mat.m2-get-color-from-palette($primary), 0.38);
 
                         }                       
 
@@ -216,11 +216,11 @@
 
     .header-carousel .slide-info .mat-card{
 
-        background: rgba(mat.get-color-from-palette($background, card), 0.85);
+        background: rgba(mat.m2-get-color-from-palette($background, card), 0.85);
 
         &:hover{
 
-            background: mat.get-color-from-palette($background, card);
+            background: mat.m2-get-color-from-palette($background, card);
 
         }
 
@@ -230,7 +230,7 @@
 
     .user-menu .user-info {
 
-        color: mat.get-color-from-palette($foreground, text);
+        color: mat.m2-get-color-from-palette($foreground, text);
 
     }
 
@@ -240,7 +240,7 @@
 
         .main-content-header{
 
-            // border-top: 0.312rem solid mat.get-color-from-palette($primary);
+            // border-top: 0.312rem solid mat.m2-get-color-from-palette($primary);
 
         }
 
@@ -252,11 +252,11 @@
 
     .compare-item .title a{
 
-        color: mat.get-color-from-palette($foreground, text);
+        color: mat.m2-get-color-from-palette($foreground, text);
 
         &:hover{
 
-            color: mat.get-color-from-palette($primary);
+            color: mat.m2-get-color-from-palette($primary);
 
         }        
 
@@ -266,7 +266,7 @@
 
     .compare-item .details .item { 
 
-        border-bottom: 0.062rem dotted  mat.get-color-from-palette($foreground, divider); 
+        border-bottom: 0.062rem dotted  mat.m2-get-color-from-palette($foreground, divider); 
 
     }
 
@@ -274,7 +274,7 @@
 
     .small-carousel .swiper-slide.active-thumb img{ 
 
-        border-color: mat.get-color-from-palette($primary);
+        border-color: mat.m2-get-color-from-palette($primary);
 
     }
 
@@ -284,7 +284,7 @@
 
     .ps__thumb-y{
 
-        background-color: mat.get-color-from-palette($primary, 900);
+        background-color: mat.m2-get-color-from-palette($primary, 900);
 
     }
 
@@ -294,7 +294,7 @@
 
     .active-link{
 
-        background-color: mat.get-color-from-palette($primary); 
+        background-color: mat.m2-get-color-from-palette($primary); 
 
         color: #fff;
 
@@ -302,9 +302,9 @@
 
     .horizontal-active-link {
 
-        background: mat.get-color-from-palette($background, hover);
+        background: mat.m2-get-color-from-palette($background, hover);
 
-        color: mat.get-color-from-palette($primary); 
+        color: mat.m2-get-color-from-palette($primary); 
 
     }
 
@@ -312,11 +312,11 @@
 
         .mat-button, .mat-menu-item{
 
-            color: mat.get-color-from-palette($foreground, text);
+            color: mat.m2-get-color-from-palette($foreground, text);
 
             &.horizontal-active-link { 
 
-                color: mat.get-color-from-palette($primary); 
+                color: mat.m2-get-color-from-palette($primary); 
 
             }
 
@@ -332,7 +332,7 @@
 
     // .section.testimonials .swiper-pagination-bullet-active {        
 
-    //     background-color: mat.get-color-from-palette($primary); 
+    //     background-color: mat.m2-get-color-from-palette($primary); 
 
     // }
 
@@ -344,7 +344,7 @@
 
     .custom-table.mat-table .mat-row {
 
-        border-color: mat.get-color-from-palette($foreground, divider);
+        border-color: mat.m2-get-color-from-palette($foreground, divider);
 
     }
 
@@ -354,13 +354,13 @@
 
     .edit-property .step-section{
 
-        background: rgba(mat.get-color-from-palette($background, background), 0.7);
+        background: rgba(mat.m2-get-color-from-palette($background, background), 0.7);
 
     }
 
     .input-file-container .mat-orphan-label{
 
-        color: mat.get-color-from-palette($foreground, text) !important;
+        color: mat.m2-get-color-from-palette($foreground, text) !important;
 
     }
 

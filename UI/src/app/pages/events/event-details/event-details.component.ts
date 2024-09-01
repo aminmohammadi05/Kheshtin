@@ -17,7 +17,7 @@ import { NgxMasonryModule, NgxMasonryOptions } from 'ngx-masonry';
 import { Lightbox } from 'ngx-lightbox';
 import { log } from 'console';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -38,7 +38,7 @@ import { EventDetailTimelineBoxComponent } from '../../../shared/event-detail-ti
   templateUrl: './event-details.component.html',
   styleUrls: ['./event-details.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule, FlexLayoutModule, MatChipsModule, MatListModule, MatSidenavModule, NgxMasonryModule, MatDividerModule, EventDetailTimelineBoxComponent]
+  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule, MatChipsModule, MatListModule, MatSidenavModule, NgxMasonryModule, MatDividerModule, EventDetailTimelineBoxComponent]
 })
 export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit  {
   viewType: string = 'grid';

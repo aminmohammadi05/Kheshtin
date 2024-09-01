@@ -13,7 +13,7 @@ import { HeaderCarouselComponent } from '../header-carousel/header-carousel.comp
 import { HeaderImageComponent } from '../header-image/header-image.component';
 import { OfficeProjectItemComponent } from '../office-project-item/office-project-item.component';
 import { OfficeProjectsSearchResultsFiltersComponent } from '../office-projects-search-results-filters/office-projects-search-results-filters.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { DesignOffice } from '../../models/design-office';
 import { OfficeProjectCategory } from '../../models/office-project-category';
 import { OfficeProjectSearch } from '../../models/office-project-search';
@@ -25,7 +25,7 @@ import { BasicDataService } from '../../services/basic-data.service';
   templateUrl: './office-projects-search.component.html',
   styleUrls: ['./office-projects-search.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatButtonModule, MatCardModule, FlexLayoutModule, ReactiveFormsModule]
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatButtonModule, MatCardModule, ReactiveFormsModule]
 })
 export class OfficeProjectsSearchComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() variant = 1;

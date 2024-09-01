@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
-import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {  } from 'ngx-scrollbar';
 import { Subscription } from 'rxjs'; 
@@ -30,7 +30,7 @@ import { RatingComponent } from 'src/app/shared/rating/rating.component';
   templateUrl: './agent.component.html',
   styleUrls: ['./agent.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,ReactiveFormsModule,  FlexLayoutModule, PaginationComponent, PropertiesToolbarComponent , PropertiesSearchComponent, PropertiesSearchResultsFiltersComponent, GetInTouchComponent, RatingComponent],
+  imports: [CommonModule, MatIconModule, MatCardModule, MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,ReactiveFormsModule,  , PaginationComponent, PropertiesToolbarComponent , PropertiesSearchComponent, PropertiesSearchResultsFiltersComponent, GetInTouchComponent, RatingComponent],
 })
 export class AgentComponent implements OnInit {
   private sub: any;

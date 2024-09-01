@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, ViewChildren, QueryLis
 import * as moment from 'jalali-moment';
 import { Observable } from 'rxjs';
 import _ from 'lodash'
-import { FlexLayoutModule, MediaObserver } from '@angular/flex-layout';
+import { , MediaObserver } from '@angular/flex-layout';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +21,7 @@ import { EventDays } from '../../../models/query-home-event/event-days';
   templateUrl: './home-event-timeline.component.html',
   styleUrls: ['./home-event-timeline.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, EventTimelineGridComponent, EventTimelineVerticalComponent]
+  imports: [CommonModule, MatIconModule, MatButtonModule, EventTimelineGridComponent, EventTimelineVerticalComponent]
 })
 export class HomeEventTimelineComponent implements OnInit {
   @Input()

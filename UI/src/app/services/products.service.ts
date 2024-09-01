@@ -8,8 +8,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { PaginatedResult, Pagination } from '../models/pagination';
 import { catchError, map } from 'rxjs/operators';
 import { AppSettings } from '../app.settings';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
+
 import { ProductFile } from '../models/product-file';
 import { DesignMoodBoardProduct } from '../models/design-mood-board-product';
 import { ShowRoomProduct } from '../models/show-room-product';
@@ -47,8 +47,8 @@ export class ProductsService {
   private http = inject(HttpClient);
   private apollo= inject(Apollo);
     public appSettings= inject(AppSettings);
-    private bottomSheet= inject(MatBottomSheet);
-    private snackBar= inject(MatSnackBar);
+
+
 constructor() { }
 
 getBrandProductsByCategoryAuth(brand: string, category: number, userId: string) {
@@ -328,24 +328,24 @@ getRecentProductsAuth(userId: any): Observable<Product[]> {
 public addToCompare(product: Product, component: ComponentType<unknown>, direction: any) {
   if (!this.Data.compareList.filter(item => item.productId === product.productId)[0]) {
     this.Data.compareList.push(product);
-    this.bottomSheet.open(component, {
-      direction: direction
-    }).afterDismissed().subscribe(isRedirect => {
-      if (isRedirect) {
-        window.scrollTo(0, 0);
-      }
-    });
+    // this.bottomSheet.open(component, {
+    //   direction: direction
+    // }).afterDismissed().subscribe(isRedirect => {
+    //   if (isRedirect) {
+    //     window.scrollTo(0, 0);
+    //   }
+    // });
   }
 }
 
 
 
 public addToFavorites(product: Product, direction: any) {
-  this.snackBar.open(product.name + '" به لیست علایق شما اضافه شد', '×', {
-    verticalPosition: 'top',
-    duration: 3000,
-    direction: direction 
-  });
+  // this.snackBar.open(product.name + '" به لیست علایق شما اضافه شد', '×', {
+  //   verticalPosition: 'top',
+  //   duration: 3000,
+  //   direction: direction 
+  // });
 }
 
 public getFeaturedProducts(): Observable<Product[]> {

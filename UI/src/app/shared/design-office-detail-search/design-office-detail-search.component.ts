@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,7 +18,7 @@ import { BasicDataService } from '../../services/basic-data.service';
   templateUrl: './design-office-detail-search.component.html',
   styleUrls: ['./design-office-detail-search.component.css'],
   standalone: true,
-  imports: [CommonModule, MatCardModule,  FlexLayoutModule, MatSelectModule, MatFormFieldModule, ReactiveFormsModule],
+  imports: [CommonModule, MatCardModule,  , MatSelectModule, MatFormFieldModule, ReactiveFormsModule],
 })
 export class DesignOfficeDetailSearchComponent implements OnInit, AfterViewInit {
   @Input() officeId = '';

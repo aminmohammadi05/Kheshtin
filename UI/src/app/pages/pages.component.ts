@@ -4,7 +4,7 @@ import { Settings, AppSettings } from '../app.settings';
 // import { SlideInOutAnimation } from '../theme/components/animations/slide-in-out';
 import { BasicDataService } from '../services/basic-data.service';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -28,7 +28,7 @@ import { HomeComponent } from './home/home.component';
   styleUrls: ['./pages.component.scss'],
   animations: [SlideInOutAnimation],
   standalone: true,
-  imports : [CommonModule, MatIconModule, MatFormFieldModule, FlexLayoutModule, MatButtonModule, MatSidenavModule, FooterComponent, RouterModule, Toolbar1Component, VerticalMenuComponent],
+  imports : [CommonModule, MatIconModule, MatFormFieldModule, MatDialogModule, MatButtonModule, MatSidenavModule, FooterComponent, RouterModule, Toolbar1Component, VerticalMenuComponent],
  
 })
 export class PagesComponent implements OnInit, AfterViewInit {

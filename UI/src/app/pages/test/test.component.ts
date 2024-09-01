@@ -1,6 +1,6 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +15,7 @@ import { Observable, pluck } from 'rxjs';
 @Component({
   selector: 'app-test',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule, FlexLayoutModule, MatButtonModule, MatSidenavModule, FooterComponent, RouterModule, NgFor, Toolbar1Component, VerticalMenuComponent],
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatButtonModule, MatSidenavModule, FooterComponent, RouterModule, NgFor, Toolbar1Component, VerticalMenuComponent],
   templateUrl: './test.component.html',
   styleUrl: './test.component.scss'
 })

@@ -6,7 +6,7 @@ import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,7 @@ import { BlogBagTypePipe } from '../../theme/pipes/blog-bag.pipe';
   templateUrl: './blog-item.component.html',
   styleUrls: ['./blog-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, RouterModule, BlogBagTypePipe],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  , RouterModule, BlogBagTypePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BlogItemComponent implements OnInit, AfterViewInit, OnChanges {

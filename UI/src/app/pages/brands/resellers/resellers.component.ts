@@ -10,7 +10,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,7 +31,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
   templateUrl: './resellers.component.html',
   styleUrls: ['./resellers.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, FlexLayoutModule, PaginationComponent ]
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, PaginationComponent ]
 })
 export class ResellersComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;

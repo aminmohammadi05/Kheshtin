@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatDividerModule } from '@angular/material/divider';
 
 import { AppSettings, Settings } from '../../../app.settings';
@@ -39,7 +39,7 @@ import { OfficeProjectService } from '../../../services/office-project.service';
   templateUrl: './office-project-details.component.html',
   styleUrls: ['./office-project-details.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatSidenavModule, NgxMasonryModule, FlexLayoutModule, MatDividerModule, RouterModule]
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatSidenavModule, NgxMasonryModule, MatDividerModule, RouterModule]
 })
 export class OfficeProjectDetailsComponent implements OnInit, OnDestroy, AfterViewInit  {
   viewType: string = 'grid';

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,7 +19,7 @@ import { CategoriesComponent } from '../../pages/categories/categories.component
   templateUrl: './mood-boards-search.component.html',
   styleUrls: ['./mood-boards-search.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, FlexLayoutModule, MatFormFieldModule, ReactiveFormsModule, MatSelectModule, CategoriesComponent ]
+  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, MatFormFieldModule, ReactiveFormsModule, MatSelectModule, CategoriesComponent ]
 })
 export class MoodBoardsSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;

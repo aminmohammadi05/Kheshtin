@@ -106,7 +106,7 @@ export class CategoriesQuickAccessComponent implements OnInit, AfterViewInit {
     this.subscription.unsubscribe();
 }
   openProductPage(category: Category) {
-    this.router.navigate(['/products', 1, , {search: 'null', brands: 'null', collections: 'null', categories: category.categoryId}]);
+    this.router.navigate(['/products', 1, {search: 'null', brands: 'null', collections: 'null', categories: category.categoryId}]);
     
   }
 

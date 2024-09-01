@@ -5,7 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +20,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './my-projects.component.html',
   styleUrls: ['./my-projects.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, MatPaginatorModule],
+  imports: [CommonModule, MatIconModule, MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule,  , MatPaginatorModule],
 })
 export class MyProjectsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'image', 'title', 'published', 'actions' ];

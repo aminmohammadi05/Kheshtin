@@ -10,7 +10,7 @@ import { Lightbox } from 'ngx-lightbox';
 import { orderBy } from 'lodash';
 import { NgxMasonryModule, NgxMasonryOptions } from 'ngx-masonry';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,7 +34,7 @@ import { Album } from '../../../models/album';
   templateUrl: './blog-post.component.html',
   styleUrls: ['./blog-post.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule,MatCardModule,MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, NgxMasonryModule, SimilarBlogsCarouselComponent, BlogBagTypePipe, OrderByPipe],
+  imports: [CommonModule, MatIconModule,MatCardModule,MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,  , NgxMasonryModule, SimilarBlogsCarouselComponent, BlogBagTypePipe, OrderByPipe],
 })
 export class BlogPostComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;

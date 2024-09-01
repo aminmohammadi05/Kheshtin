@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +13,7 @@ import { HeaderImageComponent } from '../../shared/header-image/header-image.com
   templateUrl: './agents.component.html',
   styleUrls: ['./agents.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule,  FlexLayoutModule, RouterModule, HeaderImageComponent],
+  imports: [CommonModule, MatIconModule, MatFormFieldModule,  , RouterModule, HeaderImageComponent],
 })
 export class AgentsComponent implements OnInit {
   public agents: any;

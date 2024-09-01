@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -22,7 +22,7 @@ declare var $: any;
   templateUrl: './header-carousel.component.html',
   styleUrls: ['./header-carousel.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatButtonModule, MatCardModule, FlexLayoutModule, ReactiveFormsModule, SlickCarouselModule ],
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatButtonModule, MatCardModule, ReactiveFormsModule, SlickCarouselModule ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HeaderCarouselComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {

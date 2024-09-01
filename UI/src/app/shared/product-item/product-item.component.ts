@@ -13,7 +13,7 @@ import { Observable, of } from 'rxjs';
 
 import { MoodBoardCandidateProductOverviewComponent } from '../mood-board-candidate-product-overview/mood-board-candidate-product-overview.component';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,7 +24,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatIconModule, RouterModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductItemComponent implements OnInit, AfterViewInit, OnChanges {

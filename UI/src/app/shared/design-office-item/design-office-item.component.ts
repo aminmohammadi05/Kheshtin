@@ -6,7 +6,7 @@ import { Settings, AppSettings } from '../../app.settings';
 import { CompareOverviewComponent } from '../compare-overview/compare-overview.component';
 
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 
 import { RouterModule } from '@angular/router';
@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './design-office-item.component.html',
   styleUrls: ['./design-office-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule,  FlexLayoutModule, RouterModule],
+  imports: [CommonModule, MatCardModule,  , RouterModule],
 })
 export class DesignOfficeItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() designOffice: any;

@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { BrandSearch } from '../../models/brand-search';
@@ -16,7 +16,7 @@ import { CategoriesComponent } from '../../pages/categories/categories.component
   templateUrl: './brands-search.component.html',
   styleUrls: ['./brands-search.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatFormFieldModule, ReactiveFormsModule,  FlexLayoutModule, CategoriesComponent],
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatFormFieldModule, ReactiveFormsModule,  , CategoriesComponent],
 })
 export class BrandsSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;

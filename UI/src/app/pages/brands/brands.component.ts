@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
-import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, combineLatest, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -38,7 +38,7 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
   templateUrl: './brands.component.html',
   styleUrls: ['./brands.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatSidenavModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, FlexLayoutModule, PaginationComponent, HeaderCarouselComponent, HeaderImageComponent, BrandsSearchComponent, BrandsSearchResultsFiltersComponent, BrandItemComponent, BrandsCarouselComponent ]
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatSidenavModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, ReactiveFormsModule, PaginationComponent, HeaderCarouselComponent, HeaderImageComponent, BrandsSearchComponent, BrandsSearchResultsFiltersComponent, BrandItemComponent, BrandsCarouselComponent ]
 })
 export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -19,7 +19,7 @@ import { LogoComponent } from '../../shared/logo/logo.component';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatFormFieldModule, MatSidenavModule, ReactiveFormsModule, MatButtonModule,MatListModule, MatToolbarModule, LogoComponent ] 
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatSidenavModule, ReactiveFormsModule, MatButtonModule,MatListModule, MatToolbarModule, LogoComponent ] 
 })
 export class LandingComponent implements OnInit {
  

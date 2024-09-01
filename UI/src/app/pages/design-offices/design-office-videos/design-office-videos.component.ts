@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppSettings, Settings } from '../../../app.settings';
@@ -29,7 +29,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
   templateUrl: './design-office-videos.component.html',
   styleUrls: ['./design-office-videos.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, FlexLayoutModule, MatProgressSpinnerModule, DesignOfficeVideoItemComponent, PaginationComponent],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatProgressSpinnerModule, DesignOfficeVideoItemComponent, PaginationComponent],
 })
 export class DesignOfficeVideosComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() designOffice: any;

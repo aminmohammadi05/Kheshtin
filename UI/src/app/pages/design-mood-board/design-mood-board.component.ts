@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TileLayersComponent } from './tile-layers/tile-layers.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatTabsModule, MatTabGroup } from '@angular/material/tabs';
 import { AppSettings, Settings } from '../../app.settings';
 import { Category } from '../../models/category';
@@ -54,7 +54,7 @@ export interface Tile {
   templateUrl: './design-mood-board.component.html',
   styleUrls: ['./design-mood-board.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatTabsModule, MatFormFieldModule, MatCardModule, FlexLayoutModule, MatDividerModule, MatProgressSpinnerModule, MatPaginatorModule, GridsterModule, ReactiveFormsModule, ProductMoodBoardSearchComponent, MoodBoardProductItemComponent, TileLayersComponent]
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatTabsModule, MatFormFieldModule, MatCardModule, MatDividerModule, MatProgressSpinnerModule, MatPaginatorModule, GridsterModule, ReactiveFormsModule, ProductMoodBoardSearchComponent, MoodBoardProductItemComponent, TileLayersComponent]
 })
 export class DesignMoodBoardComponent implements OnInit, AfterViewInit, OnDestroy {
     options!: GridsterConfig;

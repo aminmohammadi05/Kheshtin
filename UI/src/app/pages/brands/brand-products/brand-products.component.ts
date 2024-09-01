@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable, Subject, Subscription, combineLatest } fro
 import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,7 +37,7 @@ import { PropertiesSearchComponent } from '../../../shared/properties-search/pro
   templateUrl: './brand-products.component.html',
   styleUrls: ['./brand-products.component.css'],
   standalone: true,
-  imports: [CommonModule,MatCardModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatSidenavModule,  FlexLayoutModule, PaginationComponent, PropertiesSearchComponent, ProductItemComponent, PropertiesSearchResultsFiltersComponent],
+  imports: [CommonModule,MatCardModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatSidenavModule,  , PaginationComponent, PropertiesSearchComponent, ProductItemComponent, PropertiesSearchResultsFiltersComponent],
 })
 export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;

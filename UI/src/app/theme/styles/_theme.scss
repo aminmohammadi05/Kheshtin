@@ -1,7 +1,8 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-$custom-typography: mat.define-typography-level(
+
+$custom-typography: mat.m2-define-typography-level(
   $font-family: 'Vazir FD',
   $font-weight: 400,
   $font-size: 1rem,
@@ -11,6 +12,7 @@ $custom-typography: mat.define-typography-level(
 
 
 @import 'theme-reset';
+
 
 
 .app{
@@ -25,74 +27,6 @@ $custom-typography: mat.define-typography-level(
 
     }
 
-    &.blue{
-
-        @import "skins/blue";
-
-        @include mat.all-component-themes($blue-theme);
-
-        @include theme-reset($blue-theme);
-
-    }
-
-    &.red{
-
-        @import "skins/red";
-
-        @include mat.all-component-themes($red-theme);
-
-        @include theme-reset($red-theme);
-
-    }
-
-    &.pink{
-
-        @import "skins/pink";
-
-        @include mat.all-component-themes($pink-theme);
-
-        @include theme-reset($pink-theme);
-
-    }
-
-    &.purple{
-
-        @import "skins/purple";
-
-        @include mat.all-component-themes($purple-theme);
-
-        @include theme-reset($purple-theme);
-
-    }
-
-    &.grey{
-
-        @import "skins/grey";
-
-        @include mat.all-component-themes($grey-theme);
-
-        @include theme-reset($grey-theme);
-
-    }
-
-    &.orange-dark{
-
-        @import "skins/orange-white";
-
-        @include mat.all-component-themes($orange-dark-theme);
-
-        @include theme-reset($orange-dark-theme);     
-
-    }
-
-    &.orange-white{
-
-        @import "skins/orange-white";
-
-        @include mat.all-component-themes($orange-dark-theme);
-
-        @include theme-reset($orange-dark-theme);     
-
-    }
+    
 
 }

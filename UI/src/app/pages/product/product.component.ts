@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
-import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { , MediaChange, MediaObserver } from '@angular/flex-layout';
  import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, of, combineLatest, zip, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,7 +34,7 @@ import { PropertiesSearchComponent } from '../../shared/properties-search/proper
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
   standalone: true,
-  imports : [CommonModule, MatIconModule, FlexLayoutModule, MatCardModule, MatSidenavModule, BrandsCarouselComponent, MatChipsModule, PropertiesSearchResultsFiltersComponent, PaginationComponent, PropertiesSearchComponent, ProductItemComponent]
+  imports : [CommonModule, MatIconModule, MatCardModule, MatSidenavModule, BrandsCarouselComponent, MatChipsModule, PropertiesSearchResultsFiltersComponent, PaginationComponent, PropertiesSearchComponent, ProductItemComponent]
 })
 export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;

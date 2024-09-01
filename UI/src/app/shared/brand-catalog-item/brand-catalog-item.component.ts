@@ -7,7 +7,7 @@ import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -22,7 +22,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './brand-catalog-item.component.html',
   styleUrls: ['./brand-catalog-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatIconModule,  FlexLayoutModule],
+  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatIconModule,  ],
 })
 export class BrandCatalogItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brandCatalog: any;

@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { Product } from '../../models/product';
 import { AuthService } from '../../services/auth.service';
 import { ProductsService } from '../../services/products.service';
@@ -18,7 +18,7 @@ import { FileTypePipe } from '../../theme/pipes/file-type.pipe';
   templateUrl: './mood-board-product-item.component.html',
   styleUrls: ['./mood-board-product-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatCardModule, FileTypePipe, FlexLayoutModule]
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatCardModule, FileTypePipe, ]
 })
 export class MoodBoardProductItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input()

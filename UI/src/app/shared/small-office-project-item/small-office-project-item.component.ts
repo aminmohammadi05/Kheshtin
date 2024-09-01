@@ -10,13 +10,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from '../../services/auth.service';
 import { ProductsService } from '../../services/products.service';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 @Component({
   selector: 'app-small-office-project-item',
   templateUrl: './small-office-project-item.component.html',
   styleUrls: ['./small-office-project-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatListModule, MatChipsModule, FlexLayoutModule]
+  imports: [CommonModule, MatIconModule, MatListModule, MatChipsModule, ]
 })
 export class SmallOfficeProjectItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() officeProject: any;

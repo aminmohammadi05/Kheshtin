@@ -9,7 +9,7 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, tap, switchMap, map } from 'rxjs/operators';
-import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import { log } from 'console';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
@@ -40,7 +40,7 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule, FlexLayoutModule, HeaderImageComponent, MatChipsModule, MatListModule, MatSidenavModule, EventItemComponent, PaginationComponent, HeaderCarouselComponent, EventsSearchResultsFiltersComponent, EventsSearchComponent]
+  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule, HeaderImageComponent, MatChipsModule, MatListModule, MatSidenavModule, EventItemComponent, PaginationComponent, HeaderCarouselComponent, EventsSearchResultsFiltersComponent, EventsSearchComponent]
 })
 export class EventsComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCategories: EventCategory[] = [];

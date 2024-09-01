@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ViewChild, SimpleChange, AfterViewInit, OnCha
 import { Settings, AppSettings } from '../../app.settings';
 
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './brand-item.component.html',
   styleUrls: ['./brand-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, RouterModule]
+  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,  , RouterModule]
 })
 export class BrandItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brand: any;

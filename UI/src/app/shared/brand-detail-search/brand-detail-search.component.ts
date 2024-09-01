@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { BrandCollectionsComponent } from '../brand-collections/brand-collections.component';
@@ -18,7 +18,7 @@ import { CategoriesComponent } from '../../pages/categories/categories.component
   templateUrl: './brand-detail-search.component.html',
   styleUrls: ['./brand-detail-search.component.css'],
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatExpansionModule,  FlexLayoutModule, BrandCollectionsComponent, CategoriesComponent, ReactiveFormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatExpansionModule,  , BrandCollectionsComponent, CategoriesComponent, ReactiveFormsModule],
 })
 export class BrandDetailSearchComponent implements OnInit, AfterViewInit {
   @Input() brandId = '';

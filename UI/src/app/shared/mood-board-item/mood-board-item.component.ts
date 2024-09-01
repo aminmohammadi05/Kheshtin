@@ -7,7 +7,7 @@ import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -30,7 +30,7 @@ import { BlogService } from '../../services/blog.service';
   templateUrl: './mood-board-item.component.html',
   styleUrls: ['./mood-board-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, FlexLayoutModule, MatFormFieldModule, RouterModule ]
+  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, MatFormFieldModule, RouterModule ]
 })
 export class MoodBoardItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input()

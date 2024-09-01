@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import moment from 'jalali-moment';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +22,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './event-item.component.html',
   styleUrls: ['./event-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule, FlexLayoutModule, HeaderImageComponent, MatChipsModule, MatListModule, MatSidenavModule, RouterModule],
+  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule, HeaderImageComponent, MatChipsModule, MatListModule, MatSidenavModule, RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EventItemComponent implements OnInit, AfterViewInit, OnChanges {

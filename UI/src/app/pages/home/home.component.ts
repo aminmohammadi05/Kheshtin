@@ -2,7 +2,7 @@ import { Component, OnInit, DoCheck, OnDestroy, AfterViewInit, ChangeDetectorRef
 import { Settings, AppSettings } from '../../app.settings';
 import { Property } from '../../app.models';
 import { Subscription, Observable, of, combineLatest, fromEvent, Subject, MonoTypeOperatorFunction } from 'rxjs';
-import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import { debounceTime, distinctUntilChanged, tap, map, switchMap, withLatestFrom, filter, mergeMap } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
@@ -40,7 +40,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatProgressSpinnerModule, HomeEventTimelineComponent, RecentBlogsComponent, HeaderCarouselComponent, ProductItemComponent],
+  imports: [CommonModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, HomeEventTimelineComponent, RecentBlogsComponent, HeaderCarouselComponent, ProductItemComponent],
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   public quickCategorySubject = new Subject<any>();

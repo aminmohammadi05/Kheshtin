@@ -8,7 +8,7 @@ import {  } from 'ngx-scrollbar';
 import { Observable, of } from 'rxjs';
 import moment from 'jalali-moment'; // add this 1 of 4
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,7 +26,7 @@ import { SmallProductItemComponent } from '../../../shared/small-product-item/sm
   templateUrl: './mood-board-detail.component.html',
   styleUrls: ['./mood-board-detail.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, FlexLayoutModule, MatFormFieldModule, MatSidenavModule, SmallProductItemComponent ]
+  imports: [CommonModule, MatIconModule,MatCardModule, MatButtonModule, MatFormFieldModule, MatSidenavModule, SmallProductItemComponent ]
 })
 export class MoodBoardDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   viewType: string = 'grid';

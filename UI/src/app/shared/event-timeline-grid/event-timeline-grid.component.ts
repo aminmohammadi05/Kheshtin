@@ -5,7 +5,7 @@ import momentj from 'jalali-moment';
 import * as Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Event } from '../../models/query-home-event/event';
@@ -19,7 +19,7 @@ const moment = extendMoment(Moment);
   templateUrl: './event-timeline-grid.component.html',
   styleUrls: ['./event-timeline-grid.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIconModule, MatButtonModule, FlexLayoutModule, GridsterModule]
+  imports: [CommonModule, RouterModule, MatIconModule, MatButtonModule, GridsterModule]
 })
 export class EventTimelineGridComponent implements OnInit, AfterViewInit{
   topVar = 0;

@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +21,7 @@ import { BasicDataService } from '../../services/basic-data.service';
   templateUrl: './events-search.component.html',
   styleUrls: ['./events-search.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, ReactiveFormsModule, MatSelectModule, MatFormFieldModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatSelectModule, MatFormFieldModule],
 })
 export class EventsSearchComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() variant = 1;

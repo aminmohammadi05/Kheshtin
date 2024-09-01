@@ -10,7 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatCardModule } from '@angular/material/card';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { Pagination } from '../../models/pagination';
 import { Search } from '../../models/search';
 import { AuthService } from '../../services/auth.service';
@@ -21,7 +21,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './brand-collection-item.component.html',
   styleUrls: ['./brand-collection-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, FlexLayoutModule],
+  imports: [CommonModule, MatCardModule, ],
 })
 export class BrandCollectionItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brandCollection: any;

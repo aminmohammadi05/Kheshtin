@@ -4,7 +4,7 @@ import { Property } from '../../app.models';
 import { Settings, AppSettings } from '../../app.settings';
 
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,7 +19,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './compare-overview.component.html',
   styleUrls: ['./compare-overview.component.scss'] ,
   standalone: true,
-  imports: [CommonModule, MatIconModule,  FlexLayoutModule, MatSelectModule, MatToolbarModule, MatButtonModule, MatListModule],
+  imports: [CommonModule, MatIconModule,  , MatSelectModule, MatToolbarModule, MatButtonModule, MatListModule],
 })
 export class CompareOverviewComponent implements OnInit {
 

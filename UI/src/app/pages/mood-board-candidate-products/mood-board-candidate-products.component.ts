@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { Subscription } from 'rxjs';
-import { FlexLayoutModule, MediaChange, MediaObserver } from '@angular/flex-layout';
+import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,7 @@ import { ProductItemComponent } from '../../shared/product-item/product-item.com
   templateUrl: './mood-board-candidate-products.component.html',
   styleUrls: ['./mood-board-candidate-products.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatButtonModule,MatListModule, MatPaginatorModule, ProductItemComponent ]
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatButtonModule,MatListModule, MatPaginatorModule, ProductItemComponent ]
 })
 export class MoodBoardCandidateProductsComponent implements OnInit, OnDestroy {
   // @ViewChild(SwiperDirective) directiveRef: SwiperDirective;

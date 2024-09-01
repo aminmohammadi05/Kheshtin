@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FlexLayoutModule, MediaObserver } from '@angular/flex-layout';
+import { , MediaObserver } from '@angular/flex-layout';
 import { Observable } from 'rxjs';
 
 import momentj from 'jalali-moment';

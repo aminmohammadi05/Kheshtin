@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
 import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -38,7 +38,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
   templateUrl: './design-office-projects.component.html',
   styleUrls: ['./design-office-projects.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatButtonModule, MatSidenavModule, FlexLayoutModule, ReactiveFormsModule, MatProgressSpinnerModule, MatFormFieldModule, DesignOfficeDetailSearchComponent, DesignOfficesSearchResultsFiltersComponent, DesignOfficeItemComponent, PaginationComponent, CategoriesComponent],
+  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatButtonModule, MatSidenavModule, ReactiveFormsModule, MatProgressSpinnerModule, MatFormFieldModule, DesignOfficeDetailSearchComponent, DesignOfficesSearchResultsFiltersComponent, DesignOfficeItemComponent, PaginationComponent, CategoriesComponent],
 })
 export class DesignOfficeProjectsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() designOffice: any;

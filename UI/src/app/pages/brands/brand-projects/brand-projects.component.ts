@@ -10,7 +10,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { tap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,7 +29,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
   templateUrl: './brand-projects.component.html',
   styleUrls: ['./brand-projects.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  FlexLayoutModule, PaginationComponent],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  , PaginationComponent],
 })
 export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;

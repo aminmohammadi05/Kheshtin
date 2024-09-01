@@ -12,14 +12,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 // import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @Component({
   selector: 'app-office-project-item',
   templateUrl: './office-project-item.component.html',
   styleUrls: ['./office-project-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIconModule, MatButtonModule, MatCardModule, FlexLayoutModule],
+  imports: [CommonModule, RouterModule, MatIconModule, MatButtonModule, MatCardModule, ],
 })
 export class OfficeProjectItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() project: any;

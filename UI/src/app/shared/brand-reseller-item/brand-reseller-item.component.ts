@@ -8,7 +8,7 @@ import moment from 'jalali-moment'; // add this 1 of 4
 import { Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { AuthService } from '../../services/auth.service';
 import { ProductsService } from '../../services/products.service';
@@ -18,7 +18,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './brand-reseller-item.component.html',
   styleUrls: ['./brand-reseller-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule,  FlexLayoutModule],
+  imports: [CommonModule, MatCardModule,  ],
 })
 export class BrandResellerItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brandReseller: any;

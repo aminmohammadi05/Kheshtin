@@ -11,7 +11,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -41,7 +41,7 @@ import { emailValidator } from '../../../theme/utils/app-validators';
   templateUrl: './design-office-detail.component.html',
   styleUrls: ['./design-office-detail.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatTabsModule, MatButtonModule, MatSidenavModule, FlexLayoutModule, ReactiveFormsModule, MatProgressSpinnerModule, MatFormFieldModule, DesignOfficeVideosComponent, DesignOfficeProjectsComponent, RatingComponent, PaginationComponent],
+  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatTabsModule, MatButtonModule, MatSidenavModule, ReactiveFormsModule, MatProgressSpinnerModule, MatFormFieldModule, DesignOfficeVideosComponent, DesignOfficeProjectsComponent, RatingComponent, PaginationComponent],
 })
 export class DesignOfficeDetailComponent implements OnInit, OnDestroy, AfterViewInit  {
   @ViewChild('sidenav', { static: true }) sidenav: any;

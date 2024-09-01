@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,7 +20,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, ReactiveFormsModule,  FlexLayoutModule, MatTableModule ],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, ReactiveFormsModule,  , MatTableModule ],
 })
 export class ProfileComponent implements OnInit, AfterViewInit {
   professionalAreaList!: Observable<ProfessionalArea[]>;

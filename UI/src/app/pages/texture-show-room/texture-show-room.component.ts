@@ -20,7 +20,7 @@ declare let html2canvas: any;
 
 
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
@@ -38,7 +38,7 @@ import { emailValidator } from '../../theme/utils/app-validators';
   templateUrl: './texture-show-room.component.html',
   styleUrls: ['./texture-show-room.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatExpansionModule,  FlexLayoutModule, MatDividerModule],
+  imports: [CommonModule, MatCardModule, MatExpansionModule,  , MatDividerModule],
   encapsulation: ViewEncapsulation.None
 })
 export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewInit  {
@@ -348,7 +348,7 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
   selector: 'app-texture-show-room-download-dialog',
   templateUrl: 'texture-show-room-download-dialog.html',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatExpansionModule,  FlexLayoutModule, MatDividerModule],
+  imports: [CommonModule, MatIconModule, MatCardModule, MatExpansionModule,  , MatDividerModule],
 })
 export class TextureShowRoomDownloadDialogComponent implements OnInit {
   public settings: Settings;

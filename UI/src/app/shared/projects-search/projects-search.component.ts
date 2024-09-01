@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ProjectCategory } from '../../models/project-category';
 import { ProjectSearch } from '../../models/project-search';
@@ -20,7 +20,7 @@ import { BasicDataService } from '../../services/basic-data.service';
   templateUrl: './projects-search.component.html',
   styleUrls: ['./projects-search.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, FlexLayoutModule, ReactiveFormsModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule],
 })
 export class ProjectsSearchComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() variant = 1;

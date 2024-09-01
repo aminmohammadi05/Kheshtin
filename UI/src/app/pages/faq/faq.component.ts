@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { GetInTouchComponent } from '../../shared/get-in-touch/get-in-touch.comp
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule, MatProgressSpinnerModule, MatExpansionModule, GetInTouchComponent],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, MatExpansionModule, GetInTouchComponent],
 })
 export class FaqComponent implements OnInit {
   public faqs = [

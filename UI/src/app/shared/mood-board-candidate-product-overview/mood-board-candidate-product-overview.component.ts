@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +21,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './mood-board-candidate-product-overview.component.html',
   styleUrls: ['./mood-board-candidate-product-overview.component.scss'],
   standalone: true,
-  imports: [CommonModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatIconModule, MatToolbarModule, MatListModule]
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatToolbarModule, MatListModule]
 })
 export class MoodBoardCandidateProductOverviewComponent implements OnInit {
 

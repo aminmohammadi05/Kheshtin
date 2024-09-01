@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './our-services.component.html',
   styleUrls: ['./our-services.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, FlexLayoutModule],
+  imports: [CommonModule, MatCardModule, ],
 })
 export class OurServicesComponent implements OnInit {
   @Input()

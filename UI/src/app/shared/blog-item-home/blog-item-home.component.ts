@@ -12,7 +12,7 @@ import { Route, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -29,7 +29,7 @@ import { OrderByPipe } from '../../theme/pipes/order-by.pipe';
   templateUrl: './blog-item-home.component.html',
   styleUrls: ['./blog-item-home.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, RouterModule,  FlexLayoutModule, BlogBagTypePipe, OrderByPipe],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, RouterModule,  , BlogBagTypePipe, OrderByPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BlogItemHomeComponent implements OnInit, AfterViewInit, OnChanges {
