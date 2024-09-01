@@ -30,9 +30,9 @@
 
       <mat-sidenav-content ngClass.gt-sm="distance">
 
-        <div fxLayout="row wrap" class="properties-wrapper mt-0">
+        <div cdkLayout="row wrap" class="properties-wrapper mt-0">
 
-          <!-- <div fxFlex="100" class="px-2 pb-2 pt-0">                
+          <!-- <div cdkFlex="100" class="px-2 pb-2 pt-0">                
 <app-properties-toolbar [showSidenavToggle]="!sidenavOpen"
                      (SidenavToggle)="sidenav.toggle()"
                      (ChangeCount)="changeCount($event)"
@@ -41,9 +41,9 @@
 </app-properties-toolbar>
 </div> -->
 
-          <div fxFlex="100" fxLayoutAlign="start start" class="p-2">
+          <div cdkFlex="100" cdkLayoutAlign="start start" class="p-2">
             <mat-chip-listbox [ngClass]="(settings.rtl) ? 'ml-2' : 'mr-2'">
-              <div fxFlex="row" fxLayoutAlign="center center">
+              <div cdkFlex="row" cdkLayoutAlign="center center">
                 برندها
                 <mat-chip selected disableRipple="true"  >
                    {{ searchFields.pageQuery.totalItems }} عدد
@@ -55,13 +55,13 @@
             </app-brands-search-results-filters>
           </div>
 
-          <div *ngFor="let brand of brands" [fxFlex]="(viewType=='grid') ? viewCol : 100"
+          <div *ngFor="let brand of brands" [cdkFlex]="(viewType=='grid') ? viewCol : 100"
             class="item">
             <app-brand-item [brand]="brand" [viewType]="viewType" [viewColChanged]="viewCol" [fullWidthPage]="false">
             </app-brand-item>
           </div>
 
-          <div  fxFlex="100" fxLayoutAlign="center center"
+          <div  cdkFlex="100" cdkLayoutAlign="center center"
             [style.min-height.px]="200">
             <mat-spinner *ngIf="isLoading"></mat-spinner>
             <mat-chip-listbox *ngIf="searchFields.pageQuery.totalItems === 0">
@@ -71,7 +71,7 @@
 </mat-chip-listbox> 
           </div>
 
-          <div fxFlex="100" fxLayoutAlign="center center" class="p-2">
+          <div cdkFlex="100" cdkLayoutAlign="center center" class="p-2">
             <!-- <mat-paginator [length]="searchFields.pageQuery.totalItems"
               [pageSize]="12" [hidePageSize]="true"
               (page)="onPageChange($event)" class="w-100 mat-elevation-z1">

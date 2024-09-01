@@ -7,7 +7,6 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, tap, switchMap, map } from 'rxjs/operators';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { AppSettings, Settings } from '../../app.settings';
 import { PageImages } from '../../models/page-images';
 import { Pagination } from '../../models/pagination';
@@ -68,7 +67,6 @@ private route= inject( ActivatedRoute);
               private authService= inject( AuthService);
               public appSettings= inject( AppSettings);
               public initializeService= inject( InitializeService);
-              public mediaObserver= inject( MediaObserver);
               private cdRef= inject( ChangeDetectorRef);
   constructor() {
                 this.settings = this.appSettings.createNew()

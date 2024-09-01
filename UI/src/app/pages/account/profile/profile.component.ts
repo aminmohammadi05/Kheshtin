@@ -20,7 +20,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, ReactiveFormsModule,  , MatTableModule ],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, ReactiveFormsModule, MatTableModule ],
 })
 export class ProfileComponent implements OnInit, AfterViewInit {
   professionalAreaList!: Observable<ProfessionalArea[]>;

@@ -4,9 +4,9 @@
             <div *ngFor="let slide of (slides | async); let ind = index" class="swiper-slide">               
                 
                 
-                <div fxLayout="row wrap" fxLayoutAlign="center" style="padding-left:4rem;padding-right:2rem;" class="slide-info" [dir]="(settings.rtl) ? 'rtl' : 'ltr'">
-                    <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.gt-xs="25">
-                        <div fxLayout="column" fxLayoutAlign="center center" style="padding-bottom: 12rem;">
+                <div cdkLayout="row wrap" cdkLayoutAlign="center" style="padding-left:4rem;padding-right:2rem;" class="slide-info" [dir]="(settings.rtl) ? 'rtl' : 'ltr'">
+                    <div cdkFlex="100" cdkFlex.gt-sm="25" cdkFlex.gt-xs="25">
+                        <div cdkLayout="column" cdkLayoutAlign="center center" style="padding-bottom: 12rem;">
                             <div style="place-content: center;
                             align-items: center;
                             flex-direction: row;
@@ -22,7 +22,7 @@
                         </div>
                         <div style="text-align: center;">
                             <h1 class="slide-title">{{currentSlide?.name}}</h1>
-                            <p fxLayout="row" class="address mt-0 mb-2" style="display: flex;
+                            <p cdkLayout="row" class="address mt-0 mb-2" style="display: flex;
                             align-items: center;
                             justify-content: center;">
                                 <span>{{(getCategoriesNames() | async)}}</span>
@@ -30,7 +30,7 @@
                         </div>
                         
                     </div>
-                     <mat-card  fxFlex="100" fxFlex.gt-sm="75" fxFlex.gt-xs="75" class="p-4" style="text-align: center; height:25rem;display: flex;
+                     <mat-card  cdkFlex="100" cdkFlex.gt-sm="75" cdkFlex.gt-xs="75" class="p-4" style="text-align: center; height:25rem;display: flex;
                      align-items: center;
                      justify-content: center;">
                         <!-- <img style="width:20rem;"  [src]="slide.productFiles[0].reservedField2" /> -->
@@ -41,10 +41,10 @@
                     
                       
                 </div>
-                <div fxLayout="row" >
+                <div cdkLayout="row" >
                     <div *ngFor="let col of getProductFilesColors(slide); let indInner = index" class="color-span"  [ngStyle]="{ 'background-color': col}"></div>
                 </div>
-                <div fxLayout="column" fxLayoutAlign="center center">
+                <div cdkLayout="column" cdkLayoutAlign="center center">
                     
                     
                     <button style="background-color: #ff6363; color: white !important; border-radius: 20px;" mat-button (click)="addToMoodBoard(slide)" >افزودن به مودبرد</button>
@@ -66,9 +66,9 @@
             <div *ngFor="let slide of (candidateSlides | async); let ind = index" class="swiper-slide">               
                 
                 
-                <div fxLayout="column" fxLayoutAlign="center center" style="padding-left:4rem; padding-right:2rem;" class="slide-info" [dir]="(settings.rtl) ? 'rtl' : 'ltr'">
-                    <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.gt-xs="25">
-                        <div fxLayout="column" fxLayoutAlign="center" style="padding-bottom: 12rem;">
+                <div cdkLayout="column" cdkLayoutAlign="center center" style="padding-left:4rem; padding-right:2rem;" class="slide-info" [dir]="(settings.rtl) ? 'rtl' : 'ltr'">
+                    <div cdkFlex="100" cdkFlex.gt-sm="25" cdkFlex.gt-xs="25">
+                        <div cdkLayout="column" cdkLayoutAlign="center" style="padding-bottom: 12rem;">
                             <div style="place-content: center;
                             align-items: center;
                             flex-direction: row;
@@ -84,7 +84,7 @@
                         </div>
                         <div style="text-align: center;">
                             <h1 class="slide-title">{{currentSlide?.name}}</h1>
-                            <p fxLayout="row" class="address mt-0 mb-2" style="display: flex;
+                            <p cdkLayout="row" class="address mt-0 mb-2" style="display: flex;
                             align-items: center;
                             justify-content: center;">
                                 <span>{{(getCategoriesNames() | async)}}</span>
@@ -92,7 +92,7 @@
                         </div>
                         
                     </div>
-                     <mat-card fxFlex="100" fxFlex.gt-sm="75" fxFlex.gt-xs="75" class="p-4" style="text-align: center; height:25rem;display: flex;
+                     <mat-card cdkFlex="100" cdkFlex.gt-sm="75" cdkFlex.gt-xs="75" class="p-4" style="text-align: center; height:25rem;display: flex;
                      align-items: center;
                      justify-content: center;">
                         <!-- <img style="width:20rem;"  [src]="slide.productFiles[0].reservedField2" /> -->
@@ -102,10 +102,10 @@
                     </mat-card> 
                     
                 </div>
-                <div fxLayout="row">
+                <div cdkLayout="row">
                     <div *ngFor="let col of getProductFilesColors(slide.product); let indInner = index" class="color-span"  [ngStyle]="{ 'background-color': col}"></div>
                 </div>
-                <div fxLayout="column" fxLayoutAlign="center">
+                <div cdkLayout="column" cdkLayoutAlign="center">
                     
                     <button style="background-color: #ff6363; color: white !important; border-radius: 20px;" mat-button (click)="addToMoodBoard(slide)" >افزودن به مودبرد</button>
                 </div>

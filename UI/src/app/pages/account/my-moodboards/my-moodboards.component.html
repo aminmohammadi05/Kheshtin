@@ -7,13 +7,13 @@
 
 <mat-sidenav-content ngClass.gt-sm="distance"> 
 
-<div fxLayout="row wrap" class="properties-wrapper mt-0">  
+<div cdkLayout="row wrap" class="properties-wrapper mt-0">  
 
-<div *ngFor="let moodBoard of (dataSource.moodBoards$ | async)" [fxFlex]="(viewType=='grid') ? viewCol : 100"  class="item">                         
+<div *ngFor="let moodBoard of (dataSource.moodBoards$ | async)" [cdkFlex]="(viewType=='grid') ? viewCol : 100"  class="item">                         
 <app-mood-board-item [moodBoard]="moodBoard" [viewType]="viewType" [viewColChanged]="viewCol" [fullWidthPage]="false"></app-mood-board-item>
 </div>
 
-<div *ngIf="(dataSource.moodBoards$ | async)?.length == 0" fxFlex="100" fxLayoutAlign="center center" [style.min-height.px]="200">                
+<div *ngIf="(dataSource.moodBoards$ | async)?.length == 0" cdkFlex="100" cdkLayoutAlign="center center" [style.min-height.px]="200">                
 <mat-spinner ></mat-spinner>
 <!-- <mat-chip-listbox *ngIf="message">
   <mat-chip selected disableRipple="true" color="warn" class="uppercase ws-nowrap">
@@ -22,7 +22,7 @@
 </mat-chip-listbox>  -->
 </div>            
 
-<div  fxFlex="100" fxLayoutAlign="center center" class="p-2">
+<div  cdkFlex="100" cdkLayoutAlign="center center" class="p-2">
 <mat-paginator [length]="(dataSource.pagination$ | async)?.totalItems"
             [pageSize]="(dataSource.pagination$ | async)?.itemsPerPage"
             [hidePageSize]="true"

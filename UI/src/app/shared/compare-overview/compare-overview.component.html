@@ -1,6 +1,6 @@
-<mat-toolbar fxLayoutAlign="space-between center">      
+<mat-toolbar cdkLayoutAlign="space-between center">      
   <a routerLink="/compare" (click)="hideSheet(true)" mat-raised-button color="primary">مقایسه - {{ products.length }}</a>        
-  <div fxLayout="row" fxLayoutAlign="end center">
+  <div cdkLayout="row" cdkLayoutAlign="end center">
       <button mat-icon-button (click)="productService.Data.compareList.length = 0; hideSheet(false)" matTooltip="حذف لیست مقایسه">
         <mat-icon color="warn" class="mat-icon-lg">cancel</mat-icon> 
       </button>

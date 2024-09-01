@@ -15,7 +15,7 @@ import { SmallBlogItemComponent } from '../small-blog-item/small-blog-item.compo
   templateUrl: './similar-blogs-carousel.component.html',
   styleUrls: ['./similar-blogs-carousel.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule,  , SmallBlogItemComponent],
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, SmallBlogItemComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SimilarBlogsCarouselComponent implements OnInit, AfterViewInit {

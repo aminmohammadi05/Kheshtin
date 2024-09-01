@@ -1,6 +1,6 @@
-<mat-toolbar fxLayoutAlign="space-between center">      
+<mat-toolbar cdkLayoutAlign="space-between center">      
   <a routerLink="/mood-board-candidate-products" (click)="hideSheet(true)" mat-raised-button color="primary">تعداد - {{ (products | async)?.length }}</a>        
-  <div fxLayout="row" fxLayoutAlign="end center">
+  <div cdkLayout="row" cdkLayoutAlign="end center">
       <button mat-icon-button (click)="hideSheet(false)" matTooltip="حذف لیست مقایسه">
         <mat-icon color="warn" class="mat-icon-lg">cancel</mat-icon> 
       </button>

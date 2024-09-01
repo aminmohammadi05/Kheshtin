@@ -2,9 +2,10 @@
   <div class="px-3">
       <div class="theme-container">
         <h1 class="section-title"> بلاگ جدید</h1>
-        <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxLayout.sm="column"  fxLayout.xs="column"  class="properties-wrapper" >
-          <div *ngFor="let blog of recentBlogs" [fxFlex]="(viewType=='grid') ? viewCol : 100" fxLayout.sm="row"  fxLayout.xs="row" class="item">
-              <app-blog-item-home [blog]="blog" [viewType]="viewType" fxFlex="100" fxFlex.sm="95" fxFlex.xs="95" ></app-blog-item-home>
+        <div cdkLayout="row wrap" cdkLayoutAlign="space-between center"  cdkLayout.sm="column"  cdkLayout.xs="column"  class="properties-wrapper" >
+          <div *ngFor="let blog of recentBlogs"  cdkLayout.sm="row"  cdkLayout.xs="row" class="item">
+            <!-- [cdkFlex]="(viewType=='grid') ? viewCol : 100" -->
+              <app-blog-item-home [blog]="blog" [viewType]="viewType" cdkFlex="100" cdkFlex.sm="95" cdkFlex.xs="95" ></app-blog-item-home>
           </div>
       </div>
           

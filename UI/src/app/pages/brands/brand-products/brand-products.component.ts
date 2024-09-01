@@ -37,7 +37,7 @@ import { PropertiesSearchComponent } from '../../../shared/properties-search/pro
   templateUrl: './brand-products.component.html',
   styleUrls: ['./brand-products.component.css'],
   standalone: true,
-  imports: [CommonModule,MatCardModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatSidenavModule,  , PaginationComponent, PropertiesSearchComponent, ProductItemComponent, PropertiesSearchResultsFiltersComponent],
+  imports: [CommonModule,MatCardModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatSidenavModule, PaginationComponent, PropertiesSearchComponent, ProductItemComponent, PropertiesSearchResultsFiltersComponent],
 })
 export class BrandProductsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;

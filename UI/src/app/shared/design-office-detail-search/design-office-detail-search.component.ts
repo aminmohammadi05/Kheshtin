@@ -18,7 +18,7 @@ import { BasicDataService } from '../../services/basic-data.service';
   templateUrl: './design-office-detail-search.component.html',
   styleUrls: ['./design-office-detail-search.component.css'],
   standalone: true,
-  imports: [CommonModule, MatCardModule,  , MatSelectModule, MatFormFieldModule, ReactiveFormsModule],
+  imports: [CommonModule, MatCardModule, MatSelectModule, MatFormFieldModule, ReactiveFormsModule],
 })
 export class DesignOfficeDetailSearchComponent implements OnInit, AfterViewInit {
   @Input() officeId = '';

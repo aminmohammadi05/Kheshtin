@@ -19,8 +19,9 @@
     
     <div class="theme-container" *ngIf="showProductsSection">
         <mat-spinner *ngIf="isLoading"></mat-spinner> 
-        <div fxLayout="row wrap" class="properties-wrapper" >
-            <div *ngFor="let product of products" [fxFlex]="(viewType=='grid') ? viewCol : 100" class="item">
+        <div cdkLayout="row wrap" class="properties-wrapper" >
+            <div *ngFor="let product of products"  class="item">
+                <!-- [cdkFlex]="(viewType=='grid') ? viewCol : 100" -->
                 <app-product-item [product]="product" [viewType]="viewType"></app-product-item>
             </div>
         </div>

@@ -268,8 +268,8 @@
 <!-- <div >
         <form [formGroup]="verticalForm" class="search-wrapper search-padding" [ngClass]="'variant-'+variant">
 
-            <div [fxLayout]="(vertical) ? 'column' : 'row wrap'"> 
-                <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+            <div [cdkLayout]="(vertical) ? 'column' : 'row wrap'"> 
+                <div cdkFlex="100" cdkFlex.gt-sm="22" cdkFlex.sm="50" class="p-2">
                     <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
                         <mat-label>شاخه ها</mat-label>
                         <mat-select placeholder="لطفا شاخه های مورد نظر خود را انتخاب کنید" formControlName="categoriesBox" (selectionChange)="categoryChanged($event)" multiple>
@@ -280,7 +280,7 @@
                           
                     </mat-form-field>
                 </div>
-                <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+                <div cdkFlex="100" cdkFlex.gt-sm="22" cdkFlex.sm="50" class="p-2">
                     <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
                         <mat-label>تولید کنندگان</mat-label>
                         <mat-select placeholder="لطفا تولید کنندگان مورد نظر خود را از لیست انتخاب کنید" (selectionChange)="brandChanged($event)" formControlName="brandsBox" multiple>
@@ -290,7 +290,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+                <div cdkFlex="100" cdkFlex.gt-sm="22" cdkFlex.sm="50" class="p-2">
                     <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
                         <mat-label>جنس</mat-label> 
                         <mat-select placeholder="لطفا جنس را انتخاب کنید" formControlName="materialsBox" (selectionChange)="materialChanged($event)">
@@ -300,7 +300,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+                <div cdkFlex="100" cdkFlex.gt-sm="22" cdkFlex.sm="50" class="p-2">
                     <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
                         <mat-label>رنگ</mat-label> 
                         <mat-select placeholder="لطفا رنگ را انتخاب کنید" formControlName="colorsBox" (selectionChange)="colorChanged($event)">

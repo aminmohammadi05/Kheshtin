@@ -1,6 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { , MediaObserver } from '@angular/flex-layout';
 import { Observable } from 'rxjs';
 
 import momentj from 'jalali-moment';
@@ -29,7 +28,6 @@ export class EventDetailTimelineBoxComponent implements OnInit{
   public widgetsContentBox!: ElementRef<any>;
   public events = [];
   public days = [];
-  public mediaObserver!: MediaObserver;
    private mediaMatcher!: MediaMatcher;
   constructor( ) {
     

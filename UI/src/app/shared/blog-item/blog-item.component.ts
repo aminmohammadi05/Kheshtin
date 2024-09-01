@@ -19,7 +19,7 @@ import { BlogBagTypePipe } from '../../theme/pipes/blog-bag.pipe';
   templateUrl: './blog-item.component.html',
   styleUrls: ['./blog-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  , RouterModule, BlogBagTypePipe],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, RouterModule, BlogBagTypePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BlogItemComponent implements OnInit, AfterViewInit, OnChanges {

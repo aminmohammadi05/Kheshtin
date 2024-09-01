@@ -20,7 +20,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './my-projects.component.html',
   styleUrls: ['./my-projects.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule,  , MatPaginatorModule],
+  imports: [CommonModule, MatIconModule, MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule, MatPaginatorModule],
 })
 export class MyProjectsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'image', 'title', 'published', 'actions' ];

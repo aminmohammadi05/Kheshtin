@@ -1,11 +1,11 @@
-<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" fxLayout="row wrap">  
-    <div fxLayout="row" fxLayoutAlign="center center" class="address m-0" style="padding-top: 1.31rem;
+<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" cdkLayout="row wrap">  
+    <div cdkLayout="row" cdkLayoutAlign="center center" class="address m-0" style="padding-top: 1.31rem;
     padding-bottom: 1.31rem;">
         
         <img *ngIf="officeProject.designOffice && officeProject.designOffice.contentItems[0].logo.urls[0] " src="https://orchard.kheshtin.ir{{officeProject.designOffice.contentItems[0].logo.urls[0]}}"
                     class="swiper-lazy brand-logo">
       </div>
-  <div fxFlex="100" fxShrink="3" [fxFlex.gt-sm]="(viewType=='list') ? 40 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section">
+  <div cdkFlex="100" fxShrink="3" [cdkFlex.gt-sm]="(viewType=='list') ? 40 : 100" [cdkFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section">
 
       
      
@@ -29,13 +29,13 @@
       
 
   </div>
-  <div fxFlex="100" [fxFlex.gt-sm]="(viewType=='list') ? 60 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" >
+  <div cdkFlex="100" [cdkFlex.gt-sm]="(viewType=='list') ? 60 : 100" [cdkFlex.sm]="(viewType=='list') ? 50 : 100" >
 
-      <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
+      <div cdkLayout="column" cdkLayoutAlign="start stretch" class="h-100">
           <mat-card-content class="mb-0">
               
               <!-- TODO: Check if this works fine -->
-              <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div cdkLayout="row" cdkLayoutAlign="space-between center">
                 <div>
                     <span class="title"><a [routerLink]="['/officeprojects', officeProject.contentItemId, officeProject.userTitle]" style="color: #5C5B5B; font-size: .9rem">{{officeProject.userTitle}}</a></span>
                     <br/>

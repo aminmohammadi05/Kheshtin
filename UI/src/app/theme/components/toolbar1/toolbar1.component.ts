@@ -7,7 +7,7 @@ import moment from 'jalali-moment';
 import { Router } from '@angular/router';
 
 
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
+
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchDialogComponent } from './search-dialog/search-dialog.component';
@@ -57,7 +57,6 @@ export class Toolbar1Component implements OnInit {
   public appSettings= inject(AppSettings);
   public authService= inject(AuthService);
   public searchDialog= inject(MatDialog);
-  public mediaObserver= inject(MediaObserver);
   private _router= inject(Router);
   // private http= inject(HttpClient);
 

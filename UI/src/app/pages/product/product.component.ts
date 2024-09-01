@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
-import { , MediaChange, MediaObserver } from '@angular/flex-layout';
+
  import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, of, combineLatest, zip, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,15 +26,13 @@ import { ProductsService } from '../../services/products.service';
 import { BrandsCarouselComponent } from '../../shared/brands-carousel/brands-carousel.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { ProductItemComponent } from '../../shared/product-item/product-item.component';
-import { PropertiesSearchResultsFiltersComponent } from '../../shared/properties-search-results-filters/properties-search-results-filters.component';
-import { PropertiesSearchComponent } from '../../shared/properties-search/properties-search.component';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
   standalone: true,
-  imports : [CommonModule, MatIconModule, MatCardModule, MatSidenavModule, BrandsCarouselComponent, MatChipsModule, PropertiesSearchResultsFiltersComponent, PaginationComponent, PropertiesSearchComponent, ProductItemComponent]
+  imports : [CommonModule, MatIconModule, MatCardModule, MatSidenavModule, BrandsCarouselComponent, MatChipsModule, PaginationComponent, ProductItemComponent]
 })
 export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
@@ -80,7 +78,6 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   public appSettings= inject( AppSettings);
               public initializeService= inject( InitializeService);
               private authService= inject( AuthService);
-              public mediaObserver= inject( MediaObserver);
               private route= inject( ActivatedRoute);
               private router= inject( Router);
               public basicDataService= inject( BasicDataService); 

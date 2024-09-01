@@ -1,15 +1,15 @@
 <form [formGroup]="verticalForm" class="search-wrapper" [ngClass]="'variant-'+variant">
 
-  <div [fxLayout]="(vertical) ? 'column' : 'row wrap'"> 
-      <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-2" style="width: 100%">
+  <div [cdkLayout]="(vertical) ? 'column' : 'row wrap'"> 
+      <div cdkFlex="100" cdkFlex.gt-sm="100" cdkFlex.sm="50" class="p-2" style="width: 100%">
           <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()" style="width: 100%">
               <mat-label>جستجو</mat-label>
               <input matInput placeholder="متن جستجو" autocomplete="off" formControlName="searchBox">                  
           </mat-form-field>
       </div>
-      <div *ngIf="showMore" [fxLayout]="(vertical) ? 'column' : 'row wrap'" class="w-100">
+      <div *ngIf="showMore" [cdkLayout]="(vertical) ? 'column' : 'row wrap'" class="w-100">
           
-          <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="50" class="p-2" style="width: 100%">
+          <div cdkFlex="100" cdkFlex.gt-sm="33.3" cdkFlex.sm="50" class="p-2" style="width: 100%">
               <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()" style="width: 100%">
                   <mat-label>شاخه ها</mat-label>
                   <mat-select placeholder="لطفا شاخه های مورد نظر خود را انتخاب کنید" (selectionChange)="categoryChanged($event)" formControlName="categories" multiple>
@@ -20,7 +20,7 @@
               </mat-form-field>
               
           </div>
-          <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="50" class="p-2" style="width: 100%">
+          <div cdkFlex="100" cdkFlex.gt-sm="33.3" cdkFlex.sm="50" class="p-2" style="width: 100%">
               <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()" style="width: 100%">
                   <mat-label>طراحان</mat-label>
                   <mat-select placeholder="لطفا طراحان مورد نظر خود را از لیست انتخاب کنید" (selectionChange)="designerChanged($event)" formControlName="designers" multiple>

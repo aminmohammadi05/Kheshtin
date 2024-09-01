@@ -4,8 +4,8 @@
 
     <!-- [ngStyle]="selectedColor" -->
     <div>
-        <div fxLayout="row wrap">
-            <div fxFlex="20" fxFlex.gt-xs="20" fxLayout="column" class="">
+        <div cdkLayout="row wrap">
+            <div cdkFlex="20" cdkFlex.gt-xs="20" cdkLayout="column" class="">
                 <div id="controls">
                     <div class="sidebar-section">
                         <app-product-mood-board-search [selectedCategories]="selectedCategories"
@@ -13,13 +13,13 @@
                             [searchOnBtnClick]="settings.searchOnBtnClick" (SearchChange)="searchChanged($event)"
                             (SearchClick)="searchClicked()"></app-product-mood-board-search>
                         <div id="control-actions" class="sidebar-section">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <div fxFlex="45" class="menu-toggle control-btn">
+                            <div cdkLayout="row" cdkLayoutAlign="space-between center">
+                                <div cdkFlex="45" class="menu-toggle control-btn">
                                     <a id="">
                                         <button (click)="newMoodBoard()" class="button2">جدید</button>
                                     </a>
                                 </div>
-                                <div fxFlex="45" class="menu-toggle control-btn">
+                                <div cdkFlex="45" class="menu-toggle control-btn">
                                     <a id="">
                                         <button (click)="saveImage()" class="button2">ذخیره</button>
                                     </a>
@@ -34,18 +34,18 @@
                 </div>
             </div>
             <!-- Board -->
-            <div fxFlex="80" fxLayout="column" fxLayoutAlign="space-between center" class="my-3">
+            <div cdkFlex="80" cdkLayout="column" cdkLayoutAlign="space-between center" class="my-3">
 
 
                 <!-- Candidate Products List -->
-                <div id="candidateProductsSection" fxLayout="row nowrap" fxLayoutAlign="center center">
+                <div id="candidateProductsSection" cdkLayout="row nowrap" cdkLayoutAlign="center center">
 
-                    <div fxFlex class="candidate-products-title">محصولات کاندید</div>
+                    <div cdkFlex class="candidate-products-title">محصولات کاندید</div>
 
-                    <mat-tab-group header-less-tabs fxFlex="90">
+                    <mat-tab-group header-less-tabs cdkFlex="90">
                         <mat-tab>
-                            <div fxLayout="row nowrap" class="properties-wrapper mt-0" style="width: 100%;"
-                                fxLayoutAlign="center center">
+                            <div cdkLayout="row nowrap" class="properties-wrapper mt-0" style="width: 100%;"
+                                cdkLayoutAlign="center center">
                                 <div class="p-2">
                                     <mat-paginator [length]="(dataSource.pagination$ | async)?.totalItems"
                                         [pageSize]="(dataSource.pagination$ | async)?.itemsPerPage"
@@ -54,14 +54,14 @@
                                 </div>
 
                                 <div *ngFor="let product of (dataSource.products$ | async); let ind = index"
-                                    [fxFlex]="(viewType=='grid') ? viewCol : 100" class="item"
+                                    [cdkFlex]="(viewType=='grid') ? viewCol : 100" class="item"
                                     (click)="openPopUpDialog(ind)">
                                     <app-mood-board-product-item [product]="product" [viewType]="viewType"
                                         [viewColChanged]="viewCol" [fullWidthPage]="false">
                                     </app-mood-board-product-item>
                                 </div>
-                                <div *ngIf="(dataSource.products$ | async)?.length == 0" fxFlex="100"
-                                    fxLayoutAlign="center center" [style.min-height.px]="200">
+                                <div *ngIf="(dataSource.products$ | async)?.length == 0" cdkFlex="100"
+                                    cdkLayoutAlign="center center" [style.min-height.px]="200">
                                     <mat-spinner></mat-spinner>
                                     <!-- <mat-chip-listbox*ngIf="message">
                               <mat-chip selected disableRipple="true"  class="uppercase ws-nowrap">
@@ -73,8 +73,8 @@
                         </mat-tab>
 
                         <mat-tab>
-                            <div fxLayout="row nowrap" class="properties-wrapper mt-0" style="width: 100%;"
-                                fxLayoutAlign="center center">
+                            <div cdkLayout="row nowrap" class="properties-wrapper mt-0" style="width: 100%;"
+                                cdkLayoutAlign="center center">
                                 <div class="p-2">
                                     <mat-paginator [length]="(candidateDataSource.pagination$ | async)?.totalItems"
                                         [pageSize]="(candidateDataSource.pagination$ | async)?.itemsPerPage"
@@ -84,14 +84,14 @@
                                 </div>
 
                                 <div *ngFor="let product of (candidateDataSource.products$ | async); let ind = index"
-                                    [fxFlex]="(viewType=='grid') ? viewCol : 100" class="item"
+                                    [cdkFlex]="(viewType=='grid') ? viewCol : 100" class="item"
                                     (click)="openPopUpDialog(ind)">
                                     <app-mood-board-product-item [product]="product.product" [viewType]="viewType"
                                         [viewColChanged]="viewCol" [fullWidthPage]="false">
                                     </app-mood-board-product-item>
                                 </div>
-                                <div *ngIf="(candidateDataSource.products$ | async)?.length == 0" fxFlex="100"
-                                    fxLayoutAlign="center center" [style.min-height.px]="200">
+                                <div *ngIf="(candidateDataSource.products$ | async)?.length == 0" cdkFlex="100"
+                                    cdkLayoutAlign="center center" [style.min-height.px]="200">
                                     <mat-spinner></mat-spinner>
                                     <!-- <mat-chip-listbox*ngIf="message">
                               <mat-chip selected disableRipple="true"  class="uppercase ws-nowrap">
@@ -107,10 +107,10 @@
                 </div>
 
                 <!-- Moodboard -->
-                <div #screen fxFlex="100" fxLayoutAlign="space-around" fxLayout="row wrap" class="main-image-container">
+                <div #screen cdkFlex="100" cdkLayoutAlign="space-around" cdkLayout="row wrap" class="main-image-container">
 
                     <!-- The board -->
-                    <gridster fxFlex="89" #gridster [options]="options" [ngStyle]="selectedColor">
+                    <gridster cdkFlex="89" #gridster [options]="options" [ngStyle]="selectedColor">
                         <gridster-item [item]="item" *ngFor="let item of selectedProducts" style="background-repeat: no-repeat;
                     background-size: contain;
                     background-color: transparent;" [ngStyle]="getFileIdByColor(item)">
@@ -122,10 +122,10 @@
                     </gridster>
 
                     <!-- Layers and Options -->
-                    <div fxFlex="9" fxLayout="column" dir="rtl">
-                        <!-- <div fxLayout="column" fxLayoutAlign="space-between center">
+                    <div cdkFlex="9" cdkLayout="column" dir="rtl">
+                        <!-- <div cdkLayout="column" cdkLayoutAlign="space-between center">
 
-                    <div fxLayout="row">
+                    <div cdkLayout="row">
                         <button mat-button (click)="saveImage()" [disabled]="!moodBoard">
                             <mat-icon>save</mat-icon>
                         </button>
@@ -133,7 +133,7 @@
                             <mat-icon>add</mat-icon>
                         </button>
                     </div>
-                    <div fxLayout="row">
+                    <div cdkLayout="row">
                         <mat-label style="width: 50%; text-align: center;">رنگ </mat-label>
                         <input matInput style="width: 50%;" [style.background]="color1" [(colorPicker)]="color1"
                             (colorPickerOpen)="onEventLog('colorPickerOpen', $event)"
@@ -144,7 +144,7 @@
                     </div>
                 </div> -->
                         <div class='layers-title'>لایه ها</div>
-                        <app-tile-layers fxFlex class="layers-box box-shadow-c1" [products]="selectedProducts"
+                        <app-tile-layers cdkFlex class="layers-box box-shadow-c1" [products]="selectedProducts"
                             [searchFields]="searchFields" [currentProducts]="currentProducts"
                             (LayerChange)="layerChange($event)">
                         </app-tile-layers>

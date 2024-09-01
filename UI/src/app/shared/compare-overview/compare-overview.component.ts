@@ -19,7 +19,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './compare-overview.component.html',
   styleUrls: ['./compare-overview.component.scss'] ,
   standalone: true,
-  imports: [CommonModule, MatIconModule,  , MatSelectModule, MatToolbarModule, MatButtonModule, MatListModule],
+  imports: [CommonModule, MatIconModule, MatSelectModule, MatToolbarModule, MatButtonModule, MatListModule],
 })
 export class CompareOverviewComponent implements OnInit {
 

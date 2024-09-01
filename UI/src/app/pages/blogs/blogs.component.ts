@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import {  } from 'ngx-scrollbar';
 
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
-import { MediaObserver, MediaChange,  } from '@angular/flex-layout';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
@@ -38,7 +38,7 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule,MatSidenavModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,  , PaginationComponent, HeaderCarouselComponent, HeaderImageComponent, BlogsSearchComponent, BlogsSearchResultsFiltersComponent, BlogItemComponent],
+  imports: [CommonModule, MatIconModule,MatSidenavModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule, PaginationComponent, HeaderCarouselComponent, HeaderImageComponent, BlogsSearchComponent, BlogsSearchResultsFiltersComponent, BlogItemComponent],
 })
 export class BlogsComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;
@@ -74,7 +74,6 @@ export class BlogsComponent implements OnInit, AfterViewInit {
               private responsive= inject(BreakpointObserver);
               public basicService= inject(BasicDataService);
               private authService= inject(AuthService);
-              public mediaObserver= inject(MediaObserver);
               public initializeService= inject(InitializeService);
               private route= inject(ActivatedRoute);
               private router= inject(Router);

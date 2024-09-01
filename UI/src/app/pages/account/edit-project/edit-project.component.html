@@ -1,5 +1,5 @@
-<form [formGroup]="editForm" fxLayout="row wrap">
-  <div fxFlex="100" class="px-2">
+<form [formGroup]="editForm" cdkLayout="row wrap">
+  <div cdkFlex="100" class="px-2">
     <mat-form-field appearance="outline" class="w-100">
       <mat-icon matPrefix class="mr-1 text-muted">all_inbox</mat-icon>
       <mat-label>نام پروژه</mat-label>
@@ -8,7 +8,7 @@
     </mat-form-field>
   </div>
   
-  <div fxFlex="100" class="px-2">
+  <div cdkFlex="100" class="px-2">
     <mat-form-field appearance="outline" class="w-100 mt-1">
       <mat-label>استان</mat-label>
       <mat-select placeholder="انتخاب استان ..." formControlName="province"  (selectionChange)="provinceSelected()" required> 
@@ -20,7 +20,7 @@
   </mat-form-field>
   </div>
     
-    <div fxFlex="100" class="px-2">
+    <div cdkFlex="100" class="px-2">
       <mat-form-field appearance="outline" class="w-100 mt-1">
         <mat-label>شهر</mat-label>
         <mat-select placeholder="انتخاب شهر ..." formControlName="cities" >
@@ -30,12 +30,12 @@
         </mat-select>   
       </mat-form-field>
     </div>
-    <div fxFlex="100" class="px-2">
+    <div cdkFlex="100" class="px-2">
       <div class="mb-3">
         <input-file placeholder="تصویر" formControlName="projectMainPicture" fileLimit="5" fileAccept="image/*" fileSize="300"></input-file> 
     </div>
     </div>
-    <div fxFlex="100" class="px-2">
+    <div cdkFlex="100" class="px-2">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>شاخه ها</mat-label>
         <mat-select placeholder="لطفا شاخه های مورد نظر خود را انتخاب کنید" formControlName="projectCategory" multiple>
@@ -46,7 +46,7 @@
     </mat-form-field>
     </div>
     
-  <div fxFlex="100" class="px-2">
+  <div cdkFlex="100" class="px-2">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>وضعیت پروژه</mat-label>
       <mat-select placeholder="لطفا وضعیت پروژه را انتخاب کنید" formControlName="projectDevStatus">
@@ -56,14 +56,14 @@
       </mat-select>
   </mat-form-field>
   </div>
-  <div fxFlex="100" class="p-2">
+  <div cdkFlex="100" class="p-2">
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>توضیحات</mat-label>
         <textarea matInput placeholder="توضیحات" formControlName="projectDescription" required rows="5"></textarea>
         <mat-error *ngIf="editForm.controls.projectDescription.errors?.required">توضیحات پروژه الزامی است</mat-error>
     </mat-form-field>
     </div>
-    <div fxFlex="100" class="p-2">
+    <div cdkFlex="100" class="p-2">
     <mat-chip-listbox aria-label="Product selection" >
       <mat-chip *ngFor="let product of selectedProducts"
       [removable]="removable"
@@ -72,11 +72,11 @@
     </mat-chip-listbox>
     </div>
     <mat-divider></mat-divider>
-    <div fxFlex="100" class="p-2">
+    <div cdkFlex="100" class="p-2">
     <button mat-raised-button color="primary" (click)="openDialog()">انتخاب محصول</button>
     <input type="text" style="display: none" name="productList" [(ngModel)]="listOfProducts" formControlName="productList" required>
   </div>
-  <div fxFlex="100" class="p-2">
+  <div cdkFlex="100" class="p-2">
     <button mat-raised-button color="primary" (click)="saveChanges()">ذخیره</button>
   </div>
 </form>

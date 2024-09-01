@@ -2,14 +2,14 @@
     <div class="theme-container">
   
         <div class="my-3">
-          <div fxLayout="column" fxLayoutAlign="center center" class="text-center">  
+          <div cdkLayout="column" cdkLayoutAlign="center center" class="text-center">  
             <h1 class="uppercase">Frequently Asked Questions</h1>             
             <p>Click on a question to expand and reveal the answer.</p>
           </div>
           <mat-accordion multi="true">              
             <mat-expansion-panel *ngFor="let faq of faqs; let i = index;"  [expanded]="i === 0">
               <mat-expansion-panel-header>
-                <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+                <mat-panel-title cdkLayout="row" cdkLayoutAlign="space-between">
                     <div class="fw-500">{{faq.question}}</div>
                     <div fxShow="false" fxShow.gt-sm="true" class="text-muted">
                         {{faq.status}}  

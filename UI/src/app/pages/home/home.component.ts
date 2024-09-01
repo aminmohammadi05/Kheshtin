@@ -2,7 +2,6 @@ import { Component, OnInit, DoCheck, OnDestroy, AfterViewInit, ChangeDetectorRef
 import { Settings, AppSettings } from '../../app.settings';
 import { Property } from '../../app.models';
 import { Subscription, Observable, of, combineLatest, fromEvent, Subject, MonoTypeOperatorFunction } from 'rxjs';
-import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import { debounceTime, distinctUntilChanged, tap, map, switchMap, withLatestFrom, filter, mergeMap } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
@@ -93,7 +92,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
               public blogService: BlogService,
               public eventService: EventService,
               public router: Router,
-              public mediaObserver: MediaObserver,
               private cdRef: ChangeDetectorRef,
               private authService: AuthService) {
     this.settings = this.appSettings.createNew()

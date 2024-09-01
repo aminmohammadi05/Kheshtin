@@ -29,7 +29,7 @@ import { OrderByPipe } from '../../theme/pipes/order-by.pipe';
   templateUrl: './blog-item-home.component.html',
   styleUrls: ['./blog-item-home.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, RouterModule,  , BlogBagTypePipe, OrderByPipe],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, RouterModule, BlogBagTypePipe, OrderByPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BlogItemHomeComponent implements OnInit, AfterViewInit, OnChanges {

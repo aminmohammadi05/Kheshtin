@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
-import { , MediaChange, MediaObserver } from '@angular/flex-layout';
+
 import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -81,7 +81,6 @@ export class DesignOfficesComponent implements OnInit, OnDestroy, AfterViewInit 
               public basicService= inject(BasicDataService);
               public designOfficeService= inject(DesignOfficeService);
               private authService= inject(AuthService);
-              public mediaObserver= inject(MediaObserver);
               public initializeService= inject(InitializeService);
               private route= inject(ActivatedRoute);
               private router= inject(Router);

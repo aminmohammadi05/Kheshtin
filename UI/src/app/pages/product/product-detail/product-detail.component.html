@@ -17,18 +17,18 @@
                             <h2 class="fw-600"><a style="text-decoration: none; color: black;" [routerLink]="['/brands', product?.brandCollection.contentItems[0].brand.contentItems[0].contentItemId, product?.brandCollection.contentItems[0].brand.contentItems[0].displayText]">{{product.brandCollection.contentItems[0].brand.contentItems[0].displayText}}</a></h2>
                               <app-rating [ratingsCount]="product?.brandCollection.contentItems[0].brand.contentItems[0].ratingsCount" [ratingsValue]="product?.brandCollection.contentItems[0].brand.contentItems[0].ratingsValue"></app-rating>
                               <!-- <p class="mt-3 p-ellipsis">{{(brand | async)?.history}}</p>-->
-                              <p fxLayoutAlign="start center"><span class="mx-2"><a href="{{product?.brandCollection.contentItems[0].brand.contentItems[0].webSiteUrl.url}}" >{{product?.brandCollection.contentItems[0].brand.contentItems[0].webSiteUrl.text}}</a></span></p>
-                              <!-- <p fxLayoutAlign="start center"><mat-icon color="primary">email</mat-icon><span class="mx-2">{{(brand | async)?.email}}</span></p>
-                              <p fxLayoutAlign="start center"><mat-icon color="primary">call</mat-icon><span class="mx-2">{{(brand | async)?.phoneNumber}}</span></p> -->
+                              <p cdkLayoutAlign="start center"><span class="mx-2"><a href="{{product?.brandCollection.contentItems[0].brand.contentItems[0].webSiteUrl.url}}" >{{product?.brandCollection.contentItems[0].brand.contentItems[0].webSiteUrl.text}}</a></span></p>
+                              <!-- <p cdkLayoutAlign="start center"><mat-icon color="primary">email</mat-icon><span class="mx-2">{{(brand | async)?.email}}</span></p>
+                              <p cdkLayoutAlign="start center"><mat-icon color="primary">call</mat-icon><span class="mx-2">{{(brand | async)?.phoneNumber}}</span></p> -->
                               
                           </mat-card-content>
                           <mat-divider></mat-divider>
-                          <mat-card-actions fxLayoutAlign="space-between center">
-                              <div fxFlex="50" fxLayoutAlign="center center">
-                                  <a fxFlex="95" mat-raised-button class="uppercase brand-interaction-button" (click)="openDataRequestDialog()">درخواست  قیمت</a>
+                          <mat-card-actions cdkLayoutAlign="space-between center">
+                              <div cdkFlex="50" cdkLayoutAlign="center center">
+                                  <a cdkFlex="95" mat-raised-button class="uppercase brand-interaction-button" (click)="openDataRequestDialog()">درخواست  قیمت</a>
                               </div>
-                              <div fxFlex="50" fxLayoutAlign="center center">
-                                <a fxFlex="95" mat-raised-button class="uppercase brand-interaction-button" (click)="openContactDialog()"> اطلاعات تماس</a>
+                              <div cdkFlex="50" cdkLayoutAlign="center center">
+                                <a cdkFlex="95" mat-raised-button class="uppercase brand-interaction-button" (click)="openContactDialog()"> اطلاعات تماس</a>
                             </div>
                           </mat-card-actions>                              
                       </mat-card>
@@ -36,8 +36,8 @@
                 </div>
           </mat-sidenav>
           <mat-sidenav-content ngClass.gt-sm="distance" class="side-nav-padding">
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">             
-                  <div fxLayout="row" fxLayoutAlign="start center" >
+              <div cdkLayout="row" cdkLayout.xs="column" cdkLayoutAlign="space-between center">             
+                  <div cdkLayout="row" cdkLayoutAlign="start center" >
                     <div class="address mb-0" style="color: #7d7d7d;">
                         <span>{{(getCategoriesNames())}}</span>
                     </div>
@@ -99,13 +99,13 @@
               <div class="mt-3"> 
                 <div class="header-margin">
                     <h2 class="uppercase" ngClass.xs="text-center">{{product?.name}}</h2>
-                    <p *ngIf="product?.productionCode" fxLayout="row" fxLayoutAlign.xs="center" class="address mb-0">
+                    <p *ngIf="product?.productionCode" cdkLayout="row" cdkLayoutAlign.xs="center" class="address mb-0">
                         <span>{{product?.productionCode}}</span>
                         </p>
-                    <p fxLayout="row" fxLayoutAlign.xs="center" class="address mb-0">
+                    <p cdkLayout="row" cdkLayoutAlign.xs="center" class="address mb-0">
                         <span>{{(getCategoriesNames() )}}</span>
                     </p>
-                    <p fxLayout="row" fxLayoutAlign.xs="center" class="address mb-0">مناسب برای 
+                    <p cdkLayout="row" cdkLayoutAlign.xs="center" class="address mb-0">مناسب برای 
                         {{(getProductUsage())}}
                     </p>
                    
@@ -121,14 +121,14 @@
                   </div> -->
                 </div> 
               <div class="mt-3"> 
-                  <div fxLayoutAlign="center center"> 
+                  <div cdkLayoutAlign="center center"> 
                       <div class="uppercase"></div> 
                   </div>
                   <div>
                       <mat-accordion class="mat-elevation-z0 ">
                         <mat-expansion-panel class="mat-elevation-z0" [expanded]="true" *ngIf="(product?.productFile.contentItems | fileType: 14) && (product?.productFile.contentItems | fileType: 14).length > 0">
                             <mat-expansion-panel-header>  
-                                <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+                                <mat-panel-title cdkLayout="row" cdkLayoutAlign="space-between">
                                     <div class="fw-500">نمای سه بعدی</div>
                                     <div fxShow="false" fxShow.gt-xs="true" class="text-muted">
                                     </div>
@@ -143,7 +143,7 @@
                         </mat-expansion-panel>
                           <mat-expansion-panel class="mat-elevation-z0" [expanded]="false" *ngIf="(product?.productFile.contentItems | fileType: 4: 5: 6: 13) && (product?.productFile.contentItems | fileType: 4: 5: 6: 13).length > 0">
                               <mat-expansion-panel-header>  
-                                  <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+                                  <mat-panel-title cdkLayout="row" cdkLayoutAlign="space-between">
                                       <div class="fw-500">مدلهای سه بعدی</div>
                                       <div fxShow="false" fxShow.gt-xs="true" class="text-muted">
                                       </div>
@@ -168,7 +168,7 @@
                           <mat-divider *ngIf="(product?.productFile.contentItems | fileType: 2: 3) && (product?.productFile.contentItems | fileType:2: 3).length > 0"  class="devider-margin"></mat-divider>
                           <mat-expansion-panel class="mat-elevation-z0"  *ngIf="(product?.productFile.contentItems | fileType: 2: 3) && (product?.productFile.contentItems | fileType: 2: 3).length > 0">
                             <mat-expansion-panel-header>  
-                                <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+                                <mat-panel-title cdkLayout="row" cdkLayoutAlign="space-between">
                                     <div class="fw-500">تکسچر و متریال</div>
                                     <div fxShow="false" fxShow.gt-xs="true" class="text-muted">
                                     </div>
@@ -190,7 +190,7 @@
                         <mat-divider *ngIf="(product?.productFile.contentItems | fileType: 7) && (product?.productFile.contentItems | fileType: 7).length > 0" class="devider-margin"></mat-divider>
                           <mat-expansion-panel class="mat-elevation-z0" *ngIf="(product?.productFile.contentItems | fileType: 7) && (product?.productFile.contentItems | fileType: 7).length > 0">
                             <mat-expansion-panel-header>  
-                                <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+                                <mat-panel-title cdkLayout="row" cdkLayoutAlign="space-between">
                                     <div class="fw-500">کاتالوگ‌ها</div>
                                     <div fxShow="false" fxShow.gt-xs="true" class="text-muted">
                                         <!-- <span>Area: <span class="fw-500">{{plan.area.value}} {{plan.area.unit}}</span></span>
@@ -204,7 +204,7 @@
                         <mat-divider *ngIf="(product?.productFile.contentItems | fileType: 8) && (product?.productFile.contentItems | fileType: 8).length > 0" class="devider-margin"></mat-divider>
                         <mat-expansion-panel class="mat-elevation-z0" *ngIf="(product?.productFile.contentItems | fileType: 8) && (product?.productFile.contentItems | fileType: 8).length > 0">
                             <mat-expansion-panel-header>  
-                                <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+                                <mat-panel-title cdkLayout="row" cdkLayoutAlign="space-between">
                                     <div class="fw-500">ابعاد</div>
                                     <div fxShow="false" fxShow.gt-xs="true" class="text-muted">
                                         <!-- <span>Area: <span class="fw-500">{{plan.area.value}} {{plan.area.unit}}</span></span>
@@ -221,7 +221,7 @@
                         <mat-divider *ngIf="(product?.productFile.contentItems | fileType: 10) && (product?.productFile.contentItems | fileType: 10).length > 0" class="devider-margin"></mat-divider>
                         <mat-expansion-panel class="mat-elevation-z0"  *ngIf="(product?.productFile.contentItems | fileType: 10) && (product?.productFile.contentItems | fileType: 10).length > 0">
                             <mat-expansion-panel-header>  
-                                <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+                                <mat-panel-title cdkLayout="row" cdkLayoutAlign="space-between">
                                     <div class="fw-500">جزییات اجرایی</div>
                                     <div fxShow="false" fxShow.gt-xs="true" class="text-muted">
                                         <!-- <span>Area: <span class="fw-500">{{plan.area.value}} {{plan.area.unit}}</span></span>
@@ -250,7 +250,7 @@
                         <mat-divider *ngIf="(product?.productFile.contentItems | fileType: 9) && (product?.productFile.contentItems | fileType: 9).length > 0" class="devider-margin"></mat-divider>
                         <mat-expansion-panel class="mat-elevation-z0" *ngIf="(product?.productFile.contentItems | fileType: 9) && (product?.productFile.contentItems | fileType: 9).length > 0">
                             <mat-expansion-panel-header>  
-                                <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+                                <mat-panel-title cdkLayout="row" cdkLayoutAlign="space-between">
                                     <div class="fw-500">ویدئو ها</div>
                                     <div fxShow="false" fxShow.gt-xs="true" class="text-muted">
                                         <!-- <span>Area: <span class="fw-500">{{plan.area.value}} {{plan.area.unit}}</span></span>
@@ -269,7 +269,7 @@
                         </mat-expansion-panel> 
                         <!-- <mat-expansion-panel >
                             <mat-expansion-panel-header>  
-                                <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+                                <mat-panel-title cdkLayout="row" cdkLayoutAlign="space-between">
                                     <div class="fw-500">مشخصه ها</div>
                                     <div fxShow="false" fxShow.gt-xs="true" class="text-muted">
                                         

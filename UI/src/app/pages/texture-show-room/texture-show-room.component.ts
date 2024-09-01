@@ -38,7 +38,7 @@ import { emailValidator } from '../../theme/utils/app-validators';
   templateUrl: './texture-show-room.component.html',
   styleUrls: ['./texture-show-room.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatExpansionModule,  , MatDividerModule],
+  imports: [CommonModule, MatCardModule, MatExpansionModule, MatDividerModule],
   encapsulation: ViewEncapsulation.None
 })
 export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewInit  {
@@ -348,7 +348,7 @@ export class TextureShowRoomComponent implements OnInit, OnDestroy, AfterViewIni
   selector: 'app-texture-show-room-download-dialog',
   templateUrl: 'texture-show-room-download-dialog.html',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatExpansionModule,  , MatDividerModule],
+  imports: [CommonModule, MatIconModule, MatCardModule, MatExpansionModule, MatDividerModule],
 })
 export class TextureShowRoomDownloadDialogComponent implements OnInit {
   public settings: Settings;

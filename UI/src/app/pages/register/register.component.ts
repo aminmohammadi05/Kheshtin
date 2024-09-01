@@ -24,7 +24,7 @@ import { emailValidator, matchingPasswords } from '../../theme/utils/app-validat
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [CommonModule,MatIconModule, MatCardModule, MatExpansionModule,  , MatDividerModule, ReactiveFormsModule, MatFormFieldModule, FontAwesomeModule],
+  imports: [CommonModule,MatIconModule, MatCardModule, MatExpansionModule, MatDividerModule, ReactiveFormsModule, MatFormFieldModule, FontAwesomeModule],
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
 

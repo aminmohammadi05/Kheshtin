@@ -5,7 +5,7 @@
 
           <mat-sidenav-content ngClass.gt-sm="distance">
             <mat-card class="mt-3 mat-elevation-z0"> 
-              <mat-card-header fxLayoutAlign="center center" > 
+              <mat-card-header cdkLayoutAlign="center center" > 
                 <mat-card-title style="display: flex; padding: 0 20% 0 20%;
                 justify-content: space-between;" class="card-container-right">{{(event)?.displayText }}</mat-card-title> 
             </mat-card-header>
@@ -34,7 +34,7 @@
                 <!-- <app-event-timeline [recentEvents]="events" [days]="days"></app-event-timeline> -->
             </div> 
             <mat-card *ngIf="event" class="mt-3" style=" margin-bottom: 3rem"> 
-              <mat-card-header fxLayoutAlign="center center"> 
+              <mat-card-header cdkLayoutAlign="center center"> 
                   <mat-card-title class="uppercase">تگ </mat-card-title> 
               </mat-card-header>
               <mat-divider   class="devider-margin"></mat-divider>

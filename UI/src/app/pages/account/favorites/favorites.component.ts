@@ -21,7 +21,7 @@ import { ProductsService } from '../../../services/products.service';
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss'],
   standalone: true,
-    imports: [CommonModule, MatIconModule,MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  , ReactiveFormsModule, MatPaginatorModule],
+    imports: [CommonModule, MatIconModule,MatTableModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule, ReactiveFormsModule, MatPaginatorModule],
 })
 export class FavoritesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'image', 'title', 'actions' ];

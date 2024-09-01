@@ -1,20 +1,20 @@
-<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" fxLayout="row wrap">  
+<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" cdkLayout="row wrap">  
  
-  <div fxFlex="100" [fxFlex.gt-sm]="(viewType=='list') ? 60 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
+  <div cdkFlex="100" [cdkFlex.gt-sm]="(viewType=='list') ? 60 : 100" [cdkFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
 
-      <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
+      <div cdkLayout="column" cdkLayoutAlign="start stretch" class="h-100">
           <mat-card-content class="mb-0">
             
               <h1 class="title" style="color: #5C5B5B; font-size: 1.25rem">{{brandReseller.displayText}}</h1>
-              <div fxLayout="row" fxLayoutAlign="space-between center" style="width:100%"> 
-                <div fxFlex="20">
+              <div cdkLayout="row" cdkLayoutAlign="space-between center" style="width:100%"> 
+                <div cdkFlex="20">
                     <span >آدرس</span>
                     <br/>
                     <span >شهر</span>
                     <br/>
                     <span >تلفن</span>
                 </div>                   
-                <div fxFlex="80">
+                <div cdkFlex="80">
                     <span >{{brandReseller.address}}</span>
                     <br/>
                 <span >{{brandReseller.city}}</span>
@@ -24,7 +24,7 @@
                 
              </div> 
 
-              <div fxLayout="row" fxLayoutAlign="space-between center" style="width:100%">
+              <div cdkLayout="row" cdkLayoutAlign="space-between center" style="width:100%">
                   <div>
                       {{brand.displayText}}
                   </div>

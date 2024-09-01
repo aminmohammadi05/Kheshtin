@@ -24,7 +24,7 @@ import { SafeHtmlPipe } from '../../theme/pipes/safe-html.pipe';
   templateUrl: './brand-video-item.component.html',
   styleUrls: ['./brand-video-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule,  , SafeHtmlPipe],
+  imports: [CommonModule, MatCardModule, SafeHtmlPipe],
 })
 export class BrandVideoItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brandVideo: any;

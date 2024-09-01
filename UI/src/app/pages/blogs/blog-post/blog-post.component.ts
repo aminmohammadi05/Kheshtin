@@ -34,7 +34,7 @@ import { Album } from '../../../models/album';
   templateUrl: './blog-post.component.html',
   styleUrls: ['./blog-post.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule,MatCardModule,MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule,  , NgxMasonryModule, SimilarBlogsCarouselComponent, BlogBagTypePipe, OrderByPipe],
+  imports: [CommonModule, MatIconModule,MatCardModule,MatSidenavModule, MatChipsModule, MatListModule, MatFormFieldModule, NgxMasonryModule, SimilarBlogsCarouselComponent, BlogBagTypePipe, OrderByPipe],
 })
 export class BlogPostComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('sidenav', { static: true }) sidenav: any;

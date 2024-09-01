@@ -28,9 +28,9 @@
 
        <mat-sidenav-content ngClass.gt-sm="distance">
 
-         <div fxLayout="row wrap" class="properties-wrapper mt-0" >
+         <div cdkLayout="row wrap" class="properties-wrapper mt-0" >
 
-           <!-- <div fxFlex="100" class="px-2 pb-2 pt-0">                
+           <!-- <div cdkFlex="100" class="px-2 pb-2 pt-0">                
 <app-properties-toolbar [showSidenavToggle]="!sidenavOpen"
                       (SidenavToggle)="sidenav.toggle()"
                       (ChangeCount)="changeCount($event)"
@@ -39,9 +39,9 @@
 </app-properties-toolbar>
 </div> -->
 
-           <div fxFlex="100" fxLayoutAlign="start start" class="p-2">
+           <div cdkFlex="100" cdkLayoutAlign="start start" class="p-2">
              <mat-chip-listbox [ngClass]="(settings.rtl) ? 'ml-2' : 'mr-2'">
-              <div fxFlex="row" fxLayoutAlign="center center">
+              <div cdkFlex="row" cdkLayoutAlign="center center">
                 وبلاگ ها
                 <mat-chip selected disableRipple="true"  >
                    {{ searchFields.pageQuery.totalItems }} عدد
@@ -53,13 +53,13 @@
              </app-blogs-search-results-filters>
            </div>
 
-           <div *ngFor="let blog of blogs" [fxFlex]="(viewType=='grid') ? viewCol : 100" 
+           <div *ngFor="let blog of blogs" [cdkFlex]="(viewType=='grid') ? viewCol : 100" 
              class="item">
              <app-blog-item [blog]="blog" [viewType]="viewType" [viewColChanged]="viewCol" [fullWidthPage]="false">
              </app-blog-item>
            </div>
 
-           <div  fxFlex="100" 
+           <div  cdkFlex="100" 
              [style.min-height.px]="200">
              <mat-spinner *ngIf="isLoading"></mat-spinner>
              <mat-chip-listbox *ngIf="this.searchFields.pageQuery.totalItems === 0">
@@ -69,7 +69,7 @@
           </mat-chip-listbox> 
            </div>
 
-           <div fxFlex="100"  class="p-2">
+           <div cdkFlex="100"  class="p-2">
              <!-- <mat-paginator [length]="searchFields.pageQuery.totalItems" style="background-color: #F5F5F5;display: flex;
              justify-content: center;"
                [pageSize]="12" [hidePageSize]="true"

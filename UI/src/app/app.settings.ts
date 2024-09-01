@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
+
 import { Observable, Subscription, distinctUntilChanged, observable, of } from 'rxjs';
 
 export class Settings {
@@ -38,28 +38,13 @@ export class Settings {
   })
 export class AppSettings implements OnDestroy {
     public isMobile!: Observable<boolean>;
-    public mediaSubscription: Subscription;
-    activeMediaQuery = '';
-    constructor(public mediaObserver: MediaObserver) {
-        const getAlias = (mediaChange: MediaChange[]) => {
-            return mediaChange[0].mqAlias;
-          };
-        this.mediaSubscription = this.mediaObserver.asObservable().pipe(distinctUntilChanged(
-            (x: MediaChange[], y: MediaChange[]) => getAlias(x) === getAlias(y)
-              )).subscribe((change) => {
-                  change.forEach((item) => {
-                      this.activeMediaQuery = item ? `'${item.mqAlias}' = (${item.mediaQuery})` : '';                                                   
-                      if (item.mqAlias === 'sm' || item.mqAlias === 'xs' ) {
-                        
-                        
-                        this.isMobile = of(true);
 
-                      }
-              });
-});
+    activeMediaQuery = '';
+    constructor() {
+
     }
     ngOnDestroy(): void {
-        this.mediaSubscription.unsubscribe();
+
       }
       public createNew(): Settings {
         var settings = new Settings();

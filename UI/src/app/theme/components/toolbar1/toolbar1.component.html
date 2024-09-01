@@ -1,15 +1,15 @@
 <!-- First toolbar (row 1) -->
 <div id="top-toolbar" class="top-toolbar"  >
   
-  <div class="theme-container" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="theme-container" cdkLayout="row" cdkLayoutAlign="space-between center">
     <!-- Social Icons -->
-    <div fxLayout="row" fxLayoutAlign="start center">
+    <div cdkLayout="row" cdkLayoutAlign="start center">
       <span fxHide="false" fxHide.gt-sm>
         <button mat-button (click)="sidenavToggle()" >
           <mat-icon>menu</mat-icon>
         </button>
       </span>
-      <app-social-icons fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-md  ></app-social-icons>
+      <app-social-icons cdkLayout="row" cdkLayoutAlign="start center" fxShow="false" fxShow.gt-md  ></app-social-icons>
       <app-user-menu *ngIf="(appSettings.isMobile | async)" ></app-user-menu>
       
       <div style="padding-top: 1rem;">
@@ -23,7 +23,7 @@
       </div>
       
     </div>
-    <!-- <app-social-icons fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-md></app-social-icons> -->
+    <!-- <app-social-icons cdkLayout="row" cdkLayoutAlign="start center" fxShow="false" fxShow.gt-md></app-social-icons> -->
 
     <!-- Search Box -->
     
@@ -32,7 +32,7 @@
    
 
     <!-- User Actions -->
-    <div *ngIf="!(appSettings.isMobile | async)" fxLayout="row" fxLayoutAlign="center"  style="width: 100%">
+    <div *ngIf="!(appSettings.isMobile | async)" cdkLayout="row" cdkLayoutAlign="center"  style="width: 100%">
       <mat-form-field *ngIf="!(appSettings.isMobile | async)" matRipple matRippleColor="#CFD8DC" appearance="fill" class="search "   [floatLabel]="'always'">
         
      
@@ -44,7 +44,7 @@
       
       
     </div>
-    <div *ngIf="!(appSettings.isMobile | async)" fxLayout="row" fxLayoutAlign="center" style="min-width: 16.3rem;">
+    <div *ngIf="!(appSettings.isMobile | async)" cdkLayout="row" cdkLayoutAlign="center" style="min-width: 16.3rem;">
       <a *ngIf="!(appSettings.isMobile | async)" routerLink="/account/favorites"  style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B; "  fxShow.gt-md class="tooltip">
         <span class="tooltiptext">علاقه مندی ها</span>
         <mat-icon style="font-size: 1.125rem; color: #5C5B5B;"
@@ -75,7 +75,7 @@
 
 <!-- Second toolbar (row 2) -->
 <mat-toolbar id="main-toolbar" *ngIf="!(appSettings.isMobile | async)" class="mat-elevation-z1"  style="background: #fff;">
-  <div class="theme-container" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="theme-container" cdkLayout="row" cdkLayoutAlign="space-between center">
     <a  [ngClass]="!(appSettings.isMobile | async) ? 'logo' : ''"  routerLink="/">
       <app-logo ></app-logo>
     </a>
@@ -121,12 +121,12 @@
 </mat-toolbar>
 
 <mat-toolbar *ngIf="(appSettings.isMobile | async) && searchClicked"   class="mat-elevation-z1 "  style="background: #F5F5F5;">
-  <div class="theme-container" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="theme-container" cdkLayout="row" cdkLayoutAlign="space-between center">
    
    
    
 
-    <div class="search-mobile-wrapper cf" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="search-mobile-wrapper cf" cdkLayout="row" cdkLayoutAlign="space-between center">
       
       <input type="text" placeholder="جستجو در خشتین ..." autocomplete="off" required style="box-shadow: none">
       <button  (click)="search()" >

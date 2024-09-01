@@ -9,7 +9,6 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, tap, switchMap, map } from 'rxjs/operators';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
 // import { SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -98,7 +97,6 @@ public settings: Settings;
               public appSettings: AppSettings,
               public basicService: BasicDataService,
               public initializeService: InitializeService,
-              public mediaObserver: MediaObserver,
               private cdRef: ChangeDetectorRef) {
                 this.settings = this.appSettings.createNew();
                 

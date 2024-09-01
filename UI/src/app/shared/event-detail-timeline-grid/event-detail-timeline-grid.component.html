@@ -1,5 +1,5 @@
 
-<div fxLayout="row" fxFlexFill >
+<div cdkLayout="row" cdkFlexFill >
   <div (click)="scrollRight()"  style="float: right;     position: relative;
    max-width: 50px; padding-left: 50px;" [ngStyle]="{'top': topVar + 'px' }">
    <svg width="50" height="28" viewBox="0 0 13 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -8,7 +8,7 @@
     
   </div>
   
-  <div  fxFlex="90">
+  <div  cdkFlex="90">
     <gridster #widgetsContent  [options]="options" style="min-height: 550px; ">
   
       <gridster-item [item]="item" *ngFor="let item of dashboard" style="background: transparent;">

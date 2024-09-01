@@ -22,8 +22,8 @@
                         <label for="{{subItem.id}}" [ngStyle]="{'background-color': selectedId === subItem.id ? colorMap.get(selectedId)![0] : colorMap.get(selectedId)![1] }" style="color: #5C5B5B;">{{subItem.displayText}}</label>
                         
                         <div class="season_content" [ngStyle]="{'background-color': colorMap.get(selectedId)![0] }" *ngIf="selectedId === subItem.id">
-                          <div fxLayout="row wrap">
-                            <div fxflex="100" fxFlex.gt-sm="70">
+                          <div cdkLayout="row wrap">
+                            <div cdkFlex="100" cdkFlex.gt-sm="70">
                               <ul >                                
                                 <li *ngFor="let innerItem of subItem.bag!.contentItems">
                                     <button mat-button (click)="navigateToPage(innerItem.linkMenuItem!.url, innerItem.urlParameterList)" [ngStyle]="{'background-color': colorMap.get(selectedId)![0]}" style="color: #5C5B5B;letter-spacing: normal !important; font-family: 'Vazir FD'; font-size: 0.875rem;">{{innerItem.displayText}}</button>
@@ -32,11 +32,11 @@
                            
                               </ul>
                             </div>
-                            <div  fxflex="100" fxFlex.gt-sm="30" [ngStyle]="{'flex': '1 1 30%', 'box-sizing': 'border-box', 'max-width': '30%', 'background': selectedId === subItem.id ?  'url(https://orchard.kheshtin.ir' + subItem.ovalImage!.urls[0]+') center center / 6.875rem 6.875rem no-repeat' : '' , 'height': '12.5rem'}">
+                            <div  cdkFlex="100" cdkFlex.gt-sm="30" [ngStyle]="{'flex': '1 1 30%', 'box-sizing': 'border-box', 'max-width': '30%', 'background': selectedId === subItem.id ?  'url(https://orchard.kheshtin.ir' + subItem.ovalImage!.urls[0]+') center center / 6.875rem 6.875rem no-repeat' : '' , 'height': '12.5rem'}">
 
                             </div>
                           </div>
-                          <div class="menu-logos-container" fxLayout="row wrap">
+                          <div class="menu-logos-container" cdkLayout="row wrap">
                             <div *ngFor="let brand of subItem.brandList!.contentItems" class="menu-logo-wrapper" >
                               <img style="height: 2.5rem " [src]="'https://orchard.kheshtin.ir' + brand.ovalImage.urls[0]">
                             </div>

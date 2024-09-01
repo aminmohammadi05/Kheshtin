@@ -4,7 +4,6 @@ import * as Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import { Observable, Subscription } from 'rxjs';
 const moment = extendMoment(Moment);
-import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';

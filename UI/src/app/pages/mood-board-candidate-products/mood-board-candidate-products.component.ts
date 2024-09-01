@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { Subscription } from 'rxjs';
-import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -47,8 +46,7 @@ export class MoodBoardCandidateProductsComponent implements OnInit, OnDestroy {
               public productService: ProductsService,
               public userService: UserService,
               public authService: AuthService,
-              public route: Router,
-              public mediaObserver: MediaObserver) {
+              public route: Router) {
     this.settings = this.appSettings.createNew()
   }
 

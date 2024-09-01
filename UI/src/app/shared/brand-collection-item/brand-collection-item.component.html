@@ -1,8 +1,8 @@
-<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" fxLayout="row wrap">  
+<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" cdkLayout="row wrap">  
   
-  <div fxFlex="100" fxShrink="3" [fxFlex.gt-sm]="(viewType=='list') ? 40 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section">
+  <div cdkFlex="100" fxShrink="3" [cdkFlex.gt-sm]="(viewType=='list') ? 40 : 100" [cdkFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section">
 
-      <!-- <div fxLayout="row wrap" class="property-status">
+      <!-- <div cdkLayout="row wrap" class="property-status">
           <span *ngFor="let status of product.propertyStatus" [style.background-color]="getStatusBgColor(status)">{{status}}</span>
       </div> -->
      
@@ -11,14 +11,14 @@
       </div>
 
   </div>
-  <div fxFlex="100" [fxFlex.gt-sm]="(viewType=='list') ? 60 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
+  <div cdkFlex="100" [cdkFlex.gt-sm]="(viewType=='list') ? 60 : 100" [cdkFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
 
-      <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
+      <div cdkLayout="column" cdkLayoutAlign="start stretch" class="h-100">
           <mat-card-content class="mb-0">
             
               <h1 class="title"><a (click)="collectionSelected(brandCollection)" style="color: #5C5B5B; font-size: 1.25rem">{{brandCollection.userTitle}}</a></h1>
 
-              <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="brand && brand.contentItems && brand.contentItems[0]">
+              <div cdkLayout="row" cdkLayoutAlign="space-between center" *ngIf="brand && brand.contentItems && brand.contentItems[0]">
                   <div>
                       {{brand.displayText}}
                   </div>
@@ -32,9 +32,9 @@
              
 
           </mat-card-content>
-          <div class="sticky-footer-helper" fxFlex="grow"></div>
-          <!-- <mat-card-actions class="m-0 p-0" fxLayoutAlign="space-between center"> 
-              <p fxLayout="row" class="date mb-0">
+          <div class="sticky-footer-helper" cdkFlex="grow"></div>
+          <!-- <mat-card-actions class="m-0 p-0" cdkLayoutAlign="space-between center"> 
+              <p cdkLayout="row" class="date mb-0">
                   <mat-icon class="text-muted">calendar_today</mat-icon>
                   <span class="mx-2">{{ changeDateToFa(brandCollection.createDate) }}</span>
               </p>

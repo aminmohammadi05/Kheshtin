@@ -1,25 +1,25 @@
-<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" fxLayout="row wrap">  
+<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" cdkLayout="row wrap">  
   
-  <div fxFlex="100" fxShrink="3" [fxFlex.gt-sm]="(viewType=='list') ? 40 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section">
+  <div cdkFlex="100" fxShrink="3" [cdkFlex.gt-sm]="(viewType=='list') ? 40 : 100" [cdkFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section">
 
-      <!-- <div fxLayout="row wrap" class="property-status">
+      <!-- <div cdkLayout="row wrap" class="property-status">
           <span *ngFor="let status of product.propertyStatus" [style.background-color]="getStatusBgColor(status)">{{status}}</span>
       </div> -->
      
-      <div fxLayout="row" fxLayoutAlign="space-around center" class="mat-card-image w-100 m-0">
+      <div cdkLayout="row" cdkLayoutAlign="space-around center" class="mat-card-image w-100 m-0">
           <img src="https://orchard.kheshtin.ir{{brand.cardImage.urls[0]}}">
       </div>
       
   </div>
   <hr style="margin-left: 0.5rem;margin-right: 0.5rem;"/>
-  <div fxFlex="100" [fxFlex.gt-sm]="(viewType=='list') ? 60 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
+  <div cdkFlex="100" [cdkFlex.gt-sm]="(viewType=='list') ? 60 : 100" [cdkFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
 
-      <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
+      <div cdkLayout="column" cdkLayoutAlign="start stretch" class="h-100">
           <mat-card-content class="mb-0">
             
               <h1 class="title"><a [routerLink]="['/brands', brand.contentItemId,0,1, brand.displayText]" style="color: #5C5B5B; font-size: 1.25rem">{{brand.displayText}}</a></h1>
 
-              <!-- <p fxLayout="row" class="address"> -->
+              <!-- <p cdkLayout="row" class="address"> -->
                   <!-- <mat-icon class="text-muted">location_on</mat-icon> -->
                   <!-- <span>{{brand.name}}</span> -->
               <!-- </p> -->
@@ -30,9 +30,9 @@
                 
               <!-- </div> -->
           </mat-card-content>
-          <div class="sticky-footer-helper" fxFlex="grow"></div>
-          <!-- <mat-card-actions class="m-0 p-0" fxLayoutAlign="space-between center">  -->
-              <!-- <p fxLayout="row" class="date mb-0"> -->
+          <div class="sticky-footer-helper" cdkFlex="grow"></div>
+          <!-- <mat-card-actions class="m-0 p-0" cdkLayoutAlign="space-between center">  -->
+              <!-- <p cdkLayout="row" class="date mb-0"> -->
                   <!-- <mat-icon class="text-muted">date_range</mat-icon> -->
                   <!-- <span class="mx-2">{{property.published | date:"dd MMMM, yyyy" }}</span> -->
               <!-- </p> -->

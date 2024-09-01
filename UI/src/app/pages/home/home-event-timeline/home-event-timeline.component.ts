@@ -3,7 +3,6 @@ import { Component, OnInit, Input, ViewChild, ElementRef, ViewChildren, QueryLis
 import * as moment from 'jalali-moment';
 import { Observable } from 'rxjs';
 import _ from 'lodash'
-import { , MediaObserver } from '@angular/flex-layout';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,10 +35,10 @@ headerMonths = [];
 headerDays = [];
 public events: Event[] = [];
 public days: EventDays[] = [];
-  constructor(public  mediaObserver: MediaObserver, private mediaMatcher: MediaMatcher,) {
-    this.mediaObserver.asObservable().subscribe(() => {
-      this.isMobile = this.mediaMatcher.matchMedia('(max-width: 900px)').matches;
-    });
+  constructor( ) {
+    // this.mediaObserver.asObservable().subscribe(() => {
+    //   this.isMobile = this.mediaMatcher.matchMedia('(max-width: 900px)').matches;
+    // });
   }
 
   ngOnInit() {

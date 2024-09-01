@@ -13,7 +13,7 @@
         
     </mat-sidenav>
 
-    <mat-sidenav-content style="height: -webkit-fill-available !important;" class="page-wrapper" fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-sidenav-content style="height: -webkit-fill-available !important;" class="page-wrapper" cdkLayout="column" cdkLayoutAlign="start stretch">
 
        
         <header [ngClass]="'toolbar-'+settings.toolbar" [class.has-bg-image]="settings.headerBgImage" [class.main-toolbar-fixed]="settings.mainToolbarFixed"  >
@@ -27,13 +27,13 @@
             <router-outlet></router-outlet>              
         </main>
 
-        <div class="sticky-footer-helper" fxFlex="grow"></div>
+        <div class="sticky-footer-helper" cdkFlex="grow"></div>
 
         <app-footer></app-footer>
        
         
         
-        <div *ngIf="showBackToTop" fxLayout="row" fxLayoutAlign="center center" class="back-to-top" (click)="scrollToTop()">
+        <div *ngIf="showBackToTop" cdkLayout="row" cdkLayoutAlign="center center" class="back-to-top" (click)="scrollToTop()">
             <mat-icon>arrow_upward</mat-icon>
         </div>
 

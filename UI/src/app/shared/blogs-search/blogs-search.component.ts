@@ -17,7 +17,7 @@ import { CategoriesComponent } from '../../pages/categories/categories.component
   templateUrl: './blogs-search.component.html',
   styleUrls: ['./blogs-search.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatFormFieldModule, ReactiveFormsModule,  , CategoriesComponent],
+  imports: [CommonModule, MatIconModule, MatFormFieldModule, MatFormFieldModule, ReactiveFormsModule, CategoriesComponent],
 })
 export class BlogsSearchComponent implements OnInit, AfterViewInit {
   @Input() variant = 1;

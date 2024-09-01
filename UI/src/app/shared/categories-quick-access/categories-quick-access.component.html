@@ -7,8 +7,8 @@
                       <swiper-slide  *ngFor="let category of categoryList" >
                           <div #fb class="client-item" (click)="openProductPage(category)"  (mouseenter)="fire($event, category)"  >
                               
-                            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" ngClass.xs="pt-5" > 
-                                <p fxLayout="row" fxLayoutAlign="start center" class="mt-1" >
+                            <div cdkFlex="100" cdkFlex.gt-sm="100" cdkFlex.sm="100" ngClass.xs="pt-5" > 
+                                <p cdkLayout="row" cdkLayoutAlign="start center" class="mt-1" >
                                     <mat-spinner [strokeWidth]="selectedCategoryForMenu === category && !isLoadingDone ? 3: 0" [diameter]="100" 
                                     [ngStyle]="{'background-image': 'url(' + 'https://orchard.kheshtin.ir' + category.image.urls[0] + ')', 'background-position': 'center',
                                        'background-repeat': 'no-repeat',
@@ -18,7 +18,7 @@
                                        'float': 'none',}"
                                     ></mat-spinner>
                                 </p>                              
-                                <p fxLayout="row" fxLayoutAlign="center"  class="mt-1">
+                                <p cdkLayout="row" cdkLayoutAlign="center"  class="mt-1">
                                     <span class="show-title">
                                         {{category.userTitle}}
                                     </span>

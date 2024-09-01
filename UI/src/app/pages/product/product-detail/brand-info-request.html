@@ -5,12 +5,12 @@
 
 
   <form [formGroup]="reqform"  >
-    <div fxLayout="row wrap" >
-        <div fxFlex="40" fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="space-between center" class="my-3">
-          <div  fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" class="p-2">
+    <div cdkLayout="row wrap" >
+        <div cdkFlex="40" cdkFlex.gt-xs="40" cdkLayout="column" cdkLayoutAlign="space-between center" class="my-3">
+          <div  cdkFlex="100" cdkFlex.gt-sm="100" cdkFlex.sm="100" class="p-2">
         <img mat-card-image class="brand-image-info"  src="../../assets/brands/big/{{(data.brand | async)?.brandId }}.png" [alt]="(data.brand | async)?.name">
       </div>
-        <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" class="p-2">
+        <div cdkFlex="100" cdkFlex.gt-sm="100" cdkFlex.sm="100" class="p-2">
           <mat-selection-list class="no-border-selection"  formControlName="categories" required>
             <mat-list-option  value="price">
                 لیست قیمت
@@ -28,7 +28,7 @@
           
       </div> 
         </div>
-        <div fxFlex="60" fxFlex.gt-xs="60" fxLayout="column" fxLayoutAlign="space-between center" class="my-3">
+        <div cdkFlex="60" cdkFlex.gt-xs="60" cdkLayout="column" cdkLayoutAlign="space-between center" class="my-3">
           <mat-form-field appearance="outline" class="w-100 mt-1">
             <mat-icon matPrefix class="mr-1 text-muted">person</mat-icon>
             <mat-label>نام و نام خانوادگی </mat-label>

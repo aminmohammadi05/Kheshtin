@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './design-office-item.component.html',
   styleUrls: ['./design-office-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule,  , RouterModule],
+  imports: [CommonModule, MatCardModule, RouterModule],
 })
 export class DesignOfficeItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() designOffice: any;

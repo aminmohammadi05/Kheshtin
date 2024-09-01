@@ -1,11 +1,11 @@
 <mat-toolbar id="top-toolbar" class="top-toolbar">
   <mat-toolbar-row  ngClass.xs="p-0">
-    <div class="theme-container" fxLayout="row" fxLayoutAlign="center" fxLayoutAlign.gt-sm="end center" fxLayoutAlign.sm="space-between center">
-      <app-social-icons [iconSize]="'lg'" [iconColor]="'primary'" fxLayout="row" fxLayoutAlign="start center" fxHide="false" fxHide.gt-sm fxHide.xs></app-social-icons>
-      <div fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.xs class="bg-primary right-section px-2">
-        <app-social-icons fxLayout="row" fxLayoutAlign="start center"></app-social-icons>
+    <div class="theme-container" cdkLayout="row" cdkLayoutAlign="center" cdkLayoutAlign.gt-sm="end center" cdkLayoutAlign.sm="space-between center">
+      <app-social-icons [iconSize]="'lg'" [iconColor]="'primary'" cdkLayout="row" cdkLayoutAlign="start center" fxHide="false" fxHide.gt-sm fxHide.xs></app-social-icons>
+      <div cdkLayout="row" cdkLayoutAlign="start center" fxShow="false" fxShow.xs class="bg-primary right-section px-2">
+        <app-social-icons cdkLayout="row" cdkLayoutAlign="start center"></app-social-icons>
       </div>
-      <div fxLayout="row" fxLayoutAlign="end center" class="bg-primary right-section" ngClass.xs="w-100">
+      <div cdkLayout="row" cdkLayoutAlign="end center" class="bg-primary right-section" ngClass.xs="w-100">
           <app-currency></app-currency>
           <app-lang></app-lang>
           <app-user-menu></app-user-menu>
@@ -13,15 +13,15 @@
     </div>
   </mat-toolbar-row>
   <mat-toolbar-row ngClass.xs="py-3">
-    <div class="theme-container" fxLayout="row" fxLayoutAlign="center" fxLayoutAlign.gt-sm="space-between center">
-      <a fxflex="35" class="logo" routerLink="/" ><app-logo [logoWidth]="'30%'"></app-logo></a> 
-      <app-contacts [dividers]="false" [iconColor]="'primary'" [iconSize]="'lg'" fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-sm></app-contacts>   
-      <app-social-icons [iconSize]="'lg'" [iconColor]="'primary'" fxLayout="row" fxLayoutAlign="end center" fxShow="false" fxShow.gt-sm></app-social-icons>
+    <div class="theme-container" cdkLayout="row" cdkLayoutAlign="center" cdkLayoutAlign.gt-sm="space-between center">
+      <a cdkFlex="35" class="logo" routerLink="/" ><app-logo [logoWidth]="'30%'"></app-logo></a> 
+      <app-contacts [dividers]="false" [iconColor]="'primary'" [iconSize]="'lg'" cdkLayout="row" cdkLayoutAlign="start center" fxShow="false" fxShow.gt-sm></app-contacts>   
+      <app-social-icons [iconSize]="'lg'" [iconColor]="'primary'" cdkLayout="row" cdkLayoutAlign="end center" fxShow="false" fxShow.gt-sm></app-social-icons>
     </div> 
   </mat-toolbar-row>              
 </mat-toolbar>
 <mat-toolbar id="main-toolbar" class="mat-elevation-z2"> 
-  <div class="theme-container" fxLayout="row" fxLayoutAlign="space-between center">    
+  <div class="theme-container" cdkLayout="row" cdkLayoutAlign="space-between center">    
     <mat-icon class="mat-icon-xlg" fxHide="false" fxHide.gt-sm (click)="sidenavToggle()">menu</mat-icon>
     <div fxShow="false" fxShow.gt-sm class="horizontal-menu">            
         <app-horizontal-menu ></app-horizontal-menu>

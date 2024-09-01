@@ -1,13 +1,13 @@
 <form [formGroup]="form" class="search-wrapper" [ngClass]="'variant-'+variant">
 
-    <div [fxLayout]="(vertical) ? 'column' : 'row wrap'"> 
-        <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2">
+    <div [cdkLayout]="(vertical) ? 'column' : 'row wrap'"> 
+        <div cdkFlex="100" cdkFlex.gt-sm="22" cdkFlex.sm="50" class="p-2">
             <mat-form-field [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
                 <mat-label>جستجو</mat-label>
                 <input matInput placeholder="متن جستجو" autocomplete="off" formControlName="searchBox">                  
             </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="22" fxFlex.sm="50" class="p-2 sidebar-categories-tree-filter-box">
+        <div cdkFlex="100" cdkFlex.gt-sm="22" cdkFlex.sm="50" class="p-2 sidebar-categories-tree-filter-box">
             <mat-form-field *ngIf="!vertical" [appearance]="getAppearance()" [floatLabel]="getFloatLabel()">
                 <mat-label>شاخه ها</mat-label>
                 <mat-select placeholder="لطفا شاخه های مورد نظر خود را انتخاب کنید" formControlName="categoriesBox" multiple>
@@ -20,11 +20,11 @@
             <app-categories *ngIf="vertical" name="categoriesBoxNested" (CategoryChange)="categoryChanged($event)" [selectedIdList]="" formControlName="categoriesBoxNested"></app-categories>
         </div>
         
-        <div fxFlex="100" fxFlex.gt-sm="12" fxFlex.sm="50" class="p-2">
+        <div cdkFlex="100" cdkFlex.gt-sm="12" cdkFlex.sm="50" class="p-2">
             <button mat-raised-button  class="uppercase mx-1 my-btn-1 w-100" (click)="reset()">پاک کردن</button>
         </div>
     </div>
-    <!-- <div fxLayout="row" fxLayoutAlign="center center" class="p-2">        -->
+    <!-- <div cdkLayout="row" cdkLayoutAlign="center center" class="p-2">        -->
       <!-- <button mat-raised-button color="warn" class="uppercase mx-1" (click)="reset()">پاک کردن</button> -->
       <!-- <button *ngIf="!vertical" mat-raised-button color="primary" class="uppercase mx-1" (click)="showMore = !showMore">{{(showMore) ? 'انصراف' : 'جستجوی پیشرفته'}}</button>      
        <button  mat-raised-button color="primary" class="search-btn mx-1" (click)="search()"> جستجو <mat-icon>search</mat-icon></button> -->

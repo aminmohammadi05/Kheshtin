@@ -29,7 +29,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
   templateUrl: './brand-projects.component.html',
   styleUrls: ['./brand-projects.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,  , PaginationComponent],
+  imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule, PaginationComponent],
 })
 export class BrandProjectsComponent implements OnInit, OnDestroy, AfterViewInit  {
   @Input() brand: any;

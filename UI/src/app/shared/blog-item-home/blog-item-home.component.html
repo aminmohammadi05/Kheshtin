@@ -1,8 +1,8 @@
-<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" fxLayout="row wrap" [ngStyle]="{'width' : appSettings.isMobile ? '90vw' : 'auto'}" style="height: 35rem; ">  
+<mat-card class="property-item p-0" [ngClass]="[viewType + '-item', 'column-'+column]" [class.full-width-page]="fullWidthPage" cdkLayout="row wrap" [ngStyle]="{'width' : appSettings.isMobile ? '90vw' : 'auto'}" style="height: 35rem; ">  
   
-  <div fxFlex="100" fxShrink="3" [fxFlex.gt-sm]="(viewType=='list') ? 40 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="thumbnail-section" style="max-height: 15.81rem">
-
-      <!-- <div fxLayout="row wrap" class="property-status">
+  <div cdkFlex="100" fxShrink="3"  class="thumbnail-section" style="max-height: 15.81rem">
+    <!-- [cdkFlex.gt-sm]="(viewType=='list') ? 40 : 100" [cdkFlex.sm]="(viewType=='list') ? 50 : 100" -->
+      <!-- <div cdkLayout="row wrap" class="property-status">
           <span *ngFor="let status of product.propertyStatus" [style.background-color]="getStatusBgColor(status)">{{status}}</span>
       </div> -->
      
@@ -24,20 +24,20 @@
       
 
   </div>
-  <div fxFlex="100" [fxFlex.gt-sm]="(viewType=='list') ? 60 : 100" [fxFlex.sm]="(viewType=='list') ? 50 : 100" class="p-3">
-
-      <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
+  <div cdkFlex="100"  class="p-3">
+    <!-- [cdkFlex.gt-sm]="(viewType=='list') ? 60 : 100" [cdkFlex.sm]="(viewType=='list') ? 50 : 100" -->
+      <div cdkLayout="column" cdkLayoutAlign="start stretch" class="h-100">
           <mat-card-content class="mb-0">
             
               <h1 class="title"><a [routerLink]="['/blogs', blog.contentItemId, blog.displayText]"  style="color: #5C5B5B;
                 ">{{blog.displayText}}</a></h1>
              
-              <!-- <p fxLayout="row" class="address">
+              <!-- <p cdkLayout="row" class="address">
                   <mat-icon class="text-muted"><fa class="mr-1 text-muted" name="cubes"></fa></mat-icon>
                   <span>{{blog..category.name}}</span>
               </p> -->
 
-              <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
+              <!-- <div cdkLayout="row" cdkLayoutAlign="space-between center">
                   <div>
                       <h3 *ngIf="settings.currency == 'USD'" class="primary-color price">
                           <span *ngIf="property.priceDollar.sale">{{property.priceDollar.sale | currency : 'USD' : 'symbol' : '1.0'}}</span>
@@ -63,9 +63,9 @@
               </div>  -->
 
           </mat-card-content>
-          <div class="sticky-footer-helper" fxFlex="grow"></div>
-           <mat-card-footer class="m-0 p-0" fxLayoutAlign="space-between center"> 
-              <p fxLayout="row" class="date mb-0">
+          <div class="sticky-footer-helper" cdkFlex="grow"></div>
+           <mat-card-footer class="m-0 p-0" cdkLayoutAlign="space-between center"> 
+              <p cdkLayout="row" class="date mb-0">
                   <!-- <mat-icon class="text-muted">calendar_today</mat-icon> -->
                   <span class="mx-2">{{ changeDateToFa(blog.createdUtc) }}</span>
               </p>

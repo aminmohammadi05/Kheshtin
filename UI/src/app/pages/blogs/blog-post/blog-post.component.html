@@ -7,7 +7,7 @@
                   <mat-icon>close</mat-icon>
               </button>
               <mat-card > 
-                  <div fxLayout="column" class="widget">
+                  <div cdkLayout="column" class="widget">
                       <h3 class="widget-title bg-primary">بلاگ های ویژه</h3>
                       <div *ngFor="let blog of featuredBlogs" class="mb-3">
                           <app-blog-item [blog]="blog" [viewType]="'grid'"></app-blog-item> 
@@ -18,7 +18,7 @@
           </mat-sidenav> -->
           <mat-sidenav-content ngClass.gt-sm="distance">
               <mat-card class="mt-3 mat-elevation-z0"> 
-                  <mat-card-header fxLayoutAlign="center center" style="width: 100%"> 
+                  <mat-card-header cdkLayoutAlign="center center" style="width: 100%"> 
                       <mat-card-title class="blog-text"  >{{(blog)?.displayText }}</mat-card-title> 
                   </mat-card-header>
                   <mat-card-content>
@@ -41,7 +41,7 @@
               
 
               <mat-card *ngIf="(blog) && ((blog)?.bag.contentItems | blogBagType: 'BlogVideo').length > 0" class="mt-3"> 
-                  <mat-card-header fxLayoutAlign="center center"> 
+                  <mat-card-header cdkLayoutAlign="center center"> 
                       <mat-card-title class="uppercase">ویدئو </mat-card-title> 
                   </mat-card-header>
                   <mat-card-content>
@@ -52,7 +52,7 @@
                   </mat-card-content>
               </mat-card>  
               <mat-card *ngIf="blog" class="mt-3"> 
-                <mat-card-header fxLayoutAlign="center center"> 
+                <mat-card-header cdkLayoutAlign="center center"> 
                     <mat-card-title class="uppercase">تگ </mat-card-title> 
                 </mat-card-header>
                 <mat-divider   class="devider-margin"></mat-divider>

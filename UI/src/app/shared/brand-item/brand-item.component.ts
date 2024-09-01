@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './brand-item.component.html',
   styleUrls: ['./brand-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,  , RouterModule]
+  imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule, RouterModule]
 })
 export class BrandItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() brand: any;

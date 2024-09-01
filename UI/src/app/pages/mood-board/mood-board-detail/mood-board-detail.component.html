@@ -4,7 +4,7 @@
         <mat-sidenav-container class="single-property mt-3">
             
             <mat-sidenav-content ngClass.gt-sm="distance">
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">             
+                <div cdkLayout="row" cdkLayout.xs="column" cdkLayoutAlign="space-between center">             
                     <div>
                         <h2 class="uppercase" ngClass.xs="text-center">{{(moodBoard | async)?.moodBoardName}}</h2>
                         
@@ -26,8 +26,8 @@
               </div> 
               <div class="mt-3" *ngIf="(productList | async) && (productList | async)?.length > 0">
                   <!-- <img  src="../../assets/officeProjects/big/{{(project | async)?.projectId + '_' + (selectedImageId | async) }}.jpg" style="width: 890px" class="swiper-lazy"> -->
-                  <div fxLayout="row wrap" class="properties-wrapper mt-0">
-                    <div *ngFor="let product of (productList | async)" [fxFlex]="(viewType=='grid') ? viewCol : 100"  class="item">                         
+                  <div cdkLayout="row wrap" class="properties-wrapper mt-0">
+                    <div *ngFor="let product of (productList | async)" [cdkFlex]="(viewType=='grid') ? viewCol : 100"  class="item">                         
                         <app-small-product-item [product]="product"
                                           [viewType]="viewType"
                                           [viewColChanged]="viewCol"
@@ -63,7 +63,7 @@
                 
                             
   
-                <!-- <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center"> 
+                <!-- <div class="mt-3" cdkLayout="row wrap" cdkLayoutAlign="space-between center"> 
                     <span>شناسه:<span class="fw-500 mx-2">{{project?.projectId}}</span></span>
                     <span>تاریخ ایجاد:<span class="fw-500 mx-2">{{  (changeDateToFa(project?.createDate) | async)}}</span></span>
                    

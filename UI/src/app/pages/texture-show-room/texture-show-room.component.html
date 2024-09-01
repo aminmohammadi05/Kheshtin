@@ -1,7 +1,7 @@
 <!-- NEW -->
 <div class="theme-container">
-  <div fxLayout="row wrap">
-    <div fxFlex="20" fxFlex.gt-xs="20" fxLayout="column" class="">
+  <div cdkLayout="row wrap">
+    <div cdkFlex="20" cdkFlex.gt-xs="20" cdkLayout="column" class="">
         <div id="controls">
             <div class="sidebar-section">
                 <!-- --------- Scrollable area ----------- -->
@@ -110,13 +110,13 @@
 
                 <!-- End of scrollable area ------------------------------------- -->
                 <div id="control-actions" class="sidebar-section">
-                    <div fxLayout="row" fxLayoutAlign="space-between center">
-                        <div fxFlex="100" class="menu-toggle control-btn">
+                    <div cdkLayout="row" cdkLayoutAlign="space-between center">
+                        <div cdkFlex="100" class="menu-toggle control-btn">
                             <a id="">
                                 <button class="button2" [disabled]="!authService.loggedIn()" (click)="downloadTexture()">دانلود</button><!-- (click)="newMoodBoard()" -->
                             </a>
                         </div>
-                        <!-- <div fxFlex="45" class="menu-toggle control-btn">
+                        <!-- <div cdkFlex="45" class="menu-toggle control-btn">
                             <a id="">
                                 <button class="button2">ذخیره</button>
                             </a>
@@ -132,10 +132,10 @@
     </div>
 
     <!--  -->
-    <div fxFlex="80" fxLayout="column" fxLayoutAlign="space-between center" class="my-3">
+    <div cdkFlex="80" cdkLayout="column" cdkLayoutAlign="space-between center" class="my-3">
         
         <!-- Texture Preview -->
-        <div #screen fxFlex="100" fxLayoutAlign="space-around" fxLayout="row wrap" class="main-image-container">
+        <div #screen cdkFlex="100" cdkLayoutAlign="space-around" cdkLayout="row wrap" class="main-image-container">
             <div #screen style="background: url('../../assets/bonding/{{selectedColor.colorId}}.png');" class="main-image-container">
                 <img
                 src="../../assets/products/big/{{(selectedTexture ? selectedTexture?.productId : productId)}}_11_-1_{{getProductFileId(selectedOrder)}}_{{selectedOrder}}.png"

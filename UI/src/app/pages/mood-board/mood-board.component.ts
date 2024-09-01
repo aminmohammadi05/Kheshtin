@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef, inject} from '@angular/core';
-import { , MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -72,7 +71,6 @@ export class MoodBoardComponent implements OnInit, OnDestroy, AfterViewInit {
   searchTerm = 'filter=';
   public appSettings= inject( AppSettings);
               private authService= inject( AuthService);
-              public mediaObserver= inject( MediaObserver);
               public initializeService= inject( InitializeService);
               private route= inject( ActivatedRoute);
               private moodBoardService= inject( MoodBoardService);

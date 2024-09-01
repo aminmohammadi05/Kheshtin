@@ -2,8 +2,8 @@
 <div>
 <button mat-button 
         *ngFor="let item of menuItemList"
-        fxLayout="row" 
-        fxLayoutAlign="start center"
+        cdkLayout="row" 
+        cdkLayoutAlign="start center"
         (click)="navigateToPage(item!.linkMenuItem!.url, item!.urlParameterList)"
         [disabled]="item!.isDisabled"
         >

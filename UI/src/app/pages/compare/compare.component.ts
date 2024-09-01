@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, OnDestroy, inject } from '@angular/core';
 // import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Settings, AppSettings } from '../../app.settings';
 import { Subscription } from 'rxjs';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Product } from '../../models/product';
 import { ProductsService } from '../../services/products.service';
 import { CommonModule } from '@angular/common';

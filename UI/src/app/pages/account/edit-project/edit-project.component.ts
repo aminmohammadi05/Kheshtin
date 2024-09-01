@@ -42,7 +42,7 @@ export interface EditProductDialogData {
   templateUrl: './edit-project.component.html',
   styleUrls: ['./edit-project.component.css'],
   standalone: true,
-    imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  , MaterialFileInputModule, ReactiveFormsModule, MatDividerModule, MatSelectModule],
+    imports: [CommonModule, MatIconModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule, MaterialFileInputModule, ReactiveFormsModule, MatDividerModule, MatSelectModule],
 })
 export class EditProjectComponent implements OnInit, AfterViewInit {
   projectId = '';
@@ -316,7 +316,7 @@ saveChanges() {
   templateUrl: 'edit-products-dialog.html',
   styleUrls: ['./edit-project.component.css'],
   standalone: true,
-    imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule,  , ReactiveFormsModule, MatDividerModule, MatSelectModule],
+    imports: [CommonModule, MatIconModule, MatCardModule, MatChipsModule, MatListModule, MatFormFieldModule,MatProgressSpinnerModule, ReactiveFormsModule, MatDividerModule, MatSelectModule],
 })
 export class EditProductsDialogComponent implements OnInit {
   productForm!: FormGroup;

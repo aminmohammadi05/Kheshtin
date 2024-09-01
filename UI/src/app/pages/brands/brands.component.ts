@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
-import { , MediaChange, MediaObserver } from '@angular/flex-layout';
+
 import {  } from 'ngx-scrollbar';
 import { Observable, fromEvent, merge, Subscription, combineLatest, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -76,7 +76,6 @@ export class BrandsComponent implements OnInit, OnDestroy, AfterViewInit {
   searchTerm = '';
   public appSettings= inject( AppSettings);
               private authService= inject( AuthService);
-              public mediaObserver= inject( MediaObserver);
               public initializeService= inject( InitializeService);
               private route= inject( ActivatedRoute);
               private router= inject( Router);

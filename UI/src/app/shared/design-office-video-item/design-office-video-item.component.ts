@@ -21,7 +21,7 @@ import { SafeHtmlPipe } from '../../theme/pipes/safe-html.pipe';
   templateUrl: './design-office-video-item.component.html',
   styleUrls: ['./design-office-video-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule,  , SafeHtmlPipe],
+  imports: [CommonModule, MatCardModule, SafeHtmlPipe],
 })
 export class DesignOfficeVideoItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() designOfficeVideo: any;

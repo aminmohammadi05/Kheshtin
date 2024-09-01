@@ -7,7 +7,7 @@ height: 100%;">
     </a>
         <mat-menu #userMenu="matMenu" overlapTrigger="false" xPosition="before"  class="user-menu styled">
             <span (mouseleave)="userMenuTrigger.closeMenu()">
-                <!-- <div fxLayout="row" fxLayoutAlign="start center" class="user-info">                   
+                <!-- <div cdkLayout="row" cdkLayoutAlign="start center" class="user-info">                   
                     <img [src]="(user | async)?.profilePicture | safeHtml"  width="50">
                 <small class="m-0" *ngIf="(user | async)">{{(user | async)?.name + ' ' + (user | async)?.lastName}}</small> <br> <small><i>{{(user | async)?.userName}}</i></small>
                 </div> -->

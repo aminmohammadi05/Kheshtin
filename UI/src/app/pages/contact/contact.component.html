@@ -10,24 +10,24 @@
     <div class="theme-container">
         <mat-card class="main-content-header mb-5">
             
-            <div fxLayout="row wrap" fxLayoutAlign="space-around">
-                <div fxFlex="100" fxFlex.gt-xs="33.3">
-                    <div fxLayout="column" fxLayoutAlign="center center" class="text-center">
+            <div cdkLayout="row wrap" cdkLayoutAlign="space-around">
+                <div cdkFlex="100" cdkFlex.gt-xs="33.3">
+                    <div cdkLayout="column" cdkLayoutAlign="center center" class="text-center">
                         <mat-icon color="primary" class="mat-icon-lg">home</mat-icon>
                         <h3 class="primary-color py-1">ADDRESS :</h3>
                         <span>2903 Avenue Z, Brooklyn, New York City</span>
                     </div>
                 </div>
-                <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
-                    <div fxLayout="column" fxLayoutAlign="center center">
+                <div cdkFlex="100" cdkFlex.gt-xs="33.3" ngClass.xs="mt-2">
+                    <div cdkLayout="column" cdkLayoutAlign="center center">
                         <mat-icon color="primary" class="mat-icon-lg">call</mat-icon>
                         <h3 class="primary-color py-1">PHONES :</h3>
                         <span>(212) 457-2308</span>
                         <span>(212) 457-2309</span>
                     </div>
                 </div>
-                <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
-                    <div fxLayout="column" fxLayoutAlign="center center">
+                <div cdkFlex="100" cdkFlex.gt-xs="33.3" ngClass.xs="mt-2">
+                    <div cdkLayout="column" cdkLayoutAlign="center center">
                         <mat-icon color="primary" class="mat-icon-lg">mail_outline</mat-icon>
                         <h3 class="primary-color py-1">E-MAIL :</h3>
                         <span>contact&#64;housekey.com</span>
@@ -37,15 +37,15 @@
                 <div class="divider w-100 mt-3"></div>
                 <h3 class="w-100 text-center py-3">CONTACT US</h3>
                 
-                <form [formGroup]="contactForm" (ngSubmit)="onContactFormSubmit(contactForm.value)" fxLayout="row wrap">
-                    <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                <form [formGroup]="contactForm" (ngSubmit)="onContactFormSubmit(contactForm.value)" cdkLayout="row wrap">
+                    <div cdkFlex="100" cdkFlex.gt-sm="33.3" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Name</mat-label>
                             <input matInput placeholder="Name" formControlName="name" required>
                             <mat-error *ngIf="contactForm.controls.name.errors?.required">Name is required</mat-error>
                         </mat-form-field>
                     </div>
-                    <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                    <div cdkFlex="100" cdkFlex.gt-sm="33.3" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Email</mat-label>
                             <input matInput placeholder="Email" formControlName="email" required>
@@ -53,14 +53,14 @@
                             <mat-error *ngIf="contactForm.controls.email.hasError('invalidEmail')">Invalid email address</mat-error>
                         </mat-form-field>
                     </div>
-                    <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                    <div cdkFlex="100" cdkFlex.gt-sm="33.3" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Phone</mat-label>
                             <input matInput placeholder="Phone" formControlName="phone" required>
                             <mat-error *ngIf="contactForm.controls.phone.errors?.required">Phone is required</mat-error>
                         </mat-form-field>
                     </div>
-                    <div fxFlex="100" class="px-1 mt-1">
+                    <div cdkFlex="100" class="px-1 mt-1">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Message</mat-label> 
                             <textarea matInput placeholder="Message" formControlName="message" required rows="7"></textarea> 

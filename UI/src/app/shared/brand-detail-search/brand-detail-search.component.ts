@@ -18,7 +18,7 @@ import { CategoriesComponent } from '../../pages/categories/categories.component
   templateUrl: './brand-detail-search.component.html',
   styleUrls: ['./brand-detail-search.component.css'],
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatExpansionModule,  , BrandCollectionsComponent, CategoriesComponent, ReactiveFormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatExpansionModule, BrandCollectionsComponent, CategoriesComponent, ReactiveFormsModule],
 })
 export class BrandDetailSearchComponent implements OnInit, AfterViewInit {
   @Input() brandId = '';
