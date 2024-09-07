@@ -1,19 +1,19 @@
 <!-- First toolbar (row 1) -->
 <div id="top-toolbar" class="top-toolbar"  >
   
-  <div class="theme-container" cdkLayout="row" cdkLayoutAlign="space-between center">
+  <div class="theme-container flex flex-row justify-between items-center" >
     <!-- Social Icons -->
-    <div cdkLayout="row" cdkLayoutAlign="start center">
-      <span fxHide="false" fxHide.gt-sm>
+     <div class="flex flex-row justify-between items-center"> <!--cdkLayout="row" cdkLayoutAlign="start center"> -->
+      <span class="block sm:hidden"> <!-- fxHide="false" fxHide.gt-sm> -->
         <button mat-button (click)="sidenavToggle()" >
           <mat-icon>menu</mat-icon>
         </button>
       </span>
-      <app-social-icons cdkLayout="row" cdkLayoutAlign="start center" fxShow="false" fxShow.gt-md  ></app-social-icons>
-      <app-user-menu *ngIf="(appSettings.isMobile | async)" ></app-user-menu>
+      <app-social-icons class="hidden md:block"></app-social-icons> <!--fxShow="false" fxShow.gt-md-->
+      <app-user-menu   class="block sm:hidden"></app-user-menu>
       
-      <div style="padding-top: 1rem;">
-        <a *ngIf="(appSettings.isMobile | async)"   style="color: black;" [ngStyle]="{'background-color':  + searchClicked ? '#F5F5F5' : 'white' }"   fxShow.gt-md (click)="openSearchField()"   >
+      <div style="padding-top: 1rem;" >
+        <a class="block sm:hidden"   style="color: black;" [ngStyle]="{'background-color':  + searchClicked ? '#F5F5F5' : 'white' }"    (click)="openSearchField()"   > <!--fxShow.gt-md-->
       
           <mat-icon  style="font-size: 1.125rem; padding-top: 3px; padding-left: 3px; background-color: rgb(245, 245, 245);" [ngStyle]="searchClicked ? {'background-color': 'rgb(245, 245, 245)'} : {'background-color': '#ffffff'}">
             search</mat-icon>
@@ -32,8 +32,8 @@
    
 
     <!-- User Actions -->
-    <div *ngIf="!(appSettings.isMobile | async)" cdkLayout="row" cdkLayoutAlign="center"  style="width: 100%">
-      <mat-form-field *ngIf="!(appSettings.isMobile | async)" matRipple matRippleColor="#CFD8DC" appearance="fill" class="search "   [floatLabel]="'always'">
+    <div  class="flex hidden sm:block"   style="width: 100%">
+      <mat-form-field  matRipple matRippleColor="#CFD8DC" appearance="fill" class="search hidden sm:block"   [floatLabel]="'always'">
         
      
         <input #searchField matInput type="text" style="font-size: 12px; font-weight: 400; line-height: 1.125; font-family: 'Vazir FD';" placeholder="جستجو در خشتین ..." autocomplete="off">
@@ -44,28 +44,28 @@
       
       
     </div>
-    <div *ngIf="!(appSettings.isMobile | async)" cdkLayout="row" cdkLayoutAlign="center" style="min-width: 16.3rem;">
-      <a *ngIf="!(appSettings.isMobile | async)" routerLink="/account/favorites"  style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B; "  fxShow.gt-md class="tooltip">
+    <div  class="flex hidden sm:block" style="min-width: 16.3rem;">
+      <a  routerLink="/account/favorites"  style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B; "   class="tooltip hidden sm:block">
         <span class="tooltiptext">علاقه مندی ها</span>
         <mat-icon style="font-size: 1.125rem; color: #5C5B5B;"
           matBadgeSize="small" matBadgeColor="warn">favorite_border</mat-icon>
       </a>
       
-      <a *ngIf="!(appSettings.isMobile | async)" routerLink="/compare"  style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B;"  fxShow.gt-md class="tooltip">
+      <a  routerLink="/compare"  style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B;"  class="tooltip hidden sm:block">
         <span class="tooltiptext">لیست مقایسه ها</span>
         <mat-icon  matBadgeSize="small" matBadgeColor="warn" style="font-size: 1.125rem; color: #5C5B5B;">
           compare_arrows</mat-icon>
       </a>
-      <a *ngIf="!(appSettings.isMobile | async)" routerLink="/mood-board-candidate-products" style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B;"   fxShow.gt-md class="tooltip">
+      <a  routerLink="/mood-board-candidate-products" style="padding: 1rem 0.25rem 0px 0.25rem; color: #5C5B5B;"   class="tooltip hidden sm:block">
         <span class="tooltiptext"> محصولات مودبرد </span>
         <mat-icon style="font-size: 1.125rem; color: #5C5B5B;">
           dashboard</mat-icon>
       </a>
-      <app-user-menu *ngIf="!(appSettings.isMobile | async)" ></app-user-menu>
+      <app-user-menu class="hidden sm:block" ></app-user-menu>
     </div>
     
     
-   <div *ngIf="(appSettings.isMobile | async)">
+   <div  class="flex block sm:hidden">
      <a   class="logo " routerLink="/">
        <app-logo ></app-logo>
      </a>
@@ -74,19 +74,19 @@
 </div>
 
 <!-- Second toolbar (row 2) -->
-<mat-toolbar id="main-toolbar" *ngIf="!(appSettings.isMobile | async)" class="mat-elevation-z1"  style="background: #fff;">
-  <div class="theme-container" cdkLayout="row" cdkLayoutAlign="space-between center">
-    <a  [ngClass]="!(appSettings.isMobile | async) ? 'logo' : ''"  routerLink="/">
+<mat-toolbar id="main-toolbar" class="mat-elevation-z1 hidden sm:block"  style="background: #fff;">
+  <div class="theme-container flex flex-row justify-between items-center" >
+    <a class=" hidden sm:block logo"  routerLink="/">
       <app-logo ></app-logo>
     </a>
 
-    <div fxShow="false" fxShow.gt-sm class="horizontal-menu" style="width: 100%">
+    <div  class="horizontal-menu hidden sm:block" style="width: 100%">
       <app-horizontal-menu></app-horizontal-menu>
     </div>
     
     
-    <div  >
-      <a (click)="openShowRoom()" class="mat-button mat-button-base btn-flip " style="font-family: Vazir FD; font-size: 0.875rem;" data-back="تکسچرساز" data-front="تکسچرساز"></a>
+    <div  class="flex flex-row justify-between hidden sm:block ">
+      <a (click)="openShowRoom()" class="mat-button mat-button-base btn-flip " style="font-family: Vazir FD; font-size: 0.875rem; " data-back="تکسچرساز" data-front="تکسچرساز"></a>
       <a (click)="openMoodBoardMaker()" class="mat-button mat-button-base btn-flip " style="font-family: Vazir FD; font-size: 0.875rem;" data-back="مودبردساز" data-front="مودبردساز"></a>
 
       <!-- <a routerLink="/account/favorites" mat-icon-button fxShow="false" fxShow.gt-md class="mr-3 ml-2 tooltip">
@@ -120,13 +120,13 @@
   </div>
 </mat-toolbar>
 
-<mat-toolbar *ngIf="(appSettings.isMobile | async) && searchClicked"   class="mat-elevation-z1 "  style="background: #F5F5F5;">
-  <div class="theme-container" cdkLayout="row" cdkLayoutAlign="space-between center">
+<mat-toolbar *ngIf="searchClicked"   class="mat-elevation-z1 hidden sm:block"  style="background: #F5F5F5;">
+  <div class="theme-container flex" >
    
    
    
 
-    <div class="search-mobile-wrapper cf" cdkLayout="row" cdkLayoutAlign="space-between center">
+    <div class="search-mobile-wrapper cf" >
       
       <input type="text" placeholder="جستجو در خشتین ..." autocomplete="off" required style="box-shadow: none">
       <button  (click)="search()" >
